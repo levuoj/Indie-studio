@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May  8 18:57:04 2017 Pashervz
-// Last update Mon May  8 18:57:06 2017 Pashervz
+// Last update Tue May  9 11:46:54 2017 Pashervz
 //
 
 #include <iostream>
@@ -16,12 +16,17 @@ Observable::Observable() {}
 
 Observable::~Observable() {}
 
-void		Observable::notify()
+void			Observable::notify()
 {
   this->_observer->actualize(*this);
 }
 
-void		Observable::setObserver(AObserver *observer)
+void			Observable::setObserver(AObserver *observer)
 {
   this->_observer = observer;
+}
+
+std::vector<Element>	Observable::getMap() const
+{
+  return (_map);
 }

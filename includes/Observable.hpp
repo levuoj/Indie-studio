@@ -5,24 +5,29 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Mon May  8 18:44:42 2017 Pashervz
+// Last update Tue May  9 11:46:03 2017 Pashervz
 //
 
 #ifndef OBSERVABLE_HPP_
 # define OBSERVABLE_HPP_
+
+#include "Element.hpp"
+#include <vector>
 
 class AObserver;
 
 class Observable
 {
 protected:
-  AObserver		*_observer;
+  AObserver			*_observer;
+  std::vector<Element>		_map;
   
 public:
   Observable();
-  virtual ~Observable();
-  void			notify();
-  void			setObserver(AObserver *);
+  ~Observable();
+  void				notify();
+  void				setObserver(AObserver *);
+  std::vector<Element>		getMap() const;
 };
 
 #endif // OBSERVABLE_HPP_
