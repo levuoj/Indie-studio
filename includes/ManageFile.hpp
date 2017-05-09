@@ -1,11 +1,11 @@
 //
-// ManageFile.hpp for Indie in /home/anthony/rendu/cpp/indie/Indie_studio
-//
-// Made by Anthony Jouvel
-// Login   <anthony.jouvel@epitech.eu>
-//
-// Started on  Mon May  8 17:39:11 2017 Anthony Jouvel
-// Last update Mon May  8 17:39:22 2017 Anthony Jouvel
+// ManageFile.hpp for ManageFile in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
+// 
+// Made by Pashervz
+// Login   <paul.julien@epitech.eu>
+// 
+// Started on  Mon May  8 19:43:47 2017 Pashervz
+// Last update Mon May  8 19:43:49 2017 Pashervz
 //
 
 #ifndef MANAGE_FILE_HPP
