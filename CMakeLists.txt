@@ -17,6 +17,6 @@ set(CMAKE_SOURCES_DIRECTORY sources)
 file(GLOB SOURCES ${CMAKE_SOURCES_DIRECTORY}/*.cpp)
 
 
-add_executable(hyper-sprint ${SOURCES})
+add_executable(hyper-sprint ${SOURCES} sources/Game/Car.cpp includes/Car.hpp includes/PowerUp.hpp includes/Shoot.hpp includes/Banana.hpp includes/BoostSpeed.hpp)
 
 
