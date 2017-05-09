@@ -5,10 +5,9 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:17:12 2017 Pashervz
-// Last update Tue May  9 11:48:07 2017 Pashervz
+// Last update Tue May  9 13:35:53 2017 Pashervz
 //
 
-#include <iostream>
 #include "Element.hpp"
 
 std::string const &		Element::getPath() const

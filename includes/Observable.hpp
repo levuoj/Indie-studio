@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Tue May  9 11:46:03 2017 Pashervz
+// Last update Tue May  9 13:35:34 2017 Pashervz
 //
 
 #ifndef OBSERVABLE_HPP_
@@ -24,7 +24,7 @@ protected:
   
 public:
   Observable();
-  ~Observable();
+  virtual ~Observable();
   void				notify();
   void				setObserver(AObserver *);
   std::vector<Element>		getMap() const;

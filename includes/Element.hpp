@@ -5,10 +5,12 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Tue May  9 11:47:08 2017 Pashervz
+// Last update Tue May  9 13:36:01 2017 Pashervz
 //
 
 #pragma once
+
+#include <iostream>
 
 class Element
 {
