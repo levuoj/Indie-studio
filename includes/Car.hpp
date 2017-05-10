@@ -5,10 +5,10 @@
 #pragma once
 
 #include <utility>
-#include "Element.hpp"
+#include "GameElement.hpp"
 #include "PowerUp.hpp"
 
-class Car : public Element
+class Car : public GameElement
 {
     enum EState
     {

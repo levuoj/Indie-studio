@@ -4,9 +4,9 @@
 
 #pragma once
 
-#include "Element.hpp"
+#include "GameElement.hpp"
 
-class PowerUp : public Element
+class PowerUp : public GameElement
 {
 
 };
