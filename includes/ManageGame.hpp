@@ -26,7 +26,7 @@ public:
   ManageGame();//int, std::vector<std::array<EKey, 5>>);
   ~ManageGame() {};
 
-  Element                           ElementFromChar(char c);
+  GameElement                       ElementFromChar(char c);
   void			        	        loadMap();
   std::vector<Element> const&		getMap() const;
 };

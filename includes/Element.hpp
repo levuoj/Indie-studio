@@ -24,6 +24,8 @@ public:
       ARROW_LEFT,
       ARROW_RIGHT,
       BLOCK,
+      ROAD,
+      ENDLINE,
       DEFAULT
     };
   
@@ -32,10 +34,11 @@ private:
   EType			_type;
   
 public:
-  Element(){}
-  ~Element() {}
-  std::string const &	getPath() const;
-  EType			getType() const;
-  void			setPath(std::string const &);
-  void			setType(EType);
+    Element();
+    Element(const std::string &path, EType type) : _path(path), _type(type) {}
+    virtual ~Element() {}
+    std::string const &	getPath() const;
+    EType		    	getType() const;
+    void		    	setPath(std::string const &);
+    void		    	setType(EType);
 };

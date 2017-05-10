@@ -9,7 +9,7 @@
 //
 
 #include "ManageGame.hpp"
-#include "Element.hpp"
+#include "GameElement.hpp"
 
 ManageGame::ManageGame()//int nbPlayers, std::vector<std::array<EKey, 5>> keys)
 {
@@ -31,35 +31,36 @@ std::vector<Element> const&	ManageGame::getMap() const
     return (_map);
 }
 
-Element             ManageGame::ElementFromChar(char c)
+GameElement             ManageGame::ElementFromChar(char c)
 {
-    std::string     path;
-    Element::EType  type;
+    std::string             path;
+    Element::EType          type;
+    std::pair<float, float> pos(50.0, 50.0);
 
     switch (c)
     {
         case 'X':
-            path = "";
+            path = "X";
             type = Element::EType::BLOCK;
             break;
         case ' ':
-            path = "";
-            type = Element::EType::DEFAULT;
+            path = " ";
+            type = Element::EType::ROAD;
             break;
         case 'c':
-            path = "";
-            type = Element::EType::DEFAULT;
+            path = "c";
+            type = Element::EType::ENDLINE;
             break;
         case 'o':
-            path = "";
-            type = Element::EType::DEFAULT;
+            path = "o";
+            type = Element::EType::ENDLINE;
             break;
         case '>':
-            path = "";
+            path = ">";
             type = Element::EType::CAR;
     }
-    Element element(path, type);
-    return (element);
+    GameElement gameElement(path, type, pos);
+    return (gameElement);
 }
 
 void				ManageGame::loadMap()
@@ -75,6 +76,14 @@ void				ManageGame::loadMap()
     {
         if (c != '\n')
             this->_map.push_back(ElementFromChar(c));
+        x++;
+    }
+    x = 0;
+    for (const auto it : this->_map)
+    {
+        if (x % 51 == 0 && x != 0)
+            std::cout << std::endl;
+        std::cout << it.getPath();
         x++;
     }
 }

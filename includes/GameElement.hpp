@@ -21,7 +21,8 @@ public:
   void				setPos(std::pair<float, float>);
   std::pair<float, float> const& getPos() const;
 
-  GameElement(){}
+    GameElement(){}
+    GameElement(const std::string &path, Element::EType type, std::pair<float, float> pos) : Element(path, type), _pos(pos) {}
   ~GameElement() {}
-  
+
 };
