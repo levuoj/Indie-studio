@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "Element.hpp"
+
 class PowerUp : public Element
 {
 

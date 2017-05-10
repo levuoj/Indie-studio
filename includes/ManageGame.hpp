@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue May  9 17:19:45 2017 thomas vigier
+// Last update Wed May 10 10:28:35 2017 thomas vigier
 //
 
 #pragma once
@@ -25,5 +25,5 @@ public:
   std::vector<Element> const&	getMap() const;
   void				loadMap(std::string const &);
 
-  ManageGame(int, std::vector<std::array<EKey>>);
+  ManageGame(int, std::vector<std::array<EKey, 5>>);
 };

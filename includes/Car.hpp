@@ -5,6 +5,8 @@
 #pragma once
 
 #include <utility>
+#include "Element.hpp"
+#include "PowerUp.hpp"
 
 class Car : public Element
 {
@@ -21,6 +23,7 @@ class Car : public Element
     PowerUp                 _pu;
     EState                  _state;
 public:
+  Car() {};
     Car(std::pair<float, float> pos) : _pos(pos) {};
     ~Car() {}
     void                            moveForward();
