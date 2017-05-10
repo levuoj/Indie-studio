@@ -1,16 +1,16 @@
 //
-// main.cpp for indie in /home/zgore/Projects/cpp_2017/cpp_indie_studio/sources
+// main.cpp for indie in /home/zgore/Projects/cpp_2017/Indie_studio
 // 
 // Made by Pierre Zawadil
 // Login   <pierre.zawadil@epitech.eu>
 // 
-// Started on  Mon May  8 11:13:42 2017 Pierre Zawadil
-// Last update Wed May 10 15:36:43 2017 Pierre Zawadil
+// Started on  Wed May 10 18:03:11 2017 Pierre Zawadil
+// Last update Wed May 10 18:03:12 2017 Pierre Zawadil
 //
 
 #include <irrlicht.h>
 
-int		main(void)
+int	main()
 {
   irr::IrrlichtDevice *device = irr::createDevice( // creation device
 						  irr::video::EDT_OPENGL,                      // l'API est OpenGL
