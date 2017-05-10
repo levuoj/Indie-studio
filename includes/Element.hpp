@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Tue May  9 13:36:01 2017 Pashervz
+// Last update Wed May 10 13:34:15 2017 Pashervz
 //
 
 #pragma once
@@ -18,21 +18,21 @@ public:
   
   enum		EType
     {
+      DEFAULT,
       CAR,
       POWERUP,
       BUTTON,
       ARROW_LEFT,
       ARROW_RIGHT,
-      BLOCK,
-      DEFAULT
+      BLOCK
     };
   
-private:
+protected:
   std::string		_path;
   EType			_type;
   
 public:
-  Element(){}
+  Element(std::string const & path, Element::EType type) : _path(path), _type(type) {}
   ~Element() {}
   std::string const &	getPath() const;
   EType			getType() const;

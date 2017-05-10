@@ -5,13 +5,28 @@
 // Login   <pierre.zawadil@epitech.eu>
 // 
 // Started on  Mon May  8 11:13:42 2017 Pierre Zawadil
-// Last update Mon May  8 11:26:20 2017 Pierre Zawadil
+// Last update Wed May 10 13:26:52 2017 Pashervz
 //
 
 #include <iostream>
+#include "Core.hpp"
 
-int		main(void)
+int		main(int ac, char **av)
 {
-  std::cout << "Paul est le plus beau <3" << std::endl;
-  return (0);
+  if (ac != 1)
+    {
+      std::cerr << "Error : " << av[0] << " does not take any argument !" << std::endl;
+    }
+  try
+    {
+      Core	core;
+
+      core.launch();
+    }
+  catch(std::exception const &msg)
+    {
+      std::cerr << msg.what() << std::endl;
+      return (EXIT_ERROR);
+    }
+  return (EXIT_SUCCESS);
 }
