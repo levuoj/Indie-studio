@@ -78,12 +78,4 @@ void				ManageGame::loadMap()
             this->_map.push_back(ElementFromChar(c));
         x++;
     }
-    x = 0;
-    for (const auto it : this->_map)
-    {
-        if (x % 51 == 0 && x != 0)
-            std::cout << std::endl;
-        std::cout << it.getPath();
-        x++;
-    }
 }
