@@ -5,12 +5,12 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May  8 19:43:47 2017 Pashervz
-// Last update Mon May  8 19:43:49 2017 Pashervz
+// Last update Wed May 10 13:23:38 2017 thomas vigier
 //
 
-#ifndef MANAGE_FILE_HPP
-# define MANAGE_FILE_HPP
+#pragma once
 
+#include <string>
 #include <iostream>
 #include <fstream>
 
@@ -18,14 +18,38 @@ class		ManageFile
 {
 private:
   std::string	_fileName;
+  std::ifstream _ifFile;
+  std::ofstream	_ofFile;
 public:
-  ManageFile() {};
-  ManageFile(std::string const&);
-  ~ManageFile();
-  std::string		readFile() const;
-  void			writeFile(std::string const&) const;
-  void			openFile(std::string const&);
-  static std::string	stdin();
-};
+  std::string const		readFile()
+  {
+    std::string		tmp;
+    std::string		line;
 
-# endif //MANAGE_FILE_HPP
+    while (getline(_ifFile, tmp))
+      line += tmp + '\n';
+    return (line);
+  }
+  
+  void			writeFile(std::string const& str)
+  {
+    _ofFile.open(_fileName, std::ofstream::app);
+    if (!_ofFile.is_open())
+      throw std::runtime_error("Couldn't open file " + _fileName);
+    _ofFile << str;
+    _ofFile.close();
+  }
+  
+  ManageFile() {};
+  ManageFile(std::string const& filename) : _fileName(filename)
+  {
+    _ifFile.open(_fileName, std::fstream::in);
+    if (!_ifFile.is_open())
+      throw std::runtime_error("Couldn't open file " + _fileName);
+  }
+  
+  ~ManageFile()
+  {
+    _ifFile.close();
+  }
+};
