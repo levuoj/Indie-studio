@@ -37,11 +37,19 @@ public:
     void                            move();
     void                            turnLeft();
     void                            turnRight();
-    const std::pair<float, float>   getPos()
+    float                           getAngle()
+    {
+        return (this->_angle);
+    }
+    const std::pair<float, float>   getDir() const
+    {
+        return (this->_dir);
+    }
+    const std::pair<float, float>   getPos() const
     {
         return (this->_pos);
     };
-    const std::pair<int, int>       getPosMap()
+    const std::pair<int, int>       getPosMap() const
     {
         return (this->_posMap);
     };

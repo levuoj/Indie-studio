@@ -29,4 +29,5 @@ public:
   GameElement                       ElementFromChar(char c);
   void			        	        loadMap();
   std::vector<Element> const&		getMap() const;
+    void                            printMap();
 };

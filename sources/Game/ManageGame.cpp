@@ -26,11 +26,6 @@ ManageGame::ManageGame()//int nbPlayers, std::vector<std::array<EKey, 5>> keys)
 */
 }
 
-std::vector<Element> const&	ManageGame::getMap() const
-{
-    return (_map);
-}
-
 GameElement             ManageGame::ElementFromChar(char c)
 {
     std::string             path;
@@ -58,6 +53,7 @@ GameElement             ManageGame::ElementFromChar(char c)
         case '>':
             path = ">";
             type = Element::EType::CAR;
+            break;
         default:
             path = "";
             type = Element::EType::DEFAULT;
@@ -77,5 +73,18 @@ void				ManageGame::loadMap()
     {
         if (c != '\n')
             this->_map.push_back(ElementFromChar(c));
+    }
+}
+
+std::vector<Element> const&	ManageGame::getMap() const
+{
+    return (this->_map);
+}
+
+void                        ManageGame::printMap()
+{
+    for (const auto it : this->_map)
+    {
+        std::cout << it.getPath() << std::endl;
     }
 }

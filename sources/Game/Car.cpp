@@ -11,12 +11,14 @@ const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
 void            Car::accelerate()
 {
-    this->_speed += this->_inertia;
+    if (this->_speed <= this->_maxSpeed)
+        this->_speed += this->_inertia;
 }
 
 void            Car::deccelerate()
 {
-    this->_speed -= this->_inertia;
+     if (this->_speed >= -this->_maxSpeed / 2)
+         this->_speed -= this->_inertia;
 }
 
 void            Car::move()
@@ -32,7 +34,7 @@ void            Car::move()
         this->_posMap.first -= 1;
         this->_pos.first += 100.0f;
     }
-    this->_pos.second = this->_pos.second + (this->_speed / this->_fps) * this->_dir.second;
+    this->_pos.second = this->_pos.second + (this->_speed / this->_fps) * this->_dir.second * -1;
     if (this->_pos.second > 100)
     {
         this->_posMap.second += 1;
@@ -47,6 +49,8 @@ void            Car::move()
 
 void            Car::turnLeft()
 {
+    if (this->_angle >= 360)
+        this->_angle = 0.0f;
     this->_angle += 2.0f;
 
    this->_dir.first = cos(this->_angle * M_PI / 180.0f);
@@ -55,7 +59,9 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
-   this->_angle -= 2.0f;
+    if (this->_angle <= -360)
+        this->_angle = 0.0f;
+    this->_angle -= 2.0f;
 
    this->_dir.first = cos(this->_angle * M_PI / 180.0f);
    this->_dir.second = sin(this->_angle * M_PI / 180.0f);
