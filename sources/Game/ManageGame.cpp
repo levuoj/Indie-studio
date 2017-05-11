@@ -9,21 +9,21 @@
 //
 
 #include "ManageGame.hpp"
-#include "GameElement.hpp"
 
 ManageGame::ManageGame()//int nbPlayers, std::vector<std::array<EKey, 5>> keys)
 {
-//    for (int i = 0; i < 4 - nbPlayers; ++i)
-//       _AIs.push_back(AI());
-//    for (int i = 0; i < nbPlayers; ++i)
-//        _players.push_back(Player());
-//
-//    int i = 0;
-//    for (auto it : _players)
-//    {
-//        it.setKeys(keys.at(i));
-//        ++i;
-//    }
+/*    for (int i = 0; i < 4 - nbPlayers; ++i)
+        _AIs.push_back(AI());
+    for (int i = 0; i < nbPlayers; ++i)
+        _players.push_back(Player());
+
+    int i = 0;
+    for (auto it : _players)
+    {
+        it.setKeys(keys.at(i));
+        ++i;
+    }
+*/
 }
 
 std::vector<Element> const&	ManageGame::getMap() const
@@ -58,6 +58,9 @@ GameElement             ManageGame::ElementFromChar(char c)
         case '>':
             path = ">";
             type = Element::EType::CAR;
+        default:
+            path = "";
+            type = Element::EType::DEFAULT;
     }
     GameElement gameElement(path, type, pos);
     return (gameElement);
@@ -70,12 +73,9 @@ void				ManageGame::loadMap()
 
     map = file.readFile();
 
-    int             x(0);
-
     for (const auto c : map)
     {
         if (c != '\n')
             this->_map.push_back(ElementFromChar(c));
-        x++;
     }
 }

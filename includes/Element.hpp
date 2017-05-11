@@ -31,7 +31,7 @@ public:
   
 private:
   std::string		_path;
-  EType			_type;
+  EType			    _type;
   
 public:
     Element();

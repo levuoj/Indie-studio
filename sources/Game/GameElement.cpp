@@ -17,5 +17,5 @@ std::pair<float, float> const &	GameElement::getPos() const
 
 void				GameElement::setPos(std::pair<float, float> pos)
 {
-  _pos = pos;
+  this->_pos = pos;
 }
