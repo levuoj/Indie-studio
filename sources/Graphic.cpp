@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 12 14:57:24 2017 Anthony Jouvel
+// Last update Fri May 12 17:31:03 2017 Anthony Jouvel
 //
 
 #include "Graphic.hpp"
@@ -33,6 +33,14 @@ Graphic::Graphic(irr::u32 x, irr::u32 y) : _x(x), _y(y)
   keyMap[3].KeyCode = irr::KEY_KEY_D;
 
   _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
+
+  irr::scene::IAnimatedMeshSceneNode *naboo_test =
+    _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("NABOO-F.obj"));
+  irr::scene::IAnimatedMeshSceneNode *arc =
+    _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("ARC170.obj"));
+
+  naboo_test->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  arc->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   displayLoop();
 }
 
@@ -69,10 +77,8 @@ Graphic::~Graphic()
 
 void		Graphic::displayLoop()
 {
-  std::cout << "1" << std::endl;
   while (_device->run())
     {
-      std::cout << "inda Loop" << std::endl;
       _driver->beginScene(true, true,
 			  irr::video::SColor(0, 255, 255, 255));
       _sceneManager->drawAll();

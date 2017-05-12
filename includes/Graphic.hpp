@@ -5,13 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Fri May 12 14:56:59 2017 Anthony Jouvel
+// Last update Fri May 12 17:35:53 2017 Anthony Jouvel
 //
 
 #pragma once
 
 #include <irrlicht.h>
-#include <iostream>
 
 class				Graphic
 {
