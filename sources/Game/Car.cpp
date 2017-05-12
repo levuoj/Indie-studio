@@ -2,7 +2,9 @@
 // Created by Kilian on 09/05/17.
 //
 
-#include <math.h>
+#define _USE_MATH_DEFINES
+
+#include <cmath>
 #include "Car.hpp"
 
 const float Car::_maxSpeed = 7;
