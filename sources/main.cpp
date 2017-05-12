@@ -5,7 +5,7 @@
 // Login   <pierre.zawadil@epitech.eu>
 //
 // Started on  Wed May 10 18:03:11 2017 Pierre Zawadil
-// Last update Fri May 12 15:06:36 2017 Anthony Jouvel
+// Last update Fri May 12 18:15:43 2017 thomas vigier
 //
 
 #include "Graphic.hpp"

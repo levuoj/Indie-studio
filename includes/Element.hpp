@@ -31,10 +31,10 @@ public:
   
 private:
   std::string		_path;
-  EType			_type;
+  EType			    _type;
   
 public:
-    Element();
+    Element() {};
     Element(const std::string &path, EType type) : _path(path), _type(type) {}
     virtual ~Element() {}
     std::string const &	getPath() const;
