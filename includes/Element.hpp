@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Wed May 10 13:34:15 2017 Pashervz
+// Last update Sat May 13 16:34:22 2017 Pashervz
 //
 
 #pragma once
@@ -24,7 +24,9 @@ public:
       BUTTON,
       ARROW_LEFT,
       ARROW_RIGHT,
-      BLOCK
+      BLOCK,
+      ROAD,
+      ENDLINE,
     };
   
 protected:
@@ -32,10 +34,11 @@ protected:
   EType			_type;
   
 public:
-  Element(std::string const & path, Element::EType type) : _path(path), _type(type) {}
-  ~Element() {}
-  std::string const &	getPath() const;
-  EType			getType() const;
-  void			setPath(std::string const &);
-  void			setType(EType);
+    Element();
+    Element(const std::string &path, EType type) : _path(path), _type(type) {}
+    virtual ~Element() {}
+    std::string const	&	getPath() const;
+    EType		    	getType() const;
+    void		    	setPath(std::string const &);
+    void		    	setType(EType);
 };

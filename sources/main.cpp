@@ -1,11 +1,10 @@
 //
-// main.cpp for indie in /home/zgore/Projects/cpp_2017/cpp_indie_studio/sources
-// 
+// main.cpp for indie in /home/zgore/Projects/cpp_2017/Indie_studio
+//
 // Made by Pierre Zawadil
 // Login   <pierre.zawadil@epitech.eu>
-// 
 // Started on  Mon May  8 11:13:42 2017 Pierre Zawadil
-// Last update Wed May 10 13:26:52 2017 Pashervz
+// Last update Sat May 13 16:29:04 2017 Pashervz
 //
 
 #include <iostream>
