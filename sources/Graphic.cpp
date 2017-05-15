@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 15 13:19:24 2017 Anthony Jouvel
+// Last update Mon May 15 13:36:32 2017 Anthony Jouvel
 //
 
 #include <iostream>
@@ -78,7 +78,6 @@ Graphic::~Graphic()
   _device->drop();
 }
 
-<<<<<<< HEAD
 void		Graphic::mainMenu()
 {
   button(5330.f, 560.f, 5225.0f, L"PLAY", "assets/deathStar.jpg");
