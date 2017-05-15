@@ -5,21 +5,21 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sat May 13 16:44:05 2017 Pashervz
+// Last update Mon May 15 14:46:03 2017 Pierre Zawadil
 //
 
+#include <iostream>
 #include "Graphic.hpp"
 
-Graphic::Graphic(irr::u32 x, irr::u32 y) : _x(x), _y(y)
+Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
   _device = irr::createDevice(irr::video::EDT_OPENGL,
-			      irr::core::dimension2d<irr::u32>(x, y),
+			      irr::core::dimension2d<irr::u32>(width, height),
 			      32);
-
   _driver = _device->getVideoDriver();
   _sceneManager = _device->getSceneManager();
 
-  _device->getCursorControl()->setVisible(false);
+  _device->getCursorControl()->setVisible(true); // A mettre a false lorsqu'on est plus dans le menu
 
   // CAMERA POUR LE TEMPS DU DEV
   irr::SKeyMap keyMap[4];
@@ -41,7 +41,6 @@ Graphic::Graphic(irr::u32 x, irr::u32 y) : _x(x), _y(y)
 
   naboo_test->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   arc->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  displayLoop();
 }
 
 Graphic::Graphic()
@@ -67,7 +66,6 @@ Graphic::Graphic()
   keyMap[3].KeyCode = irr::KEY_KEY_D;
 
   _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
-  displayLoop();
 }
 
 Graphic::~Graphic()
@@ -75,18 +73,36 @@ Graphic::~Graphic()
   _device->drop();
 }
 
-void		Graphic::actualize(Observable const & observable)
+void		Graphic::actualize(Observable const& observable)
 {
-  (void) observable;
+  this->manageDisplay(observable.getMap(), observable.getType());
 }
 
-void		Graphic::displayLoop()
+void		Graphic::manageDisplay(std::vector<Element> const& map, DType type)
 {
-  while (_device->run())
-    {
-      _driver->beginScene(true, true,
-			  irr::video::SColor(0, 255, 255, 255));
-      _sceneManager->drawAll();
-      _driver->endScene();
-    }
+  (void)map;
+  (void)type;
+  if (_device->run())
+    return ;
+  _driver->beginScene(true, true,
+		      irr::video::SColor(0, 255, 255, 255));
+  _sceneManager->drawAll();
+  _driver->endScene();
+}
+
+void		Graphic::displayMainMenu(std::vector<Element> const&)
+{
+  std::cout << "J'affiche le menu <3" << std::endl;
+}
+
+void		Graphic::displayOptions(std::vector<Element> const&)
+{
+}
+
+void		Graphic::displayLeaderBoard(std::vector<Element> const&)
+{
+}
+
+void		Graphic::displayExit(std::vector<Element> const&)
+{
 }
