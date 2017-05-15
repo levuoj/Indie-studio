@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 12 17:31:03 2017 Anthony Jouvel
+// Last update Sat May 13 16:44:05 2017 Pashervz
 //
 
 #include "Graphic.hpp"
@@ -73,6 +73,11 @@ Graphic::Graphic()
 Graphic::~Graphic()
 {
   _device->drop();
+}
+
+void		Graphic::actualize(Observable const & observable)
+{
+  (void) observable;
 }
 
 void		Graphic::displayLoop()
