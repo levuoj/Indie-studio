@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 12:26:19 2017 Pashervz
-// Last update Mon May 15 13:24:14 2017 Pashervz
+// Last update Mon May 15 13:32:35 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -26,5 +26,5 @@ public:
   {
     return (_name);
   }
-  virtual displayType	transferKey(irr::EKEY_CODE) = 0;
+  virtual DType	transferKey(irr::EKEY_CODE) = 0;
 };
