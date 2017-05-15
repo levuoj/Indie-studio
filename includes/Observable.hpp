@@ -5,14 +5,15 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Tue May  9 13:35:34 2017 Pashervz
+// Last update Mon May 15 14:42:27 2017 Pierre Zawadil
 //
 
 #ifndef OBSERVABLE_HPP_
 # define OBSERVABLE_HPP_
 
-#include "Element.hpp"
 #include <vector>
+#include "Element.hpp"
+#include "Utils.hpp"
 
 class AObserver;
 
@@ -21,13 +22,15 @@ class Observable
 protected:
   AObserver			*_observer;
   std::vector<Element>		_map;
-  
+  DType				_type;
 public:
   Observable();
   virtual ~Observable();
   void				notify();
-  void				setObserver(AObserver *);
-  std::vector<Element>		getMap() const;
+
+  void				setObserver(AObserver *observer) {  _observer = observer; }
+  std::vector<Element>		getMap() const { return (_map); }
+  DType				getType() const { return (_type); }
 };
 
 #endif // OBSERVABLE_HPP_

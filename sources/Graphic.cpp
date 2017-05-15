@@ -5,20 +5,22 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 15 13:15:13 2017 Anthony Jouvel
+// Last update Mon May 15 13:19:24 2017 Anthony Jouvel
 //
 
+#include <iostream>
 #include "Graphic.hpp"
 
-Graphic::Graphic(irr::u32 x, irr::u32 y) : _x(x), _y(y)
+Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
   _device = irr::createDevice(irr::video::EDT_OPENGL,
-			      irr::core::dimension2d<irr::u32>(x, y),
+			      irr::core::dimension2d<irr::u32>(width, height),
 			      32);
-
   _driver = _device->getVideoDriver();
   _sceneManager = _device->getSceneManager();
   _device->getCursorControl()->setVisible(false);
+
+  _device->getCursorControl()->setVisible(true); // A mettre a false lorsqu'on est plus dans le menu
 
   _guienv = _device->getGUIEnvironment();
 
@@ -40,6 +42,8 @@ Graphic::Graphic(irr::u32 x, irr::u32 y) : _x(x), _y(y)
 
   mainMenu();
   displayLoop();
+  // naboo_test->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  // arc->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 Graphic::Graphic()
@@ -74,6 +78,7 @@ Graphic::~Graphic()
   _device->drop();
 }
 
+<<<<<<< HEAD
 void		Graphic::mainMenu()
 {
   button(5330.f, 560.f, 5225.0f, L"PLAY", "assets/deathStar.jpg");
@@ -151,4 +156,38 @@ void		Graphic::displayLoop()
       str += _camera->getAbsolutePosition().Z;
       _device->setWindowCaption(str.c_str());
     }
+}
+
+void		Graphic::actualize(Observable const& observable)
+{
+  this->manageDisplay(observable.getMap(), observable.getType());
+}
+
+void		Graphic::manageDisplay(std::vector<Element> const& map, DType type)
+{
+  (void)map;
+  (void)type;
+  if (_device->run())
+    return ;
+  _driver->beginScene(true, true,
+		      irr::video::SColor(0, 255, 255, 255));
+  _sceneManager->drawAll();
+  _driver->endScene();
+}
+
+void		Graphic::displayMainMenu(std::vector<Element> const&)
+{
+  std::cout << "J'affiche le menu <3" << std::endl;
+}
+
+void		Graphic::displayOptions(std::vector<Element> const&)
+{
+}
+
+void		Graphic::displayLeaderBoard(std::vector<Element> const&)
+{
+}
+
+void		Graphic::displayExit(std::vector<Element> const&)
+{
 }
