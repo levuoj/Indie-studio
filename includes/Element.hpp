@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Mon May 15 09:58:24 2017 Pierre Zawadil
+// Last update Mon May 15 10:02:04 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -34,13 +34,7 @@ protected:
   EType			_type;
   
 public:
-    Element();
-    Element(const std::string &path, EType type) : _path(path), _type(type) {}
-    virtual ~Element() {}
-    std::string const &	getPath() const;
-    EType		    	getType() const;
-    void		    	setPath(std::string const &);
-    void		    	setType(EType);
+  Element();
   Element(std::string const & path, Element::EType type) : _path(path), _type(type) {}
   ~Element() {}
   std::string const &	getPath() const;
