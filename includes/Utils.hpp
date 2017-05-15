@@ -5,12 +5,12 @@
 // Login   <pierre.zawadil@epitech.eu>
 // 
 // Started on  Mon May 15 11:59:20 2017 Pierre Zawadil
-// Last update Mon May 15 11:59:39 2017 Pierre Zawadil
+// Last update Mon May 15 13:29:07 2017 Pierre Zawadil
 //
 
 #pragma once
 
-enum displayType
+enum DType
   {
     MAIN_MENU,
     OPTIONS,
