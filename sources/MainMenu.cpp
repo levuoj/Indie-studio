@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Tue May 16 16:10:59 2017 Pashervz
+// Last update Tue May 16 16:50:02 2017 Pierre Zawadil
 //
 
 #include <memory>
@@ -14,23 +14,23 @@
 
 MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 {
-  this->_map.push_back(new Button("Play"));
-  this->_map.push_back(new Button("Leaderboard"));
-  this->_map.push_back(new Button("Options"));
-  this->_map.push_back(new Button("Exit"));
-  static_cast<Button *>(this->_map[0])->setIsSelected(true);
+  this->_map.push_back(std::unique_ptr<Button>(new Button("Play")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button("Leaderboard")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button("Options")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button("Exit")));
+  static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
 void		MainMenu::goDown()
 {
   for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
     {
-      if (static_cast<Button *>(*it)->getIsSelected() == true &&
+      if (static_cast<Button *>((*it).get())->getIsSelected() == true &&
 	  (it + 1) != this->_map.end())
 	{
-	  static_cast<Button *>(*it)->setIsSelected(false);
+	  static_cast<Button *>((*it).get())->setIsSelected(false);
 	  ++it;
-	  static_cast<Button *>(*it)->setIsSelected(true);
+	  static_cast<Button *>((*it).get())->setIsSelected(true);
 	}
     }
 }
@@ -39,22 +39,22 @@ void		MainMenu::goUp()
 {
   for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
     {
-      if (static_cast<Button *>(*it)->getIsSelected() == true &&
+      if (static_cast<Button *>((*it).get())->getIsSelected() == true &&
 	  it != this->_map.begin())
 	{
-	  static_cast<Button *>(*it)->setIsSelected(false);
+	  static_cast<Button *>((*it).get())->setIsSelected(false);
 	  --it;
-	  static_cast<Button *>(*it)->setIsSelected(true);
+	  static_cast<Button *>((*it).get())->setIsSelected(true);
 	}
     }
 }
 
 DType		MainMenu::select() const
 {
-  for (auto it : this->_map)
-    {
-      if (static_cast<Button *>(it)->getIsSelected() == true)
-	return (this->_corresMap.at(static_cast<Button *>(it)->getContent()));
+  for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
+   {
+     if (static_cast<Button *>((*it).get())->getIsSelected() == true)
+	return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
     }
   return (NOTHING);
 }

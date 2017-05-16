@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Mon May 15 22:16:01 2017 Pashervz
+// Last update Tue May 16 16:52:16 2017 Pierre Zawadil
 //
 
 #ifndef OBSERVABLE_HPP_
@@ -21,9 +21,9 @@ class AObserver;
 class Observable
 {
 protected:
-  AObserver				*_observer;
-  std::vector<Element *>		_map;
-  DType					_type;
+  AObserver					*_observer;
+  std::vector<std::unique_ptr<Element>>		_map;
+  DType						_type;
 public:
   Observable();
   Observable(DType type) : _type(type) {}
@@ -31,7 +31,7 @@ public:
   void						notify();
 
   void						setObserver(AObserver *observer) {  _observer = observer; }
-  std::vector<Element *>			getMap() const { return (_map); }
+  std::vector<std::unique_ptr<Element>> const&	getMap() const { return (_map); }
   DType						getDType() const { return (_type); }
 };
 
