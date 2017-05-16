@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Mon May 15 13:24:06 2017 Anthony Jouvel
+// Last update Tue May 16 16:27:23 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -17,9 +17,8 @@
 #include "Utils.hpp"
 
 class	Graphic : public AObserver
-{
-
-private:
+{  
+public:
   irr::u32			_width;
   irr::u32			_height;
   irr::IrrlichtDevice		*_device;
@@ -40,14 +39,15 @@ public:
   Graphic();
   ~Graphic();
 
-  void				manageDisplay(std::vector<Element> const&, DType);
-  void				displayMainMenu(std::vector<Element> const&);
-  void				displayOptions(std::vector<Element> const&);
-  void				displayLeaderBoard(std::vector<Element> const&);
-  void				displayExit(std::vector<Element> const&);
+
+  void				manageDisplay(std::vector<Element *> const&, DType);
+  void				displayMainMenu(std::vector<Element *> const&);
+  void				displayOptions(std::vector<Element *> const&);
+  void				displayLeaderBoard(std::vector<Element *> const&);
+  void				displayExit(std::vector<Element *> const&);
 
   std::unordered_map<DType,
-		     std::function<void(std::vector<Element> const&)>>		dispThis =
+		     std::function<void(std::vector<Element *> const&)>>		dispThis =
     {
       {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
       {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},

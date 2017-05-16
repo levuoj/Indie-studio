@@ -5,9 +5,10 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Sat May 13 16:41:56 2017 Pashervz
+// Last update Tue May 16 14:13:16 2017 Pashervz
 //
 
+#include <unistd.h>
 #include <iostream>
 #include <irrlicht.h>
 #include "EventReceiver.hpp"
@@ -25,31 +26,35 @@ void			Core::launch()
 {
   EventReceiver		receiver;
 
-  irr::IrrlichtDevice* device = createDevice(irr::video::EDT_SOFTWARE,
-					     irr::core::dimension2d<irr::u32>(640, 480), 16, false, false, false, &receiver);
+  this->_graphic->_device->setEventReceiver(&receiver);
   
-  if (device == 0)
-    return ; // could not create selected driver.
+  int lastFPS = -1;
+  // irr::u32 then = this->_graphic->_device->getTimer()->getTime();
   
-  irr::video::IVideoDriver* driver = device->getVideoDriver();
-  irr::scene::ISceneManager* smgr = device->getSceneManager();
-
-  while (device->run())
+  //const irr::f32 MOVEMENT_SPEED = 5.f;
+  
+  while (this->_graphic->_device->run())
     {
-      driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
-      
-      if (receiver.IsKeyDown(irr::KEY_KEY_W))
-	std::cout << "Ma grosse bite en marbre !! <<<3" << std::endl;
-      smgr->drawAll();
-      
-      driver->endScene();
+      // const irr::u32 now = this->_graphic->_device->getTimer()->getTime();
+      //      const irr::f32 frameDeltaTime = (irr::f32)(now - then) / 1000.f;
+      // then = now;
+      this->_graphic->_driver->beginScene(true, true, irr::video::SColor(255, 100, 101, 140));
+      this->_menu->transferKey(receiver.getKey());
+      receiver.setKey(irr::KEY_F24);
+      this->_graphic->_sceneManager->drawAll();
+      this->_graphic->_driver->endScene();
+
+      int fps = this->_graphic->_driver->getFPS();
+
+      if (lastFPS != fps)
+	{
+	  irr::core::stringw tmp(L"Bite [");
+	  tmp += this->_graphic->_driver->getName();
+	  tmp += L"] fps: ";
+	  tmp += fps;
+	  this->_graphic->_device->setWindowCaption(tmp.c_str());
+	  lastFPS = fps;
+	}
     }
-  device->drop();
-  // else if(receiver.IsKeyDown(irr::KEY_KEY_S))
-
-
-  // if(receiver.IsKeyDown(irr::KEY_KEY_A))
-
-  // else if(receiver.IsKeyDown(irr::KEY_KEY_D))
-
+  this->_graphic->_device->drop();
 }

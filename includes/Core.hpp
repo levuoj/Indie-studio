@@ -5,12 +5,11 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May  8 19:43:34 2017 Pashervz
-// Last update Mon May 15 13:33:05 2017 Pierre Zawadil
+// Last update Mon May 15 22:12:34 2017 Pashervz
 //
 
 #pragma once
 
-#include <memory>
 #include "AMenu.hpp"
 #include "Graphic.hpp"
 
