@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue May 16 16:45:08 2017 Pierre Zawadil
+// Last update Tue May 16 17:20:53 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -57,6 +57,8 @@ Graphic::Graphic()
 
   _device->getCursorControl()->setVisible(false);
 
+  _guienv = _device->getGUIEnvironment();
+
   // CAMERA POUR LE TEMPS DU DEV
   irr::SKeyMap keyMap[4];
   keyMap[0].Action = irr::EKA_MOVE_FORWARD;
@@ -68,7 +70,12 @@ Graphic::Graphic()
   keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
   keyMap[3].KeyCode = irr::KEY_KEY_D;
 
-  _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
+  _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
+  _camera->setPosition(irr::core::vector3df(2700 * 2, 255 * 2, 2600 * 2));
+  _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
+  _camera->setFarValue(42000.0f);
+
+  // _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
   mainMenu();
   displayLoop();
 }
@@ -132,9 +139,9 @@ void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
 
 
   _sceneManager->addTextSceneNode(_guienv->getFont("assets/fontcourier.bmp"),
-				  text,
-				  irr::video::SColor(255, 255, 255, 0),
-				  cube);
+  				  text,
+  				  irr::video::SColor(255, 255, 255, 0),
+  				  cube);
 }
 
 void		Graphic::displayLoop()
@@ -159,7 +166,9 @@ void		Graphic::displayLoop()
 
 void		Graphic::actualize(Observable const& observable)
 {
-  this->manageDisplay(observable.getMap(), observable.getDType());
+  (void)observable;
+  displayLoop();
+  // this->manageDisplay(observable.getMap(), observable.getDType());
 }
 
 void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, DType type)
