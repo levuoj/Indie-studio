@@ -1,45 +1,32 @@
 //
-// EventReceiver.hpp for indie in /home/zgore/Projects/cpp_2017/Indie_studio
+// EventReceiver.hpp for EventReceiver in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
 // 
-// Made by Pierre Zawadil
-// Login   <pierre.zawadil@epitech.eu>
+// Made by Pashervz
+// Login   <paul.julien@epitech.eu>
 // 
-// Started on  Wed May 10 16:17:39 2017 Pierre Zawadil
-// Last update Wed May 10 16:24:39 2017 Pierre Zawadil
+// Started on  Mon May 15 17:27:11 2017 Pashervz
+// Last update Tue May 16 14:13:28 2017 Pashervz
 //
 
-#ifndef EVENTRECEIVER_HPP_
-# define EVENTRECEIVER_HPP_
+#pragma once
 
+#include <unistd.h>
 #include <irrlicht.h>
 
 class EventReceiver : public irr::IEventReceiver
 {
-  private:
-  // We use this array to store the current state of each key
-  bool KeyIsDown[irr::KEY_KEY_CODES_COUNT];
+  irr::EKEY_CODE			_key;
+  
 public:
-  EventReceiver()
+  virtual bool 	        OnEvent(const irr::SEvent & event)
   {
-    for (irr::u32 i = 0; i < irr::KEY_KEY_CODES_COUNT; ++i)
-      KeyIsDown[i] = false;
+    if (event.EventType == irr::EET_KEY_INPUT_EVENT && event.KeyInput.PressedDown)
+      {
+	this->_key = event.KeyInput.Key;
+	return (true);
+      }
+    return (false);
   }
-
-  // This is the one method that we have to implement
-  virtual bool OnEvent(const irr::SEvent& event)
-  {
-    // Remember whether each key is down or up
-    if (event.EventType == irr::EET_KEY_INPUT_EVENT)
-      KeyIsDown[event.KeyInput.Key] = event.KeyInput.PressedDown;
-
-    return false;
-  }
-
-  // This is used to check whether a key is being held down
-  virtual bool IsKeyDown(irr::EKEY_CODE keyCode) const
-  {
-    return KeyIsDown[keyCode];
-  }
+  irr::EKEY_CODE	getKey() const { return _key; }
+  void			setKey(irr::EKEY_CODE key) { _key = key; }
 };
-
-#endif /* !EVENTRECEIVER_HPP_ */

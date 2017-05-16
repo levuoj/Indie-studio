@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 15 14:46:03 2017 Pierre Zawadil
+// Last update Mon May 15 21:53:35 2017 Pashervz
 //
 
 #include <iostream>
@@ -75,10 +75,10 @@ Graphic::~Graphic()
 
 void		Graphic::actualize(Observable const& observable)
 {
-  this->manageDisplay(observable.getMap(), observable.getType());
+  this->manageDisplay(observable.getMap(), observable.getDType());
 }
 
-void		Graphic::manageDisplay(std::vector<Element> const& map, DType type)
+void		Graphic::manageDisplay(std::vector<Element *> const& map, DType type)
 {
   (void)map;
   (void)type;
@@ -90,19 +90,19 @@ void		Graphic::manageDisplay(std::vector<Element> const& map, DType type)
   _driver->endScene();
 }
 
-void		Graphic::displayMainMenu(std::vector<Element> const&)
+void		Graphic::displayMainMenu(std::vector<Element *> const&)
 {
   std::cout << "J'affiche le menu <3" << std::endl;
 }
 
-void		Graphic::displayOptions(std::vector<Element> const&)
+void		Graphic::displayOptions(std::vector<Element *> const&)
 {
 }
 
-void		Graphic::displayLeaderBoard(std::vector<Element> const&)
+void		Graphic::displayLeaderBoard(std::vector<Element *> const&)
 {
 }
 
-void		Graphic::displayExit(std::vector<Element> const&)
+void		Graphic::displayExit(std::vector<Element *> const&)
 {
 }

@@ -5,16 +5,20 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 12:24:22 2017 Pashervz
-// Last update Wed May 10 11:51:31 2017 Pashervz
+// Last update Mon May 15 16:42:00 2017 Pashervz
 //
 
 #pragma once
 
-#include "Menu.hpp"
+#include "AMenu.hpp"
 
-class MainMenu : public Menu
+class MainMenu : public AMenu
 {
 public:
   MainMenu();
   ~MainMenu() {}
+  DType		transferKey(irr::EKEY_CODE);
+  void		goDown();
+  void		goUp();
+  DType		select() const;
 };
