@@ -41,9 +41,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
   _camera->setFarValue(42000.0f);
 
-  displayLoop();
-  // naboo_test->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  // arc->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  // displayLoop();
 }
 
 Graphic::Graphic()
@@ -75,8 +73,8 @@ Graphic::Graphic()
   _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
   _camera->setFarValue(42000.0f);
 
-  // _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
-  // displayLoop();
+  skyDome("assets/skydome1.jpg");
+  ground();
 }
 
 Graphic::~Graphic()
@@ -144,6 +142,7 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
   _sceneManager->drawAll();
   _guienv->drawAll();
   _driver->endScene();
+
   irr::core::stringw str = L"X = ";
   str += _camera->getAbsolutePosition().X;
   str += L" Y = ";
@@ -177,14 +176,12 @@ void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
 {
   irr::f32	y = 560.f;
 
-  for (auto it = map.begin(); it != map.end()  ; ++it)
+  for (auto it = map.begin(); it != map.end(); ++it)
     {
       button(5330.f, y, 5225.0f, static_cast<Button *>(it->get())->getContent().c_str(),
 	     (it->get())->getPath());
       y += 20.f;
     }
-  skyDome("assets/skydome1.jpg");
-  ground();
 }
 
 void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const&)
