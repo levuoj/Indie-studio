@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 22 20:28:41 2017 Anthony Jouvel
+// Last update Mon May 22 20:36:18 2017 Anthony Jouvel
 //
 
 #include <iostream>
@@ -173,8 +173,9 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
   _guienv->drawAll();
   _driver->endScene();
 
-  moveCamera(irr::core::vector3df(6400, 1600, 7200),
-	     irr::core::vector3df(6350, 1590, 7215));
+  moveCamera(irr::core::vector3df(5000, 700, 3000),
+	     irr::core::vector3df(5050, 690, 3015));
+
 
   irr::core::stringw str = L"X = ";
   str += _camera->getAbsolutePosition().X;
