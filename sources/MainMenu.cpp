@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Tue May 16 16:50:02 2017 Pierre Zawadil
+// Last update Tue May 16 21:50:22 2017 Pierre Zawadil
 //
 
 #include <memory>
@@ -14,6 +14,7 @@
 
 MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 {
+  this->_type = DType::MAIN_MENU;
   this->_map.push_back(std::unique_ptr<Button>(new Button("Play")));
   this->_map.push_back(std::unique_ptr<Button>(new Button("Leaderboard")));
   this->_map.push_back(std::unique_ptr<Button>(new Button("Options")));
@@ -74,6 +75,7 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
     case irr::KEY_ESCAPE:
       return (EXIT);
     default:
+      this->notify();
       break;
     }
   return (MAIN_MENU);

@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Tue May 16 16:44:39 2017 Pierre Zawadil
+// Last update Tue May 16 21:52:28 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -18,7 +18,7 @@
 
 class	Graphic : public AObserver
 {  
-public:
+private:
   irr::u32			_width;
   irr::u32			_height;
   irr::IrrlichtDevice		*_device;
@@ -27,24 +27,26 @@ public:
   irr::gui::IGUIEnvironment	*_guienv;
   irr::scene::ICameraSceneNode	*_camera;
 
-  void				displayLoop();
-  void				button(irr::f32, irr::f32, irr::f32, const wchar_t *, const irr::io::path&);
-  void				mainMenu();
-  void				skyDome(const irr::io::path&);
-  void				sol();
-  void				actualize(Observable const &);
-
-public:
-  Graphic(irr::u32, irr::u32);
-  Graphic();
-  ~Graphic();
-
-
   void				manageDisplay(std::vector<std::unique_ptr<Element>> const&, DType);
   void				displayMainMenu(std::vector<std::unique_ptr<Element>> const&);
   void				displayOptions(std::vector<std::unique_ptr<Element>> const&);
   void				displayLeaderBoard(std::vector<std::unique_ptr<Element>> const&);
   void				displayExit(std::vector<std::unique_ptr<Element>> const&);
+  void				displayLoop();
+  void				button(irr::f32, irr::f32,
+				       irr::f32, const wchar_t *,
+				       const irr::io::path&);
+  void				skyDome(const irr::io::path&);
+  void				ground();
+  
+public:
+  Graphic(irr::u32, irr::u32);
+  Graphic();
+  ~Graphic();
+
+  void				actualize(Observable const &);
+  bool				running(void);
+  void				setEventReceiver(irr::IEventReceiver *);
 
   std::unordered_map<DType,
 		     std::function<void(std::vector<std::unique_ptr<Element>> const&)>>		dispThis =

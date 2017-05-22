@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue May 16 17:20:53 2017 Pierre Zawadil
+// Last update Mon May 22 09:46:44 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -40,7 +40,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
   _camera->setFarValue(42000.0f);
 
-  mainMenu();
   displayLoop();
   // naboo_test->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   // arc->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -76,8 +75,7 @@ Graphic::Graphic()
   _camera->setFarValue(42000.0f);
 
   // _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 0.1f, -1, keyMap, 5);
-  mainMenu();
-  displayLoop();
+  // displayLoop();
 }
 
 Graphic::~Graphic()
@@ -85,21 +83,7 @@ Graphic::~Graphic()
   _device->drop();
 }
 
-void		Graphic::mainMenu()
-{
-  button(5330.f, 560.f, 5225.0f, L"PLAY", "assets/deathStar.jpg");
-  button(5330.f, 540.f, 5225.0f, L"LEADERBOARD", "assets/deathStar.jpg");
-  button(5330.f, 520.f, 5225.0f, L"OPTIONS", "assets/deathStar.jpg");
-  button(5330.f, 500.f, 5225.0f, L"QUIT", "assets/deathStar.jpg");
-  skyDome("assets/skydome1.jpg");
-  sol();
-
-  // irr::scene::IAnimatedMeshSceneNode *jawa =
-  //   _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/JAWA/Star_wars_JAWA.obj"));
-  // jawa->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-}
-
-void		Graphic::sol()
+void		Graphic::ground()
 {
   irr::scene::ITerrainSceneNode	*terrain =
     _sceneManager->addTerrainSceneNode("assets/terrain-heightmap.bmp",
@@ -137,11 +121,10 @@ void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   cube->setMaterialType(irr::video::EMT_SOLID);
 
-
   _sceneManager->addTextSceneNode(_guienv->getFont("assets/fontcourier.bmp"),
-  				  text,
-  				  irr::video::SColor(255, 255, 255, 0),
-  				  cube);
+				  text,
+				  irr::video::SColor(255, 255, 255, 0),
+				  cube);
 }
 
 void		Graphic::displayLoop()
@@ -166,26 +149,43 @@ void		Graphic::displayLoop()
 
 void		Graphic::actualize(Observable const& observable)
 {
-  (void)observable;
-  displayLoop();
-  // this->manageDisplay(observable.getMap(), observable.getDType());
+  // (void)observable;
+  // displayLoop();
+  this->manageDisplay(observable.getMap(), observable.getDType());
 }
 
 void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, DType type)
 {
-  (void)map;
-  (void)type;
-  if (_device->run())
+  if (!_device->run())
     return ;
+
+  this->dispThis[type](map);
   _driver->beginScene(true, true,
 		      irr::video::SColor(0, 255, 255, 255));
   _sceneManager->drawAll();
+  _guienv->drawAll();
   _driver->endScene();
+  irr::core::stringw str = L"X = ";
+  str += _camera->getAbsolutePosition().X;
+  str += L" Y = ";
+  str += _camera->getAbsolutePosition().Y;
+  str += L" Z = ";
+  str += _camera->getAbsolutePosition().Z;
+  _device->setWindowCaption(str.c_str());
 }
 
 void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const&)
 {
-  std::cout << "J'affiche le menu <3" << std::endl;
+  button(5330.f, 560.f, 5225.0f, L"PLAY", "assets/deathStar.jpg");
+  button(5330.f, 540.f, 5225.0f, L"LEADERBOARD", "assets/deathStar.jpg");
+  button(5330.f, 520.f, 5225.0f, L"OPTIONS", "assets/deathStar.jpg");
+  button(5330.f, 500.f, 5225.0f, L"QUIT", "assets/deathStar.jpg");
+  skyDome("assets/skydome1.jpg");
+  ground();
+
+  // irr::scene::IAnimatedMeshSceneNode *jawa =
+  //   _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/JAWA/Star_wars_JAWA.obj"));
+  // jawa->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const&)
@@ -198,4 +198,14 @@ void		Graphic::displayLeaderBoard(std::vector<std::unique_ptr<Element>> const&)
 
 void		Graphic::displayExit(std::vector<std::unique_ptr<Element>> const&)
 {
+}
+
+bool		Graphic::running(void)
+{
+  return (this->_device->run());
+}
+
+void		Graphic::setEventReceiver(irr::IEventReceiver *receiver)
+{
+  this->_device->setEventReceiver(receiver);
 }
