@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 22 20:36:18 2017 Anthony Jouvel
+// Last update Mon May 22 22:11:22 2017 Anthony Jouvel
 //
 
 #include <iostream>
@@ -134,28 +134,6 @@ void		Graphic::moveCamera(irr::core::vector3df pos, irr::core::vector3df targ)
 					  coords(_camera->getTarget().Z, targ.Z)));
 }
 
-// void		Graphic::displayLoop()
-// {
-//   while (_device->run())
-//     {
-//       _driver->beginScene(true, true,
-//			  irr::video::SColor(255, 255, 255, 255));
-//       _sceneManager->drawAll();
-//       _guienv->drawAll();
-//       _driver->endScene();
-
-//       //      _camera
-
-//       irr::core::stringw str = L"X = ";
-//       str += _camera->getAbsolutePosition().X;
-//       str += L" Y = ";
-//       str += _camera->getAbsolutePosition().Y;
-//       str += L" Z = ";
-//       str += _camera->getAbsolutePosition().Z;
-//       _device->setWindowCaption(str.c_str());
-//     }
-// }
-
 void		Graphic::actualize(Observable const& observable)
 {
   this->manageDisplay(observable.getMap(), observable.getDType());
@@ -173,8 +151,8 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
   _guienv->drawAll();
   _driver->endScene();
 
-  moveCamera(irr::core::vector3df(5000, 700, 3000),
-	     irr::core::vector3df(5050, 690, 3015));
+  moveCamera(irr::core::vector3df(5800, 700, 5600),
+	     irr::core::vector3df(5850, 690, 5815));
 
 
   irr::core::stringw str = L"X = ";
@@ -210,6 +188,8 @@ void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
 {
   irr::f32	y = 560.f;
 
+    // irr::core::vector3df(5400, 600, 5200)
+    // irr::core::vector3df(5350, 590, 5215)
   for (auto it = map.begin(); it != map.end(); ++it)
     {
       button(5330.f, y, 5225.0f, static_cast<Button *>(it->get())->getContent().c_str(),
@@ -218,8 +198,18 @@ void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
     }
 }
 
-void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const&)
+void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const& map)
 {
+  irr::f32	y = 660.f;
+
+  // irr::core::vector3df(5800, 700, 5600)
+  // irr::core::vector3df(5850, 690, 5815)
+  for (auto it = map.begin(); it != map.end(); ++it)
+    {
+      button(5730.f, y, 5625.0f, static_cast<Button *>(it->get())->getContent().c_str(),
+	     (it->get())->getPath());
+      y += 20.f;
+    }
 }
 
 void		Graphic::displayLeaderBoard(std::vector<std::unique_ptr<Element>> const&)
