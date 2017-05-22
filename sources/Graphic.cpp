@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 22 11:27:52 2017 Pierre Zawadil
+// Last update Mon May 22 20:28:41 2017 Anthony Jouvel
 //
 
 #include <iostream>
@@ -26,20 +26,23 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _guienv = _device->getGUIEnvironment();
 
   // CAMERA POUR LE TEMPS DU DEV
-  irr::SKeyMap keyMap[4];
-  keyMap[0].Action = irr::EKA_MOVE_FORWARD;
-  keyMap[0].KeyCode = irr::KEY_KEY_Z;
-  keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
-  keyMap[1].KeyCode = irr::KEY_KEY_S;
-  keyMap[2].Action = irr::EKA_STRAFE_LEFT;
-  keyMap[2].KeyCode = irr::KEY_KEY_Q;
-  keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
-  keyMap[3].KeyCode = irr::KEY_KEY_D;
+  // irr::SKeyMap keyMap[4];
+  // keyMap[0].Action = irr::EKA_MOVE_FORWARD;
+  // keyMap[0].KeyCode = irr::KEY_KEY_Z;
+  // keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
+  // keyMap[1].KeyCode = irr::KEY_KEY_S;
+  // keyMap[2].Action = irr::EKA_STRAFE_LEFT;
+  // keyMap[2].KeyCode = irr::KEY_KEY_Q;
+  // keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
+  // keyMap[3].KeyCode = irr::KEY_KEY_D;
 
-  _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
-  _camera->setPosition(irr::core::vector3df(2700 * 2, 255 * 2, 2600 * 2));
-  _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
-  _camera->setFarValue(42000.0f);
+  // _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
+  // _camera->setPosition(irr::core::vector3df(2700 * 2, 255 * 2, 2600 * 2));
+  // _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
+  // _camera->setFarValue(42000.0f);
+  _camera = _sceneManager->addCameraSceneNode(0,
+					      irr::core::vector3df(5400, 590, 5200),
+					      irr::core::vector3df(4794, 343 * 2,  2700 * 2));
 
   // displayLoop();
 }
@@ -57,21 +60,26 @@ Graphic::Graphic()
 
   _guienv = _device->getGUIEnvironment();
 
-  // CAMERA POUR LE TEMPS DU DEV
-  irr::SKeyMap keyMap[4];
-  keyMap[0].Action = irr::EKA_MOVE_FORWARD;
-  keyMap[0].KeyCode = irr::KEY_KEY_Z;
-  keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
-  keyMap[1].KeyCode = irr::KEY_KEY_S;
-  keyMap[2].Action = irr::EKA_STRAFE_LEFT;
-  keyMap[2].KeyCode = irr::KEY_KEY_Q;
-  keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
-  keyMap[3].KeyCode = irr::KEY_KEY_D;
+  //  CAMERA POUR LE TEMPS DU DEV
+  // irr::SKeyMap keyMap[4];
+  // keyMap[0].Action = irr::EKA_MOVE_FORWARD;
+  // keyMap[0].KeyCode = irr::KEY_KEY_Z;
+  // keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
+  // keyMap[1].KeyCode = irr::KEY_KEY_S;
+  // keyMap[2].Action = irr::EKA_STRAFE_LEFT;
+  // keyMap[2].KeyCode = irr::KEY_KEY_Q;
+  // keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
+  // keyMap[3].KeyCode = irr::KEY_KEY_D;
 
-  _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
-  _camera->setPosition(irr::core::vector3df(2700 * 2, 255 * 2, 2600 * 2));
-  _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
-  _camera->setFarValue(42000.0f);
+  // _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
+  // _camera->setPosition(irr::core::vector3df(5400, 600, 5200));
+  // _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
+  // _camera->setFarValue(42000.0f);
+
+  //  CAMERA FINALE
+  _camera = _sceneManager->addCameraSceneNode(0,
+					      irr::core::vector3df(5400, 600, 5200),
+					      irr::core::vector3df(5350, 590, 5215));
 
   skyDome("assets/skydome1.jpg");
   ground();
@@ -103,28 +111,50 @@ void		Graphic::ground()
 void		Graphic::skyDome(const irr::io::path& image)
 {
   _sceneManager->addSkyDomeSceneNode(_driver->getTexture(image),
-				     16, 16, 0.5f, 2.0f);
+				     16, 8, .9f, 2.0f);
 }
 
-void		Graphic::displayLoop()
+irr::f32	Graphic::coords(irr::f32 oldPoint, irr::f32 newPoint)
 {
-  while (_device->run())
-    {
-      _driver->beginScene(true, true,
-			  irr::video::SColor(255, 255, 255, 255));
-      _sceneManager->drawAll();
-      _guienv->drawAll();
-      _driver->endScene();
-
-      irr::core::stringw str = L"X = ";
-      str += _camera->getAbsolutePosition().X;
-      str += L" Y = ";
-      str += _camera->getAbsolutePosition().Y;
-      str += L" Z = ";
-      str += _camera->getAbsolutePosition().Z;
-      _device->setWindowCaption(str.c_str());
-    }
+  if (oldPoint < newPoint)
+    return (oldPoint + 1);
+  else if (oldPoint > newPoint)
+    return (oldPoint - 1);
+  return (newPoint);
 }
+
+void		Graphic::moveCamera(irr::core::vector3df pos, irr::core::vector3df targ)
+{
+  _camera->setPosition(irr::core::vector3df(coords(_camera->getAbsolutePosition().X, pos.X),
+					    coords(_camera->getAbsolutePosition().Y, pos.Y),
+					    coords(_camera->getAbsolutePosition().Z, pos.Z)));
+
+  _camera->setTarget(irr::core::vector3df(coords(_camera->getTarget().X, targ.X),
+					  coords(_camera->getTarget().Y, targ.Y),
+					  coords(_camera->getTarget().Z, targ.Z)));
+}
+
+// void		Graphic::displayLoop()
+// {
+//   while (_device->run())
+//     {
+//       _driver->beginScene(true, true,
+//			  irr::video::SColor(255, 255, 255, 255));
+//       _sceneManager->drawAll();
+//       _guienv->drawAll();
+//       _driver->endScene();
+
+//       //      _camera
+
+//       irr::core::stringw str = L"X = ";
+//       str += _camera->getAbsolutePosition().X;
+//       str += L" Y = ";
+//       str += _camera->getAbsolutePosition().Y;
+//       str += L" Z = ";
+//       str += _camera->getAbsolutePosition().Z;
+//       _device->setWindowCaption(str.c_str());
+//     }
+// }
 
 void		Graphic::actualize(Observable const& observable)
 {
@@ -142,6 +172,9 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
   _sceneManager->drawAll();
   _guienv->drawAll();
   _driver->endScene();
+
+  moveCamera(irr::core::vector3df(6400, 1600, 7200),
+	     irr::core::vector3df(6350, 1590, 7215));
 
   irr::core::stringw str = L"X = ";
   str += _camera->getAbsolutePosition().X;
@@ -166,7 +199,7 @@ void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   cube->setMaterialType(irr::video::EMT_SOLID);
 
-  _sceneManager->addTextSceneNode(_guienv->getFont("assets/fontcourier.bmp"),
+  _sceneManager->addTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
 				  text,
 				  irr::video::SColor(255, 255, 255, 0),
 				  cube);

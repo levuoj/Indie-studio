@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Tue May 16 21:52:28 2017 Pierre Zawadil
+// Last update Mon May 22 20:24:27 2017 Anthony Jouvel
 //
 
 #pragma once
@@ -17,7 +17,7 @@
 #include "Utils.hpp"
 
 class	Graphic : public AObserver
-{  
+{
 private:
   irr::u32			_width;
   irr::u32			_height;
@@ -38,7 +38,9 @@ private:
 				       const irr::io::path&);
   void				skyDome(const irr::io::path&);
   void				ground();
-  
+  void				moveCamera(irr::core::vector3df, irr::core::vector3df);
+  irr::f32			coords(irr::f32, irr::f32);
+
 public:
   Graphic(irr::u32, irr::u32);
   Graphic();
