@@ -1,11 +1,11 @@
 //
 // Button.hpp for Button in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Tue May  9 14:43:05 2017 Pashervz
-// Last update Wed May 10 13:35:02 2017 Pashervz
+// Last update Mon May 22 11:03:41 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -15,15 +15,15 @@
 class Button : public Element
 {
 private:
-  std::string	_content;
+  std::wstring	_content;
   bool		_isSelected;
-  
+
 public:
-  Button(std::string const & content) : Element("Button", EType::BUTTON),
+  Button(std::wstring const& content, irr::io::path const& path) : Element(path, EType::BUTTON),
 					_content(content), _isSelected(false) {}
   ~Button() {}
-  
-  std::string const &	getContent() const
+
+  std::wstring const&	getContent() const
   {
     return (_content);
   }
@@ -32,8 +32,8 @@ public:
   {
     return (_isSelected);
   }
-  
-  void			setContent(std::string const & content)
+
+  void			setContent(std::wstring const& content)
   {
     this->_content = content;
   }

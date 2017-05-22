@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Mon May 22 10:07:25 2017 Pierre Zawadil
+// Last update Mon May 22 10:17:54 2017 Pierre Zawadil
 //
 
 #include <unistd.h>
@@ -45,7 +45,7 @@ void			Core::launch()
       //}
       receiver.setKey(irr::KEY_F24);
 
-      // METTRE LE NOTIFY ICI this->_menu->notify();
+      this->_menu->notify();
 
     }
 }

@@ -5,11 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 22 09:46:44 2017 Pierre Zawadil
+// Last update Mon May 22 11:27:52 2017 Pierre Zawadil
 //
 
 #include <iostream>
 #include "Graphic.hpp"
+#include "Button.hpp"
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
@@ -107,26 +108,6 @@ void		Graphic::skyDome(const irr::io::path& image)
 				     16, 16, 0.5f, 2.0f);
 }
 
-void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
-				const wchar_t *text,
-				const irr::io::path& filename)
-{
-  irr::scene::IMeshSceneNode	*cube =
-    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-				    irr::core::vector3df(x, y, z),
-				    irr::core::vector3df(0.f, 105.f, 0.f));
-  cube->setScale(irr::core::vector3df(5.0f, 1.0f, 1.0f));
-
-  cube->setMaterialTexture(0, _driver->getTexture(filename));
-  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  cube->setMaterialType(irr::video::EMT_SOLID);
-
-  _sceneManager->addTextSceneNode(_guienv->getFont("assets/fontcourier.bmp"),
-				  text,
-				  irr::video::SColor(255, 255, 255, 0),
-				  cube);
-}
-
 void		Graphic::displayLoop()
 {
   while (_device->run())
@@ -149,8 +130,6 @@ void		Graphic::displayLoop()
 
 void		Graphic::actualize(Observable const& observable)
 {
-  // (void)observable;
-  // displayLoop();
   this->manageDisplay(observable.getMap(), observable.getDType());
 }
 
@@ -174,18 +153,38 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
   _device->setWindowCaption(str.c_str());
 }
 
-void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const&)
+void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
+				const wchar_t *text,
+				const irr::io::path& filename)
 {
-  button(5330.f, 560.f, 5225.0f, L"PLAY", "assets/deathStar.jpg");
-  button(5330.f, 540.f, 5225.0f, L"LEADERBOARD", "assets/deathStar.jpg");
-  button(5330.f, 520.f, 5225.0f, L"OPTIONS", "assets/deathStar.jpg");
-  button(5330.f, 500.f, 5225.0f, L"QUIT", "assets/deathStar.jpg");
+  irr::scene::IMeshSceneNode	*cube =
+    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+				    irr::core::vector3df(x, y, z),
+				    irr::core::vector3df(0.f, 105.f, 0.f));
+  cube->setScale(irr::core::vector3df(5.0f, 1.0f, 1.0f));
+
+  cube->setMaterialTexture(0, _driver->getTexture(filename));
+  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  cube->setMaterialType(irr::video::EMT_SOLID);
+
+  _sceneManager->addTextSceneNode(_guienv->getFont("assets/fontcourier.bmp"),
+				  text,
+				  irr::video::SColor(255, 255, 255, 0),
+				  cube);
+}
+
+void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
+{
+  irr::f32	y = 560.f;
+
+  for (auto it = map.begin(); it != map.end()  ; ++it)
+    {
+      button(5330.f, y, 5225.0f, static_cast<Button *>(it->get())->getContent().c_str(),
+	     (it->get())->getPath());
+      y += 20.f;
+    }
   skyDome("assets/skydome1.jpg");
   ground();
-
-  // irr::scene::IAnimatedMeshSceneNode *jawa =
-  //   _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/JAWA/Star_wars_JAWA.obj"));
-  // jawa->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const&)
