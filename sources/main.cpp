@@ -1,11 +1,11 @@
-//
+/*//
 // main.cpp for main.cpp in /home/tvigier/test
 // 
 // Made by thomas vigier
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Wed May 10 11:05:32 2017 thomas vigier
-// Last update Tue May 23 14:46:45 2017 DaZe
+// Last update Tue May 23 15:06:09 2017 DaZe
 //
 
 #define COL 50
@@ -13,8 +13,18 @@
 #include "test.hpp"
 #include "ManageGame.hpp"
 #include "Graphic.hpp"
+// main.cpp for indie_studio in /home/zgore/Projects/cpp_2017/Indie_studio
+// 
+// Made by Pierre Zawadil
+// Login   <pierre.zawadil@epitech.eu>
+// Started on  Mon May  8 11:13:42 2017 Pierre Zawadil
+// Last update Tue May 23 15:02:01 2017 DaZe
+//
 
-int			main()
+#include <iostream>
+#include "Core.hpp"
+
+int		main(int ac, char **av)
 {
   std::array<irr::EKEY_CODE, 5> arr;
 
@@ -84,4 +94,20 @@ int			main()
   //   }
   // device->drop();                                    // libere la memoire
   return (0);
-}
+  if (ac != 1)
+    {
+      std::cerr << "Error : " << av[0] << " does not take any argument !" << std::endl;
+    }
+  try
+    {
+      Core	core;
+
+      core.launch();
+    }
+  catch(std::exception const &msg)
+    {
+      std::cerr << msg.what() << std::endl;
+      return (EXIT_ERROR);
+    }
+  return (EXIT_SUCCESS);
+} */
