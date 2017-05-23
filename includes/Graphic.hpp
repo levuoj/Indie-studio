@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Tue May 23 10:23:22 2017 Pierre Zawadil
+// Last update Tue May 23 21:22:21 2017 Anthony Jouvel
 //
 
 #pragma once
@@ -33,14 +33,22 @@ private:
   void				displayLeaderBoard(std::vector<std::unique_ptr<Element>> const&);
   void				displayExit(std::vector<std::unique_ptr<Element>> const&);
   void				displayLoop();
-  void				button(irr::f32, irr::f32,
-				       irr::f32, const wchar_t *,
+  void				button(irr::f32, irr::f32, irr::f32,
+				       irr::f32, irr::f32, irr::f32,
+				       const wchar_t *,
 				       const irr::io::path&,
 				       bool const&);
   void				skyDome(const irr::io::path&);
   void				ground();
   void				moveCamera(irr::core::vector3df, irr::core::vector3df);
   irr::f32			coords(irr::f32, irr::f32);
+  void				writeText(irr::f32, irr::f32, irr::f32,
+					  //					  irr::f32, irr::f32, irr::f32,
+					  const wchar_t *);
+  void				writeText(irr::scene::IMeshSceneNode *,
+					  const wchar_t *);
+  void				writeText(irr::s32, irr::s32, irr::s32, irr::s32,
+					  const wchar_t *);
 
 public:
   Graphic(irr::u32, irr::u32);

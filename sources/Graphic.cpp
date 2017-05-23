@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue May 23 10:24:31 2017 Pierre Zawadil
+// Last update Tue May 23 21:22:53 2017 Anthony Jouvel
 //
 
 #include <iostream>
@@ -145,15 +145,53 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
   _device->setWindowCaption(str.c_str());
 }
 
-void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
+void		Graphic::writeText(irr::scene::IMeshSceneNode *cube,
+				   const wchar_t *text)
+{
+  // ECRIRE SUR UN CUBE
+  _sceneManager->addTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+				  text,
+				  irr::video::SColor(255, 255, 255, 0),
+				  cube);
+}
+
+void		Graphic::writeText(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
+				   //				   irr::f32 xRot, irr::f32 yRot, irr::f32 zRot,
+				   const wchar_t *text)
+{
+  // ECRIRE A UNE POSITION
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   text, 0,
+					   irr::core::dimension2d<irr::f32>(15.f, 15.f),
+					   irr::core::vector3df(xPos, yPos, zPos), -1,
+					   irr::video::SColor(255,255,255, 0),
+					   irr::video::SColor(255,255,255, 0));
+}
+
+void		Graphic::writeText(irr::s32 x, irr::s32 y,
+				   irr::s32 xBord, irr::s32 yBord,
+				   const wchar_t *text)
+{
+  // ECRIRE SUR LA FENETRE (STATIC)
+  irr::gui::IGUISkin* skin = _guienv->getSkin();
+  irr::gui::IGUIFont* font = _guienv->getFont("assets/font/myfont.xml");
+  skin->setFont(font);
+  skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255,255,255, 0));
+  //  _guienv->addStaticText(text, irr::core::rect<irr::s32>(10, 10, 1000, 1000), false);
+  _guienv->addStaticText(text, irr::core::rect<irr::s32>(x, y, xBord, yBord), false);
+}
+
+void		Graphic::button(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
+				irr::f32 xRot, irr::f32 yRot, irr::f32 zRot,
 				const wchar_t *text,
 				const irr::io::path& filename,
 				bool const& selected)
 {
   irr::scene::IMeshSceneNode	*cube =
     _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-				    irr::core::vector3df(x, y, z),
-				    irr::core::vector3df(0.f, 105.f, 0.f));
+				    irr::core::vector3df(xPos, yPos, zPos),
+				    irr::core::vector3df(xRot, yRot, zRot));
+
   cube->setScale(irr::core::vector3df(5.0f, 1.0f, 1.0f));
 
   cube->setMaterialTexture(0, _driver->getTexture(filename));
@@ -164,23 +202,32 @@ void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   cube->setMaterialType(irr::video::EMT_SOLID);
 
-  _sceneManager->addTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				  text,
-				  irr::video::SColor(255, 255, 255, 0),
-				  cube);
+  writeText(xPos, yPos, zPos,
+	    text);
 }
 
 void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
 {
   irr::f32	y = 560.f;
+  //tmp pour test mouvement
+  irr::f32	yBis = 660.f;
 
     // irr::core::vector3df(5400, 600, 5200)
     // irr::core::vector3df(5350, 590, 5215)
   for (auto it = map.begin(); it != map.end(); ++it)
     {
-      button(5330.f, y, 5225.0f, static_cast<Button *>(it->get())->getContent().c_str(),
+      button(5330.f, y, 5225.0f, 0.f, 105.f, 0.f,
+	     static_cast<Button *>(it->get())->getContent().c_str(),
 	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
+
+      //tmp pour test mouvement
+      button(5815.f, yBis, 5675.0f, 0.f, 15.f, 0.f,
+	     static_cast<Button *>(it->get())->getContent().c_str(),
+	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
+
       y += 20.f;
+      //tmp pour test mouvement
+      yBis += 20.f;
     }
 }
 
@@ -192,7 +239,8 @@ void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const& map)
   // irr::core::vector3df(5850, 690, 5815)
   for (auto it = map.begin(); it != map.end(); ++it)
     {
-      button(5730.f, y, 5625.0f, static_cast<Button *>(it->get())->getContent().c_str(),
+      button(5850.f, y, 5815.0f, 0.f, 0.f, 0.f,
+	     static_cast<Button *>(it->get())->getContent().c_str(),
 	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
       y += 20.f;
     }
