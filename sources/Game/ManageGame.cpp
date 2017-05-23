@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 23 15:48:06 2017 DaZe
+// Last update Tue May 23 16:28:10 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -52,7 +52,7 @@ void                    ManageGame::controlDriver(const irr::EKEY_CODE &key)
   this->_players.at(0).driver(key);
 }
 
-GameElement             ManageGame::ElementFromChar(const char c)
+std::unique_ptr<GameElement>             ManageGame::ElementFromChar(const char c)
 {
   irr::io::path             path;
   Element::EType          type;
@@ -88,7 +88,7 @@ GameElement             ManageGame::ElementFromChar(const char c)
       path = "";
       type = Element::EType::DEFAULT;
     }
-  return (GameElement(path, type, pos));
+  return (new GameElement(path, type, pos));
 }
 
 void				ManageGame::loadMap()
@@ -114,7 +114,7 @@ void				ManageGame::updateMap()
   printMap();
 }
 
-std::vector<Element> const&	ManageGame::getMap() const
+std::vector<std::unique_ptr<Element>> const&	ManageGame::getMap() const
 {
   return (this->_map);
 }

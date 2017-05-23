@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue May 23 15:29:12 2017 DaZe
+// Last update Tue May 23 16:47:46 2017 DaZe
 //
 
 #pragma once
@@ -21,7 +21,7 @@
 class	ManageGame : public Observable
 {
 private:
-  std::vector<Element>	_map;
+  std::vector<std::unique_ptr<Element>>	_map;
   std::vector<AI>   		_AIs;
   std::vector<Player>		_players;
 public:
@@ -29,9 +29,9 @@ public:
   ~ManageGame() {};
 
   void				controlDriver(const irr::EKEY_CODE &);
-  GameElement	                ElementFromChar(char);
+  std::unique_ptr<GameElement>	                ElementFromChar(char);
   void	        	        loadMap();
   void				updateMap();
-  std::vector<Element> const&	getMap() const;
+  std::vector<std::unique_ptr<Element>> const&	getMap() const;
   void				printMap();
 };

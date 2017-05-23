@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Tue May 23 12:53:25 2017 DaZe
+// Last update Tue May 23 16:36:50 2017 DaZe
 //
 
 #include <unistd.h>
@@ -29,7 +29,7 @@ void			AI::chooseAction()
 
 bool			AI::isLine(int pos)
 {
-  if (_map[Convert::coordToPos<int>(_car.getPosMap()) + pos].getType()
+  if (_map[Convert::coordToPos<int>(_car.getPosMap()) + pos].get()->getType()
       == Element::EType::LINE
       && Convert::coordToPos<int>(_car.getPosMap()) + pos != _prevPos)
     {
@@ -125,7 +125,7 @@ void			AI::downRight()
     }
 }
 
-void			AI::setMap(std::vector<Element> const &map)
+void			AI::setMap(std::vector<std::unique_ptr<Element>> const &map)
 {
   _map = map;
 }
