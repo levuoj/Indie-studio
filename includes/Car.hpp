@@ -1,5 +1,11 @@
 //
-// Created by Kilian on 09/05/17.
+// Car.hpp for  in /home/Kilian/Rendu/C++/Indie_studio
+// 
+// Made by Lebrun Kilian
+// Login   <kilian.lebrun@epitech.eu>
+// 
+// Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
+// Last update Tue May 23 09:38:24 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -14,12 +20,12 @@ class Car : public GameElement
   static const float		_fps;
   static const float		_inertia;
 
-    enum EState
+  enum EState
     {
-        NORMAL,
-        BANANA,
-        WALL,
-        SHOOT
+      NORMAL,
+      BANANA,
+      WALL,
+      SHOOT
     };
   std::pair<int, int>			_posMap;
   float					_speed;

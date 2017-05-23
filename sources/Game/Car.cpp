@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 23 09:34:59 2017 Lebrun Kilian
+// Last update Tue May 23 09:35:03 2017 Lebrun Kilian
 //
 
 #define _USE_MATH_DEFINES
@@ -53,8 +53,8 @@ void            Car::slowDown()
 void            Car::move()
 {
   std::cout << _pos.first << " --- " << _pos.second << std::endl;
-    this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
-    if (this->_pos.first > 100)
+  this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
+  if (this->_pos.first > 100)
     {
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
@@ -84,10 +84,10 @@ void            Car::turnLeft()
     this->_angle = 0.0f;
   this->_angle += 2.0f;
 
-   this->_dir.first = cos(this->_angle * M_PI / 180.0f);
-   this->_dir.second = sin(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cos(this->_angle * M_PI / 180.0f);
+  this->_dir.second = sin(this->_angle * M_PI / 180.0f);
    
-   std::cout << _dir.first << " --- " << _dir.second << std::endl;
+  std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 void            Car::turnRight()
@@ -97,10 +97,10 @@ void            Car::turnRight()
     this->_angle = 0.0f;
   this->_angle -= 2.0f;
 
-   this->_dir.first = cos(this->_angle * M_PI / 180.0f);
-   this->_dir.second = sin(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cos(this->_angle * M_PI / 180.0f);
+  this->_dir.second = sin(this->_angle * M_PI / 180.0f);
 
-   std::cout << _dir.first << " --- " << _dir.second << std::endl;
+  std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 float		Car::getAbsoluteAngle()
