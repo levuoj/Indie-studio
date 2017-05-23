@@ -7,7 +7,7 @@
 #include <cmath>
 #include "Car.hpp"
 
-const float Car::_maxSpeed = 7;
+const float Car::_maxSpeed = 30;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
@@ -83,7 +83,7 @@ void            Car::turnRight()
    this->_dir.first = cos(this->_angle * M_PI / 180.0f);
    this->_dir.second = sin(this->_angle * M_PI / 180.0f);
 
-   std::cout << _dir.first << " --- " << _dir.second << std::endl;
+   std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 float		Car::getAbsoluteAngle()
