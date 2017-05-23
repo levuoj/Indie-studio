@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Wed May 10 11:05:32 2017 thomas vigier
-// Last update Tue May 16 18:13:12 2017 Lebrun Kilian
+// Last update Tue May 23 09:30:48 2017 Lebrun Kilian
 //
 
 #define COL 50
@@ -30,4 +30,11 @@ int	main()
     ManageGame game(1, test);
 
     game.exec(irr::EKEY_CODE::KEY_UP);
+    // ManageGame game;
+
+    // game.loadMap();
+    // //    game.printMap();
+
+    // while (true)
+    //   game.updateMap();
 }

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Tue May  9 13:36:01 2017 Pashervz
+// Last update Mon May 22 16:34:25 2017 DaZe
 //
 
 #pragma once
@@ -25,13 +25,14 @@ public:
       ARROW_RIGHT,
       BLOCK,
       ROAD,
+      LINE,
       ENDLINE,
       DEFAULT
     };
   
-private:
+protected:
   std::string		_path;
-  EType			    _type;
+  EType			_type;
   
 public:
     Element() {};

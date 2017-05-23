@@ -5,11 +5,12 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 16 18:13:50 2017 Lebrun Kilian
+// Last update Tue May 23 09:34:13 2017 Lebrun Kilian
 //
 
-#include "test.hpp"
+#include <stdio.h>			/*/!\/!\*/
 #include "ManageGame.hpp"
+#include "Convert.hpp"
 
 #define COL 50;
 
@@ -22,8 +23,8 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
   int     i(0);
 
   for (const auto &it : this->_map)
-   {
-     if (it.getType() == Element::EType::CAR)
+    {
+      if (it.getType() == Element::EType::CAR)
         {
       	  x = pos % COL;
           y = (pos - x) / COL;
@@ -32,8 +33,8 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
               this->_players.push_back(Player(std::make_pair(x, y)));
               ++i;
       	    }
-//          else
-//            this->_AIs.push_back(AI(std::make_pair(x, y)));
+	  //          else
+	  //            this->_AIs.push_back(AI(std::make_pair(x, y)));
         }
       pos++;
     }
@@ -60,37 +61,40 @@ GameElement             ManageGame::ElementFromChar(const char c)
 
   switch (c)
     {
-      case 'X':
-        path = "X";
-        type = Element::EType::BLOCK;
-        break;
-      case ' ':
-        path = " ";
-        type = Element::EType::ROAD;
-        break;
-      case 'c':
-        path = "c";
-        type = Element::EType::ENDLINE;
-        break;
-      case 'o':
-        path = "o";
-        type = Element::EType::ENDLINE;
-        break;
-      case '>':
-        path = ">";
-        type = Element::EType::CAR;
-        break;
-      default:
-        path = "";
-        type = Element::EType::DEFAULT;
+    case 'X':
+      path = "X";
+      type = Element::EType::BLOCK;
+      break;
+    case ' ':
+      path = " ";
+      type = Element::EType::ROAD;
+      break;
+    case 'c':
+      path = "c";
+      type = Element::EType::ENDLINE;
+      break;
+    case 'o':
+      path = "o";
+      type = Element::EType::ENDLINE;
+      break;
+    case '>':
+      path = ">";
+      type = Element::EType::CAR;
+      break;
+    case '-':
+      path = "-";
+      type = Element::EType::LINE;
+      break;
+    default:
+      path = "";
+      type = Element::EType::DEFAULT;
     }
-  GameElement gameElement(path, type, pos);
-  return (gameElement);
+  return (GameElement(path, type, pos));
 }
 
 void				ManageGame::loadMap()
 {
-  ManageFile      file("./assets/circuit/circuit1.txt");
+  ManageFile      file("./assets/circuit/circuit2.txt");
   std::string     map;
 
   map = file.readFile();
@@ -100,6 +104,15 @@ void				ManageGame::loadMap()
       if (c != '\n')
         this->_map.push_back(ElementFromChar(c));
     }
+  _AIs.push_back(AI(std::make_pair(20, 5)));
+  _AIs.at(0).setMap(_map);
+}
+
+void				ManageGame::updateMap()
+{
+  _AIs.at(0).chooseAction();
+  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar().getPosMap())) = _AIs.at(0).getCar();
+  printMap();
 }
 
 std::vector<Element> const&	ManageGame::getMap() const
@@ -109,6 +122,12 @@ std::vector<Element> const&	ManageGame::getMap() const
 
 void                        ManageGame::printMap()
 {
-  for (const auto &it : this->_map)
-    std::cout << it.getPath() << std::endl;
+  int	i = 0;
+  for (const auto it : this->_map)
+    {
+      if (i % 51 == 0)
+	std::cout << std::endl;
+      std::cout << it.getPath();
+      ++i;
+    }
 }

@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Mon May 15 14:23:17 2017 Lebrun Kilian
+// Last update Tue May 23 09:37:07 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -30,9 +30,10 @@ public:
   ManageGame(int, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
   ~ManageGame() {};
 
-  void                        controlDriver(const irr::EKEY_CODE &);
-  GameElement                 ElementFromChar(char);
-  void			        	        loadMap();
+  void				controlDriver(const irr::EKEY_CODE &);
+  GameElement	                ElementFromChar(char);
+  void	        	        loadMap();
+  void				updateMap();
   std::vector<Element> const&	getMap() const;
-  void                        printMap();
+  void				printMap();
 };
