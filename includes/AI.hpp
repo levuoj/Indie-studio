@@ -16,4 +16,6 @@ class AI
 {
   Car	_car;
 public:
+    AI(std::pair<int, int> posCar);
+    ~AI();
 };

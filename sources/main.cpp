@@ -5,46 +5,29 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Wed May 10 11:05:32 2017 thomas vigier
-// Last update Wed May 10 11:34:42 2017 thomas vigier
+// Last update Tue May 16 18:13:12 2017 Lebrun Kilian
 //
 
 #define COL 50
 
+#include "test.hpp"
 #include "ManageGame.hpp"
 
 int	main()
 {
-    ManageGame game;
+  std::array<irr::EKEY_CODE, 5> arr;
 
-    game.loadMap();
+    arr[0] = irr::EKEY_CODE::KEY_UP;
+    arr[1] = irr::EKEY_CODE::KEY_DOWN;
+    arr[2] = irr::EKEY_CODE::KEY_LEFT;
+    arr[3] = irr::EKEY_CODE::KEY_RIGHT;
+    arr[4] = irr::EKEY_CODE::KEY_SPACE;
 
-    std::vector<Element>    map(game.getMap());
-    int                         pos(0);
-    int                         x(0);
-    int                         y(0);
+    std::vector<std::array<irr::EKEY_CODE, 5>>    test;
 
-    for (const auto it : map)
-    {
-        std::cout << it.getPath() << std::endl;
-        if (it.getPath() == ">")
-        {
-            x = pos % COL;
-            y = (pos - x) / COL;
-        }
-        pos++;
-    }
-    std::pair<int, int>     pair(x, y);
-    Car     bmw(pair);
+    test.push_back(arr);
 
-    for (int i(0); i < 60; i++)
-    {
-        bmw.turnLeft();
-    }
-    for (int i = 0; i < 3000; ++i)
-    {
-        bmw.accelerate();
-        bmw.move();
-        std::cout << "position relative :\n x = " << bmw.getPos().first << " y = " << bmw.getPos().second << "\nPosition Map = \n x = " << bmw.getPosMap().first << " y = " << bmw.getPosMap().second << " angle = " << bmw.getAngle() << std::endl << std::endl;
-    }
+    ManageGame game(1, test);
 
+    game.exec(irr::EKEY_CODE::KEY_UP);
 }

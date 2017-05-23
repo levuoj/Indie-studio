@@ -29,14 +29,23 @@ class Car : public GameElement
     PowerUp                 _pu;
     EState                  _state;
 public:
-    Car() {};
+    Car() : _posMap(0.0f, 0.0f), _pos(50.0f, 50.0f), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f) {std::cout << "sexe" << std::endl;};
     Car(std::pair<int, int> posMap) : _posMap(posMap), _pos(50.0f, 50.0f), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f) {};
     ~Car() {}
     void                            accelerate();
     void                            deccelerate();
+    void                            slowDown();
     void                            move();
     void                            turnLeft();
     void                            turnRight();
+    void                            launchPowerUp()
+    {
+      std::cout << "BOUYAAAAAAA" << std::endl;
+    }
+    void                            setPosMap(std::pair<int, int> pos)
+    {
+        this->_posMap = pos;
+    }
     float                           getAngle()
     {
         return (this->_angle);
