@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 23 14:06:22 2017 DaZe
+// Last update Tue May 23 15:28:01 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -54,7 +54,7 @@ void                    ManageGame::controlDriver(const irr::EKEY_CODE &key)
 
 GameElement             ManageGame::ElementFromChar(const char c)
 {
-  std::string             path;
+  irr::io::path             path;
   Element::EType          type;
   std::pair<float, float> pos(50.0, 50.0);
 

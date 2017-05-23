@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Tue May 23 15:05:04 2017 DaZe
+// Last update Tue May 23 15:07:47 2017 DaZe
 //
 
 #pragma once
@@ -29,7 +29,6 @@ public:
       ROAD,
       LINE,
       ENDLINE,
-      DEFAULT
     };
   
 protected:
