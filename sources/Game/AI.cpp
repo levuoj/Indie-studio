@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Tue May 23 16:36:50 2017 DaZe
+// Last update Tue May 23 19:16:31 2017 DaZe
 //
 
 #include <unistd.h>
@@ -16,24 +16,25 @@ AI::AI()
 {
 }
 
-AI::AI(std::pair<int, int> pos)
+AI::AI(std::pair<int, int> const& pos)
 {
-  _car = Car(pos);
+  _car = std::shared_ptr<Car>(new Car);
+  _car->setPosMap(pos);
 }
 
 void			AI::chooseAction()
 {
   detectLine();
-  _car.move();
+  _car.get()->move();
 }
 
 bool			AI::isLine(int pos)
 {
-  if (_map[Convert::coordToPos<int>(_car.getPosMap()) + pos].get()->getType()
+  if (_map[Convert::coordToPos<int>(_car.get()->getPosMap()) + pos].get()->getType()
       == Element::EType::LINE
-      && Convert::coordToPos<int>(_car.getPosMap()) + pos != _prevPos)
+      && Convert::coordToPos<int>(_car.get()->getPosMap()) + pos != _prevPos)
     {
-      std::cout << "POS + X" << Convert::coordToPos<int>(_car.getPosMap()) + pos << std::endl;
+      std::cout << "POS + X" << Convert::coordToPos<int>(_car.get()->getPosMap()) + pos << std::endl;
       return (true);
     }
   return (false);
@@ -41,8 +42,8 @@ bool			AI::isLine(int pos)
 
 void			AI::detectLine()
 {
-  std::cout << "ANGLE = " << _car.getAbsoluteAngle() << std::endl;
-  std::cout << "POS MAP = " << Convert::coordToPos<int>(_car.getPosMap()) << std::endl;
+  std::cout << "ANGLE = " << _car.get()->getAbsoluteAngle() << std::endl;
+  std::cout << "POS MAP = " << Convert::coordToPos<int>(_car.get()->getPosMap()) << std::endl;
   upLeft();
   up();
   upRight();
@@ -58,7 +59,7 @@ void			AI::upLeft()
   if (isLine(-51) == true)
     {
       std::cout << "UP LEFT" << std::endl;
-      _car.turnLeft();
+      _car.get()->turnLeft();
     }
 }
 
@@ -67,7 +68,7 @@ void			AI::up()
   if (isLine(-50) == true)
     {
       std::cout << "UP" << std::endl;
-      _car.accelerate();
+      _car.get()->accelerate();
     }
 }
 
@@ -76,7 +77,7 @@ void			AI::upRight()
   if (isLine(-49) == true)
     {
       std::cout << "UP RIGHT" << std::endl;
-      _car.turnRight();
+      _car.get()->turnRight();
     }
 }
 
@@ -85,7 +86,7 @@ void			AI::left()
   if (isLine(-1) == true)
     {
       std::cout << "LEFT" << std::endl;
-      _car.accelerate();
+      _car.get()->accelerate();
     }
 }
 
@@ -94,7 +95,7 @@ void			AI::right()
   if (isLine(1) == true)
     {
       std::cout << "RIGHT" << std::endl;
-      _car.accelerate();
+      _car.get()->accelerate();
     }
 }
 
@@ -103,7 +104,7 @@ void			AI::downLeft()
   if (isLine(49) == true)
     {
       std::cout << "DOWN LEFT" << std::endl;
-      _car.turnLeft();
+      _car.get()->turnLeft();
     }
 }
 
@@ -112,7 +113,7 @@ void			AI::down()
   if (isLine(50) == true)
     {
       std::cout << "DOWN" << std::endl;
-      _car.accelerate();
+      _car.get()->accelerate();
     }
 }
 
@@ -121,16 +122,16 @@ void			AI::downRight()
   if (isLine(51) == true)
     {
       std::cout << "DOWN RIGHT" << std::endl;
-      _car.turnRight();
+      _car.get()->turnRight();
     }
 }
 
-void			AI::setMap(std::vector<std::unique_ptr<Element>> const &map)
+void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
 {
   _map = map;
 }
 
-Car const &		AI::getCar() const
+std::shared_ptr<Car>		AI::getCar() const
 {
   return (_car);
 }

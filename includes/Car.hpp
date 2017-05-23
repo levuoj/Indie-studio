@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Tue May 23 13:56:04 2017 DaZe
+// Last update Tue May 23 18:58:19 2017 DaZe
 //
 
 #pragma once
@@ -45,7 +45,7 @@ public:
   void                            turnLeft();
   void                            turnRight();
   void                            launchPowerUp();
-  void                            setPosMap(std::pair<int, int> pos);
+  void                            setPosMap(std::pair<int, int> const& pos);
   float                           getAngle();
   const std::pair<float, float>&  getDir() const;
   const std::pair<float, float>&  getPos() const;

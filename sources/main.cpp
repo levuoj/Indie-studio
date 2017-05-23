@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Wed May 10 11:05:32 2017 thomas vigier
-// Last update Tue May 23 15:11:50 2017 DaZe
+// Last update Tue May 23 18:15:50 2017 DaZe
 //
 
 #define COL 50
@@ -15,7 +15,7 @@
 
 int		main(int, char **)
 {
-  std::array<irr::EKEY_CODE, 5> arr;
+  /*  std::array<irr::EKEY_CODE, 5> arr;
 
     arr[0] = irr::EKEY_CODE::KEY_UP;
     arr[1] = irr::EKEY_CODE::KEY_DOWN;
@@ -29,12 +29,12 @@ int		main(int, char **)
 
     ManageGame game(1, test);
 
-    game.controlDriver(irr::EKEY_CODE::KEY_UP);
-    // ManageGame game;
+    game.controlDriver(irr::EKEY_CODE::KEY_UP); */
+  ManageGame game;
 
-    // game.loadMap();
-    // //    game.printMap();
+  game.loadMap();
+  game.printMap();
 
-    // while (true)
-    //   game.updateMap();
+  while (true)
+    game.updateMap();
 }
