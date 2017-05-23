@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May 23 09:25:19 2017 Pashervz
-// Last update Tue May 23 10:18:37 2017 Pashervz
+// Last update Tue May 23 11:56:33 2017 Pashervz
 //
 
 #pragma once
@@ -22,8 +22,7 @@ public:
        irr::io::path const& path,
        BType type) : Button(content,
 			    path,
-			    EType::BUTTON,
-			    Button::BType::BIND) {}
+			    type) {}
   ~Bind() {}
   
   bool		getMode() const;

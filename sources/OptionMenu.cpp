@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 13:28:27 2017 Pashervz
-// Last update Mon May 22 17:36:08 2017 Pashervz
+// Last update Tue May 23 11:59:42 2017 Pashervz
 //
 
 #include <memory>
@@ -15,10 +15,10 @@
 OptionMenu::OptionMenu() : AMenu("Options", OPTIONS)
 {
   this->_type = DType::OPTIONS;
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 1", "assets/deathStar.jpg", Button::BType::BINDING)));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 2", "assets/deathStar.jpg", Button::BType::BINDING)));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 3", "assets/deathStar.jpg", Button::BType::BINDING))); 
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 4", "assets/deathStar.jpg", Button::BType::BINDING)));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 1", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 2", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 3", "assets/deathStar.jpg", Button::BType::BIND))); 
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Player 4", "assets/deathStar.jpg", Button::BType::BIND)));
   this->_map.push_back(std::unique_ptr<Button>(new Button(L"ON", "assets/deathStar.jpg", Button::BType::SWITCH)));
   this->_map.push_back(std::unique_ptr<Button>(new Button(L"ON", "assets/deathStar.jpg", Button::BType::SWITCH)));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
