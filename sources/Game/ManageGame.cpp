@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 23 15:28:01 2017 DaZe
+// Last update Tue May 23 15:48:06 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -126,7 +126,7 @@ void                        ManageGame::printMap()
     {
       if (i % 51 == 0)
 	std::cout << std::endl;
-      std::cout << it.getPath();
+      //      std::cout << it.getPath();
       ++i;
     }
 }
