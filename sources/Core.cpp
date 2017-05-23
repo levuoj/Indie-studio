@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Mon May 22 10:17:54 2017 Pierre Zawadil
+// Last update Mon May 22 14:26:18 2017 Pashervz
 //
 
 #include <unistd.h>
@@ -43,7 +43,7 @@ void			Core::launch()
       this->_menu->transferKey(receiver.getKey());
       //lag -= MS_PER_UPDATE;
       //}
-      receiver.setKey(irr::KEY_F24);
+      receiver.setKey(irr::KEY_OEM_8);
 
       this->_menu->notify();
 

@@ -1,11 +1,11 @@
 //
-// MainMenu.hpp for MainMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
+1;4601;0c// MainMenu.hpp for MainMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
 //
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 12:24:22 2017 Pashervz
-// Last update Mon May 22 11:11:45 2017 Pierre Zawadil
+// Last update Tue May 23 10:19:40 2017 Pashervz
 //
 
 #pragma once
@@ -21,11 +21,10 @@ class MainMenu : public AMenu
       {L"OPTIONS", OPTIONS},
       {L"LEADERBOARD", LEADERBOARD}
     };
+  
 public:
   MainMenu();
   ~MainMenu() {}
   DType		transferKey(irr::EKEY_CODE);
-  void		goDown();
-  void		goUp();
   DType		select() const;
 };
