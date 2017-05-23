@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Tue May 16 21:52:28 2017 Pierre Zawadil
+// Last update Tue May 23 10:23:22 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -39,6 +39,8 @@ private:
 				       bool const&);
   void				skyDome(const irr::io::path&);
   void				ground();
+  void				moveCamera(irr::core::vector3df, irr::core::vector3df);
+  irr::f32			coords(irr::f32, irr::f32);
 
 public:
   Graphic(irr::u32, irr::u32);

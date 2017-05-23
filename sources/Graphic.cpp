@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 22 11:27:52 2017 Pierre Zawadil
+// Last update Tue May 23 10:24:31 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -26,20 +26,23 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _guienv = _device->getGUIEnvironment();
 
   // CAMERA POUR LE TEMPS DU DEV
-  irr::SKeyMap keyMap[4];
-  keyMap[0].Action = irr::EKA_MOVE_FORWARD;
-  keyMap[0].KeyCode = irr::KEY_KEY_Z;
-  keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
-  keyMap[1].KeyCode = irr::KEY_KEY_S;
-  keyMap[2].Action = irr::EKA_STRAFE_LEFT;
-  keyMap[2].KeyCode = irr::KEY_KEY_Q;
-  keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
-  keyMap[3].KeyCode = irr::KEY_KEY_D;
+  // irr::SKeyMap keyMap[4];
+  // keyMap[0].Action = irr::EKA_MOVE_FORWARD;
+  // keyMap[0].KeyCode = irr::KEY_KEY_Z;
+  // keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
+  // keyMap[1].KeyCode = irr::KEY_KEY_S;
+  // keyMap[2].Action = irr::EKA_STRAFE_LEFT;
+  // keyMap[2].KeyCode = irr::KEY_KEY_Q;
+  // keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
+  // keyMap[3].KeyCode = irr::KEY_KEY_D;
 
-  _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
-  _camera->setPosition(irr::core::vector3df(2700 * 2, 255 * 2, 2600 * 2));
-  _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
-  _camera->setFarValue(42000.0f);
+  // _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
+  // _camera->setPosition(irr::core::vector3df(2700 * 2, 255 * 2, 2600 * 2));
+  // _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
+  // _camera->setFarValue(42000.0f);
+  _camera = _sceneManager->addCameraSceneNode(0,
+					      irr::core::vector3df(5400, 590, 5200),
+					      irr::core::vector3df(4794, 343 * 2,  2700 * 2));
 
   // displayLoop();
 }
@@ -92,24 +95,24 @@ void		Graphic::skyDome(const irr::io::path& image)
 				     16, 16, 1.f, 2.0f);
 }
 
-void		Graphic::displayLoop()
+irr::f32	Graphic::coords(irr::f32 oldPoint, irr::f32 newPoint)
 {
-  while (_device->run())
-    {
-      _driver->beginScene(true, true,
-			  irr::video::SColor(255, 255, 255, 255));
-      _sceneManager->drawAll();
-      _guienv->drawAll();
-      _driver->endScene();
+  if (oldPoint < newPoint)
+    return (oldPoint + 1);
+  else if (oldPoint > newPoint)
+    return (oldPoint - 1);
+  return (newPoint);
+}
 
-      irr::core::stringw str = L"X = ";
-      str += _camera->getAbsolutePosition().X;
-      str += L" Y = ";
-      str += _camera->getAbsolutePosition().Y;
-      str += L" Z = ";
-      str += _camera->getAbsolutePosition().Z;
-      _device->setWindowCaption(str.c_str());
-    }
+void		Graphic::moveCamera(irr::core::vector3df pos, irr::core::vector3df targ)
+{
+  _camera->setPosition(irr::core::vector3df(coords(_camera->getAbsolutePosition().X, pos.X),
+					    coords(_camera->getAbsolutePosition().Y, pos.Y),
+					    coords(_camera->getAbsolutePosition().Z, pos.Z)));
+
+  _camera->setTarget(irr::core::vector3df(coords(_camera->getTarget().X, targ.X),
+					  coords(_camera->getTarget().Y, targ.Y),
+					  coords(_camera->getTarget().Z, targ.Z)));
 }
 
 void		Graphic::actualize(Observable const& observable)
@@ -128,6 +131,10 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
   _sceneManager->drawAll();
   _guienv->drawAll();
   _driver->endScene();
+
+  moveCamera(irr::core::vector3df(5800, 700, 5600),
+	     irr::core::vector3df(5850, 690, 5815));
+
 
   irr::core::stringw str = L"X = ";
   str += _camera->getAbsolutePosition().X;
@@ -157,7 +164,7 @@ void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   cube->setMaterialType(irr::video::EMT_SOLID);
 
-  _sceneManager->addTextSceneNode(_guienv->getFont("assets/fontcourier.bmp"),
+  _sceneManager->addTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
 				  text,
 				  irr::video::SColor(255, 255, 255, 0),
 				  cube);
@@ -167,6 +174,8 @@ void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
 {
   irr::f32	y = 560.f;
 
+    // irr::core::vector3df(5400, 600, 5200)
+    // irr::core::vector3df(5350, 590, 5215)
   for (auto it = map.begin(); it != map.end(); ++it)
     {
       button(5330.f, y, 5225.0f, static_cast<Button *>(it->get())->getContent().c_str(),
@@ -175,8 +184,18 @@ void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
     }
 }
 
-void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const&)
+void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const& map)
 {
+  irr::f32	y = 660.f;
+
+  // irr::core::vector3df(5800, 700, 5600)
+  // irr::core::vector3df(5850, 690, 5815)
+  for (auto it = map.begin(); it != map.end(); ++it)
+    {
+      button(5730.f, y, 5625.0f, static_cast<Button *>(it->get())->getContent().c_str(),
+	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
+      y += 20.f;
+    }
 }
 
 void		Graphic::displayLeaderBoard(std::vector<std::unique_ptr<Element>> const&)

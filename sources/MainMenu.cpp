@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Mon May 22 11:31:53 2017 Pierre Zawadil
+// Last update Tue May 23 10:25:04 2017 Pierre Zawadil
 //
 
 #include <memory>
@@ -15,10 +15,10 @@
 MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 {
   this->_type = DType::MAIN_MENU;
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Play", "assets/buttons.jpg")));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Leaderboard", "assets/buttons.jpg")));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Options", "assets/buttons.jpg")));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Exit", "assets/buttons.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"play", "assets/deathStar.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"leaderboard", "assets/deathStar.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"options", "assets/deathStar.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"exit", "assets/deathStar.jpg")));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
@@ -62,7 +62,6 @@ DType		MainMenu::select() const
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
-  std::cout << "Ma grosse bite : " << key << std::endl;
   switch (key)
     {
     case irr::KEY_DOWN:
