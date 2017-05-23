@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Tue May 23 10:23:22 2017 Pierre Zawadil
+// Last update Tue May 23 18:26:14 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -27,11 +27,11 @@ private:
   irr::gui::IGUIEnvironment	*_guienv;
   irr::scene::ICameraSceneNode	*_camera;
 
-  void				manageDisplay(std::vector<std::unique_ptr<Element>> const&, DType);
-  void				displayMainMenu(std::vector<std::unique_ptr<Element>> const&);
-  void				displayOptions(std::vector<std::unique_ptr<Element>> const&);
-  void				displayLeaderBoard(std::vector<std::unique_ptr<Element>> const&);
-  void				displayExit(std::vector<std::unique_ptr<Element>> const&);
+  void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
+  void				displayMainMenu(std::vector<std::shared_ptr<Element>> const&);
+  void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
+  void				displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&);
+  void				displayExit(std::vector<std::shared_ptr<Element>> const&);
   void				displayLoop();
   void				button(irr::f32, irr::f32,
 				       irr::f32, const wchar_t *,
@@ -56,7 +56,7 @@ public:
   }
 
   std::unordered_map<DType,
-		     std::function<void(std::vector<std::unique_ptr<Element>> const&)>>		dispThis =
+		     std::function<void(std::vector<std::shared_ptr<Element>> const&)>>		dispThis =
     {
       {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
       {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},

@@ -5,26 +5,26 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Mon May 22 10:17:54 2017 Pierre Zawadil
+// Last update Tue May 23 18:23:59 2017 Pierre Zawadil
 //
 
-#include <unistd.h>
 #include <iostream>
 #include <irrlicht.h>
 #include "EventReceiver.hpp"
 #include "Core.hpp"
-#include "MainMenu.hpp"
 
 Core::Core()
 {
-  this->_menu = std::unique_ptr<MainMenu>(new MainMenu());
   this->_graphic = std::unique_ptr<Graphic>(new Graphic());
-  this->_menu->setObserver(this->_graphic.get());
+  this->_loadedMenu = MAIN_MENU;
+  this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
+  this->_menu[this->_loadedMenu]->setObserver(this->_graphic.get());
 }
 
 void			Core::launch()
 {
   EventReceiver		receiver;
+  DType			lastMenu = this->_loadedMenu;
 
   this->_graphic->setEventReceiver(&receiver);
 
@@ -40,11 +40,16 @@ void			Core::launch()
       lag += elapsed;
       while (lag >= MS_PER_UPDATE)
 	{
-	  this->_menu->transferKey(receiver.getKey());
+	  this->_loadedMenu = this->_menu[this->_loadedMenu]->transferKey(receiver.getKey());
+	  if (lastMenu != this->_loadedMenu)
+	    {
+	      this->_menu[this->_loadedMenu]->setObserver(this->_graphic.get());
+	      lastMenu = this->_loadedMenu;
+	    }
 	  lag -= MS_PER_UPDATE;
 	}
       receiver.setKey(irr::KEY_OEM_8);
-      this->_menu->notify();
+      this->_menu[this->_loadedMenu]->notify();
     }
 }
 

@@ -120,7 +120,7 @@ void		Graphic::actualize(Observable const& observable)
   this->manageDisplay(observable.getMap(), observable.getDType());
 }
 
-void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, DType type)
+void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, DType type)
 {
   if (!_device->run())
     return ;
@@ -170,7 +170,7 @@ void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
 				  cube);
 }
 
-void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
+void		Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
 {
   irr::f32	y = 560.f;
 
@@ -184,7 +184,7 @@ void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
     }
 }
 
-void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const& map)
+void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
 {
   irr::f32	y = 660.f;
 
@@ -198,11 +198,11 @@ void		Graphic::displayOptions(std::vector<std::unique_ptr<Element>> const& map)
     }
 }
 
-void		Graphic::displayLeaderBoard(std::vector<std::unique_ptr<Element>> const&)
+void		Graphic::displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&)
 {
 }
 
-void		Graphic::displayExit(std::vector<std::unique_ptr<Element>> const&)
+void		Graphic::displayExit(std::vector<std::shared_ptr<Element>> const&)
 {
 }
 
