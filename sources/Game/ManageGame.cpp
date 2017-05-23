@@ -5,10 +5,12 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 10 11:24:36 2017 Lebrun Kilian
+// Last update Mon May 22 16:23:29 2017 DaZe
 //
 
+#include <stdio.h>
 #include "ManageGame.hpp"
+#include "Convert.hpp"
 
 ManageGame::ManageGame()//int nbPlayers, std::vector<std::array<EKey, 5>> keys)
 {
@@ -33,47 +35,59 @@ GameElement             ManageGame::ElementFromChar(char c)
     std::pair<float, float> pos(50.0, 50.0);
 
     switch (c)
-    {
-        case 'X':
-            path = "X";
-            type = Element::EType::BLOCK;
-            break;
-        case ' ':
-            path = " ";
-            type = Element::EType::ROAD;
-            break;
-        case 'c':
-            path = "c";
-            type = Element::EType::ENDLINE;
-            break;
-        case 'o':
-            path = "o";
-            type = Element::EType::ENDLINE;
-            break;
-        case '>':
-            path = ">";
-            type = Element::EType::CAR;
-            break;
-        default:
-            path = "";
-            type = Element::EType::DEFAULT;
-    }
-    GameElement gameElement(path, type, pos);
-    return (gameElement);
+      {
+      case 'X':
+	path = "X";
+	type = Element::EType::BLOCK;
+	break;
+      case ' ':
+	path = " ";
+	type = Element::EType::ROAD;
+	break;
+      case 'c':
+	path = "c";
+	type = Element::EType::ENDLINE;
+	break;
+      case 'o':
+	path = "o";
+	type = Element::EType::ENDLINE;
+	break;
+      case '>':
+	path = ">";
+	type = Element::EType::CAR;
+	break;
+      case '-':
+	path = "-";
+	type = Element::EType::LINE;
+	break;
+      default:
+	path = "";
+	type = Element::EType::DEFAULT;
+      }
+    return (GameElement(path, type, pos));
 }
 
 void				ManageGame::loadMap()
 {
-    ManageFile      file("./assets/circuit/circuit1.txt");
+    ManageFile      file("./assets/circuit/circuit2.txt");
     std::string     map;
 
     map = file.readFile();
 
-    for (const auto c : map)
+    for (const auto& c : map)
     {
         if (c != '\n')
             this->_map.push_back(ElementFromChar(c));
     }
+    _AIs.push_back(AI(std::make_pair(20, 5)));
+    _AIs.at(0).setMap(_map);
+}
+
+void				ManageGame::updateMap()
+{
+  _AIs.at(0).chooseAction();
+  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar().getPosMap())) = _AIs.at(0).getCar();
+  printMap();
 }
 
 std::vector<Element> const&	ManageGame::getMap() const
@@ -83,8 +97,12 @@ std::vector<Element> const&	ManageGame::getMap() const
 
 void                        ManageGame::printMap()
 {
-    for (const auto it : this->_map)
+  int	i = 0;
+  for (const auto it : this->_map)
     {
-        std::cout << it.getPath() << std::endl;
+      if (i % 51 == 0)
+	std::cout << std::endl;
+      std::cout << it.getPath();
+      ++i;
     }
 }

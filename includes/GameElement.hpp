@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Wed May 10 13:52:23 2017 thomas vigier
+// Last update Mon May 15 13:14:00 2017 thomas vigier
 //
 
 #pragma once
@@ -15,6 +15,7 @@
 
 class GameElement : public Element
 {
+protected:
   std::pair<float, float>	_pos;
   
 public:

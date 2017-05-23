@@ -5,10 +5,12 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Fri May 12 17:06:19 2017 thomas vigier
-// Last update Fri May 12 17:24:16 2017 thomas vigier
+// Last update Sat May 13 10:51:18 2017 thomas vigier
 //
 
 #pragma once
+
+#include <utility>
 
 class		Convert
 {

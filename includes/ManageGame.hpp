@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Wed May 10 11:27:54 2017 Lebrun Kilian
+// Last update Sat May 13 13:59:01 2017 thomas vigier
 //
 
 #pragma once
@@ -26,8 +26,9 @@ public:
   ManageGame();//int, std::vector<std::array<EKey, 5>>);
   ~ManageGame() {};
 
-  GameElement                       ElementFromChar(char c);
-  void			        	        loadMap();
-  std::vector<Element> const&		getMap() const;
-    void                            printMap();
+  GameElement                   ElementFromChar(char c);
+  void			        loadMap();
+  void				updateMap();
+  std::vector<Element> const&	getMap() const;
+  void                          printMap();
 };
