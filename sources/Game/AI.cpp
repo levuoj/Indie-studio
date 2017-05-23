@@ -1,11 +1,11 @@
 //
-// AI.cpp for AI.cpp in /home/tvigier/Indie_studio/sources/Game
+// AI.cpp for  in /home/Kilian/Rendu/C++/Indie_studio
 // 
-// Made by thomas vigier
-// Login   <thomas.vigier@epitech.eu>
+// Made by Lebrun Kilian
+// Login   <kilian.lebrun@epitech.eu>
 // 
-// Started on  Fri May 12 15:23:36 2017 thomas vigier
-// Last update Tue May 23 11:55:27 2017 DaZe
+// Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
+// Last update Tue May 23 12:53:25 2017 DaZe
 //
 
 #include <unistd.h>

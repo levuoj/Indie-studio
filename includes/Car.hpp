@@ -1,5 +1,11 @@
 //
-// Created by Kilian on 09/05/17.
+// Car.hpp for  in /home/Kilian/Rendu/C++/Indie_studio
+// 
+// Made by Lebrun Kilian
+// Login   <kilian.lebrun@epitech.eu>
+// 
+// Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
+// Last update Tue May 23 13:56:04 2017 DaZe
 //
 
 #pragma once
@@ -14,12 +20,12 @@ class Car : public GameElement
   static const float		_fps;
   static const float		_inertia;
 
-    enum EState
+  enum EState
     {
-        NORMAL,
-        BANANA,
-        WALL,
-        SHOOT
+      NORMAL,
+      BANANA,
+      WALL,
+      SHOOT
     };
   std::pair<int, int>			_posMap;
   float					_speed;
@@ -31,26 +37,17 @@ public:
   Car();
   Car(std::pair<int, int> posMap);
   ~Car() {}
-  void					accelerate();
-  void					deccelerate();
-  void					move();
-  void					turnLeft();
-  void					turnRight();
-  float					getAbsoluteAngle();
-  float					getAngle()
-  {
-    return (this->_angle);
-  }
-  const std::pair<float, float>		getDir() const
-  {
-    return (this->_dir);
-  }
-  const std::pair<float, float>		getPos() const
-  {
-    return (this->_pos);
-  };
-  const std::pair<int, int>		getPosMap() const
-  {
-    return (this->_posMap);
-  };
+  void                            accelerate();
+  void                            deccelerate();
+  void                            slowDown();
+  void                            move();
+  float				  getAbsoluteAngle();
+  void                            turnLeft();
+  void                            turnRight();
+  void                            launchPowerUp();
+  void                            setPosMap(std::pair<int, int> pos);
+  float                           getAngle();
+  const std::pair<float, float>&  getDir() const;
+  const std::pair<float, float>&  getPos() const;
+  const std::pair<int, int>&      getPosMap() const;
 };
