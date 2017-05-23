@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Mon May 15 13:14:00 2017 thomas vigier
+// Last update Tue May 23 15:30:23 2017 DaZe
 //
 
 #pragma once
@@ -23,7 +23,7 @@ public:
   std::pair<float, float> const& getPos() const;
 
     GameElement() : Element() {}
-    GameElement(const std::string &path, Element::EType type, std::pair<float, float> pos) : Element(path, type), _pos(pos) {}
+  GameElement(irr::io::path const &path, Element::EType type, std::pair<float, float> pos) : Element(path, type), _pos(pos) {}
   ~GameElement() {}
 
 };

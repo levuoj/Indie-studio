@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue May 23 16:25:53 2017 Lebrun Kilian
+// Last update Tue May 23 16:47:27 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -17,8 +17,6 @@
 #include "Observable.hpp"
 #include "AI.hpp"
 #include "Player.hpp"
-
-
 
 class	ManageGame : public Observable
 {

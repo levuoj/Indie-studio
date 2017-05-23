@@ -5,15 +5,15 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Wed May 10 11:05:32 2017 thomas vigier
-// Last update Tue May 23 13:56:46 2017 DaZe
+// Last update Tue May 23 15:11:50 2017 DaZe
 //
 
 #define COL 50
 
-#include "test.hpp"
 #include "ManageGame.hpp"
+#include <iostream>
 
-int	main()
+int		main(int, char **)
 {
   std::array<irr::EKEY_CODE, 5> arr;
 

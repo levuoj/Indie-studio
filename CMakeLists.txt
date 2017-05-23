@@ -1,23 +1,36 @@
 cmake_minimum_required(VERSION 3.5.1)
-project(cpp_indie_studio)
+PROJECT(Racer)
 
-include_directories(includes)
+SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
+SET(CMAKE_CXX_FLAGS_DEBUG  "-g")
+SET(CMAKE_CXX_FLAGS "-Wall -Werror -Wextra")
+SET(CMAKE_CXX_STANDARD 11)
 
-#Can manually add the sources using the set command as follows:
-#set(SOURCES src/mainapp.cpp src/Student.cpp)
+IF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+  SET(CMAKE_BUILD_TYPE Release)
+ENDIF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
 
-set(CMAKE_CXX_FLAGS "-W -Wall -Werror -Wextra -g3")
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ..)
+IF(CMAKE_CXX_FLAGS_DEBUG)
+  SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/debug)
+ELSE(CMAKE_CXX_FLAGS_DEBUG)
+  SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/release)
+ENDIF(CMAKE_CXX_FLAGS_DEBUG)
 
-# Sources directory:
-set(CMAKE_SOURCES_DIRECTORY sources)
-set(CMAKE_GAME_DIRECTORY sources/Game)
+INCLUDE_DIRECTORIES(
+  "/usr/include/irrlicht"
+  ${PROJECT_SOURCE_DIR}/includes
+  )
 
-#However, the file(GLOB...) allows for wildcard additions:
-file(GLOB SOURCES ${CMAKE_SOURCES_DIRECTORY}/*.cpp ${CMAKE_GAME_DIRECTORY}/*.cpp)
+FILE(GLOB SRCS sources/*.cpp)
+FILE(GLOB SRCS_GAME sources/Game/*.cpp)
+FILE(GLOB HDRS includes/*.hpp)
 
+ADD_EXECUTABLE(Racer
+  ${SRCS}
+  ${SRCS_GAME}
+  ${HDRS}
+  )
 
-add_executable(hyper-sprint ${SOURCES})# sources/Game/Car.cpp includes/Car.hpp includes/PowerUp.hpp includes/Shoot.hpp includes/Banana.hpp includes/BoostSpeed.hpp)
-
-
+TARGET_LINK_LIBRARIES(Racer
+  "/usr/local/lib/libIrrlicht.so"
+  )
