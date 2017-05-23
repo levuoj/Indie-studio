@@ -1,23 +1,25 @@
 //
 // Element.hpp for Element in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Tue May  9 13:36:01 2017 Pashervz
+// Last update Tue May 23 15:01:49 2017 DaZe
 //
 
 #pragma once
 
 #include <iostream>
+#include <path.h>
 
 class Element
 {
 public:
-  
+
   enum		EType
     {
+      DEFAULT,
       CAR,
       POWERUP,
       BUTTON,
@@ -25,20 +27,37 @@ public:
       ARROW_RIGHT,
       BLOCK,
       ROAD,
-      ENDLINE,
-      DEFAULT
+      ENDLINE
     };
-  
-private:
-  std::string		_path;
-  EType			    _type;
-  
+
+protected:
+  irr::io::path		_path;
+  EType			_type;
+
 public:
-    Element() {};
-    Element(const std::string &path, EType type) : _path(path), _type(type) {}
-    virtual ~Element() {}
-    std::string const &	getPath() const;
-    EType		    	getType() const;
-    void		    	setPath(std::string const &);
-    void		    	setType(EType);
+  Element();
+  Element(irr::io::path const& path, EType type) : _path(path), _type(type) {}
+  virtual ~Element() {}
+
+
+  irr::io::path const &			getPath() const
+  {
+    return (_path);
+  }
+
+  Element::EType			getType() const
+  {
+    return (_type);
+  }
+
+  void					setPath(irr::io::path const& path)
+  {
+    this->_path = path;
+  }
+
+  void					setType(EType type)
+  {
+    this->_type = type;
+  }
+
 };
