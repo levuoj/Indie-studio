@@ -22,7 +22,7 @@ class Observable
 {
 protected:
   AObserver					*_observer;
-  std::vector<std::unique_ptr<Element>>		_map;
+  std::vector<std::shared_ptr<Element>>		_map;
   DType						_type;
 public:
   Observable();
@@ -31,7 +31,7 @@ public:
   void						notify();
 
   void						setObserver(AObserver *observer) {  _observer = observer; }
-  std::vector<std::unique_ptr<Element>> const&	getMap() const { return (_map); }
+  std::vector<std::shared_ptr<Element>> const&	getMap() const { return (_map); }
   DType						getDType() const { return (_type); }
 };
 

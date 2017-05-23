@@ -10,17 +10,20 @@
 
 #pragma once
 
+#include <unordered_map>
+#include <memory>
 #include "AMenu.hpp"
 #include "Graphic.hpp"
+#include "MainMenu.hpp"
 
 #define EXIT_ERROR 84
 
 class Core
 {
 private:
-  std::unique_ptr<Graphic>	_graphic;
-  std::unique_ptr<AMenu>	_menu;
-  
+  std::unique_ptr<Graphic>				_graphic;
+  DType							_loadedMenu;
+  std::unordered_map<DType, std::shared_ptr<AMenu>>	_menu;
 public:
   Core();
   ~Core() {}
