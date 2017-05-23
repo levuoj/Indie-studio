@@ -15,10 +15,10 @@
 MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 {
   this->_type = DType::MAIN_MENU;
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Play", "assets/deathStar.jpg")));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Leaderboard", "assets/deathStar.jpg")));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Options", "assets/deathStar.jpg")));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Exit", "assets/deathStar.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Play", "assets/buttons.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Leaderboard", "assets/buttons.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Options", "assets/buttons.jpg")));
+  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Exit", "assets/buttons.jpg")));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 

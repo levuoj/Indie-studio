@@ -17,7 +17,7 @@
 #include "Utils.hpp"
 
 class	Graphic : public AObserver
-{  
+{
 private:
   irr::u32			_width;
   irr::u32			_height;
@@ -35,10 +35,11 @@ private:
   void				displayLoop();
   void				button(irr::f32, irr::f32,
 				       irr::f32, const wchar_t *,
-				       const irr::io::path&);
+				       const irr::io::path&,
+				       bool const&);
   void				skyDome(const irr::io::path&);
   void				ground();
-  
+
 public:
   Graphic(irr::u32, irr::u32);
   Graphic();
@@ -47,6 +48,10 @@ public:
   void				actualize(Observable const &);
   bool				running(void);
   void				setEventReceiver(irr::IEventReceiver *);
+  irr::u32			getTime()
+  {
+    return this->_device->getTimer()->getTime();
+  }
 
   std::unordered_map<DType,
 		     std::function<void(std::vector<std::unique_ptr<Element>> const&)>>		dispThis =

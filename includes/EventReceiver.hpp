@@ -15,10 +15,11 @@
 
 class EventReceiver : public irr::IEventReceiver
 {
-  irr::EKEY_CODE			_key;
-  
+  irr::EKEY_CODE	_key;
+
 public:
-  virtual bool 	        OnEvent(const irr::SEvent & event)
+  EventReceiver() : _key(irr::KEY_OEM_8) {}
+  virtual bool		OnEvent(const irr::SEvent & event)
   {
     if (event.EventType == irr::EET_KEY_INPUT_EVENT && event.KeyInput.PressedDown)
       {

@@ -57,23 +57,9 @@ Graphic::Graphic()
 
   _guienv = _device->getGUIEnvironment();
 
-  // CAMERA POUR LE TEMPS DU DEV
-  irr::SKeyMap keyMap[4];
-  keyMap[0].Action = irr::EKA_MOVE_FORWARD;
-  keyMap[0].KeyCode = irr::KEY_KEY_Z;
-  keyMap[1].Action = irr::EKA_MOVE_BACKWARD;
-  keyMap[1].KeyCode = irr::KEY_KEY_S;
-  keyMap[2].Action = irr::EKA_STRAFE_LEFT;
-  keyMap[2].KeyCode = irr::KEY_KEY_Q;
-  keyMap[3].Action = irr::EKA_STRAFE_RIGHT;
-  keyMap[3].KeyCode = irr::KEY_KEY_D;
+  _camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(5400, 600, 5200), irr::core::vector3df(5350, 590, 5215));
 
-  _camera = _sceneManager->addCameraSceneNodeFPS(0, 100.0f, 1.f, -1, keyMap, 5);
-  _camera->setPosition(irr::core::vector3df(2700 * 2, 255 * 2, 2600 * 2));
-  _camera->setTarget(irr::core::vector3df(2397 * 2, 343 * 2, 2700 * 2));
-  _camera->setFarValue(42000.0f);
-
-  skyDome("assets/skydome1.jpg");
+  skyDome("assets/moon.png");
   ground();
 }
 
@@ -103,7 +89,7 @@ void		Graphic::ground()
 void		Graphic::skyDome(const irr::io::path& image)
 {
   _sceneManager->addSkyDomeSceneNode(_driver->getTexture(image),
-				     16, 16, 0.5f, 2.0f);
+				     16, 16, 1.f, 2.0f);
 }
 
 void		Graphic::displayLoop()
@@ -154,7 +140,8 @@ void		Graphic::manageDisplay(std::vector<std::unique_ptr<Element>> const& map, D
 
 void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
 				const wchar_t *text,
-				const irr::io::path& filename)
+				const irr::io::path& filename,
+				bool const& selected)
 {
   irr::scene::IMeshSceneNode	*cube =
     _sceneManager->addCubeSceneNode(10.0f, 0, -1,
@@ -163,6 +150,10 @@ void		Graphic::button(irr::f32 x, irr::f32 y, irr::f32 z,
   cube->setScale(irr::core::vector3df(5.0f, 1.0f, 1.0f));
 
   cube->setMaterialTexture(0, _driver->getTexture(filename));
+  if (selected)
+    {
+      // FAIRE la selection
+    }
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   cube->setMaterialType(irr::video::EMT_SOLID);
 
@@ -179,7 +170,7 @@ void		Graphic::displayMainMenu(std::vector<std::unique_ptr<Element>> const& map)
   for (auto it = map.begin(); it != map.end(); ++it)
     {
       button(5330.f, y, 5225.0f, static_cast<Button *>(it->get())->getContent().c_str(),
-	     (it->get())->getPath());
+	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
       y += 20.f;
     }
 }

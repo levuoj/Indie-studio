@@ -28,25 +28,23 @@ void			Core::launch()
 
   this->_graphic->setEventReceiver(&receiver);
 
-  //irr::u32 then = this->_graphic->_device->getTimer()->getTime();
-  //irr::f32 lag = 0.f;
-  //const irr::f32 MS_PER_UPDATE = 16.f; // PAS SUR DE CA
+  irr::u32		then = this->_graphic->getTime();
+  irr::f32		lag = 0.f;
+  const irr::f32	MS_PER_UPDATE = 16.f;
 
   while (this->_graphic->running())
     {
-      // const irr::u32 now = this->_graphic->_device->getTimer()->getTime();
-      //      const irr::f32 elapsed = (irr::f32)(now - then) / 1000.f;
-      // then = now;
-      // lag += elapsed;
-      //while (lag <= MS_PER_UPDATE)
-      //{
-      this->_menu->transferKey(receiver.getKey());
-      //lag -= MS_PER_UPDATE;
-      //}
-      receiver.setKey(irr::KEY_F24);
-
+      const irr::u32	now = this->_graphic->getTime();
+      const irr::f32	elapsed = (irr::f32)(now - then) / 1000.f;
+      then = now;
+      lag += elapsed;
+      while (lag >= MS_PER_UPDATE)
+	{
+	  this->_menu->transferKey(receiver.getKey());
+	  lag -= MS_PER_UPDATE;
+	}
+      receiver.setKey(irr::KEY_OEM_8);
       this->_menu->notify();
-
     }
 }
 
