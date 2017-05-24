@@ -49,6 +49,17 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 
 void                    ManageGame::controlDriver(const irr::EKEY_CODE &key)
 {
+  std::array<Element::EType, 8>   arr;
+  int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
+  arr[0] = this->_map[a - 51].get()->getType();
+  arr[1] = this->_map[a - 50].get()->getType();
+  arr[2] = this->_map[a - 49].get()->getType();
+  arr[3] = this->_map[a + 1].get()->getType();
+  arr[4] = this->_map[a + 51].get()->getType();
+  arr[5] = this->_map[a + 50].get()->getType();
+  arr[6] = this->_map[a + 49].get()->getType();
+  arr[7] = this->_map[a - 1].get()->getType();
+  this->_players.at(0).setArroundingCar(arr);
   this->_players.at(0).driver(key);
 }
 

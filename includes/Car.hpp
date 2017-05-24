@@ -11,6 +11,7 @@
 #pragma once
 
 #include <utility>
+#include <array>
 #include "GameElement.hpp"
 #include "PowerUp.hpp"
 
@@ -20,7 +21,15 @@ class Car : public GameElement
   static const float		_fps;
   static const float		_inertia;
 
-  enum EState
+  enum  EDirection
+    {
+      UP,
+      DOWN,
+      LEFT,
+      RIGHT
+    };
+
+  enum  EState
     {
       NORMAL,
       BANANA,
@@ -31,8 +40,10 @@ class Car : public GameElement
   float					_speed;
   std::pair<float, float>		_dir;
   float					_angle;
+  EDirection                _edir;
   PowerUp				_pu;
   EState				_state;
+  std::array<Element::EType, 8> _arrouding;
 public:
   Car();
   Car(std::pair<int, int> posMap);
@@ -41,11 +52,12 @@ public:
   void                            deccelerate();
   void                            slowDown();
   void                            move();
-  float				  getAbsoluteAngle();
+  float				                    getAbsoluteAngle();
   void                            turnLeft();
   void                            turnRight();
   void                            launchPowerUp();
   void                            setPosMap(std::pair<int, int> pos);
+  void                            setArrounding(const std::array<Element::EType, 8> &arrounding);
   float                           getAngle();
   const std::pair<float, float>&  getDir() const;
   const std::pair<float, float>&  getPos() const;

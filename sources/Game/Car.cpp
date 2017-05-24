@@ -17,13 +17,13 @@ const float Car::_maxSpeed = 30;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
-Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f)
+Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _edir(EDirection::RIGHT)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
 }
 
-Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f)
+Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _edir(EDirection::RIGHT)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
@@ -118,6 +118,11 @@ void                            Car::launchPowerUp()
 void                            Car::setPosMap(std::pair<int, int> pos)
 {
   this->_posMap = pos;
+}
+
+void                            Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
+{
+  this->_arrouding = arrounding;
 }
 
 float                           Car::getAngle()
