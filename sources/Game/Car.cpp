@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 23 13:01:12 2017 DaZe
+// Last update Tue May 23 18:58:48 2017 DaZe
 //
 
 #define _USE_MATH_DEFINES
@@ -115,8 +115,9 @@ void                            Car::launchPowerUp()
   std::cout << "BOUYAAAAAAA" << std::endl;
 }
 
-void                            Car::setPosMap(std::pair<int, int> pos)
+void                            Car::setPosMap(std::pair<int, int> const& pos)
 {
+  std::cout << pos.first << " --- " << pos.second << std::endl;
   this->_posMap = pos;
 }
 

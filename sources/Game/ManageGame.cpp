@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 23 16:28:10 2017 DaZe
+// Last update Tue May 23 18:37:27 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -21,9 +21,9 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
   int     y(0);
   int     i(0);
 
-  for (const auto &it : this->_map)
+  for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
-      if (it.getType() == Element::EType::CAR)
+      if (it->get()->getType() == Element::EType::CAR)
         {
       	  x = pos % COL;
           y = (pos - x) / COL;
@@ -63,12 +63,13 @@ void                    ManageGame::controlDriver(const irr::EKEY_CODE &key)
   this->_players.at(0).driver(key);
 }
 
-std::unique_ptr<GameElement>             ManageGame::ElementFromChar(const char c)
+// std::unique_ptr<GameElement>             ManageGame::ElementFromChar(const char c)
+GameElement		*ManageGame::ElementFromChar(const char c)
 {
   irr::io::path             path;
   Element::EType          type;
   std::pair<float, float> pos(50.0, 50.0);
-
+  
   switch (c)
     {
     case 'X':
@@ -112,7 +113,8 @@ void				ManageGame::loadMap()
   for (const auto &c : map)
     {
       if (c != '\n')
-        this->_map.push_back(ElementFromChar(c));
+	this->_map.push_back(std::shared_ptr<Element>(ElementFromChar(c)));
+        // this->_map.push_back(ElementFromChar(c));	
     }
   _AIs.push_back(AI(std::make_pair(20, 5)));
   _AIs.at(0).setMap(_map);
@@ -121,11 +123,11 @@ void				ManageGame::loadMap()
 void				ManageGame::updateMap()
 {
   _AIs.at(0).chooseAction();
-  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar().getPosMap())) = _AIs.at(0).getCar();
+  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   printMap();
 }
 
-std::vector<std::unique_ptr<Element>> const&	ManageGame::getMap() const
+std::vector<std::shared_ptr<Element>> const&	ManageGame::getMap() const
 {
   return (this->_map);
 }
@@ -133,11 +135,30 @@ std::vector<std::unique_ptr<Element>> const&	ManageGame::getMap() const
 void                        ManageGame::printMap()
 {
   int	i = 0;
-  for (const auto it : this->_map)
+  for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
       if (i % 51 == 0)
 	std::cout << std::endl;
-      //      std::cout << it.getPath();
+      switch (it->get()->getType())
+	{
+	case Element::EType::BLOCK:
+	  std::cout << "X";
+	  break;
+	case Element::EType::ROAD:
+	  std::cout << " ";
+	  break;
+	case Element::EType::ENDLINE:
+	  std::cout << "o";
+	  break;
+	case Element::EType::CAR:
+	  std::cout << ">";
+	  break;
+	case Element::EType::LINE:
+	  std::cout << "-";
+	  break;
+	default:
+	  std::cout << "";
+	}
       ++i;
     }
 }
