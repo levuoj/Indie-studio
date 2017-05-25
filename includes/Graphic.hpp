@@ -32,7 +32,7 @@ private:
   void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
   void				displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&);
   void				displayExit(std::vector<std::shared_ptr<Element>> const&);
-  void				displayLoop();
+  void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				button(irr::f32, irr::f32, irr::f32,
 				       irr::f32, irr::f32, irr::f32,
 				       const wchar_t *,
@@ -64,11 +64,11 @@ public:
 
   std::unordered_map<DType,
 		     std::function<void(std::vector<std::shared_ptr<Element>> const&)>>		dispThis =
-    {
-      {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
-      {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
-      {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
-      {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
-      {DType::NOTHING, NULL}
-    };
+  {
+    {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
+    {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
+    {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
+    {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
+    {DType::NOTHING, NULL}
+  };
 };
