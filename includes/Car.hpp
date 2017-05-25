@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 17:52:31 2017 DaZe
+// Last update Thu May 25 17:55:04 2017 DaZe
 //
 
 #pragma once
@@ -23,13 +23,6 @@ public:
   static const float		_inertia;
   
 private:
-  enum  EDirection
-    {
-      UP,
-      DOWN,
-      LEFT,
-      RIGHT
-    };
 
   enum  EState
     {
