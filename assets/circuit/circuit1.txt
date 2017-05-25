@@ -1,50 +1,50 @@
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-XXXXXX                 coc                    XXX
-XXXXX                > oco                     XX
-XXX                >   coc                      X
-XX               >     oco                      X
-X              >       coc                      X
-X                      oco                      X
-X     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX     X
-X     X                             XXXXXXX     X
-X     X                              XXXXXX     X
-X     X                               XXXXX     X
-X     X                                XXXX     X
-X     X                                 XXX     X
-X     X     XXXXXXXXXXXXXXXXXXXXXX       XX     X
-X     X                           X       X     X
-X     X                            X      X     X
-X     X                             XX    X     X
-X     X                              X    X     X
-X     XX                             X    X     X
-X     XXX                            X    X     X
-X     XXXXXXXXXXXXXXXXXXXXXXXXXXXX   X    X     X
-X     XXXXXXX          XXXXXXXXXXX   X    X     X
-X     XXXXXX            XXXXXXXXXX   X    X     X
-X     XXXXX              XXXXXXXXX   X    X     X
-X     XXXX                XXXXXXXX   X    X     X
-X     XXX                  XXXXXXX   X    X     X
-X     XX          X         XXXXXX   X    X     X
-X     X           X          XXXXX   X    X     X
-X     X           XX         XXXX    X    X     X
-X     X            X         XXX     X    X     X
-X     X            X         XX      X    X     X
-X     X            X         X     XX    XX     X
-X     X            X        X     X      XX     X
-X     X             X       X    X      XXX     X
-X     XX            X      X    X      XXXX     X
-X     XXX           X     X    X      XXXXX     X
-X     XXXX          X    X    X      XXXXXX     X
-X     XXXXX        X    X    X      XXXXXXX     X
-X     XXXXXX       X    X   X       XXXXXXX     X
-X     XXXXXX       X    X    X                  X
-X     XXXXXXX      X    X    X                  X
-X     XXXXXXXX     X    X     X                 X
-X     XXXXXXXX     X    X      X                X
-X     XXXXXXXXX    X     X      X               X
-X     XXXXXXXXX    X             X              X
-X                  X              X            XX
-X                  X              XXXXXXXXXXXXXXX
-X                   X            XXXXXXXXXXXXXXXX
-X                    X           XXXXXXXXXXXXXXXX
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXX                 coc                     XXX
+XXXXX                g oco                      XX
+XXX                s   coc                       X
+XX               p     oco                       X
+X              >       coc                       X
+X                      oco                       X
+X       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX         X
+X      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       X
+X     XXXXX                 XXXXXXXXXXXXXXX      X
+X     XXX                     XXXXXXXXXXXXXX     X
+X     XX                        XXXXXXXXXXXX     X
+X     XX                          XXXXXXXXXX     X
+X     XX                            XXXXXXXX     X
+X     XX        XXXXXXXX             XXXXXXX     X
+X     XX       XXXXXXXXXX      X      XXXXXX     X
+X     XX        XXXXXXXXXX      X      XXXXX     X
+X     XXX        XXXXXXXXXX      X      XXXX     X
+X     XXXX        XXXXXXXXXX      X      XXX     X
+X     XXXXX        XXXXXXXXXX      X      XX     X
+X     XXXXXX        XXXXXXXXXX            XX     X
+X     XXXXXXX        XXXXXXXXXX            X     X
+X     XXXXXXXX        XXXXXXXXXX           X     X
+X     XXXXXXXX          XXXXXXXXX          X     X
+X     XXXXXXXX           XXXXXXXXX         X     X
+X     XXXXXXX              XXXXXXXX        X     X
+X     XXXXXX      XX        XXXXXXXX       X     X
+X     XXXXX      XXXX       XXXXXXXX       X     X
+X     XXXXX     XXXXXX      XXXXXXXX       X     X
+X     XXXXX     XXXXXX      XXXXXXXX       X     X
+X     XXXXX     XXXXXX      XXXXXXXX       X     X
+X     XXXXX     XXXXXX      XXXXXXX       XX     X
+X     XXXXX      XXXX       XXXXXXX       XX     X
+X     XXXXX       X         XXXXXX       XXX     X
+X     XXXXX                XXXXXX       XXXX     X
+X     XXXXXX              XXXXXX       XXXXX     X
+X     XXXXXXXX           XXXXXX       XXXXXX     X
+X     XXXXXXXXX        XXXXXXX        XXXXXX     X
+X     XXXXXXXXXX       XXXXXXX         XXXX      X
+X     XXXXXXXXXX       XXXXXXX                   X
+X     XXXXXXXXXXX      XXXXXXX                   X
+X      XXXXXXXXX       XXXXXXX                   X
+X       XXXXXXX        XXXXXXXX                  X
+X                      XXXXXXXXX                 X
+X                     XXXXXXXXXXX                X
+X                    XXXXXXXXXXXXX              XX
+XX                  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXX              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXX         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
