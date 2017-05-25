@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 24 11:41:41 2017 Lebrun Kilian
+// Last update Thu May 25 13:48:29 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -63,7 +63,6 @@ void                    ManageGame::controlDriver(const irr::EKEY_CODE &key)
   this->_players.at(0).driver(key);
 }
 
-// std::unique_ptr<GameElement>             ManageGame::ElementFromChar(const char c)
 GameElement		*ManageGame::ElementFromChar(const char c)
 {
   irr::io::path             path;
@@ -126,7 +125,6 @@ void				ManageGame::loadMap()
     {
       if (c != '\n')
 	this->_map.push_back(std::shared_ptr<Element>(ElementFromChar(c)));
-        // this->_map.push_back(ElementFromChar(c));	
     }
   _AIs.push_back(AI(std::make_pair(20, 5)));
   _AIs.at(0).setMap(_map);
@@ -149,7 +147,7 @@ void                        ManageGame::printMap()
   int	i = 0;
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
-      if (i % 51 == 0)
+      if (i % 50 == 0)
 	std::cout << std::endl;
       switch (it->get()->getType())
 	{
@@ -170,6 +168,7 @@ void                        ManageGame::printMap()
 	  break;
 	default:
 	  std::cout << "";
+	  break;
 	}
       ++i;
     }

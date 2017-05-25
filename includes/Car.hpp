@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Wed May 24 10:17:30 2017 Lebrun Kilian
+// Last update Thu May 25 14:28:22 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -34,6 +34,7 @@ class Car : public GameElement
   float					_angle;
   PowerUp				_pu;
   EState				_state;
+  std::pair<int, int>			_prevPos;
   std::array<Element::EType, 8> _arrouding;
 public:
   enum  EDirection
