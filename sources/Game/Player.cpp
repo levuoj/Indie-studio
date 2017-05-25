@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Thu May 25 19:26:38 2017 Lebrun Kilian
+// Last update Thu May 25 20:16:33 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
@@ -51,7 +51,8 @@ void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
   _functors[this->_keys.at(4)] = std::bind(&Car::launchPowerUp, this->_car);
 }
 
-void  Player::setArroundingCar(const std::array<Element::EType, 8> &arrounding)
+void  Player::setArroundingCar(const std::array<Element::EType, 8> &// arrounding
+			       )
 {
-  this->_car.setArrounding(arrounding);
+  // this->_car.setArrounding(arrounding);
 }

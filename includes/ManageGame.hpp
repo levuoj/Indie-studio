@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Thu May 25 19:59:11 2017 Lebrun Kilian
+// Last update Thu May 25 20:03:00 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -17,6 +17,7 @@
 #include "Observable.hpp"
 #include "AI.hpp"
 #include "Player.hpp"
+#include "Utils.hpp"
 
 class	ManageGame : public Observable
 {
@@ -26,8 +27,8 @@ private:
   std::vector<Player>		_players;
 public:
   ManageGame(int, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
-  ManageGame() {}
-  ~ManageGame() {};
+  ManageGame() = default;
+  ~ManageGame() = default;
 
   DType				transferKey(const irr::EKEY_CODE &);
   // std::unique_ptr<GameElement>	                ElementFromChar(char);

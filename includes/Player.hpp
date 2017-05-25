@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:32:29 2017 thomas vigier
-// Last update Tue May 23 16:11:15 2017 Lebrun Kilian
+// Last update Thu May 25 18:54:04 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -26,6 +26,13 @@ public:
 
   Player(const std::pair<int, int> &carPos);
   ~Player() {};
-  void		driver(const irr::EKEY_CODE &key);
-  void		setKeys(const std::array<irr::EKEY_CODE, 5> &keys);
+  void			initDir();
+  void			driver(const irr::EKEY_CODE &key);
+  void			setKeys(const std::array<irr::EKEY_CODE, 5> &keys);
+  void			setArroundingCar(const std::array<Element::EType, 8> &arrounding);
+  Car::EDirection	dirFromAngle(int angle);
+  std::pair<int, int>	getPosMap()
+  {
+    return (this->_posMap);
+  }
 };

@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 18:29:19 2017 Lebrun Kilian
+// Last update Thu May 25 20:04:00 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -17,9 +17,12 @@
 
 class Car : public GameElement
 {
+public:
   static const float		_maxSpeed;
   static const float		_fps;
   static const float		_inertia;
+  
+private:
 
   enum  EState
     {
@@ -53,20 +56,42 @@ public:
   Car();
   Car(std::pair<int, int> posMap);
   ~Car() {}
-  void                            accelerate();
-  void                            deccelerate();
-  void                            slowDown();
-  void                            move();
-  float				                    getAbsoluteAngle();
-  void                            turnLeft();
-  void                            turnRight();
-  void                            launchPowerUp();
-  bool                             checkArrounding();
-  void                            setPosMap(const std::pair<int, int> &pos);
-  void                            setArrounding(const std::array<Element::EType, 8> &arrounding);
-  float                           getAngle();
-  const std::pair<float, float>&  getDir() const;
-  const std::pair<float, float>&  getPos() const;
-  const std::pair<int, int>&      getPosMap() const;
-  const std::pair<int, int>&      getPrevPos() const;
-};
+// <<<<<<< HEAD
+//   void                            accelerate();
+//   void                            deccelerate();
+//   void                            slowDown();
+//   void                            move();
+//   float				                    getAbsoluteAngle();
+//   void                            turnLeft();
+//   void                            turnRight();
+//   void                            launchPowerUp();
+//   bool                             checkArrounding();
+//   void                            setPosMap(const std::pair<int, int> &pos);
+//   void                            setArrounding(const std::array<Element::EType, 8> &arrounding);
+//   float                           getAngle();
+//   const std::pair<float, float>&  getDir() const;
+//   const std::pair<float, float>&  getPos() const;
+//   const std::pair<int, int>&      getPosMap() const;
+//   const std::pair<int, int>&      getPrevPos() const;
+// };
+// =======
+  
+  void					accelerate();
+  void					deccelerate();
+  void				        slowDown();
+  void					move();
+  float					getAbsoluteAngle();
+  void					turnLeft();
+  void					turnRight();
+  void					launchPowerUp();
+  void					setPosMap(std::pair<int, int> const& pos);
+  float					getAngle();
+  float					getSpeed() const;
+  std::pair<float, float> const&	getDir() const;
+  std::pair<float, float> const&	getPos() const;
+  std::pair<int, int> const&		getPosMap() const;
+  std::pair<int, int> const&		getPrevPos() const;
+  bool					checkArrounding();
+ 
+  void					setArrounding(const std::array<Element::EType, 8> &arrounding);
+ };
