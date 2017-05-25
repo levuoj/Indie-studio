@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 23 18:37:27 2017 DaZe
+// Last update Wed May 24 11:41:41 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -90,6 +90,18 @@ GameElement		*ManageGame::ElementFromChar(const char c)
       break;
     case '>':
       path = ">";
+      type = Element::EType::CAR;
+      break;
+    case 'p':
+      path = "p";
+      type = Element::EType::CAR;
+      break;
+    case 's':
+      path = "s";
+      type = Element::EType::CAR;
+      break;
+    case 'g':
+      path = "g";
       type = Element::EType::CAR;
       break;
     case '-':

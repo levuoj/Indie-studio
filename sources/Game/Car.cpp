@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 23 18:58:48 2017 DaZe
+// Last update Thu May 25 12:01:53 2017 Lebrun Kilian
 //
 
 #define _USE_MATH_DEFINES
@@ -17,21 +17,74 @@ const float Car::_maxSpeed = 30;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
-Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _edir(EDirection::RIGHT)
+Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
 }
 
-Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
+}
+
+bool            Car::checkArrounding()
+{
+  switch (this->edir)
+    {
+    case EDirection::RIGHT:
+      if (this->_arrouding.at(3) == Element::EType::BLOCK)
+        return (false);
+      break;
+    case EDirection::LEFT:
+      if (this->_arrouding.at(7) == Element::EType::BLOCK)
+        return (false);
+      break;
+    case EDirection::UP:
+      if (this->_arrouding.at(1) == Element::EType::BLOCK)
+        return (false);
+      break;
+      switch (this->exactdir)
+	{
+	case EDirection::UP_LEFT:
+	  if (this->_arrouding.at(0) == Element::EType::BLOCK)
+            return (false);
+	  break;
+	case EDirection::UP_RIGHT:
+	  if (this->_arrouding.at(2) == Element::EType::BLOCK)
+            return (false);
+	  break;
+	default:
+	  break;
+	}
+    case EDirection::DOWN:
+      if (this->_arrouding.at(5) == Element::EType::BLOCK)
+	return (false);
+      break;
+      switch (this->exactdir)
+	{
+	case EDirection::DOWN_RIGHT:
+	  if (this->_arrouding.at(4) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	case EDirection::DOWN_LEFT:
+	  if (this->_arrouding.at(6) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	default:
+	  break;
+	}
+    default:
+      break;
+    }
+  return (true);
 }
 
 void            Car::accelerate()
 {
   std::cout << "En avant toute !!!" << std::endl;
+  checkArrounding();
   if (this->_speed <= this->_maxSpeed)
     this->_speed += this->_inertia;
 }
@@ -100,7 +153,7 @@ void            Car::turnRight()
   this->_dir.first = cos(this->_angle * M_PI / 180.0f);
   this->_dir.second = sin(this->_angle * M_PI / 180.0f);
 
-   std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
+  std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 float		Car::getAbsoluteAngle()
@@ -115,7 +168,7 @@ void                            Car::launchPowerUp()
   std::cout << "BOUYAAAAAAA" << std::endl;
 }
 
-void                            Car::setPosMap(std::pair<int, int> const& pos)
+void                            Car::setPosMap(const std::pair<int, int> & pos)
 {
   std::cout << pos.first << " --- " << pos.second << std::endl;
   this->_posMap = pos;
