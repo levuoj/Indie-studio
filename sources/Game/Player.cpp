@@ -5,13 +5,13 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Tue May 23 16:11:29 2017 Lebrun Kilian
+// Last update Wed May 24 08:48:34 2017 DaZe
 //
 
 #include "test.hpp"
 #include "Player.hpp"
 
-Player::Player(std::pair<int, int> &carPos)
+Player::Player(const std::pair<int, int> &carPos)
 {
   this->_car.setPosMap(carPos);
 }
