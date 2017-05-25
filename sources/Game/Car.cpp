@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 23 18:58:48 2017 DaZe
+// Last update Wed May 24 11:00:21 2017 DaZe
 //
 
 #define _USE_MATH_DEFINES
@@ -21,12 +21,15 @@ Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
+  _type = Element::EType::CAR;
+  
 }
 
-Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f)
+Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _prevPos(posMap)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
+  _type = Element::EType::CAR;
 }
 
 void            Car::accelerate()
@@ -56,22 +59,26 @@ void            Car::move()
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
+      this->_prevPos.first = this->_posMap.first;
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
     }
   else if (this->_pos.first < 0)
     {
+      this->_prevPos.first = this->_posMap.first;
       this->_posMap.first -= 1;
       this->_pos.first += 100.0f;
     }
   this->_pos.second = this->_pos.second + (this->_speed / this->_fps) * this->_dir.second * -1;
   if (this->_pos.second > 100)
     {
+      this->_prevPos.second = this->_posMap.second;
       this->_posMap.second += 1;
       this->_pos.second -= 100.0f;
     }
   else if (this->_pos.second < 0)
     {
+      this->_prevPos.second = this->_posMap.second;
       this->_posMap.second -= 1;
       this->_pos.second += 100.0f;
     }
@@ -126,17 +133,22 @@ float                           Car::getAngle()
   return (this->_angle);
 }
 
-const std::pair<float, float>   &Car::getDir() const
+std::pair<float, float> const   &Car::getDir() const
 {
   return (this->_dir);
 }
 
-const std::pair<float, float>   &Car::getPos() const
+std::pair<float, float> const   &Car::getPos() const
 {
   return (this->_pos);
 };
 
-const std::pair<int, int>       &Car::getPosMap() const
+std::pair<int, int> const       &Car::getPosMap() const
 {
   return (this->_posMap);
+};
+
+std::pair<int, int> const       &Car::getPrevPos() const
+{
+  return (this->_prevPos);
 };
