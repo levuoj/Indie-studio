@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed May 24 11:00:21 2017 DaZe
+// Last update Thu May 25 11:42:26 2017 DaZe
 //
 
 #define _USE_MATH_DEFINES
@@ -17,7 +17,7 @@ const float Car::_maxSpeed = 30;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
-Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f)
+Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _edir(EDirection::RIGHT)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
@@ -126,6 +126,11 @@ void                            Car::setPosMap(std::pair<int, int> const& pos)
 {
   std::cout << pos.first << " --- " << pos.second << std::endl;
   this->_posMap = pos;
+}
+
+void                            Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
+{
+  this->_arrouding = arrounding;
 }
 
 float                           Car::getAngle()

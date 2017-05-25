@@ -5,12 +5,13 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Wed May 24 09:11:57 2017 DaZe
+// Last update Thu May 25 11:43:07 2017 DaZe
 //
 
 #pragma once
 
 #include <utility>
+#include <array>
 #include "GameElement.hpp"
 #include "PowerUp.hpp"
 
@@ -20,7 +21,15 @@ class Car : public GameElement
   static const float		_fps;
   static const float		_inertia;
 
-  enum EState
+  enum  EDirection
+    {
+      UP,
+      DOWN,
+      LEFT,
+      RIGHT
+    };
+
+  enum  EState
     {
       NORMAL,
       BANANA,
@@ -31,9 +40,11 @@ class Car : public GameElement
   float					_speed;
   std::pair<float, float>		_dir;
   float					_angle;
+  EDirection                _edir;
   PowerUp				_pu;
   EState				_state;
   std::pair<int, int>			_prevPos;
+  std::array<Element::EType, 8> _arrouding;
 public:
   Car();
   Car(std::pair<int, int> posMap);
