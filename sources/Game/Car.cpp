@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu May 25 13:50:03 2017 Lebrun Kilian
+// Last update Thu May 25 19:07:59 2017 Lebrun Kilian
 //
 
 #define _USE_MATH_DEFINES
@@ -22,7 +22,6 @@ Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGH
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
   _type = Element::EType::CAR;
-  
 }
 
 Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
@@ -47,37 +46,25 @@ bool            Car::checkArrounding()
     case EDirection::UP:
       if (this->_arrouding.at(1) == Element::EType::BLOCK)
         return (false);
+    case EDirection::UP_LEFT:
+      if (this->_arrouding.at(0) == Element::EType::BLOCK)
+	return (false);
       break;
-      switch (this->exactdir)
-	{
-	case EDirection::UP_LEFT:
-	  if (this->_arrouding.at(0) == Element::EType::BLOCK)
-            return (false);
-	  break;
-	case EDirection::UP_RIGHT:
-	  if (this->_arrouding.at(2) == Element::EType::BLOCK)
-            return (false);
-	  break;
-	default:
-	  break;
-	}
+    case EDirection::UP_RIGHT:
+      if (this->_arrouding.at(2) == Element::EType::BLOCK)
+	return (false);
+      break;
     case EDirection::DOWN:
       if (this->_arrouding.at(5) == Element::EType::BLOCK)
 	return (false);
+    case EDirection::DOWN_RIGHT:
+      if (this->_arrouding.at(4) == Element::EType::BLOCK)
+	return (false);
       break;
-      switch (this->exactdir)
-	{
-	case EDirection::DOWN_RIGHT:
-	  if (this->_arrouding.at(4) == Element::EType::BLOCK)
-	    return (false);
-	  break;
-	case EDirection::DOWN_LEFT:
-	  if (this->_arrouding.at(6) == Element::EType::BLOCK)
-	    return (false);
-	  break;
-	default:
-	  break;
-	}
+    case EDirection::DOWN_LEFT:
+      if (this->_arrouding.at(6) == Element::EType::BLOCK)
+	return (false);
+      break;
     default:
       break;
     }
@@ -87,7 +74,11 @@ bool            Car::checkArrounding()
 void            Car::accelerate()
 {
   std::cout << "En avant toute !!!" << std::endl;
-  checkArrounding();
+  if (checkArrounding() == false)
+    {
+      this->_speed = 0.0f;
+      return;
+    }
   if (this->_speed <= this->_maxSpeed)
     this->_speed += this->_inertia;
 }
@@ -95,6 +86,11 @@ void            Car::accelerate()
 void            Car::deccelerate()
 {
   std::cout << "J'enlève les voiles, Capitaine" << std::endl;
+  if (checkArrounding() == false)
+    {
+      this->_speed = 0.0f;
+      return;
+    }
   if (this->_speed >= -this->_maxSpeed / 2)
     this->_speed -= this->_inertia;
 }
@@ -102,6 +98,11 @@ void            Car::deccelerate()
 void            Car::slowDown()
 {
   std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
+  if (checkArrounding() == false)
+    {
+      this->_speed = 0.0f;
+      return;
+    }
   if (this->_speed > 0)
     this->_speed -= this->_inertia / 2;
 }
@@ -140,6 +141,11 @@ void            Car::move()
 void            Car::turnLeft()
 {
   std::cout << "A BABOOOOOOORD" << std::endl;
+  if (checkArrounding() == false)
+    {
+      this->_speed = 0.0f;
+      return;
+    }
   if (this->_angle >= 360)
     this->_angle = 0.0f;
   this->_angle += 2.0f;
@@ -153,6 +159,11 @@ void            Car::turnLeft()
 void            Car::turnRight()
 {
   std::cout << "A TRIBOOOOOOORD" << std::endl;
+  if (checkArrounding() == false)
+    {
+      this->_speed = 0.0f;
+      return;
+    }
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 2.0f;

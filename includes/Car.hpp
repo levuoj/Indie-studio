@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 14:28:22 2017 Lebrun Kilian
+// Last update Thu May 25 18:29:19 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -35,19 +35,18 @@ class Car : public GameElement
   PowerUp				_pu;
   EState				_state;
   std::pair<int, int>			_prevPos;
-  std::array<Element::EType, 8> _arrouding;
+  std::array<Element::EType, 8>		_arrouding;
 public:
   enum  EDirection
     {
-    UP,
-    UP_RIGHT,
-    UP_LEFT,
-    DOWN,
-    DOWN_LEFT,
-    DOWN_RIGHT,
-    LEFT,
-    RIGHT,
-    NONE
+      UP,
+      UP_RIGHT,
+      UP_LEFT,
+      DOWN,
+      DOWN_LEFT,
+      DOWN_RIGHT,
+      LEFT,
+      RIGHT
     };
   EDirection                edir;
   EDirection                exactdir;
@@ -69,4 +68,5 @@ public:
   const std::pair<float, float>&  getDir() const;
   const std::pair<float, float>&  getPos() const;
   const std::pair<int, int>&      getPosMap() const;
+  const std::pair<int, int>&      getPrevPos() const;
 };
