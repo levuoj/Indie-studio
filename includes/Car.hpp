@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 20:20:00 2017 Pierre Zawadil
+// Last update Thu May 25 20:26:03 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -47,15 +47,12 @@ public:
       DOWN_LEFT,
       DOWN_RIGHT,
       LEFT,
-      RIGHT,
-      NONE
+      RIGHT
     };
   EDirection                edir;
-  EDirection                exactdir;
   Car();
   Car(std::pair<int, int> posMap);
   ~Car() {}
-
   void					accelerate();
   void					deccelerate();
   void					slowDown();
@@ -72,6 +69,5 @@ public:
   std::pair<int, int> const&		getPosMap() const;
   std::pair<int, int> const&		getPrevPos() const;
   bool					checkArrounding();
-
   void					setArrounding(const std::array<Element::EType, 8> &arrounding);
 };
