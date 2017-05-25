@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu May 25 18:44:13 2017 Pierre Zawadil
+// Last update Thu May 25 18:47:13 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -26,12 +26,10 @@ void			Core::launch()
   EventReceiver		receiver;
   DType			lastMenu = this->_loadedMenu;
 
-  this->_graphic->setEventReceiver(&receiver);
-
   irr::u32		then = this->_graphic->getTime();
   irr::f32		lag = 0.f;
   const irr::f32	MS_PER_UPDATE = 16.f;
-
+  this->_graphic->setEventReceiver(&receiver);
   while (this->_graphic->running())
     {
       const irr::u32	now = this->_graphic->getTime();
@@ -52,19 +50,3 @@ void			Core::launch()
       this->_menu[this->_loadedMenu]->notify();
     }
 }
-
-
-
-// TO DISPLAY FPS APROXIMATELY
-// int lastFPS = -1;
-// int fps = this->_graphic->_driver->getFPS(); // --> Aproximatif
-
-// if (lastFPS != fps)
-//	{
-//	  irr::core::stringw tmp(L" Racer : [");
-//	  tmp += this->_graphic->_driver->getName();
-//	  tmp += L"] fps: ";
-//	  tmp += fps;
-//	  this->_graphic->_device->setWindowCaption(tmp.c_str());
-//	  lastFPS = fps;
-//	}
