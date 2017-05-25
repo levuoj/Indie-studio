@@ -5,125 +5,42 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Tue May 23 19:33:36 2017 DaZe
+// Last update Thu May 25 17:10:06 2017 DaZe
 //
 
 #include <unistd.h>
 #include "Convert.hpp"
 #include "AI.hpp"
 
-AI::AI()
+AI::AI() : _idx(0)
 {
 }
-
-AI::AI(std::pair<int, int> const& pos)
+ 
+AI::AI(std::pair<int, int> const& pos) : _idx(0)
 {
-  _car = std::shared_ptr<Car>(new Car);
-  _car->setPosMap(pos);
+  _car = std::shared_ptr<Car>(new Car(pos));
 }
 
 void			AI::chooseAction()
 {
-  detectLine();
+   if (_car->getSpeed() <= Car::_maxSpeed)
+    _car->accelerate();
+  if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 3]->getType()
+      == Element::EType::BLOCK && _idx != 2)
+    _idx = 1;
+  if (_idx == 1 && _car->getAngle() != -90.0f)
+    _car->turnRight();
+  if (_idx == 1 && _map[Convert::coordToPos<int>(_car->getPosMap()) + 300]->getType()
+    == Element::EType::BLOCK)
+    _idx = 2;
+  if (_idx == 2 && _car->getAngle() != -180.0f)
+    _car->turnRight();
+  if (_idx == 2 && _map[Convert::coordToPos<int>(_car->getPosMap()) - 4]->getType()
+    == Element::EType::BLOCK)
+    _idx = 3;
+  if (_idx == 2 && _car->getAngle() != -180.0f)
+    _car->turnRight();
   _car.get()->move();
-}
-
-bool			AI::isLine(int pos)
-{
-  if (_map[Convert::coordToPos<int>(_car.get()->getPosMap()) + pos].get()->getType()
-      == Element::EType::LINE
-      && Convert::coordToPos<int>(_car.get()->getPosMap()) + pos != _prevPos)
-    {
-      std::cout << "POS + X" << Convert::coordToPos<int>(_car.get()->getPosMap()) + pos << std::endl;
-      return (true);
-    }
-  return (false);
-}
-
-void			AI::detectLine()
-{
-  std::cout << "ANGLE = " << _car.get()->getAbsoluteAngle() << std::endl;
-  std::cout << "POS MAP = " << Convert::coordToPos<int>(_car.get()->getPosMap()) << std::endl;
-  upLeft();
-  up();
-  upRight();
-  left();
-  right();
-  downLeft();
-  down();
-  downRight();
-}
-
-void			AI::upLeft()
-{
-  if (isLine(-51) == true)
-    {
-      std::cout << "UP LEFT" << std::endl;
-      _car.get()->turnLeft();
-    }
-}
-
-void			AI::up()
-{
-  if (isLine(-50) == true)
-    {
-      std::cout << "UP" << std::endl;
-      _car.get()->accelerate();
-    }
-}
-
-void			AI::upRight()
-{
-  if (isLine(-49) == true)
-    {
-      std::cout << "UP RIGHT" << std::endl;
-      _car.get()->turnRight();
-    }
-}
-
-void			AI::left()
-{
-  if (isLine(-1) == true)
-    {
-      std::cout << "LEFT" << std::endl;
-      _car.get()->accelerate();
-    }
-}
-
-void			AI::right()
-{
-  if (isLine(1) == true)
-    {
-      std::cout << "RIGHT" << std::endl;
-      _car.get()->accelerate();
-    }
-}
-
-void			AI::downLeft()
-{
-  if (isLine(49) == true)
-    {
-      std::cout << "DOWN LEFT" << std::endl;
-      _car.get()->turnLeft();
-    }
-}
-
-void			AI::down()
-{
-  if (isLine(50) == true)
-    {
-      std::cout << "DOWN" << std::endl;
-      _car.get()->accelerate();
-    }
-}
-
-void			AI::downRight()
-{
-  if (isLine(51) == true)
-    {
-      std::cout << "DOWN RIGHT" << std::endl;
-      _car.get()->turnRight();
-    }
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)

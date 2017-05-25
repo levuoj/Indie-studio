@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 24 11:41:33 2017 DaZe
+// Last update Thu May 25 11:55:39 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -49,8 +49,8 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 
 void                    ManageGame::controlDriver(const irr::EKEY_CODE &key)
 {
-  std::array<Element::EType, 8>   arr;
-  int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
+  /*  std::array<Element::EType, 8>   arr;
+      int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
   arr[0] = this->_map[a - 51].get()->getType();
   arr[1] = this->_map[a - 50].get()->getType();
   arr[2] = this->_map[a - 49].get()->getType();
@@ -58,8 +58,8 @@ void                    ManageGame::controlDriver(const irr::EKEY_CODE &key)
   arr[4] = this->_map[a + 51].get()->getType();
   arr[5] = this->_map[a + 50].get()->getType();
   arr[6] = this->_map[a + 49].get()->getType();
-  arr[7] = this->_map[a - 1].get()->getType();
-  this->_players.at(0).setArroundingCar(arr);
+  arr[7] = this->_map[a - 1].get()->getType(); */
+  //  this->_players.at(0).setArroundingCar(arr);
   this->_players.at(0).driver(key);
 }
 
@@ -104,7 +104,7 @@ GameElement		*ManageGame::ElementFromChar(const char c)
 
 void				ManageGame::loadMap()
 {
-  ManageFile      file("./assets/circuit/circuit2.txt");
+  ManageFile      file("./assets/circuit/newCircuit.txt");
   std::string     map;
 
   map = file.readFile();
@@ -114,7 +114,7 @@ void				ManageGame::loadMap()
       if (c != '\n')
 	this->_map.push_back(std::shared_ptr<Element>(ElementFromChar(c)));
     }
-  _AIs.push_back(AI(std::make_pair(20, 5)));
+  _AIs.push_back(AI(std::make_pair(15, 5)));
   _AIs.at(0).setMap(_map);
 }
 

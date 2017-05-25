@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 11:43:07 2017 DaZe
+// Last update Thu May 25 14:05:42 2017 DaZe
 //
 
 #pragma once
@@ -17,10 +17,12 @@
 
 class Car : public GameElement
 {
+public:
   static const float		_maxSpeed;
   static const float		_fps;
   static const float		_inertia;
-
+  
+private:
   enum  EDirection
     {
       UP,
@@ -59,6 +61,7 @@ public:
   void					launchPowerUp();
   void					setPosMap(std::pair<int, int> const& pos);
   float					getAngle();
+  float					getSpeed() const;
   std::pair<float, float> const&	getDir() const;
   std::pair<float, float> const&	getPos() const;
   std::pair<int, int> const&		getPosMap() const;
