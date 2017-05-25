@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 14:05:42 2017 DaZe
+// Last update Thu May 25 17:52:31 2017 DaZe
 //
 
 #pragma once
@@ -42,15 +42,29 @@ private:
   float					_speed;
   std::pair<float, float>		_dir;
   float					_angle;
-  EDirection                _edir;
   PowerUp				_pu;
   EState				_state;
   std::pair<int, int>			_prevPos;
   std::array<Element::EType, 8> _arrouding;
 public:
+  enum  EDirection
+    {
+    UP,
+    UP_RIGHT,
+    UP_LEFT,
+    DOWN,
+    DOWN_LEFT,
+    DOWN_RIGHT,
+    LEFT,
+    RIGHT,
+    NONE
+    };
+  EDirection                edir;
+  EDirection                exactdir;
   Car();
   Car(std::pair<int, int> posMap);
   ~Car() {}
+  
   void					accelerate();
   void					deccelerate();
   void				        slowDown();
@@ -66,4 +80,7 @@ public:
   std::pair<float, float> const&	getPos() const;
   std::pair<int, int> const&		getPosMap() const;
   std::pair<int, int> const&		getPrevPos() const;
-};
+  bool					checkArrounding();
+ 
+  void					setArrounding(const std::array<Element::EType, 8> &arrounding);
+ };
