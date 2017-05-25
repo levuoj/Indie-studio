@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue May 23 21:27:15 2017 Anthony Jouvel
+// Last update Thu May 25 15:41:26 2017 Anthony Jouvel
 //
 
 #include <iostream>
@@ -116,17 +116,27 @@ void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, D
   _guienv->drawAll();
   _driver->endScene();
 
-  moveCamera(irr::core::vector3df(5800, 700, 5600),
-	     irr::core::vector3df(5850, 690, 5815));
+  // moveCamera(irr::core::vector3df(5600, 690, 5400),
+  //	     irr::core::vector3df(5600, 690, 5450));
+  // moveCamera(irr::core::vector3df(5400, 600, 5200),
+  //	     irr::core::vector3df(5550, ++y, 5215));
 
+  // tmp camera
+  // static int y = 590;
+  // _camera->setRotation(irr::core::vector3df(0,--y,0));
+  // _camera->bindTargetAndRotation(true);
+  // tmp camera
 
-  irr::core::stringw str = L"X = ";
-  str += _camera->getAbsolutePosition().X;
-  str += L" Y = ";
-  str += _camera->getAbsolutePosition().Y;
-  str += L" Z = ";
-  str += _camera->getAbsolutePosition().Z;
-  _device->setWindowCaption(str.c_str());
+  // if (y == 0)
+  //   y = 590;
+  //  irr::core::stringw str = y;
+  // irr::core::stringw str = L"X = ";
+  // str += _camera->getAbsolutePosition().X;
+  // str += L" Y = ";
+  // str += _camera->getAbsolutePosition().Y;
+  // str += L" Z = ";
+  // str += _camera->getAbsolutePosition().Z;
+  //  _device->setWindowCaption(str.c_str());
 }
 
 void		Graphic::writeText(irr::scene::IMeshSceneNode *cube,
@@ -143,12 +153,28 @@ void		Graphic::writeText(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
 				   const wchar_t *text)
 {
   // ECRIRE A UNE POSITION
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   text, 0,
-					   irr::core::dimension2d<irr::f32>(15.f, 15.f),
-					   irr::core::vector3df(xPos, yPos, zPos), -1,
-					   irr::video::SColor(255,255,255, 0),
-					   irr::video::SColor(255,255,255, 0));
+  static int	i = 0;
+  if (i < 8)
+    {
+      _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					       text, 0,
+					       irr::core::dimension2d<irr::f32>(25.f, 10.f),
+					       irr::core::vector3df(xPos + 5.7f,
+								    yPos + 2,
+								    zPos), -1,
+					       irr::video::SColor(255,255,255, 0),
+					       irr::video::SColor(255,255,255, 0));
+    }
+  else
+    _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					     text, 0,
+					     irr::core::dimension2d<irr::f32>(25.f, 10.f),
+					     irr::core::vector3df(xPos,
+								  yPos + 2,
+								  zPos - 5.7f), -1,
+					     irr::video::SColor(255,255,255, 0),
+					     irr::video::SColor(255,255,255, 0));
+  ++i;
 }
 
 void		Graphic::writeText(irr::s32 x, irr::s32 y,
@@ -160,6 +186,7 @@ void		Graphic::writeText(irr::s32 x, irr::s32 y,
   irr::gui::IGUIFont* font = _guienv->getFont("assets/font/myfont.xml");
   skin->setFont(font);
   skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255,255,255, 0));
+  // LIGNE D'EXEMPLE
   //  _guienv->addStaticText(text, irr::core::rect<irr::s32>(10, 10, 1000, 1000), false);
   _guienv->addStaticText(text, irr::core::rect<irr::s32>(x, y, xBord, yBord), false);
 }
@@ -191,26 +218,26 @@ void		Graphic::button(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
 
 void		Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
 {
-  irr::f32	y = 560.f;
+  irr::f32	y = 620.f;
   //tmp pour test mouvement
-  irr::f32	yBis = 660.f;
+  irr::f32	yBis = 720.f;
 
     // irr::core::vector3df(5400, 600, 5200)
     // irr::core::vector3df(5350, 590, 5215)
   for (auto it = map.begin(); it != map.end(); ++it)
     {
-      button(5330.f, y, 5225.0f, 0.f, 105.f, 0.f,
+      button(5330.f, y, 5225.0f, 0.f, 107.f, 0.f,
 	     static_cast<Button *>(it->get())->getContent().c_str(),
 	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
 
       //tmp pour test mouvement
-      button(5815.f, yBis, 5675.0f, 0.f, 15.f, 0.f,
+      button(5600.f, yBis, 5455.0f, 0.f, 0.f, 0.f,
 	     static_cast<Button *>(it->get())->getContent().c_str(),
 	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
 
-      y += 20.f;
+      y -= 20.f;
       //tmp pour test mouvement
-      yBis += 20.f;
+      yBis -= 20.f;
     }
 }
 
