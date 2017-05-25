@@ -231,10 +231,17 @@ void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
 
 void		Graphic::displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&)
 {
+
 }
 
 void		Graphic::displayExit(std::vector<std::shared_ptr<Element>> const&)
 {
+  // Utiliser __guienv pour afficher une fenetre avec les boutons YES et NO http://irrlicht.sourceforge.net/docu/example005.html
+}
+
+void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
+{
+  // Les methodes utiles pour connaitre l'orientation de la voiture sont dans GameElement et Car (getAbsoluteDegre)
 }
 
 bool		Graphic::running(void)
