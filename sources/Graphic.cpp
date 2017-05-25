@@ -5,12 +5,16 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue May 23 21:27:15 2017 Anthony Jouvel
+// Last update Thu May 25 17:40:40 2017 Pierre Zawadil
 //
 
 #include <iostream>
 #include "Graphic.hpp"
 #include "Button.hpp"
+#include "ManageGame.hpp"
+#include "GameElement.hpp"
+
+const irr::f32 Graphic::SQUARE_SIZE = 10.f;
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
@@ -34,7 +38,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 Graphic::Graphic()
 {
   _device = irr::createDevice(irr::video::EDT_OPENGL,
-			      irr::core::dimension2d<irr::u32>(1000, 1000),
+			      irr::core::dimension2d<irr::u32>(1920, 1080),
 			      32);
 
   _driver = _device->getVideoDriver();
@@ -46,8 +50,12 @@ Graphic::Graphic()
 
   _camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(5400, 600, 5200), irr::core::vector3df(5350, 590, 5215));
 
-  skyDome("assets/moon.png");
-  ground();
+  ManageGame	Patoche;
+
+  Patoche.loadMap();
+  this->displayGame(Patoche.getMap());
+  // skyDome("assets/moon.png");
+  // ground();
 }
 
 Graphic::~Graphic()
@@ -241,7 +249,100 @@ void		Graphic::displayExit(std::vector<std::shared_ptr<Element>> const&)
 
 void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
 {
-  // Les methodes utiles pour connaitre l'orientation de la voiture sont dans GameElement et Car (getAbsoluteDegre)
+  // Les methodes utiles pour connaitre l'orientation de la voiture sont dans GameElement et Car (getAbsoluteAngle)
+}
+
+void		Graphic::setCar(char c, irr::f32 x, irr::f32 y, irr::f32 z)
+{
+  pods[c] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("assets/Anakin_podracer/AnakinsPodRacer.obj"), // Faire un getPath ici
+						    0, -1, irr::core::vector3df(x, y, z), // POSITION
+						    irr::core::vector3df(0.f, 90.f, 0.f), // DIRECTION
+						    irr::core::vector3df(.005f, .005f, .005f)); // ECHELLE
+  pods[c]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+}
+
+void		Graphic::initMap(std::shared_ptr<Element> const& elem,
+				 irr::f32 x, irr::f32 y, irr::f32 z)
+{
+  irr::scene::IMeshSceneNode        *cube =
+    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+				    irr::core::vector3df(x, y, z),
+				    irr::core::vector3df(0.f, 0.f, 0.f));
+  irr::scene::IMeshSceneNode        *wall;
+  switch (elem->getPath()[0])
+    {
+    case 'X' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
+      wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+					     irr::core::vector3df(x, y + 10.f, z),
+					     irr::core::vector3df(0.f, 0.f, 0.f));
+      wall->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
+      wall->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+      wall->setMaterialType(irr::video::EMT_SOLID);
+      break ;
+    case ' ' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
+      break ;
+    case 'c' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
+      break ;
+    case 'o' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
+      break ;
+    case '>' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      break ;
+    case 'p' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      this->setCar('p', x, y, z);
+      break ;
+    case 's' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      this->setCar('s', x, y, z);
+      break ;
+    case 'g' :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      this->setCar('g', x, y, z);
+      break ;
+    }
+  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  cube->setMaterialType(irr::video::EMT_SOLID);
+}
+
+void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
+{
+  int		i = 0;
+  irr::f32	x = 5330.f;
+  irr::f32	y = 560.f;
+  irr::f32	z = 5225.f;
+  static bool	first = true;
+
+  if (first)
+    this->moveCamera(irr::core::vector3df(5097.f, 860.f, 5175.f),
+		     irr::core::vector3df(5096.f, 563.f, 5451.f));
+  for (auto const& elem : map)
+    {
+      if (i % 50 == 0)
+	{
+	  x = 5330.f;
+	  z += SQUARE_SIZE;
+	}
+      if (first)
+	{
+	  this->initMap(elem, x, y, z);
+	}
+      if (elem->getType() == Element::EType::CAR)
+	{
+	  irr::core::vector3df newPos = this->pods[elem->getPath()[0]]->getPosition();
+	  newPos.X = x + 10.f * static_cast<GameElement *>(elem.get())->getPos().first / 100;
+	  newPos.Z = z - 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
+	  this->pods[elem->getPath()[0]]->setPosition(newPos);
+	}
+      // std::cout << elem.getPath();
+      x -= 10.f;
+      ++i;
+    }
+  first = false;
 }
 
 bool		Graphic::running(void)
