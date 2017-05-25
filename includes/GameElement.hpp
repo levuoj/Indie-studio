@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Wed May 10 13:52:23 2017 thomas vigier
+// Last update Tue May 23 15:30:23 2017 DaZe
 //
 
 #pragma once
@@ -15,14 +15,15 @@
 
 class GameElement : public Element
 {
+protected:
   std::pair<float, float>	_pos;
   
 public:
   void				setPos(std::pair<float, float>);
   std::pair<float, float> const& getPos() const;
 
-    GameElement(){}
-    GameElement(const std::string &path, Element::EType type, std::pair<float, float> pos) : Element(path, type), _pos(pos) {}
+    GameElement() : Element() {}
+  GameElement(irr::io::path const &path, Element::EType type, std::pair<float, float> pos) : Element(path, type), _pos(pos) {}
   ~GameElement() {}
 
 };

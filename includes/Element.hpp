@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Mon May 22 10:58:53 2017 Pierre Zawadil
+// Last update Tue May 23 16:09:18 2017 DaZe
 //
 
 #pragma once
@@ -27,15 +27,16 @@ public:
       ARROW_RIGHT,
       BLOCK,
       ROAD,
-      ENDLINE
+      LINE,
+      ENDLINE,
     };
-
+  
 protected:
   irr::io::path		_path;
   EType			_type;
 
 public:
-  Element();
+  Element() {};
   Element(irr::io::path const& path, EType type) : _path(path), _type(type) {}
   virtual ~Element() {}
 
