@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu May 25 17:51:10 2017 DaZe
+// Last update Thu May 25 18:14:03 2017 DaZe
 //
 
 #include "ManageGame.hpp"

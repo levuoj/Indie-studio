@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 17:57:45 2017 Pierre Zawadil
+// Last update Thu May 25 20:20:00 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -21,7 +21,6 @@ public:
   static const float		_maxSpeed;
   static const float		_fps;
   static const float		_inertia;
-
 private:
   enum  EState
     {
@@ -37,19 +36,19 @@ private:
   PowerUp				_pu;
   EState				_state;
   std::pair<int, int>			_prevPos;
-  std::array<Element::EType, 8> _arrouding;
+  std::array<Element::EType, 8>		_arrouding;
 public:
   enum  EDirection
     {
-    UP,
-    UP_RIGHT,
-    UP_LEFT,
-    DOWN,
-    DOWN_LEFT,
-    DOWN_RIGHT,
-    LEFT,
-    RIGHT,
-    NONE
+      UP,
+      UP_RIGHT,
+      UP_LEFT,
+      DOWN,
+      DOWN_LEFT,
+      DOWN_RIGHT,
+      LEFT,
+      RIGHT,
+      NONE
     };
   EDirection                edir;
   EDirection                exactdir;
@@ -75,4 +74,4 @@ public:
   bool					checkArrounding();
 
   void					setArrounding(const std::array<Element::EType, 8> &arrounding);
- };
+};
