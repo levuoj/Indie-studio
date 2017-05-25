@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May  8 19:43:47 2017 Pashervz
-// Last update Wed May 10 13:23:38 2017 thomas vigier
+// Last update Tue May 23 14:02:57 2017 Pashervz
 //
 
 #pragma once
@@ -21,7 +21,7 @@ private:
   std::ifstream _ifFile;
   std::ofstream	_ofFile;
 public:
-  std::string const		readFile()
+  std::string const	readFile()
   {
     std::string		tmp;
     std::string		line;
@@ -39,8 +39,7 @@ public:
     _ofFile << str;
     _ofFile.close();
   }
-  
-  ManageFile() {};
+
   ManageFile(std::string const& filename) : _fileName(filename)
   {
     _ifFile.open(_fileName, std::fstream::in);

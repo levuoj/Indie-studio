@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 13:33:06 2017 Pashervz
-// Last update Tue May 23 10:43:28 2017 Pashervz
+// Last update Wed May 24 14:41:46 2017 Pashervz
 //
 
 #pragma once
@@ -15,7 +15,7 @@
 class OptionMenu : public AMenu
 {
 private:
-  std::wstring			_player;
+  std::string			_player;
   
 public:
   OptionMenu();

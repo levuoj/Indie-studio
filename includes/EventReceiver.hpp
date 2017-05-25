@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 15 17:27:11 2017 Pashervz
-// Last update Mon May 22 14:27:28 2017 Pashervz
+// Last update Thu May 25 15:00:51 2017 Pashervz
 //
 
 #pragma once
@@ -16,9 +16,10 @@
 class EventReceiver : public irr::IEventReceiver
 {
   irr::EKEY_CODE			_key = irr::KEY_OEM_8;
-  
+
 public:
-  virtual bool 	        OnEvent(const irr::SEvent & event)
+  EventReceiver() : _key(irr::KEY_OEM_8) {}
+  virtual bool		OnEvent(const irr::SEvent & event)
   {
     if (event.EventType == irr::EET_KEY_INPUT_EVENT && event.KeyInput.PressedDown)
       {

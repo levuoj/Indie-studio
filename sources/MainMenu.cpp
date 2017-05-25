@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Mon May 22 14:51:20 2017 Pashervz
+// Last update Thu May 25 15:02:30 2017 Pashervz
 //
 
 #include <memory>
@@ -15,10 +15,10 @@
 MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 {
   this->_type = DType::MAIN_MENU;
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Play", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Leaderboard", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Options", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::unique_ptr<Button>(new Button(L"Exit", "assets/deathStar.jpg", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"Play", "assets/deathStar.jpg", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"Leaderboard", "assets/deathStar.jpg", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"Options", "assets/deathStar.jpg", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"Exit", "assets/deathStar.jpg", Button::BType::MENU)));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
