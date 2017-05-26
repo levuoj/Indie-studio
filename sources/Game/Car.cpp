@@ -97,7 +97,7 @@ void            Car::deccelerate()
 
 void            Car::slowDown()
 {
-  std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
+  // std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
   if (checkArrounding() == false)
     {
       this->_speed = 0.0f;
@@ -109,7 +109,7 @@ void            Car::slowDown()
 
 void            Car::move()
 {
-  std::cout << _pos.first << " --- " << _pos.second << std::endl;
+  // std::cout << _pos.first << " --- " << _pos.second << std::endl;
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
@@ -171,7 +171,7 @@ void            Car::turnRight()
   this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
   this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
 
-  std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
+  // std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 float		Car::getAbsoluteAngle()
@@ -188,7 +188,7 @@ void                            Car::launchPowerUp()
 
 void                            Car::setPosMap(const std::pair<int, int> & pos)
 {
-  std::cout << pos.first << " --- " << pos.second << std::endl;
+  // std::cout << pos.first << " --- " << pos.second << std::endl;
   this->_posMap = pos;
 }
 

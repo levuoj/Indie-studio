@@ -13,7 +13,8 @@
 
 Player::Player(const std::pair<int, int> &carPos)
 {
-  this->_car.setPosMap(carPos);
+  this->_car = std::shared_ptr<Car>(new Car(carPos));
+    //  this->_car->setPosMap(carPos);
 }
 
 Car::EDirection	Player::dirFromAngle(int angle)
@@ -25,7 +26,7 @@ Car::EDirection	Player::dirFromAngle(int angle)
 
 void    Player::initDir()
 {
-  this->_car.edir = dirFromAngle(this->_car.getAbsoluteAngle());
+  this->_car->edir = dirFromAngle(this->_car->getAbsoluteAngle());
 }
 
 void		Player::driver(const irr::EKEY_CODE &key)
@@ -37,9 +38,11 @@ void		Player::driver(const irr::EKEY_CODE &key)
   if (it != _functors.end())
     it->second();
   else
-    this->_car.slowDown();
+    this->_car->slowDown();
+  this->_car.get()->move();
+  std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
+  std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
 }
-
 
 void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
 {

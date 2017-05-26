@@ -14,12 +14,13 @@
 #include <unordered_map>
 #include <Keycodes.h>
 #include <functional>
+#include <memory>
 #include "Car.hpp"
 
 class			Player
 {
   std::pair<int, int>						_posMap;
-  Car								_car;
+  std::shared_ptr<Car>								_car;
   std::unordered_map<irr::EKEY_CODE, std::function<void()>>	_functors;
   std::array<irr::EKEY_CODE, 5>					_keys;
 public:
@@ -34,5 +35,9 @@ public:
   std::pair<int, int>	getPosMap()
   {
     return (this->_posMap);
+  }
+  std::shared_ptr<Car>  getCar() const
+  {
+    return (this->_car);
   }
 };

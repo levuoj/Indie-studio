@@ -62,15 +62,16 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   arr[7] = this->_map[a - 1].get()->getType(); */
   //  this->_players.at(0).setArroundingCar(arr);
   updateMap();
+  std::cout << key << std::endl;
   this->_players.at(0).driver(key);
   return (DType::GAME);
 }
 
-GameElement		*ManageGame::ElementFromChar(const char c)
+GameElement			*ManageGame::ElementFromChar(const char c)
 {
-  irr::io::path             path;
-  Element::EType          type;
-  std::pair<float, float> pos(50.0, 50.0);
+  irr::io::path			path;
+  Element::EType		type;
+  std::pair<float, float>	pos(50.0, 50.0);
 
   switch (c)
     {
@@ -137,6 +138,7 @@ void				ManageGame::updateMap()
 {
   _AIs.at(0).chooseAction();
   _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
+  _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
   printMap();
 }
 
