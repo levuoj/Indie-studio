@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Tue May 16 19:10:27 2017 Pierre Zawadil
+// Last update Thu May 25 17:03:36 2017 DaZe
 //
 
 #ifndef OBSERVABLE_HPP_
@@ -29,7 +29,6 @@ public:
   Observable(DType type) : _type(type) {}
   virtual ~Observable();
   void						notify();
-
   void						setObserver(AObserver *observer) {  _observer = observer; }
   std::vector<std::shared_ptr<Element>> const&	getMap() const { return (_map); }
   DType						getDType() const { return (_type); }

@@ -27,15 +27,16 @@ public:
       ARROW_RIGHT,
       BLOCK,
       ROAD,
-      ENDLINE
+      LINE,
+      ENDLINE,
     };
-
+  
 protected:
   irr::io::path		_path;
   EType			_type;
 
 public:
-  Element();
+  Element() {};
   Element(irr::io::path const& path, EType type) : _path(path), _type(type) {}
   virtual ~Element() {}
 
