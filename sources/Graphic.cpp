@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 26 10:47:43 2017 Pierre Zawadil
+// Last update Fri May 26 10:54:42 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -280,7 +280,7 @@ void		Graphic::setCar(char c, irr::f32 x, irr::f32 y, irr::f32 z)
 {
   pods[c] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("assets/Anakin_podracer/AnakinsPodRacer.obj"), // Faire un getPath ici
 						    0, -1, irr::core::vector3df(x, y, z), // POSITION
-						    irr::core::vector3df(0.f, 90.f, 0.f), // DIRECTION
+						    irr::core::vector3df(0.f, -90.f, 0.f), // DIRECTION
 						    irr::core::vector3df(.005f, .005f, .005f)); // ECHELLE
   pods[c]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
@@ -360,8 +360,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	{
 	  std::cout << "Car = " << elem->getPath()[0] << std::endl;
 	  irr::core::vector3df newPos = this->pods[elem->getPath()[0]]->getPosition();
-	  newPos.X = x + 10.f * static_cast<GameElement *>(elem.get())->getPos().first / 100;
-	  newPos.Z = z - 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
+	  newPos.X = x - 10.f * static_cast<GameElement *>(elem.get())->getPos().first / 100;
+	  newPos.Z = z + 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[elem->getPath()[0]]->setPosition(newPos);
 	}
       x -= 10.f;
