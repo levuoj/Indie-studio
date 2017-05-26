@@ -105,7 +105,7 @@ void			BindingMenu::openBindingConf()
       if (this->getPlayerInfo(file) == false)
 	this->defaultFill(this->_player);
     }
-  catch (std::exception const & exep)
+  catch (std::exception const &)
     {
       this->defaultFill(this->_player);
     }

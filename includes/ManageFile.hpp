@@ -13,6 +13,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <windows.h>
+#include "Error.hpp"
 
 class		ManageFile
 {
@@ -34,17 +36,21 @@ public:
   void			writeFile(std::string const& str)
   {
     _ofFile.open(_fileName, std::ofstream::app);
-    if (!_ofFile.is_open())
-      throw std::runtime_error("Couldn't open file " + _fileName);
+	if (!_ofFile.is_open())
+		throw Error("Can't open file ");
     _ofFile << str;
     _ofFile.close();
   }
 
   ManageFile(std::string const& filename) : _fileName(filename)
   {
+	  char buffer[10000];
+	  
+	  GetModuleFileName(NULL, buffer, 10000);
+	  std::cout << buffer << std::endl;
     _ifFile.open(_fileName, std::fstream::in);
-    if (!_ifFile.is_open())
-      throw std::runtime_error("Couldn't open file " + _fileName);
+	if (!_ifFile.is_open())
+		throw Error("Can't open file");
   }
   
   ~ManageFile()

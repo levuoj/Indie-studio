@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <irrlicht/Keycodes.h>
+#include <irrlicht.h>
 #include "Button.hpp"
 
 class Bind : public Button

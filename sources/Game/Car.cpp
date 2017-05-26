@@ -8,14 +8,13 @@
 // Last update Fri May 26 10:35:13 2017 Lebrun Kilian
 //
 
-#define _USE_MATH_DEFINES
-
 #include <cmath>
 #include "Car.hpp"
 
 const float Car::_maxSpeed = 8;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
+const float Car::_pi = 3.141592f;
 
 Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
 {
@@ -150,8 +149,8 @@ void            Car::turnLeft()
     this->_angle = 0.0f;
   this->_angle += 2.0f;
 
-  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cosf(this->_angle * _pi / 180.0f);
+  this->_dir.second = sinf(this->_angle * _pi / 180.0f);
    
   std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
@@ -168,8 +167,8 @@ void            Car::turnRight()
     this->_angle = 0.0f;
   this->_angle -= 2.0f;
 
-  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cosf(this->_angle * _pi / 180.0f);
+  this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 
   std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }

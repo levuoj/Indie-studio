@@ -17,6 +17,7 @@ enum DType
     OPTIONS,
     LEADERBOARD,
     EXIT,
+	GAME,
     BINDINGS,
     NOTHING
   };

@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include <unistd.h>
 #include <irrlicht.h>
 
 class EventReceiver : public irr::IEventReceiver

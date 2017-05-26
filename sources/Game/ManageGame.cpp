@@ -68,7 +68,7 @@ GameElement		*ManageGame::ElementFromChar(const char c)
 {
   irr::io::path             path;
   Element::EType          type;
-  std::pair<float, float> pos(50.0, 50.0);
+  std::pair<float, float> pos(50.0f, 50.0f);
   
   switch (c)
     {
@@ -117,7 +117,7 @@ GameElement		*ManageGame::ElementFromChar(const char c)
 
 void				ManageGame::loadMap()
 {
-  ManageFile      file("./assets/circuit/newCircuit.txt");
+  ManageFile      file("./assets/circuit/newCircuit");
   std::string     map;
 
   map = file.readFile();
