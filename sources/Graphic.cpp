@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 26 10:14:45 2017 Pierre Zawadil
+// Last update Fri May 26 10:47:43 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -48,7 +48,8 @@ Graphic::Graphic()
 
   _guienv = _device->getGUIEnvironment();
 
-  _camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(5400, 600, 5200), irr::core::vector3df(5350, 590, 5215));
+  _camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(5097.f, 860.f, 5175.f),
+					      irr::core::vector3df(5096.f, 563.f, 5451.f));
 
   // skyDome("assets/moon.png");
   ground();
@@ -354,9 +355,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  z += SQUARE_SIZE;
 	}
       if (first)
-	{
-	  this->initMap(elem, x, y, z);
-	}
+	this->initMap(elem, x, y, z);
       if (elem->getType() == Element::EType::CAR)
 	{
 	  std::cout << "Car = " << elem->getPath()[0] << std::endl;
