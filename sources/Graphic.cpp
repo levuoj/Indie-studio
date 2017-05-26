@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 26 10:54:42 2017 Pierre Zawadil
+// Last update Fri May 26 11:11:15 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -217,8 +217,7 @@ void		Graphic::button(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   cube->setMaterialType(irr::video::EMT_SOLID);
 
-  writeText(xPos, yPos, zPos,
-	    text);
+  writeText(xPos, yPos, zPos, text);
 }
 
 void		Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
@@ -281,7 +280,7 @@ void		Graphic::setCar(char c, irr::f32 x, irr::f32 y, irr::f32 z)
   pods[c] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("assets/Anakin_podracer/AnakinsPodRacer.obj"), // Faire un getPath ici
 						    0, -1, irr::core::vector3df(x, y, z), // POSITION
 						    irr::core::vector3df(0.f, -90.f, 0.f), // DIRECTION
-						    irr::core::vector3df(.005f, .005f, .005f)); // ECHELLE
+						    irr::core::vector3df(.010f, .010f, .010f)); // ECHELLE
   pods[c]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
