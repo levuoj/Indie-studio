@@ -21,10 +21,8 @@ public:
   static const float		_maxSpeed;
   static const float		_fps;
   static const float		_inertia;
-<<<<<<< HEAD
   static const float		_pi;
-=======
->>>>>>> 29735339dc2dfdc950bc9c5e081ca32442731c1d
+
 private:
   enum  EState
     {
@@ -57,16 +55,10 @@ public:
   Car();
   Car(std::pair<int, int> posMap);
   ~Car() {}
-<<<<<<< HEAD
 
   void					accelerate();
   void					deccelerate();
   void			        slowDown();
-=======
-  void					accelerate();
-  void					deccelerate();
-  void					slowDown();
->>>>>>> 29735339dc2dfdc950bc9c5e081ca32442731c1d
   void					move();
   float					getAbsoluteAngle();
   void					turnLeft();
@@ -75,6 +67,7 @@ public:
   void					setPosMap(std::pair<int, int> const& pos);
   float					getAngle();
   float					getSpeed() const;
+
   std::pair<int, int> const &		getPrevPos() const;
   std::pair<float, float> const&	getDir() const;
   std::pair<float, float> const&	getPos() const;
