@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Thu May 25 21:10:15 2017 Pierre Zawadil
+// Last update Fri May 26 14:21:11 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -31,6 +31,7 @@ private:
   std::unordered_map<char, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
+  void				constructMenuArea();
   void				displayMainMenu(std::vector<std::shared_ptr<Element>> const&);
   void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
   void				displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&);
@@ -57,8 +58,7 @@ private:
 					  const wchar_t *);
 
 public:
-  Graphic(irr::u32, irr::u32);
-  Graphic();
+  Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();
 
   void				actualize(Observable const &);
