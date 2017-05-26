@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri May 26 10:11:15 2017 Pierre Zawadil
+// Last update Fri May 26 10:38:15 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -61,6 +61,7 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   arr[6] = this->_map[a + 49].get()->getType();
   arr[7] = this->_map[a - 1].get()->getType(); */
   //  this->_players.at(0).setArroundingCar(arr);
+  updateMap();
   this->_players.at(0).driver(key);
   return (DType::GAME);
 }
