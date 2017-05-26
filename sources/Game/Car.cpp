@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Fri May 26 11:03:11 2017 Pierre Zawadil
+// Last update Fri May 26 12:27:52 2017 Anthony Jouvel
 //
 
 #define _USE_MATH_DEFINES
@@ -13,7 +13,7 @@
 #include <cmath>
 #include "Car.hpp"
 
-const float Car::_maxSpeed = 120;
+const float Car::_maxSpeed = 500;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
