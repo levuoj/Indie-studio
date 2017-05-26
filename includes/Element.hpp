@@ -5,11 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-<<<<<<< HEAD
 // Last update Mon May 22 13:27:48 2017 Pashervz
-=======
-// Last update Fri May 26 15:37:42 2017 Pashervz
->>>>>>> 8e0116a94d22b16cb05eefad7db7cd5c057a0ff0
 //
 
 #pragma once

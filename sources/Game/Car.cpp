@@ -149,15 +149,9 @@ void            Car::turnLeft()
     this->_angle = 0.0f;
   this->_angle += 2.0f;
 
-<<<<<<< HEAD
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
-   
-=======
-  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
-
->>>>>>> 29735339dc2dfdc950bc9c5e081ca32442731c1d
+ 
   std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
