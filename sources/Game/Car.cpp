@@ -1,11 +1,11 @@
 //
 // Car.cpp for  in /home/Kilian/Rendu/C++/Indie_studio/sources
-// 
+//
 // Made by Lebrun Kilian
 // Login   <kilian.lebrun@epitech.eu>
-// 
+//
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu May 25 20:02:04 2017 Lebrun Kilian
+// Last update Fri May 26 12:27:52 2017 Anthony Jouvel
 //
 
 #define _USE_MATH_DEFINES
@@ -13,7 +13,7 @@
 #include <cmath>
 #include "Car.hpp"
 
-const float Car::_maxSpeed = 8;
+const float Car::_maxSpeed = 500;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
@@ -37,15 +37,15 @@ bool            Car::checkArrounding()
     {
     case EDirection::RIGHT:
       if (this->_arrouding.at(3) == Element::EType::BLOCK)
-        return (false);
+	return (false);
       break;
     case EDirection::LEFT:
       if (this->_arrouding.at(7) == Element::EType::BLOCK)
-        return (false);
+	return (false);
       break;
     case EDirection::UP:
       if (this->_arrouding.at(1) == Element::EType::BLOCK)
-        return (false);
+	return (false);
     case EDirection::UP_LEFT:
       if (this->_arrouding.at(0) == Element::EType::BLOCK)
 	return (false);
@@ -150,9 +150,9 @@ void            Car::turnLeft()
     this->_angle = 0.0f;
   this->_angle += 2.0f;
 
-  this->_dir.first = cos(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sin(this->_angle * M_PI / 180.0f);
-   
+  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
+  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
+
   std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
@@ -168,8 +168,8 @@ void            Car::turnRight()
     this->_angle = 0.0f;
   this->_angle -= 2.0f;
 
-  this->_dir.first = cos(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sin(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
+  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
 
   std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }

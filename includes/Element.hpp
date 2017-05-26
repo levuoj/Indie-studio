@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Mon May 22 13:27:48 2017 Pashervz
+// Last update Fri May 26 15:37:42 2017 Pashervz
 //
 
 #pragma once
@@ -30,7 +30,7 @@ public:
       LINE,
       ENDLINE,
     };
-  
+
 protected:
   irr::io::path		_path;
   EType			_type;

@@ -1,40 +1,31 @@
 //
-// main.cpp for main.cpp in /home/tvigier/test
+// main.cpp for indie_studio in /home/zgore/Projects/cpp_2017/Indie_studio
 // 
-// Made by thomas vigier
-// Login   <thomas.vigier@epitech.eu>
-// 
-// Started on  Wed May 10 11:05:32 2017 thomas vigier
-// Last update Tue May 23 18:15:50 2017 DaZe
+// Made by Pierre Zawadil
+// Login   <pierre.zawadil@epitech.eu>
+// Started on  Mon May  8 11:13:42 2017 Pierre Zawadil
+// Last update Mon May 15 10:06:58 2017 Pierre Zawadil
 //
 
-#define COL 50
-
-#include "ManageGame.hpp"
 #include <iostream>
+#include "Core.hpp"
 
-int		main(int, char **)
+int		main(int ac, char **av)
 {
-  /*  std::array<irr::EKEY_CODE, 5> arr;
+  if (ac != 1)
+    {
+      std::cerr << "Error : " << av[0] << " does not take any argument !" << std::endl;
+    }
+  try
+    {
+      Core	core;
 
-    arr[0] = irr::EKEY_CODE::KEY_UP;
-    arr[1] = irr::EKEY_CODE::KEY_DOWN;
-    arr[2] = irr::EKEY_CODE::KEY_LEFT;
-    arr[3] = irr::EKEY_CODE::KEY_RIGHT;
-    arr[4] = irr::EKEY_CODE::KEY_SPACE;
-
-    std::vector<std::array<irr::EKEY_CODE, 5>>    test;
-
-    test.push_back(arr);
-
-    ManageGame game(1, test);
-
-    game.controlDriver(irr::EKEY_CODE::KEY_UP); */
-  ManageGame game;
-
-  game.loadMap();
-  game.printMap();
-
-  while (true)
-    game.updateMap();
+      core.launch();
+    }
+  catch(std::exception const &msg)
+    {
+      std::cerr << msg.what() << std::endl;
+      return (EXIT_ERROR);
+    }
+  return (EXIT_SUCCESS);
 }

@@ -1,11 +1,11 @@
 //
 // EventReceiver.hpp for EventReceiver in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Mon May 15 17:27:11 2017 Pashervz
-// Last update Thu May 25 15:00:51 2017 Pashervz
+// Last update Thu May 25 19:02:48 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -23,7 +23,6 @@ public:
   {
     if (event.EventType == irr::EET_KEY_INPUT_EVENT && event.KeyInput.PressedDown)
       {
-	std::cout << event.KeyInput.PressedDown << std::endl;
 	this->_key = event.KeyInput.Key;
 	return (true);
       }
