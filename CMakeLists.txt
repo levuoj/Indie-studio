@@ -23,11 +23,17 @@ INCLUDE_DIRECTORIES(
 
 FILE(GLOB SRCS sources/*.cpp)
 FILE(GLOB SRCS_GAME sources/Game/*.cpp)
+FILE(GLOB SRCS_MENU sources/Menu/*.cpp)
+FILE(GLOB SRCS_GRAPHIC sources/Graphic/*.cpp)
+FILE(GLOB SRCS_CORE sources/Core/*.cpp)
 FILE(GLOB HDRS includes/*.hpp)
 
 ADD_EXECUTABLE(Racer
   ${SRCS}
+  ${SRCS_CORE}
   ${SRCS_GAME}
+  ${SRCS_MENU}
+  ${SRCS_GRAPHIC}
   ${HDRS}
   )
 
