@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu May 25 20:02:04 2017 Lebrun Kilian
+// Last update Fri May 26 10:35:13 2017 Lebrun Kilian
 //
 
 #define _USE_MATH_DEFINES
@@ -150,8 +150,8 @@ void            Car::turnLeft()
     this->_angle = 0.0f;
   this->_angle += 2.0f;
 
-  this->_dir.first = cos(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sin(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
+  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
    
   std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
@@ -168,8 +168,8 @@ void            Car::turnRight()
     this->_angle = 0.0f;
   this->_angle -= 2.0f;
 
-  this->_dir.first = cos(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sin(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
+  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
 
   std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
