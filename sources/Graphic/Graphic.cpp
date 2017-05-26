@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 26 14:21:39 2017 Pierre Zawadil
+// Last update Fri May 26 14:51:49 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -89,7 +89,7 @@ void		Graphic::button(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
 				irr::f32 xRot, irr::f32 yRot, irr::f32 zRot,
 				const wchar_t *text,
 				const irr::io::path& filename,
-				bool const& selected)
+				bool const&)
 {
   irr::scene::IMeshSceneNode	*cube =
     _sceneManager->addCubeSceneNode(10.0f, 0, -1,
