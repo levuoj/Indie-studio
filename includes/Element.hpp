@@ -30,7 +30,7 @@ public:
       LINE,
       ENDLINE,
     };
-  
+
 protected:
   irr::io::path		_path;
   EType			_type;

@@ -1,20 +1,21 @@
 //
 // ManageGame.cpp for ManageGame.cpp in /home/tvigier/Indie_studio/sources
-// 
+//
 // Made by thomas vigier
 // Login   <thomas.vigier@epitech.eu>
-// 
+//
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu May 25 20:01:52 2017 Lebrun Kilian
+// Last update Fri May 26 10:38:15 2017 DaZe
 //
 
 #include "ManageGame.hpp"
 #include "Convert.hpp"
 
-#define COL 50;
+#define COL 50; // C'EST MOCHE, AU MOINS LE METTRE DANS LE .HPP
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys)
 {
+  this->_type = GAME;
   this->loadMap();
   int     pos(0);
   int     x(0);
@@ -24,17 +25,17 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
       if (it->get()->getType() == Element::EType::CAR)
-        {
-      	  x = pos % COL;
-          y = (pos - x) / COL;
-          if (i < nbPlayers)
-            {
-              this->_players.push_back(Player(std::make_pair(x, y)));
-              ++i;
-      	    }
+	{
+	  x = pos % COL;
+	  y = (pos - x) / COL;
+	  if (i < nbPlayers)
+	    {
+	      this->_players.push_back(Player(std::make_pair(x, y)));
+	      ++i;
+	    }
 	  else
 	    this->_AIs.push_back(AI(std::make_pair(x, y)));
-        }
+	}
       pos++;
     }
 
@@ -60,6 +61,7 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   arr[6] = this->_map[a + 49].get()->getType();
   arr[7] = this->_map[a - 1].get()->getType(); */
   //  this->_players.at(0).setArroundingCar(arr);
+  updateMap();
   this->_players.at(0).driver(key);
   return (DType::GAME);
 }
@@ -68,8 +70,8 @@ GameElement		*ManageGame::ElementFromChar(const char c)
 {
   irr::io::path             path;
   Element::EType          type;
+
   std::pair<float, float> pos(50.0f, 50.0f);
-  
   switch (c)
     {
     case 'X':
@@ -136,11 +138,6 @@ void				ManageGame::updateMap()
   _AIs.at(0).chooseAction();
   _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   printMap();
-}
-
-std::vector<std::shared_ptr<Element>> const&	ManageGame::getMap() const
-{
-  return (this->_map);
 }
 
 void                        ManageGame::printMap()

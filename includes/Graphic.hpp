@@ -1,11 +1,11 @@
-//
+ //
 // Graphic.hpp for irrlicht in /home/anthony/rendu/cpp/indie/Indie_studio/includes
 //
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Tue May 23 21:25:55 2017 Anthony Jouvel
+// Last update Fri May 26 14:21:11 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -19,6 +19,8 @@
 class	Graphic : public AObserver
 {
 private:
+  static const irr::f32	SQUARE_SIZE;
+
   irr::u32			_width;
   irr::u32			_height;
   irr::IrrlichtDevice		*_device;
@@ -26,13 +28,19 @@ private:
   irr::scene::ISceneManager	*_sceneManager;
   irr::gui::IGUIEnvironment	*_guienv;
   irr::scene::ICameraSceneNode	*_camera;
+  std::unordered_map<char, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
+  void				constructMenuArea();
   void				displayMainMenu(std::vector<std::shared_ptr<Element>> const&);
   void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
   void				displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&);
   void				displayExit(std::vector<std::shared_ptr<Element>> const&);
+  void				initMap(std::shared_ptr<Element> const& elem,
+					irr::f32 x, irr::f32 y, irr::f32 z);
+  void				setCar(char c, irr::f32 x, irr::f32 y, irr::f32 z);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
+  void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				button(irr::f32, irr::f32, irr::f32,
 				       irr::f32, irr::f32, irr::f32,
 				       const wchar_t *,
@@ -50,8 +58,7 @@ private:
 					  const wchar_t *);
 
 public:
-  Graphic(irr::u32, irr::u32);
-  Graphic();
+  Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();
 
   void				actualize(Observable const &);
@@ -69,6 +76,7 @@ public:
     {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
     {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
     {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
+    {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };
 };

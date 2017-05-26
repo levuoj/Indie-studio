@@ -1,11 +1,11 @@
 //
 // Car.hpp for  in /home/Kilian/Rendu/C++/Indie_studio
-// 
+//
 // Made by Lebrun Kilian
 // Login   <kilian.lebrun@epitech.eu>
-// 
+//
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 20:04:00 2017 Lebrun Kilian
+// Last update Thu May 25 20:26:03 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -21,9 +21,11 @@ public:
   static const float		_maxSpeed;
   static const float		_fps;
   static const float		_inertia;
+<<<<<<< HEAD
   static const float		_pi;
+=======
+>>>>>>> 29735339dc2dfdc950bc9c5e081ca32442731c1d
 private:
-
   enum  EState
     {
       NORMAL,
@@ -52,14 +54,19 @@ public:
       RIGHT
     };
   EDirection                edir;
-  EDirection                exactdir;
   Car();
   Car(std::pair<int, int> posMap);
   ~Car() {}
+<<<<<<< HEAD
 
   void					accelerate();
   void					deccelerate();
   void			        slowDown();
+=======
+  void					accelerate();
+  void					deccelerate();
+  void					slowDown();
+>>>>>>> 29735339dc2dfdc950bc9c5e081ca32442731c1d
   void					move();
   float					getAbsoluteAngle();
   void					turnLeft();
@@ -74,6 +81,5 @@ public:
   std::pair<int, int> const&		getPosMap() const;
 
   bool					checkArrounding();
- 
   void					setArrounding(const std::array<Element::EType, 8> &arrounding);
- };
+};
