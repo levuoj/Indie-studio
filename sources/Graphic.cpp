@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu May 25 18:33:54 2017 Pierre Zawadil
+// Last update Fri May 26 10:14:45 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -50,12 +50,8 @@ Graphic::Graphic()
 
   _camera = _sceneManager->addCameraSceneNode(0, irr::core::vector3df(5400, 600, 5200), irr::core::vector3df(5350, 590, 5215));
 
-  ManageGame	Patoche;
-
-  Patoche.loadMap();
-  this->displayGame(Patoche.getMap());
   // skyDome("assets/moon.png");
-  // ground();
+  ground();
 }
 
 Graphic::~Graphic()
@@ -230,8 +226,8 @@ void		Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
   //tmp pour test mouvement
   irr::f32	yBis = 720.f;
 
-    // irr::core::vector3df(5400, 600, 5200)
-    // irr::core::vector3df(5350, 590, 5215)
+  // irr::core::vector3df(5400, 600, 5200)
+  // irr::core::vector3df(5350, 590, 5215)
   for (auto it = map.begin(); it != map.end(); ++it)
     {
       button(5330.f, y, 5225.0f, 0.f, 107.f, 0.f,
@@ -296,6 +292,8 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 				    irr::core::vector3df(x, y, z),
 				    irr::core::vector3df(0.f, 0.f, 0.f));
   irr::scene::IMeshSceneNode        *wall;
+
+  std::cout << ">> In initMap" << std::endl;
   switch (elem->getPath()[0])
     {
     case 'X' :
@@ -318,6 +316,7 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
       break ;
     case '>' :
       cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      this->setCar('>', x, y, z);
       break ;
     case 'p' :
       cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
@@ -360,16 +359,17 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	}
       if (elem->getType() == Element::EType::CAR)
 	{
+	  std::cout << "Car = " << elem->getPath()[0] << std::endl;
 	  irr::core::vector3df newPos = this->pods[elem->getPath()[0]]->getPosition();
 	  newPos.X = x + 10.f * static_cast<GameElement *>(elem.get())->getPos().first / 100;
 	  newPos.Z = z - 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[elem->getPath()[0]]->setPosition(newPos);
 	}
-      // std::cout << elem.getPath();
       x -= 10.f;
       ++i;
     }
   first = false;
+  std::cout << "QUIT DISPLAY" << std::endl;
 }
 
 bool		Graphic::running(void)

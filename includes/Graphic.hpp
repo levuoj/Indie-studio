@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Thu May 25 14:43:42 2017 Pierre Zawadil
+// Last update Thu May 25 21:10:15 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -76,6 +76,7 @@ public:
     {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
     {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
     {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
+    {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };
 };

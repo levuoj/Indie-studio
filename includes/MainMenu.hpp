@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 12:24:22 2017 Pashervz
-// Last update Tue May 23 11:59:06 2017 Pashervz
+// Last update Thu May 25 19:07:41 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -21,7 +21,7 @@ class MainMenu : public AMenu
       {L"OPTIONS", OPTIONS},
       {L"LEADERBOARD", LEADERBOARD}
     };
-  
+
 public:
   MainMenu();
   ~MainMenu() {}
