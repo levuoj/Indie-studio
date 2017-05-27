@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 26 11:11:15 2017 Pierre Zawadil
+// Last update Fri May 26 11:19:59 2017 DaZe
 //
 
 #include <iostream>
@@ -293,7 +293,7 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 				    irr::core::vector3df(0.f, 0.f, 0.f));
   irr::scene::IMeshSceneNode        *wall;
 
-  std::cout << ">> In initMap" << std::endl;
+  //  std::cout << ">> In initMap" << std::endl;
   switch (elem->getPath()[0])
     {
     case 'X' :
@@ -357,7 +357,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	this->initMap(elem, x, y, z);
       if (elem->getType() == Element::EType::CAR)
 	{
-	  std::cout << "Car = " << elem->getPath()[0] << std::endl;
+	  //	  std::cout << "Car = " << elem->getPath()[0] << std::endl;
 	  irr::core::vector3df newPos = this->pods[elem->getPath()[0]]->getPosition();
 	  newPos.X = x - 10.f * static_cast<GameElement *>(elem.get())->getPos().first / 100;
 	  newPos.Z = z + 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
