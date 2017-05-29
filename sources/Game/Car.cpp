@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Fri May 26 12:27:52 2017 Anthony Jouvel
+// Last update Sat May 27 14:09:06 2017 DaZe
 //
 
 #define _USE_MATH_DEFINES
