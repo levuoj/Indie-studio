@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 29 10:53:59 2017 Pierre Zawadil
+// Last update Mon May 29 13:51:26 2017 Anthony Jouvel
 //
 
 #include <iostream>
@@ -31,8 +31,12 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _guienv	= _device->getGUIEnvironment();
 
   _camera	= _sceneManager->addCameraSceneNode(0,
-						    irr::core::vector3df(5097.f, 860.f, 5175.f),
-						    irr::core::vector3df(5096.f, 563.f, 5451.f));
+						    irr::core::vector3df(5033.72f,
+									 804.74f,
+									 5212.25f),
+						    irr::core::vector3df(5033.79f,
+									 576.37f,
+									 5373.57f));
 
   this->skyDome("assets/moon.png");
   this->ground();
@@ -250,7 +254,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 		     irr::core::vector3df(5096.f, 563.f, 5451.f));
   for (auto const& elem : map)
     {
-      if (i % 50 == 0)
+      if (i % 60 == 0)
 	{
 	  x = 5330.f;
 	  z += SQUARE_SIZE;
