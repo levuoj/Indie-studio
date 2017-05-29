@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Fri May 26 16:21:55 2017 Lebrun Kilian
+// Last update Mon May 29 17:36:18 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
@@ -37,11 +37,11 @@ void		Player::driver(const irr::EKEY_CODE &key)
   if (it != _functors.end())
     it->second();
   else
-    this->_car->slowDown();
-  this->_car.get()->move();
-  std::cout << this->_car->getSpeed() << std::endl;
-  std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
-  std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
+    std::cout << "\nchut" << std::endl;//this->_car->slowDown();
+   this->_car.get()->move();
+  // std::cout << this->_car->getSpeed() << std::endl;
+  // std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
+  // std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
 }
 
 void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)

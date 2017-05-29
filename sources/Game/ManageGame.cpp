@@ -5,13 +5,13 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Mon May 29 15:08:19 2017 Lebrun Kilian
+// Last update Mon May 29 17:05:25 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
 #include "Convert.hpp"
 
-#define COL 50; // C'EST MOCHE, AU MOINS LE METTRE DANS LE .HPP
+#define COL 60; // C'EST MOCHE, AU MOINS LE METTRE DANS LE .HPP
 
 ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys)
 {
@@ -62,14 +62,14 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   arr[7] = this->_map[a - 1].get()->getType(); */
   //  this->_players.at(0).setArroundingCar(arr);
   updateMap();
-  std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
+  // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
   this->_players.at(0).driver(key);
   return (DType::GAME);
 }
 
 GameElement			*ManageGame::ElementFromChar(const char c)
 {
-  irr::io::path             path;
+  irr::io::path           path;
   Element::EType          type;
   std::pair<float, float> pos(50.0f, 50.0f);
 
@@ -120,7 +120,7 @@ GameElement			*ManageGame::ElementFromChar(const char c)
 
 void				ManageGame::loadMap()
 {
-  ManageFile      file("./assets/circuit/newCircuit");
+  ManageFile      file("./assets/circuit/newCircuit.txt");
   std::string     map;
 
   map = file.readFile();
@@ -136,10 +136,11 @@ void				ManageGame::loadMap()
 
 void				ManageGame::updateMap()
 {
-  _AIs.at(0).chooseAction();
-  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
+  // _AIs.at(0).chooseAction();
+  // _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
-  std::cerr << _players.at(0).getCar()->getPosMap().first << " " << _players.at(0).getCar()->getPosMap().second << std::endl;
+  // std::cerr << _players.at(0).getCar()->getPosMap().first << " " << _players.at(0).getCar()->getPosMap().second << std::endl;
+   printMap();
 }
 
 void                        ManageGame::printMap()
@@ -147,7 +148,7 @@ void                        ManageGame::printMap()
   int	i = 0;
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
-      if (i % 50 == 0)
+      if (i % 60 == 0)
 	std::cout << std::endl;
       switch (it->get()->getType())
 	{

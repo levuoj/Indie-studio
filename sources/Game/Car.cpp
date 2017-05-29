@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Mon May 29 15:01:54 2017 Lebrun Kilian
+// Last update Mon May 29 17:02:13 2017 Lebrun Kilian
 //
 
 #include <cmath>
@@ -73,25 +73,28 @@ bool            Car::checkArrounding()
 void            Car::accelerate()
 {
   std::cout << "En avant toute !!!" << std::endl;
-  std::cout << "speed : " << this->_speed;
+  std::cout << "speed : " << this->_speed << std::endl;
   // if (checkArrounding() == false)
   //   {
       // this->_speed = 0.0f;
       // return;
     // }
   if (this->_speed <= this->_maxSpeed)
+  {
+    std::cout << "sexe" << std::endl;
     this->_speed += this->_inertia;
+  }
 }
 
 void            Car::deccelerate()
 {
   std::cout << "J'enlève les voiles, Capitaine" << std::endl;
-  std::cout << "speed : " << this->_speed;
-  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-    }
+  std::cout << "speed : " << this->_speed << std::endl;
+  // if (checkArrounding() == false)
+  //   {
+  //     this->_speed = 0.0f;
+  //     return;
+  //   }
   if (this->_speed >= -this->_maxSpeed / 2)
     this->_speed -= this->_inertia;
 }
@@ -99,14 +102,16 @@ void            Car::deccelerate()
 void            Car::slowDown()
 {
   std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
-  std::cout << "speed : " << this->_speed;
-  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-    }
+  // std::cout << "speed : " << this->_speed;
+  // if (checkArrounding() == false)
+  //   {
+  //     this->_speed = 0.0f;
+  //     return;
+  //   }
   if (this->_speed > 0)
     this->_speed -= this->_inertia / 2;
+  else if (this->_speed < 0)
+    this->_speed += this->_inertia / 2;
 }
 
 void            Car::move()
