@@ -5,7 +5,7 @@
 // Login   <pierre.zawadil@epitech.eu>
 //
 // Started on  Mon May 15 11:59:20 2017 Pierre Zawadil
-// Last update Thu May 25 19:57:15 2017 Pierre Zawadil
+// Last update Mon May 29 13:57:46 2017 Pashervz
 //
 
 #pragma once
@@ -13,11 +13,11 @@
 enum DType
   {
     MAIN_MENU,
-    PLAY,
-    GAME,
     OPTIONS,
+    PLAY,
     LEADERBOARD,
     EXIT,
+    GAME,
     BINDINGS,
     NOTHING
   };

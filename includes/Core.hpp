@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May  8 19:43:34 2017 Pashervz
-// Last update Thu May 25 20:04:06 2017 Pierre Zawadil
+// Last update Mon May 29 13:59:51 2017 Pashervz
 //
 
 #pragma once
@@ -14,7 +14,6 @@
 #include <memory>
 #include "AMenu.hpp"
 #include "Graphic.hpp"
-#include "MainMenu.hpp"
 #include "ManageGame.hpp"
 
 #define EXIT_ERROR (84)

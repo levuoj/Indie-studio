@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu May 25 20:26:03 2017 Pierre Zawadil
+// Last update Fri May 26 18:47:33 2017 Pashervz
 //
 
 #pragma once
@@ -57,7 +57,7 @@ public:
   void					deccelerate();
   void					slowDown();
   void					move();
-  double				getAbsoluteAngle();
+  float					getAbsoluteAngle();
   void					turnLeft();
   void					turnRight();
   void					launchPowerUp();
