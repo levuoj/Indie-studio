@@ -5,10 +5,11 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sat May 27 14:10:36 2017 DaZe
+// Last update Mon May 29 11:52:00 2017 DaZe
 //
 
 #include <iostream>
+#include <cmath>
 #include "Graphic.hpp"
 #include "Button.hpp"
 #include "ManageGame.hpp"
@@ -103,57 +104,6 @@ void		Graphic::button(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
   cube->setMaterialType(irr::video::EMT_SOLID);
 
   writeText(xPos, yPos, zPos, text);
-}
-
-void		Graphic::initMap(std::shared_ptr<Element> const& elem,
-				 irr::f32 x, irr::f32 y, irr::f32 z)
-{
-  irr::scene::IMeshSceneNode        *cube =
-    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-				    irr::core::vector3df(x, y, z),
-				    irr::core::vector3df(0.f, 0.f, 0.f));
-  irr::scene::IMeshSceneNode        *wall;
-
-  std::cout << ">> In initMap" << std::endl;
-  switch (elem->getPath()[0])
-    {
-    case 'X' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
-      wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-					     irr::core::vector3df(x, y + 10.f, z),
-					     irr::core::vector3df(0.f, 0.f, 0.f));
-      wall->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
-      wall->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-      wall->setMaterialType(irr::video::EMT_SOLID);
-      break ;
-    case ' ' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
-      break ;
-    case 'c' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
-      break ;
-    case 'o' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
-      break ;
-    case '>' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('>', x, y, z);
-      break ;
-    case 'p' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('p', x, y, z);
-      break ;
-    case 's' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('s', x, y, z);
-      break ;
-    case 'g' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('g', x, y, z);
-      break ;
-    }
-  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  cube->setMaterialType(irr::video::EMT_SOLID);
 }
 
 // ------------------------------------------------------------ //
@@ -315,8 +265,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  newPos.Z = z + 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[elem->getPath()[0]]->setPosition(newPos);
 	  irr::f32 newAng =  static_cast<Car *>(elem.get())->getAbsoluteAngle();
-	  std::cerr << newAng << std::endl;
-	  this->pods[elem->getPath()[0]]->setRotation(irr::core::vector3df(0, newAng, 0));
+	  this->pods[elem->getPath()[0]]->setRotation(irr::core::vector3df(0, 360 - (newAng + 90), 0));
 	}
       x -= 10.f;
       ++i;
