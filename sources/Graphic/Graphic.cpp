@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sat May 27 14:08:55 2017 DaZe
+// Last update Sat May 27 14:10:36 2017 DaZe
 //
 
 #include <iostream>
@@ -236,7 +236,7 @@ void		Graphic::setCar(char c,
   pods[c]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
-void		Graphic::initMap(std::shared_ptr<Element> const& elem,
+/*void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 				 irr::f32 x, irr::f32 y, irr::f32 z)
 {
   irr::scene::IMeshSceneNode        *cube =
@@ -285,7 +285,7 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
     }
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   cube->setMaterialType(irr::video::EMT_SOLID);
-}
+  } */
 
 void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 {
