@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Fri May 26 11:19:44 2017 Lebrun Kilian
+// Last update Mon May 29 15:02:38 2017 Lebrun Kilian
 //
 
 #include <iostream>
@@ -48,7 +48,7 @@ void			Core::launch()
 	{
 	  if (loaded != GAME)
 	    {
-	      std::cout << "MENU LOADED" << std::endl;
+	      //std::cout << "MENU LOADED" << std::endl;
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
@@ -59,7 +59,7 @@ void			Core::launch()
 	    {
 	      this->_toLoad = this->_game->transferKey(receiver.getKey());
 	      //	      std::cout << "GAME : " << GAME << std::endl;
-	      //	      std::cout << "GAME : " << this->_toLoad << std::endl;
+	      //std::cout << "GAME : " << this->_toLoad << std::endl;
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
@@ -75,5 +75,6 @@ void			Core::launch()
 	  std::cout << "Game notify" << std::endl;
 	  this->_game->notify();
 	}
+      std::cout << elapsed << std::endl;
     }
 }

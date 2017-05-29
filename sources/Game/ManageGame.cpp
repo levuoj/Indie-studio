@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri May 26 17:23:47 2017 Lebrun Kilian
+// Last update Mon May 29 15:01:31 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -48,7 +48,7 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
     }
 }
 
-DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
+DType			ManageGame::transferKey(const irr::EKEY_CODE &)
 {
   /*  std::array<Element::EType, 8>   arr;
       int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
@@ -140,7 +140,6 @@ void				ManageGame::updateMap()
   _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
   std::cerr << _players.at(0).getCar()->getPosMap().first << " " << _players.at(0).getCar()->getPosMap().second << std::endl;
-  //printMap();
 }
 
 void                        ManageGame::printMap()

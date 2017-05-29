@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Thu May 25 18:11:22 2017 DaZe
+// Last update Fri May 26 14:16:07 2017 DaZe
 //
 
 #include <unistd.h>
@@ -32,7 +32,7 @@ void			AI::chooseAction()
 {
    if (_car->getSpeed() <= Car::_maxSpeed)
      _car->accelerate();
-   if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 3]->getType()
+   if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 4]->getType()
        == Element::EType::BLOCK && _idx != 2)
      _idx = 1;
    if (_idx == 1 && _car->getAngle() != -90.0f)
@@ -47,6 +47,7 @@ void			AI::chooseAction()
      _idx = 3;
    if (_idx == 2 && _car->getAngle() != -180.0f)
      _car->turnRight();
+   std::cout << _car->getAbsoluteAngle() << std::endl;
    _car.get()->move();
 }
 
