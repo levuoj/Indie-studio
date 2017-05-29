@@ -10,7 +10,8 @@
 
 #pragma once
 
-#include <irrlicht/Keycodes.h> 
+#include <irrlicht.h>
+#include <functional>
 #include "AMenu.hpp"
 
 class BindingMenu : public AMenu
