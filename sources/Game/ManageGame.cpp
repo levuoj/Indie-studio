@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Mon May 29 15:01:31 2017 Lebrun Kilian
+// Last update Mon May 29 15:03:06 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -48,7 +48,7 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
     }
 }
 
-DType			ManageGame::transferKey(const irr::EKEY_CODE &)
+DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 {
   /*  std::array<Element::EType, 8>   arr;
       int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
