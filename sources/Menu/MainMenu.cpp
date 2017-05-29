@@ -1,3 +1,4 @@
+
 //
 // MainMenu.cpp for MainMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources
 //
@@ -5,7 +6,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Thu May 25 15:02:30 2017 Pashervz
+// Last update Mon May 29 13:56:54 2017 Pashervz
 //
 
 #include <memory>
@@ -24,26 +25,39 @@ MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 
 DType		MainMenu::select() const
 {
+  std::cout << "j'ai les trains" << std::endl;
   for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
    {
      if (static_cast<Button *>((*it).get())->getIsSelected() == true)
-	return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
+       return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
     }
   return (NOTHING);
 }
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
+  static bool	checker = false;
+  DType		selection = NOTHING;
+
+  if (checker == false)
+    {
+      this->printer();
+      std::cout << "\n" << std::endl;
+      checker = true;
+    }
   switch (key)
     {
     case irr::KEY_DOWN:
       this->goDown();
+      checker = false;
       break;
     case irr::KEY_UP:
       this->goUp();
+      checker = false;
       break;
     case irr::KEY_RETURN:
-      return (this->select());
+      selection = this->select();
+      return (selection);
     case irr::KEY_ESCAPE:
       return (EXIT);
     default:

@@ -17,6 +17,11 @@
 
 const irr::f32 Graphic::SQUARE_SIZE = 10.f;
 
+#ifdef _MSC_VER
+#pragma comment(lib, "Irrlicht.lib")
+#endif
+
+
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
   _device	= irr::createDevice(irr::video::EDT_OPENGL,

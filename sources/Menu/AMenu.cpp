@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 14:04:36 2017 Pashervz
-// Last update Mon May 22 14:10:04 2017 Pashervz
+// Last update Fri May 26 19:07:38 2017 Pashervz
 //
 
 #include <memory>
@@ -39,5 +39,17 @@ void	        AMenu::goUp()
 	  static_cast<Button *>((*it).get())->setIsSelected(true);
 	  break;
 	}
+    }
+}
+
+void		AMenu::printer() const
+{
+  for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
+    {
+      std::wcout << static_cast<Button *>((*it).get())->getContent() << " : ";
+      if (static_cast<Button *>((*it).get())->getIsSelected() == true)
+	std::cout << "selected" << std::endl;
+      else
+	std::cout << "not selected" << std::endl;
     }
 }

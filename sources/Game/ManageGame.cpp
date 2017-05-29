@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Mon May 29 15:03:06 2017 Lebrun Kilian
+// Last update Mon May 29 15:08:19 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -69,9 +69,9 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 
 GameElement			*ManageGame::ElementFromChar(const char c)
 {
-  irr::io::path			path;
-  Element::EType		type;
-  std::pair<float, float>	pos(50.0, 50.0);
+  irr::io::path             path;
+  Element::EType          type;
+  std::pair<float, float> pos(50.0f, 50.0f);
 
   switch (c)
     {
@@ -120,7 +120,7 @@ GameElement			*ManageGame::ElementFromChar(const char c)
 
 void				ManageGame::loadMap()
 {
-  ManageFile      file("./assets/circuit/newCircuit.txt");
+  ManageFile      file("./assets/circuit/newCircuit");
   std::string     map;
 
   map = file.readFile();

@@ -8,7 +8,6 @@
 // Last update Fri May 26 14:16:07 2017 DaZe
 //
 
-#include <unistd.h>
 #include "Convert.hpp"
 #include "AI.hpp"
 
