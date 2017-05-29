@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Fri May 26 11:03:11 2017 Pierre Zawadil
+// Last update Fri May 26 16:30:16 2017 Lebrun Kilian
 //
 
 #define _USE_MATH_DEFINES
@@ -13,7 +13,7 @@
 #include <cmath>
 #include "Car.hpp"
 
-const float Car::_maxSpeed = 120;
+const float Car::_maxSpeed = 500;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 
@@ -74,11 +74,12 @@ bool            Car::checkArrounding()
 void            Car::accelerate()
 {
   std::cout << "En avant toute !!!" << std::endl;
-  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-    }
+  std::cout << "speed : " << this->_speed;
+  // if (checkArrounding() == false)
+  //   {
+      // this->_speed = 0.0f;
+      // return;
+    // }
   if (this->_speed <= this->_maxSpeed)
     this->_speed += this->_inertia;
 }
@@ -86,6 +87,7 @@ void            Car::accelerate()
 void            Car::deccelerate()
 {
   std::cout << "J'enlève les voiles, Capitaine" << std::endl;
+  std::cout << "speed : " << this->_speed;
   if (checkArrounding() == false)
     {
       this->_speed = 0.0f;
@@ -97,7 +99,8 @@ void            Car::deccelerate()
 
 void            Car::slowDown()
 {
-  // std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
+  std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
+  std::cout << "speed : " << this->_speed;
   if (checkArrounding() == false)
     {
       this->_speed = 0.0f;

@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri May 26 15:54:11 2017 Lebrun Kilian
+// Last update Fri May 26 17:23:47 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -62,7 +62,7 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   arr[7] = this->_map[a - 1].get()->getType(); */
   //  this->_players.at(0).setArroundingCar(arr);
   updateMap();
-  std::cout << key << std::endl;
+  std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
   this->_players.at(0).driver(key);
   return (DType::GAME);
 }
@@ -139,7 +139,8 @@ void				ManageGame::updateMap()
   _AIs.at(0).chooseAction();
   _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
-  printMap();
+  std::cerr << _players.at(0).getCar()->getPosMap().first << " " << _players.at(0).getCar()->getPosMap().second << std::endl;
+  //printMap();
 }
 
 void                        ManageGame::printMap()

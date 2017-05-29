@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Fri May 26 15:40:36 2017 Lebrun Kilian
+// Last update Fri May 26 16:21:55 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
@@ -31,7 +31,6 @@ void    Player::initDir()
 
 void		Player::driver(const irr::EKEY_CODE &key)
 {
-
   this->initDir();
   const auto        &it = _functors.find(key);
 
@@ -40,6 +39,7 @@ void		Player::driver(const irr::EKEY_CODE &key)
   else
     this->_car->slowDown();
   this->_car.get()->move();
+  std::cout << this->_car->getSpeed() << std::endl;
   std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
   std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
 }

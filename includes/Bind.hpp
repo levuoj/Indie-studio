@@ -5,12 +5,12 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May 23 09:25:19 2017 Pashervz
-// Last update Wed May 24 19:14:56 2017 Pashervz
+// Last update Fri May 26 11:08:08 2017 Lebrun Kilian
 //
 
 #pragma once
 
-#include <irrlicht/Keycodes.h>
+#include <Keycodes.h>
 #include "Button.hpp"
 
 class Bind : public Button
