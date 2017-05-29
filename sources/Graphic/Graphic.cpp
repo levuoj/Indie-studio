@@ -5,10 +5,11 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri May 26 14:56:42 2017 Anthony Jouvel
+// Last update Mon May 29 10:50:07 2017 Pierre Zawadil
 //
 
 #include <iostream>
+#include <cmath>
 #include "Graphic.hpp"
 #include "Button.hpp"
 #include "ManageGame.hpp"
@@ -264,8 +265,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  newPos.Z = z + 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[elem->getPath()[0]]->setPosition(newPos);
 	  irr::f32 newAng =  static_cast<Car *>(elem.get())->getAbsoluteAngle();
-	  std::cerr << newAng << std::endl;
-	  this->pods[elem->getPath()[0]]->setRotation(irr::core::vector3df(0, newAng, 0));
+	  this->pods[elem->getPath()[0]]->setRotation(irr::core::vector3df(0, 360 - (newAng + 90), 0));
 	}
       x -= 10.f;
       ++i;
