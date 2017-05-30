@@ -5,13 +5,29 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 30 16:58:31 2017 Lebrun Kilian
+// Last update Tue May 30 17:54:54 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
 #include "Convert.hpp"
 
 #define COL 60; // C'EST MOCHE, AU MOINS LE METTRE DANS LE .HPP
+
+void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int y, int x, int i, const Element::EType &type)
+{
+  x = pos % COL;
+  y = (pos - x) / COL;
+  if (i < nbPlayers)
+    {
+      this->_players.push_back(Player(std::make_pair(x, y), type));
+      ++i;
+    }
+  else
+    {
+      this->_AIs.push_back(AI(std::make_pair(x, y), type));
+      _AIs.back().setMap(_map);
+    }
+}
 
 ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys)
 {
@@ -24,20 +40,22 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
-      if (it->get()->getType() == Element::EType::CAR)
+      switch (it->get()->getType())
 	{
-	  x = pos % COL;
-	  y = (pos - x) / COL;
-	  if (i < nbPlayers)
-	    {
-	      this->_players.push_back(Player(std::make_pair(x, y)));
-	      ++i;
-	    }
-	  else
-	    {
-	      this->_AIs.push_back(AI(std::make_pair(x, y)));
-	      _AIs.back().setMap(_map);
-	    }
+	case Element::EType::POD1 :
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  break;
+	case Element::EType::POD2 :
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  break;
+	case Element::EType::POD3 :
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  break;
+	case Element::EType::POD4 :
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  break;
+	default:
+	  break;
 	}
       pos++;
     }
@@ -53,17 +71,17 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 
 DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 {
-  std::array<Element::EType, 8>   arr;
-  int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
-  arr[0] = this->_map[a - 51].get()->getType();
-  arr[1] = this->_map[a - 50].get()->getType();
-  arr[2] = this->_map[a - 49].get()->getType();
-  arr[3] = this->_map[a + 1].get()->getType();
-  arr[4] = this->_map[a + 51].get()->getType();
-  arr[5] = this->_map[a + 50].get()->getType();
-  arr[6] = this->_map[a + 49].get()->getType();
-  arr[7] = this->_map[a - 1].get()->getType();
-  this->_players.at(0).setArroundingCar(arr);
+  // std::array<Element::EType, 8>   arr;
+  // int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
+  // arr[0] = this->_map[a - 51].get()->getType();
+  // arr[1] = this->_map[a - 50].get()->getType();
+  // arr[2] = this->_map[a - 49].get()->getType();
+  // arr[3] = this->_map[a + 1].get()->getType();
+  // arr[4] = this->_map[a + 51].get()->getType();
+  // arr[5] = this->_map[a + 50].get()->getType();
+  // arr[6] = this->_map[a + 49].get()->getType();
+  // arr[7] = this->_map[a - 1].get()->getType();
+  // this->_players.at(0).setArroundingCar(arr);
   updateMap();
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
   this->_players.at(0).driver(key);
@@ -72,8 +90,8 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 
 GameElement			*ManageGame::ElementFromChar(const char c)
 {
-  //  irr::io::path			path;
-  std::string			path;
+    irr::io::path			path;
+  //  std::string			path;
   Element::EType		type;
   std::pair<float, float>	pos(50.0f, 50.0f);
 
@@ -97,19 +115,19 @@ GameElement			*ManageGame::ElementFromChar(const char c)
       break;
     case '>':
       path = ">";
-      type = Element::EType::CAR;
+      type = Element::EType::POD1;
       break;
     case 'p':
       path = "p";
-      type = Element::EType::CAR;
+      type = Element::EType::POD2;
       break;
     case 's':
       path = "s";
-      type = Element::EType::CAR;
+      type = Element::EType::POD3;
       break;
     case 'g':
       path = "g";
-      type = Element::EType::CAR;
+      type = Element::EType::POD4;
       break;
     case '-':
       path = "-";
@@ -168,7 +186,16 @@ void                        ManageGame::printMap()
 	case Element::EType::ENDLINE:
 	  std::cout << "o";
 	  break;
-	case Element::EType::CAR:
+	case Element::EType::POD1:
+	  std::cout << ">";
+	  break;
+	case Element::EType::POD2:
+	  std::cout << ">";
+	  break;
+	case Element::EType::POD3:
+	  std::cout << ">";
+	  break;
+	case Element::EType::POD4:
 	  std::cout << ">";
 	  break;
 	case Element::EType::LINE:

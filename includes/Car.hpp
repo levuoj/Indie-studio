@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Tue May 30 16:59:05 2017 Lebrun Kilian
+// Last update Tue May 30 17:49:55 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -32,11 +32,11 @@ private:
       SHOOT
     };
   std::pair<int, int>			_posMap;
-  float							_speed;
+  float					_speed;
   std::pair<float, float>		_dir;
-  float							_angle;
-  PowerUp						_pu;
-  EState						_state;
+  float					_angle;
+  PowerUp				_pu;
+  EState				_state;
   std::pair<int, int>			_prevPos;
   std::array<Element::EType, 8>		_arrounding;
 public:
@@ -52,13 +52,13 @@ public:
       RIGHT
     };
   EDirection                edir;
-  Car();
-  Car(std::pair<int, int> posMap);
+  Car() = default;
+  Car(std::pair<int, int> posMap, const Element::EType type);
   ~Car() {}
 
   void					accelerate();
   void					deccelerate();
-  void			        slowDown();
+  void					slowDown();
   void					move();
   void					turnLeft();
   void					turnRight();

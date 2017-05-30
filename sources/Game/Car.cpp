@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 30 16:58:49 2017 Lebrun Kilian
+// Last update Tue May 30 17:49:57 2017 Lebrun Kilian
 //
 
 #include <cmath>
@@ -17,18 +17,12 @@ const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 const float Car::_pi = 3.141592f;
 
-Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
 {
+  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
-  _type = Element::EType::CAR;
-}
-
-Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _prevPos(posMap), edir(EDirection::RIGHT)
-{
-  _path = ">";
-  _pos = std::make_pair(50.0f, 50.0f);
-  _type = Element::EType::CAR;
+  _type = type;
 }
 
 bool            Car::checkArrounding()
@@ -177,7 +171,6 @@ void            Car::turnRight()
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 2.0f;
-
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 
