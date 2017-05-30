@@ -5,12 +5,11 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May 15 17:27:11 2017 Pashervz
-// Last update Thu May 25 19:02:48 2017 Pierre Zawadil
+// Last update Mon May 29 16:59:43 2017 Lebrun Kilian
 //
 
 #pragma once
 
-#include <unistd.h>
 #include <irrlicht.h>
 
 class EventReceiver : public irr::IEventReceiver

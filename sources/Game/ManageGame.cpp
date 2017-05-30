@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 30 16:06:24 2017 DaZe
+// Last update Tue May 30 16:54:31 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -51,7 +51,7 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
     }
 }
 
-DType			ManageGame::transferKey(const irr::EKEY_CODE &)
+DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 {
   /*  std::array<Element::EType, 8>   arr;
       int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
@@ -65,15 +65,16 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &)
   arr[7] = this->_map[a - 1].get()->getType(); */
   //  this->_players.at(0).setArroundingCar(arr);
   updateMap();
-  //  this->_players.at(0).driver(key);
+  // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
+  this->_players.at(0).driver(key);
   return (DType::GAME);
 }
 
-GameElement		*ManageGame::ElementFromChar(const char c)
+GameElement			*ManageGame::ElementFromChar(const char c)
 {
-  irr::io::path             path;
+  irr::io::path           path;
   Element::EType          type;
-  std::pair<float, float> pos(50.0, 50.0);
+  std::pair<float, float> pos(50.0f, 50.0f);
 
   switch (c)
     {
@@ -141,7 +142,10 @@ void				ManageGame::updateMap()
     _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPrevPos())) =
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
   _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
-  
+  _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
+  if (_players.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
+    _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) =
+      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
   printMap();
 }
 

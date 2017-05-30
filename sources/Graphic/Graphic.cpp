@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 29 13:55:24 2017 Anthony Jouvel
+// Last update Mon May 29 15:18:42 2017 Lebrun Kilian
 //
 
 #include <iostream>
@@ -16,6 +16,11 @@
 #include "GameElement.hpp"
 
 const irr::f32 Graphic::SQUARE_SIZE = 10.f;
+
+#ifdef _MSC_VER
+#pragma comment(lib, "Irrlicht.lib")
+#endif
+
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {

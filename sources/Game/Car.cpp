@@ -5,10 +5,8 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 30 16:49:59 2017 DaZe
+// Last update Tue May 30 16:55:27 2017 DaZe
 //
-
-#define _USE_MATH_DEFINES
 
 #include <cmath>
 #include "Convert.hpp"
@@ -17,6 +15,7 @@
 const float Car::_maxSpeed = 500;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
+const float Car::_pi = 3.141592f;
 
 Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
 {
@@ -75,23 +74,28 @@ bool            Car::checkArrounding()
 void            Car::accelerate()
 {
   std::cout << "En avant toute !!!" << std::endl;
-  /*  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-      } */
+  std::cout << "speed : " << this->_speed << std::endl;
+  // if (checkArrounding() == false)
+  //   {
+      // this->_speed = 0.0f;
+      // return;
+    // }
   if (this->_speed <= this->_maxSpeed)
+  {
+    std::cout << "sexe" << std::endl;
     this->_speed += this->_inertia;
+  }
 }
 
 void            Car::deccelerate()
 {
   std::cout << "J'enlève les voiles, Capitaine" << std::endl;
-  /*  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-      } */
+  std::cout << "speed : " << this->_speed << std::endl;
+  // if (checkArrounding() == false)
+  //   {
+  //     this->_speed = 0.0f;
+  //     return;
+  //   }
   if (this->_speed >= -this->_maxSpeed / 2)
     this->_speed -= this->_inertia;
 }
@@ -99,18 +103,21 @@ void            Car::deccelerate()
 void            Car::slowDown()
 {
   std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
-  /*  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-      } */
+  // std::cout << "speed : " << this->_speed;
+  // if (checkArrounding() == false)
+  //   {
+  //     this->_speed = 0.0f;
+  //     return;
+  //   }
   if (this->_speed > 0)
     this->_speed -= this->_inertia / 2;
+  else if (this->_speed < 0)
+    this->_speed += this->_inertia / 2;
 }
 
 void            Car::move()
 {
-  std::cout << _pos.first << " --- " << _pos.second << std::endl;
+  // std::cout << _pos.first << " --- " << _pos.second << std::endl;
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
@@ -153,9 +160,9 @@ void            Car::turnLeft()
     this->_angle = 0.0f;
   this->_angle += 2.0f;
 
-  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
-
+  this->_dir.first = cosf(this->_angle * _pi / 180.0f);
+  this->_dir.second = sinf(this->_angle * _pi / 180.0f);
+ 
   std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
@@ -171,10 +178,10 @@ void            Car::turnRight()
     this->_angle = 0.0f;
   this->_angle -= 2.0f;
 
-  this->_dir.first = cosf(this->_angle * M_PI / 180.0f);
-  this->_dir.second = sinf(this->_angle * M_PI / 180.0f);
+  this->_dir.first = cosf(this->_angle * _pi / 180.0f);
+  this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 
-  std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
+  // std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 float		Car::getAbsoluteAngle() const
@@ -191,7 +198,7 @@ void                            Car::launchPowerUp()
 
 void                            Car::setPosMap(const std::pair<int, int> & pos)
 {
-  std::cout << pos.first << " --- " << pos.second << std::endl;
+  // std::cout << pos.first << " --- " << pos.second << std::endl;
   this->_posMap = pos;
 }
 

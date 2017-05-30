@@ -1,3 +1,4 @@
+
 //
 // Core.cpp for Core in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources
 //
@@ -5,13 +6,15 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Fri May 26 11:36:48 2017 DaZe
+// Last update Mon May 29 15:55:19 2017 Lebrun Kilian
 //
 
 #include <iostream>
 #include <irrlicht.h>
 #include "EventReceiver.hpp"
 #include "Core.hpp"
+#include "MainMenu.hpp"
+#include "OptionMenu.hpp"
 
 Core::Core()
 {
@@ -25,7 +28,8 @@ Core::Core()
   this->_game->setObserver(this->_graphic.get());
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
-  // this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+  this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
+  //this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
 void			Core::launch()
@@ -58,7 +62,7 @@ void			Core::launch()
 	  else
 	    {
 	      this->_toLoad = this->_game->transferKey(receiver.getKey());
-	      //	      std::cout << "GAME : " << GAME << std::endl;
+	      //std::cout << "GAME : " << GAME << std::endl;
 	      //std::cout << "GAME : " << this->_toLoad << std::endl;
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
@@ -72,7 +76,6 @@ void			Core::launch()
 	this->_menu[this->_toLoad]->notify();
       else
 	{
-	  std::cout << "Game notify" << std::endl;
 	  this->_game->notify();
 	}
       std::cout << elapsed << std::endl;

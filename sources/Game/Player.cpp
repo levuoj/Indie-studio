@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Thu May 25 20:16:33 2017 Lebrun Kilian
+// Last update Mon May 29 17:36:18 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
@@ -13,7 +13,8 @@
 
 Player::Player(const std::pair<int, int> &carPos)
 {
-  this->_car.setPosMap(carPos);
+  this->_car = std::shared_ptr<Car>(new Car(carPos));
+    //  this->_car->setPosMap(carPos);
 }
 
 Car::EDirection	Player::dirFromAngle(int angle)
@@ -25,21 +26,23 @@ Car::EDirection	Player::dirFromAngle(int angle)
 
 void    Player::initDir()
 {
-  this->_car.edir = dirFromAngle(this->_car.getAbsoluteAngle());
+  this->_car->edir = dirFromAngle(this->_car->getAbsoluteAngle());
 }
 
 void		Player::driver(const irr::EKEY_CODE &key)
 {
-
   this->initDir();
   const auto        &it = _functors.find(key);
 
   if (it != _functors.end())
     it->second();
   else
-    this->_car.slowDown();
+    std::cout << "\nchut" << std::endl;//this->_car->slowDown();
+   this->_car.get()->move();
+  // std::cout << this->_car->getSpeed() << std::endl;
+  // std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
+  // std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
 }
-
 
 void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
 {
@@ -54,5 +57,5 @@ void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
 void  Player::setArroundingCar(const std::array<Element::EType, 8> &// arrounding
 			       )
 {
-  // this->_car.setArrounding(arrounding);
+   // this->_car.setArrounding(arrounding);
 }

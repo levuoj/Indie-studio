@@ -5,12 +5,13 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:09:23 2017 Pashervz
-// Last update Thu May 25 14:45:32 2017 Pashervz
+// Last update Mon May 29 15:08:50 2017 Lebrun Kilian
 //
 
 #pragma once
 
-#include <irrlicht/Keycodes.h> 
+#include <irrlicht.h>
+#include <functional>
 #include "AMenu.hpp"
 
 class BindingMenu : public AMenu
