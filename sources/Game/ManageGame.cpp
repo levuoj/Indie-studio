@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Mon May 29 17:05:25 2017 Lebrun Kilian
+// Last update Mon May 29 18:21:59 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -50,8 +50,8 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 
 DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 {
-  /*  std::array<Element::EType, 8>   arr;
-      int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
+  std::array<Element::EType, 8>   arr;
+  int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
   arr[0] = this->_map[a - 51].get()->getType();
   arr[1] = this->_map[a - 50].get()->getType();
   arr[2] = this->_map[a - 49].get()->getType();
@@ -59,8 +59,8 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   arr[4] = this->_map[a + 51].get()->getType();
   arr[5] = this->_map[a + 50].get()->getType();
   arr[6] = this->_map[a + 49].get()->getType();
-  arr[7] = this->_map[a - 1].get()->getType(); */
-  //  this->_players.at(0).setArroundingCar(arr);
+  arr[7] = this->_map[a - 1].get()->getType();
+  this->_players.at(0).setArroundingCar(arr);
   updateMap();
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
   this->_players.at(0).driver(key);
@@ -69,9 +69,10 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 
 GameElement			*ManageGame::ElementFromChar(const char c)
 {
-  irr::io::path           path;
-  Element::EType          type;
-  std::pair<float, float> pos(50.0f, 50.0f);
+  //  irr::io::path			path;
+  std::string			path;
+  Element::EType		type;
+  std::pair<float, float>	pos(50.0f, 50.0f);
 
   switch (c)
     {

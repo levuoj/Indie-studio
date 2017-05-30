@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Fri May 26 18:47:33 2017 Pashervz
+// Last update Tue May 30 10:49:20 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -38,7 +38,7 @@ private:
   PowerUp						_pu;
   EState						_state;
   std::pair<int, int>			_prevPos;
-  std::array<Element::EType, 8>		_arrouding;
+  std::array<Element::EType, 8>		_arrounding;
 public:
   enum  EDirection
     {
