@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 29 15:18:42 2017 Lebrun Kilian
+// Last update Mon May 29 18:23:48 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -190,8 +190,9 @@ void		Graphic::setCar(char c,
 {
   pods[c] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("assets/Anakin_podracer/AnakinsPodRacer.obj"), // Faire un getPath ici
 						    0, -1, irr::core::vector3df(x, y, z), // POSITION
-						    irr::core::vector3df(0.f, -90.f, 0.f), // DIRECTION
+						    irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
 						    irr::core::vector3df(.010f, .010f, .010f)); // ECHELLE
+  std::cout << "First pos x = " << x << ", y = " << y << ", z = " << z << std::endl;
   pods[c]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
@@ -254,9 +255,9 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	z = 5225.f;
   static bool	first = true;
 
-  if (first)
-    this->moveCamera(irr::core::vector3df(5097.f, 860.f, 5175.f),
-		     irr::core::vector3df(5096.f, 563.f, 5451.f));
+  // if (first)
+  //   this->moveCamera(irr::core::vector3df(5097.f, 860.f, 5175.f),
+  //		     irr::core::vector3df(5096.f, 563.f, 5451.f));
   for (auto const& elem : map)
     {
       if (i % 60 == 0)
@@ -268,13 +269,16 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	this->initMap(elem, x, y, z);
       if (elem->getType() == Element::EType::CAR)
 	{
-	  //	  std::cout << "Car = " << elem->getPath()[0] << std::endl;
-	  irr::core::vector3df newPos = this->pods[elem->getPath()[0]]->getPosition();
-	  newPos.X = x - 10.f * static_cast<GameElement *>(elem.get())->getPos().first / 100;
-	  newPos.Z = z + 10.f * static_cast<GameElement *>(elem.get())->getPos().second / 100;
+	  std::cout << "Car : " << elem->getPath()[0] << std::endl;
+	  irr::core::vector3df newPos	= this->pods[elem->getPath()[0]]->getPosition();
+	  newPos.X = x - SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().first / 100;
+	  std::cout << "newPos.X : " << newPos.X << std::endl;
+	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
+	  std::cout << "newPos.Z : " << newPos.Z << std::endl;
 	  this->pods[elem->getPath()[0]]->setPosition(newPos);
-	  irr::f32 newAng =  static_cast<Car *>(elem.get())->getAbsoluteAngle();
-	  this->pods[elem->getPath()[0]]->setRotation(irr::core::vector3df(0, 360 - (newAng + 90), 0));
+
+	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
+	  this->pods[elem->getPath()[0]]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
 	}
       x -= 10.f;
       ++i;
