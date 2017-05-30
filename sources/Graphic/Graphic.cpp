@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 29 18:23:48 2017 Pierre Zawadil
+// Last update Tue May 30 18:00:55 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -260,8 +260,10 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   //		     irr::core::vector3df(5096.f, 563.f, 5451.f));
   for (auto const& elem : map)
     {
+      // std::cout << elem->getPath()[0];
       if (i % 60 == 0)
 	{
+	  // std::cout << std::endl;
 	  x = 5330.f;
 	  z += SQUARE_SIZE;
 	}
@@ -269,12 +271,12 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	this->initMap(elem, x, y, z);
       if (elem->getType() == Element::EType::CAR)
 	{
-	  std::cout << "Car : " << elem->getPath()[0] << std::endl;
+	  // std::cout << "Car : " << elem->getPath()[0] << std::endl;
 	  irr::core::vector3df newPos	= this->pods[elem->getPath()[0]]->getPosition();
 	  newPos.X = x - SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().first / 100;
-	  std::cout << "newPos.X : " << newPos.X << std::endl;
+	  // std::cout << "newPos.X : " << newPos.X << std::endl;
 	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
-	  std::cout << "newPos.Z : " << newPos.Z << std::endl;
+	  // std::cout << "newPos.Z : " << newPos.Z << std::endl;
 	  this->pods[elem->getPath()[0]]->setPosition(newPos);
 
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
@@ -283,6 +285,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       x -= 10.f;
       ++i;
     }
+  // std::cout << std::endl;
   first = false;
   std::cout << "QUIT DISPLAY" << std::endl;
 }

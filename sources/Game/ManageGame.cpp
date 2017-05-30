@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue May 30 16:54:31 2017 DaZe
+// Last update Tue May 30 17:22:49 2017 Pierre Zawadil
 //
 
 #include "ManageGame.hpp"
@@ -15,12 +15,13 @@
 
 ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys)
 {
-  this->_type = GAME;
-  this->loadMap();
   int     pos(0);
   int     x(0);
   int     y(0);
   int     i(0);
+
+  this->_type = DType::GAME;
+  this->loadMap();
 
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {

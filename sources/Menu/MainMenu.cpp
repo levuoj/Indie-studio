@@ -1,4 +1,3 @@
-
 //
 // MainMenu.cpp for MainMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources
 //
@@ -6,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Mon May 29 13:56:54 2017 Pashervz
+// Last update Tue May 30 17:50:58 2017 Pierre Zawadil
 //
 
 #include <memory>
@@ -29,9 +28,13 @@ DType		MainMenu::select() const
   for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
    {
      if (static_cast<Button *>((*it).get())->getIsSelected() == true)
-       return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
+       {
+	 return (GAME); // <-- POUR TEST
+	 //return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
+       }
     }
-  return (NOTHING);
+  std::cout << "Le prout c'est cool" << std::endl;
+  return (MAIN_MENU);
 }
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
@@ -42,7 +45,7 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
   if (checker == false)
     {
       this->printer();
-      std::cout << "\n" << std::endl;
+      std::cout << std::endl;
       checker = true;
     }
   switch (key)
