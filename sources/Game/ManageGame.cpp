@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Mon May 29 18:21:59 2017 Lebrun Kilian
+// Last update Tue May 30 16:58:31 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -34,7 +34,10 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 	      ++i;
 	    }
 	  else
-	    this->_AIs.push_back(AI(std::make_pair(x, y)));
+	    {
+	      this->_AIs.push_back(AI(std::make_pair(x, y)));
+	      _AIs.back().setMap(_map);
+	    }
 	}
       pos++;
     }
@@ -131,17 +134,20 @@ void				ManageGame::loadMap()
       if (c != '\n')
 	this->_map.push_back(std::shared_ptr<Element>(ElementFromChar(c)));
     }
-  _AIs.push_back(AI(std::make_pair(15, 5)));
-  _AIs.at(0).setMap(_map);
 }
 
 void				ManageGame::updateMap()
 {
-  // _AIs.at(0).chooseAction();
-  // _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
+  _AIs.at(0).chooseAction();
+  if (_AIs.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
+    _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPrevPos())) =
+      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
-  // std::cerr << _players.at(0).getCar()->getPosMap().first << " " << _players.at(0).getCar()->getPosMap().second << std::endl;
-   printMap();
+  if (_players.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
+    _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) =
+      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  printMap();
 }
 
 void                        ManageGame::printMap()

@@ -5,10 +5,11 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 30 10:49:45 2017 Lebrun Kilian
+// Last update Tue May 30 16:58:49 2017 Lebrun Kilian
 //
 
 #include <cmath>
+#include "Convert.hpp"
 #include "Car.hpp"
 
 const float Car::_maxSpeed = 500;
@@ -23,7 +24,7 @@ Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGH
   _type = Element::EType::CAR;
 }
 
-Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _prevPos(posMap), edir(EDirection::RIGHT)
 {
   _path = ">";
   _pos = std::make_pair(50.0f, 50.0f);
@@ -120,29 +121,31 @@ void            Car::move()
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
-      this->_prevPos.first = this->_posMap.first;
+      this->_prevPos = this->_posMap;
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
     }
   else if (this->_pos.first < 0)
     {
-      this->_prevPos.first = this->_posMap.first;
+      this->_prevPos = this->_posMap;
       this->_posMap.first -= 1;
       this->_pos.first += 100.0f;
     }
   this->_pos.second = this->_pos.second + (this->_speed / this->_fps) * this->_dir.second * -1;
   if (this->_pos.second > 100)
     {
-      this->_prevPos.second = this->_posMap.second;
+      this->_prevPos = this->_posMap;
       this->_posMap.second += 1;
       this->_pos.second -= 100.0f;
     }
   else if (this->_pos.second < 0)
     {
-      this->_prevPos.second = this->_posMap.second;
+      this->_prevPos = this->_posMap;
       this->_posMap.second -= 1;
       this->_pos.second += 100.0f;
     }
+  std::cout << "POS = " << Convert::coordToPos<int>(_posMap) << std::endl;
+  std::cout << "PREV POS = " << Convert::coordToPos<int>(_prevPos) << std::endl;
 }
 
 void            Car::turnLeft()
@@ -181,7 +184,7 @@ void            Car::turnRight()
   // std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
 
-float		Car::getAbsoluteAngle()
+float		Car::getAbsoluteAngle() const
 {
   if (_angle < 0.0f)
     return (_angle + 360.0f);
@@ -199,7 +202,7 @@ void                            Car::setPosMap(const std::pair<int, int> & pos)
   this->_posMap = pos;
 }
 
-float                           Car::getAngle()
+float                           Car::getAngle() const
 {
   return (this->_angle);
 }

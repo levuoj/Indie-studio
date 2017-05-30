@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Fri May 26 09:42:42 2017 Pierre Zawadil
+// Last update Tue May 30 11:16:39 2017 DaZe
 //
 
 #pragma once
@@ -30,7 +30,6 @@ public:
   ~ManageGame() = default;
 
   DType				transferKey(const irr::EKEY_CODE &);
-  // std::unique_ptr<GameElement>			ElementFromChar(char);
   GameElement			*ElementFromChar(char);
   void				loadMap();
   void				updateMap();

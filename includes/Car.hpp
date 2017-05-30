@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Tue May 30 10:49:20 2017 Lebrun Kilian
+// Last update Tue May 30 16:59:05 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -60,12 +60,12 @@ public:
   void					deccelerate();
   void			        slowDown();
   void					move();
-  float					getAbsoluteAngle();
   void					turnLeft();
   void					turnRight();
   void					launchPowerUp();
   void					setPosMap(std::pair<int, int> const& pos);
-  float					getAngle();
+  float					getAbsoluteAngle() const;
+  float					getAngle() const;
   float					getSpeed() const;
 
   std::pair<int, int> const &		getPrevPos() const;
