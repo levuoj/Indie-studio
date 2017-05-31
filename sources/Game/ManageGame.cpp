@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 31 11:03:58 2017 DaZe
+// Last update Wed May 31 11:42:55 2017 Pierre Zawadil
 //
 
 #include "ManageGame.hpp"
@@ -92,7 +92,7 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 
 GameElement			*ManageGame::ElementFromChar(const char c)
 {
-    irr::io::path			path;
+  irr::io::path			path;
   //  std::string			path;
   Element::EType		type;
   std::pair<float, float>	pos(50.0f, 50.0f);
@@ -116,19 +116,19 @@ GameElement			*ManageGame::ElementFromChar(const char c)
       type = Element::EType::ENDLINE;
       break;
     case '>':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD2;
       break;
     case 's':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD3;
       break;
     case 'g':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD4;
       break;
     case '-':
