@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue May 30 17:49:57 2017 Lebrun Kilian
+// Last update Wed May 31 11:49:33 2017 Lebrun Kilian
 //
 
 #include <cmath>
@@ -152,7 +152,7 @@ void            Car::turnLeft()
     }
   if (this->_angle >= 360)
     this->_angle = 0.0f;
-  this->_angle += 2.0f;
+  this->_angle += 4.0f;
 
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
@@ -170,7 +170,7 @@ void            Car::turnRight()
     }
   if (this->_angle <= -360)
     this->_angle = 0.0f;
-  this->_angle -= 2.0f;
+  this->_angle -= 4.0f;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 
