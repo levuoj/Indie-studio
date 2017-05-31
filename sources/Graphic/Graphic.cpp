@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed May 31 15:35:49 2017 Pashervz
+// Last update Wed May 31 17:17:56 2017 Pashervz
 //
 
 #include <iostream>
@@ -46,6 +46,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _camera->setTarget(irr::core::vector3df(5066.22f, 808.67f, 4824.34f));
   _camera->setFarValue(42000.0f);
   this->initMainMenu();
+  this->initOptMenu();
   this->skyDome("assets/moon.png");
   this->ground();
   this->constructMenuArea();
@@ -121,7 +122,6 @@ void						Graphic::initMainMenu()
   _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							   initTextDim,
 							   L"play",
-							   "assets/deathStar.jpg",
 							   color)));
   initPos.at(1) = 810.f;
   // initTextDim[0] += 15;
@@ -129,7 +129,6 @@ void						Graphic::initMainMenu()
   _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							   initTextDim,
 							   L"scores",
-							   "assets/deathStar.jpg",
 							   color)));
   initPos.at(1) = 790.f;
   // initTextDim[0] -= 15;
@@ -137,16 +136,84 @@ void						Graphic::initMainMenu()
   _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							   initTextDim,
 							   L"options",
-							   "assets/deathStar.jpg",
 							   color)));
   initPos.at(1) = 770.f;
   _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							   initTextDim,
 							   L"quit",
-							   "assets/deathStar.jpg",
 							   color)));
   for (auto it = _buttonMM.begin() ; it != _buttonMM.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
+}
+
+void						Graphic::initOptMenu()
+{
+  std::vector<irr::f32>				initPos;
+  std::vector<irr::f32>				initTextDim;
+  irr::video::SColor				color(255, 255, 255, 0);
+  
+
+  initPos.push_back(4990);
+  initPos.push_back(825);
+  initPos.push_back(4852);
+  initTextDim.push_back(25.f);
+  initTextDim.push_back(10.f);
+  _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"p1",
+							    color)));
+  initPos[0] = 4980;
+  initPos[2] = 4864;
+  _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"p2",
+							    color)));
+  initPos[0] = 4970;
+  initPos[2] = 4876;  
+  _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"p3",
+							    color)));
+  initPos[0] = 4960;
+  initPos[2] = 4888;  
+  _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"p4",
+							    color)));
+  initPos[0] = 4990;
+  initPos[1] = 805;
+  initPos[1] = 4852;
+  _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"ON",
+							    color)));
+  initPos[1] = 783;
+  _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"ON",
+							    color)));
+  for (auto it = _buttonOpt.begin() ; it != _buttonOpt.end() ; ++it)
+    it->get()->setButton(_sceneManager, _guienv);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
+                                     L"options", 0,
+                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+				   irr::core::vector3df(5000, 831, 4866),
+				   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
+                                     L"bindings", 0,
+                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+				   irr::core::vector3df(5015, 822.5f, 4830),
+                                     -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
+                                     L"music", 0,
+                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+				   irr::core::vector3df(5000, 805, 4830),
+                                     -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
+                                     L"audio", 0,
+                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+				   irr::core::vector3df(5000, 785, 4830),
+                                     -1, color, color);
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
@@ -163,8 +230,18 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
     }
 }
 
-void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const&)
+void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
 {
+  int			idx = 0;
+
+  for (auto it = map.begin() ; it != map.end() ; ++it)
+    {
+      if (static_cast<Button *>(it->get())->getIsSelected() == true)
+	_buttonOpt[idx].get()->_button->setColor(irr::video::SColor(255, 0, 255, 0));
+      else
+	_buttonOpt[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+      ++idx;
+    }
 }
 
 void		Graphic::displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&)
