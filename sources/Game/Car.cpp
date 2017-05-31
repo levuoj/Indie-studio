@@ -5,10 +5,11 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Mon May 29 17:02:13 2017 Lebrun Kilian
+// Last update Wed May 31 12:02:57 2017 Pierre Zawadil
 //
 
 #include <cmath>
+#include "Convert.hpp"
 #include "Car.hpp"
 
 const float Car::_maxSpeed = 500;
@@ -16,18 +17,11 @@ const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 const float Car::_pi = 3.141592f;
 
-Car::Car() : _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
 {
-  _path = ">";
+  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
-  _type = Element::EType::CAR;
-}
-
-Car::Car(std::pair<int, int> posMap) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
-{
-  _path = ">";
-  _pos = std::make_pair(50.0f, 50.0f);
-  _type = Element::EType::CAR;
+  _type = type;
 }
 
 bool            Car::checkArrounding()
@@ -35,33 +29,33 @@ bool            Car::checkArrounding()
   switch (this->edir)
     {
     case EDirection::RIGHT:
-      if (this->_arrouding.at(3) == Element::EType::BLOCK)
+      if (this->_arrounding.at(3) == Element::EType::BLOCK)
 	return (false);
       break;
     case EDirection::LEFT:
-      if (this->_arrouding.at(7) == Element::EType::BLOCK)
+      if (this->_arrounding.at(7) == Element::EType::BLOCK)
 	return (false);
       break;
     case EDirection::UP:
-      if (this->_arrouding.at(1) == Element::EType::BLOCK)
+      if (this->_arrounding.at(1) == Element::EType::BLOCK)
 	return (false);
     case EDirection::UP_LEFT:
-      if (this->_arrouding.at(0) == Element::EType::BLOCK)
+      if (this->_arrounding.at(0) == Element::EType::BLOCK)
 	return (false);
       break;
     case EDirection::UP_RIGHT:
-      if (this->_arrouding.at(2) == Element::EType::BLOCK)
+      if (this->_arrounding.at(2) == Element::EType::BLOCK)
 	return (false);
       break;
     case EDirection::DOWN:
-      if (this->_arrouding.at(5) == Element::EType::BLOCK)
+      if (this->_arrounding.at(5) == Element::EType::BLOCK)
 	return (false);
     case EDirection::DOWN_RIGHT:
-      if (this->_arrouding.at(4) == Element::EType::BLOCK)
+      if (this->_arrounding.at(4) == Element::EType::BLOCK)
 	return (false);
       break;
     case EDirection::DOWN_LEFT:
-      if (this->_arrouding.at(6) == Element::EType::BLOCK)
+      if (this->_arrounding.at(6) == Element::EType::BLOCK)
 	return (false);
       break;
     default:
@@ -74,11 +68,11 @@ void            Car::accelerate()
 {
   std::cout << "En avant toute !!!" << std::endl;
   std::cout << "speed : " << this->_speed << std::endl;
-  // if (checkArrounding() == false)
-  //   {
-      // this->_speed = 0.0f;
-      // return;
-    // }
+  if (checkArrounding() == false)
+    {
+      this->_speed = 0.0f;
+      return;
+    }
   if (this->_speed <= this->_maxSpeed)
   {
     std::cout << "sexe" << std::endl;
@@ -101,7 +95,7 @@ void            Car::deccelerate()
 
 void            Car::slowDown()
 {
-  std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
+  // std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
   // std::cout << "speed : " << this->_speed;
   // if (checkArrounding() == false)
   //   {
@@ -120,29 +114,31 @@ void            Car::move()
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
-      this->_prevPos.first = this->_posMap.first;
+      this->_prevPos = this->_posMap;
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
     }
   else if (this->_pos.first < 0)
     {
-      this->_prevPos.first = this->_posMap.first;
+      this->_prevPos = this->_posMap;
       this->_posMap.first -= 1;
       this->_pos.first += 100.0f;
     }
   this->_pos.second = this->_pos.second + (this->_speed / this->_fps) * this->_dir.second * -1;
   if (this->_pos.second > 100)
     {
-      this->_prevPos.second = this->_posMap.second;
+      this->_prevPos = this->_posMap;
       this->_posMap.second += 1;
       this->_pos.second -= 100.0f;
     }
   else if (this->_pos.second < 0)
     {
-      this->_prevPos.second = this->_posMap.second;
+      this->_prevPos = this->_posMap;
       this->_posMap.second -= 1;
       this->_pos.second += 100.0f;
     }
+  std::cout << "POS = " << Convert::coordToPos<int>(_posMap) << std::endl;
+  std::cout << "PREV POS = " << Convert::coordToPos<int>(_prevPos) << std::endl;
 }
 
 void            Car::turnLeft()
@@ -159,7 +155,7 @@ void            Car::turnLeft()
 
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
- 
+
   std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
@@ -174,14 +170,13 @@ void            Car::turnRight()
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 2.0f;
-
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 
   // std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
 
-float		Car::getAbsoluteAngle()
+float		Car::getAbsoluteAngle() const
 {
   if (_angle < 0.0f)
     return (_angle + 360.0f);
@@ -199,7 +194,7 @@ void                            Car::setPosMap(const std::pair<int, int> & pos)
   this->_posMap = pos;
 }
 
-float                           Car::getAngle()
+float                           Car::getAngle() const
 {
   return (this->_angle);
 }
@@ -227,4 +222,9 @@ std::pair<int, int> const       &Car::getPrevPos() const
 float				Car::getSpeed() const
 {
   return (this->_speed);
+}
+
+void				Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
+{
+  this->_arrounding = arrounding;
 }

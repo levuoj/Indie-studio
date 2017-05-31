@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Wed May 31 13:38:06 2017 Pashervz
+// Last update Wed May 31 15:37:32 2017 Pashervz
 //
 
 #pragma once
@@ -29,9 +29,9 @@ private:
   irr::scene::ISceneManager	*_sceneManager;
   irr::gui::IGUIEnvironment	*_guienv;
   irr::scene::ICameraSceneNode	*_camera;
-  std::unordered_map<char, irr::scene::IAnimatedMeshSceneNode *> pods;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
-  
+  std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
+
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
   void				constructMenuArea();
   void				displayMainMenu(std::vector<std::shared_ptr<Element>> const&);
@@ -40,7 +40,7 @@ private:
   void				displayExit(std::vector<std::shared_ptr<Element>> const&);
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
-  void				setCar(char c, irr::f32 x, irr::f32 y, irr::f32 z);
+  void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				skyDome(const irr::io::path&);

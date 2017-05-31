@@ -1,4 +1,3 @@
-
 //
 // Core.cpp for Core in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources
 //
@@ -6,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Mon May 29 15:11:32 2017 Pashervz
+// Last update Wed May 31 15:36:32 2017 Pashervz
 //
 
 #include <iostream>
@@ -19,13 +18,13 @@
 Core::Core()
 {
   this->_graphic = std::unique_ptr<Graphic>(new Graphic());
-  // this->_toLoad = MAIN_MENU;
-  // --- TEST --- //
   this->_toLoad = MAIN_MENU;
+   // --- TEST --- //
+  // this->_toLoad = GAME;
   std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
   molft.push_back({ irr::KEY_UP, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_SPACE});
   this->_game = std::unique_ptr<ManageGame>(new ManageGame(1, molft));
-  this->_game->setObserver(this->_graphic.get());
+  // this->_game->setObserver(this->_graphic.get());
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
@@ -71,8 +70,6 @@ void			Core::launch()
       if (this->_toLoad != GAME)
 	this->_menu[this->_toLoad]->notify();
       else
-	{
-	  this->_game->notify();
-	}
+	this->_game->notify();
     }
 }

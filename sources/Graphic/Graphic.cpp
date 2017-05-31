@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed May 31 15:26:10 2017 Pashervz
+// Last update Wed May 31 15:35:49 2017 Pashervz
 //
 
 #include <iostream>
@@ -186,17 +186,18 @@ void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
 
 }
 
-void		Graphic::setCar(char c,
+void		Graphic::setCar(Element::EType type,
+				irr::io::path path,
 				irr::f32 x,
 				irr::f32 y,
 				irr::f32 z)
 {
-  pods[c] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("assets/Anakin_podracer/AnakinsPodRacer.obj"), // Faire un getPath ici
-						    0, -1, irr::core::vector3df(x, y, z), // POSITION
-						    irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
-						    irr::core::vector3df(.010f, .010f, .010f)); // ECHELLE
+  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh(path),
+						       0, -1, irr::core::vector3df(x, y, z), // POSITION
+						       irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
+						       irr::core::vector3df(.010f, .010f, .010f)); // ECHELLE
   std::cout << "First pos x = " << x << ", y = " << y << ", z = " << z << std::endl;
-  pods[c]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
@@ -209,9 +210,9 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
   irr::scene::IMeshSceneNode        *wall;
 
   //  std::cout << ">> In initMap" << std::endl;
-  switch (elem->getPath()[0])
+  switch (elem->getType())
     {
-    case 'X' :
+    case Element::EType::BLOCK :
       cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
       wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
 					     irr::core::vector3df(x, y + 10.f, z),
@@ -220,30 +221,29 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
       wall->setMaterialFlag(irr::video::EMF_LIGHTING, false);
       wall->setMaterialType(irr::video::EMT_SOLID);
       break ;
-    case ' ' :
+    case Element::EType::ROAD :
       cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
       break ;
-    case 'c' :
+    case Element::EType::ENDLINE :
       cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
       break ;
-    case 'o' :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
-      break ;
-    case '>' :
+    case Element::EType::POD1 :
       cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('>', x, y, z);
+      this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
-    case 'p' :
+    case Element::EType::POD2 :
       cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('p', x, y, z);
+      this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
-    case 's' :
+    case Element::EType::POD3 :
       cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('s', x, y, z);
+      this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
-    case 'g' :
+    case Element::EType::POD4 :
       cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
-      this->setCar('g', x, y, z);
+      this->setCar(elem->getType(), elem->getPath(), x, y, z);
+      break ;
+    default :
       break ;
     }
   cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -263,29 +263,32 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   //		     irr::core::vector3df(5096.f, 563.f, 5451.f));
   for (auto const& elem : map)
     {
+      // std::cout << elem->getPath()[0];
       if (i % 60 == 0)
 	{
+	  // std::cout << std::endl;
 	  x = 5330.f;
 	  z += SQUARE_SIZE;
 	}
       if (first)
 	this->initMap(elem, x, y, z);
-      if (elem->getType() == Element::EType::CAR)
+      Element::EType type		= elem->getType();
+      if (type == Element::EType::POD1
+	  || type == Element::EType::POD2
+	  || type == Element::EType::POD3
+	  || type == Element::EType::POD4)
 	{
-	  std::cout << "Car : " << elem->getPath()[0] << std::endl;
-	  irr::core::vector3df newPos	= this->pods[elem->getPath()[0]]->getPosition();
+	  irr::core::vector3df newPos	= this->pods[type]->getPosition();
 	  newPos.X = x - SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().first / 100;
-	  std::cout << "newPos.X : " << newPos.X << std::endl;
 	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
-	  std::cout << "newPos.Z : " << newPos.Z << std::endl;
-	  this->pods[elem->getPath()[0]]->setPosition(newPos);
-
+	  this->pods[type]->setPosition(newPos);
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
-	  this->pods[elem->getPath()[0]]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
+	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
 	}
       x -= 10.f;
       ++i;
     }
+  // std::cout << std::endl;
   first = false;
   std::cout << "QUIT DISPLAY" << std::endl;
 }
