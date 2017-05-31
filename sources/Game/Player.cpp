@@ -5,15 +5,16 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Mon May 29 17:36:18 2017 Lebrun Kilian
+// Last update Tue May 30 17:50:28 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
 #include "Player.hpp"
 
-Player::Player(const std::pair<int, int> &carPos)
+Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
 {
-  this->_car = std::shared_ptr<Car>(new Car(carPos));
+  std::cout << carPos.first << " " << carPos.second << std::endl;
+  this->_car = std::shared_ptr<Car>(new Car(carPos, type));
     //  this->_car->setPosMap(carPos);
 }
 
@@ -54,8 +55,7 @@ void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
   _functors[this->_keys.at(4)] = std::bind(&Car::launchPowerUp, this->_car);
 }
 
-void  Player::setArroundingCar(const std::array<Element::EType, 8> &// arrounding
-			       )
+void  Player::setArroundingCar(const std::array<Element::EType, 8> &arrounding)
 {
-   // this->_car.setArrounding(arrounding);
+   this->_car->setArrounding(arrounding);
 }

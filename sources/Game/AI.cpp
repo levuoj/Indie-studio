@@ -5,15 +5,15 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Tue May 30 11:04:56 2017 DaZe
+// Last update Tue May 30 17:51:12 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
 #include "AI.hpp"
 
-AI::AI(std::pair<int, int> const& pos) : _idx(1)
+AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 {
-  _car = std::shared_ptr<Car>(new Car(pos));
+  _car = std::shared_ptr<Car>(new Car(pos, type));
   /*  _functors.reserve(6);
   _functors[1] = [this](){this->part1();};
   _functors[2] = [this](){this->part2();};
