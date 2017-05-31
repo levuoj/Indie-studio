@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed May 31 14:53:01 2017 DaZe
+// Last update Wed May 31 15:59:50 2017 DaZe
 //
 
 #include <cmath>
@@ -156,7 +156,7 @@ void            Car::turnLeft()
 
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
- 
+
   std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
