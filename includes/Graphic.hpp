@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Fri May 26 14:21:11 2017 Pierre Zawadil
+// Last update Wed May 31 10:26:28 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -28,7 +28,7 @@ private:
   irr::scene::ISceneManager	*_sceneManager;
   irr::gui::IGUIEnvironment	*_guienv;
   irr::scene::ICameraSceneNode	*_camera;
-  std::unordered_map<char, irr::scene::IAnimatedMeshSceneNode *> pods;
+  std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
   void				constructMenuArea();
@@ -38,7 +38,7 @@ private:
   void				displayExit(std::vector<std::shared_ptr<Element>> const&);
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
-  void				setCar(char c, irr::f32 x, irr::f32 y, irr::f32 z);
+  void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				button(irr::f32, irr::f32, irr::f32,
