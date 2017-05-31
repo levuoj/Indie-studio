@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Wed May 31 15:36:32 2017 Pashervz
+// Last update Wed May 31 20:38:56 2017 jouvel
 //
 
 #include <iostream>
@@ -71,5 +71,6 @@ void			Core::launch()
 	this->_menu[this->_toLoad]->notify();
       else
 	this->_game->notify();
+      std::cerr << this->_toLoad << std::endl;
     }
 }

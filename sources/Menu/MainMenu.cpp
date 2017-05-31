@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Tue May 30 17:50:58 2017 Pierre Zawadil
+// Last update Wed May 31 20:40:35 2017 jouvel
 //
 
 #include <memory>
@@ -29,8 +29,7 @@ DType		MainMenu::select() const
    {
      if (static_cast<Button *>((*it).get())->getIsSelected() == true)
        {
-	 return (GAME); // <-- POUR TEST
-	 //return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
+	 return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
        }
     }
   std::cout << "Le prout c'est cool" << std::endl;

@@ -5,13 +5,13 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Wed May 31 19:17:27 2017 jouvel
-// Last update Wed May 31 19:40:01 2017 jouvel
+// Last update Wed May 31 20:11:33 2017 jouvel
 //
 
 #include "Camera.hpp"
 
-Gcamera::Gcamera(irr::scene::ISceneManager *sceneManager,
-	       irr::core::vector3df pos, irr::core::vector3df targ)
+void		Gcamera::initCamera(irr::scene::ISceneManager *sceneManager,
+		 irr::core::vector3df pos, irr::core::vector3df targ)
 {
   _camera = sceneManager->addCameraSceneNode(0, pos, targ);
   _camera->setFarValue(42000.f);

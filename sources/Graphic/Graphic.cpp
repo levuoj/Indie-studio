@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed May 31 17:17:56 2017 Pashervz
+// Last update Wed May 31 20:43:38 2017 jouvel
 //
 
 #include <iostream>
@@ -35,16 +35,10 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
   _guienv	= _device->getGUIEnvironment();
 
-  _camera	= _sceneManager->addCameraSceneNode(0,
-						    irr::core::vector3df(5033.72f,
-									 804.74f,
-									 5212.25f),
-						    irr::core::vector3df(5033.79f,
-									 576.37f,
-									 5373.57f));
-  _camera->setPosition(irr::core::vector3df(5035.62f, 806.83f, 4877.94f));
-  _camera->setTarget(irr::core::vector3df(5066.22f, 808.67f, 4824.34f));
-  _camera->setFarValue(42000.0f);
+  _camera.initCamera(_sceneManager,
+		     irr::core::vector3df(5035.62f, 806.83f, 4877.94f),
+		     irr::core::vector3df(5066.22f, 808.67f, 4824.34f));
+
   this->initMainMenu();
   this->initOptMenu();
   this->skyDome("assets/moon.png");
@@ -113,7 +107,7 @@ void						Graphic::initMainMenu()
   std::vector<irr::f32>				initPos;
   std::vector<irr::f32>				initTextDim;
   irr::video::SColor				color(255, 255, 255, 0);
-  
+
   initPos.push_back(5070.f);
   initPos.push_back(830.f);
   initPos.push_back(4820.f);
@@ -151,7 +145,7 @@ void						Graphic::initOptMenu()
   std::vector<irr::f32>				initPos;
   std::vector<irr::f32>				initTextDim;
   irr::video::SColor				color(255, 255, 255, 0);
-  
+
 
   initPos.push_back(4990);
   initPos.push_back(825);
@@ -169,13 +163,13 @@ void						Graphic::initOptMenu()
 							    L"p2",
 							    color)));
   initPos[0] = 4970;
-  initPos[2] = 4876;  
+  initPos[2] = 4876;
   _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
 							    L"p3",
 							    color)));
   initPos[0] = 4960;
-  initPos[2] = 4888;  
+  initPos[2] = 4888;
   _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
 							    L"p4",
@@ -194,32 +188,35 @@ void						Graphic::initOptMenu()
 							    color)));
   for (auto it = _buttonOpt.begin() ; it != _buttonOpt.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
-                                     L"options", 0,
-                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+				     L"options", 0,
+				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
 				   irr::core::vector3df(5000, 831, 4866),
 				   -1, color, color);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
-                                     L"bindings", 0,
-                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+				     L"bindings", 0,
+				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
 				   irr::core::vector3df(5015, 822.5f, 4830),
-                                     -1, color, color);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
-                                     L"music", 0,
-                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+				     -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+				     L"music", 0,
+				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
 				   irr::core::vector3df(5000, 805, 4830),
-                                     -1, color, color);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),                
-                                     L"audio", 0,
-                                     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+				     -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+				     L"audio", 0,
+				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
 				   irr::core::vector3df(5000, 785, 4830),
-                                     -1, color, color);
+				     -1, color, color);
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
 {
   int			idx = 0;
 
+  std::cerr << "MAIN" << std::endl;
+  _camera.moveCamera(irr::core::vector3df(5035.62f, 806.83f, 4877.94f),
+		     irr::core::vector3df(5066.22f, 808.67f, 4824.34f));
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -234,6 +231,9 @@ void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
 {
   int			idx = 0;
 
+  std::cerr << "OPTION" << std::endl;
+  _camera.moveCamera(irr::core::vector3df(5023.62f, 806.83f, 4894.94f),
+		     irr::core::vector3df(4985.71f, 808.67f, 4861.74f));
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -335,9 +335,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	z = 5225.f;
   static bool	first = true;
 
-  // if (first)
-  //   this->moveCamera(irr::core::vector3df(5097.f, 860.f, 5175.f),
-  //		     irr::core::vector3df(5096.f, 563.f, 5451.f));
+  _camera.moveCamera(irr::core::vector3df(5097.f, 860.f, 5175.f),
+		     irr::core::vector3df(5096.f, 563.f, 5451.f));
   for (auto const& elem : map)
     {
       // std::cout << elem->getPath()[0];
@@ -384,32 +383,12 @@ bool		Graphic::running(void)
   return (_device->run());
 }
 
-irr::f32	Graphic::coords(irr::f32 oldPoint,
-				irr::f32 newPoint)
-{
-  if (oldPoint < newPoint)
-    return (oldPoint + 1);
-  else if (oldPoint > newPoint)
-    return (oldPoint - 1);
-  return (newPoint);
-}
 
 void		Graphic::setEventReceiver(irr::IEventReceiver *receiver)
 {
   _device->setEventReceiver(receiver);
 }
 
-void		Graphic::moveCamera(irr::core::vector3df pos,
-				    irr::core::vector3df targ)
-{
-  _camera->setPosition(irr::core::vector3df(coords(_camera->getAbsolutePosition().X, pos.X),
-					    coords(_camera->getAbsolutePosition().Y, pos.Y),
-					    coords(_camera->getAbsolutePosition().Z, pos.Z)));
-
-  _camera->setTarget(irr::core::vector3df(coords(_camera->getTarget().X, targ.X),
-					  coords(_camera->getTarget().Y, targ.Y),
-					  coords(_camera->getTarget().Z, targ.Z)));
-}
 
 // THIS WAS IN MANAGE_DISPLAY
 // moveCamera(irr::core::vector3df(5600, 690, 5400),

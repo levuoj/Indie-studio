@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Wed May 31 16:55:41 2017 Pashervz
+// Last update Wed May 31 20:23:40 2017 jouvel
 //
 
 #pragma once
@@ -16,6 +16,7 @@
 #include "AObserver.hpp"
 #include "Utils.hpp"
 #include "GButton.hpp"
+#include "Camera.hpp"
 
 class	Graphic : public AObserver
 {
@@ -28,10 +29,10 @@ private:
   irr::video::IVideoDriver	*_driver;
   irr::scene::ISceneManager	*_sceneManager;
   irr::gui::IGUIEnvironment	*_guienv;
-  irr::scene::ICameraSceneNode	*_camera;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
+  Gcamera			_camera;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
   void				constructMenuArea();
@@ -50,7 +51,7 @@ private:
   irr::f32			coords(irr::f32, irr::f32);
   void				initMainMenu();
   void				initOptMenu();
-  
+
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();
