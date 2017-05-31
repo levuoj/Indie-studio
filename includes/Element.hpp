@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Mon May 22 13:27:48 2017 Pashervz
+// Last update Tue May 30 17:29:38 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -20,7 +20,10 @@ public:
   enum		EType
     {
       DEFAULT,
-      CAR,
+      POD1,
+      POD2,
+      POD3,
+      POD4,
       POWERUP,
       BUTTON,
       ARROW_LEFT,

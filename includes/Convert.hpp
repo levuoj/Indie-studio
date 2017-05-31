@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Fri May 12 17:06:19 2017 thomas vigier
-// Last update Mon May 29 16:15:46 2017 Lebrun Kilian
+// Last update Tue May 30 16:55:50 2017 DaZe
 //
 
 #pragma once
@@ -20,6 +20,7 @@ public:
   {
     return (std::make_pair(pos % 60, (pos - pos % 60) / 60));
   }
+  
   template <class T>
   static int				coordToPos(std::pair<T, T> const& coord)
   {
