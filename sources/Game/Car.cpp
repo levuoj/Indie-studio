@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed May 31 12:02:51 2017 DaZe
+// Last update Wed May 31 14:53:01 2017 DaZe
 //
 
 #include <cmath>
@@ -110,33 +110,34 @@ void            Car::slowDown()
 
 void            Car::move()
 {
-  // std::cout << _pos.first << " --- " << _pos.second << std::endl;
+  std::cout << _pos.first << " --- " << _pos.second << std::endl;
+  auto tmp = this->_prevPos;
+  this->_prevPos = this->_posMap;
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
-      this->_prevPos = this->_posMap;
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
     }
   else if (this->_pos.first < 0)
     {
-      this->_prevPos = this->_posMap;
       this->_posMap.first -= 1;
       this->_pos.first += 100.0f;
     }
   this->_pos.second = this->_pos.second + (this->_speed / this->_fps) * this->_dir.second * -1;
   if (this->_pos.second > 100)
     {
-      this->_prevPos = this->_posMap;
       this->_posMap.second += 1;
       this->_pos.second -= 100.0f;
     }
   else if (this->_pos.second < 0)
     {
-      this->_prevPos = this->_posMap;
       this->_posMap.second -= 1;
       this->_pos.second += 100.0f;
     }
+
+  if (this->_posMap == this->_prevPos)
+    this->_prevPos = tmp;
   std::cout << "POS = " << Convert::coordToPos<int>(_posMap) << std::endl;
   std::cout << "PREV POS = " << Convert::coordToPos<int>(_prevPos) << std::endl;
 }

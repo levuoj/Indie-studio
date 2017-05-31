@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed May 31 13:33:31 2017 DaZe
+// Last update Wed May 31 14:05:46 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -55,14 +55,20 @@ void			AI::part3()
 void			AI::part4()
 {
   std::cout << "PART 4" << std::endl;
-  if (_car->getAngle() != -180.0f)
+  if (_car->getAbsoluteAngle() != 180.0f)
     _car->turnRight();
-  else
+  else if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 5]->getType()
+	   == Element::EType::BLOCK)
     _idx = 5;
 }
 
 void			AI::part5()
 {
+  std::cout << "PART 5" << std::endl;
+  if (_car->getAbsoluteAngle() != 120.0f)
+    _car->turnRight();
+  else
+    _idx = 6;
 }
 
 void			AI::part6()
