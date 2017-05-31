@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Wed May 31 15:37:32 2017 Pashervz
+// Last update Wed May 31 16:55:41 2017 Pashervz
 //
 
 #pragma once
@@ -30,6 +30,7 @@ private:
   irr::gui::IGUIEnvironment	*_guienv;
   irr::scene::ICameraSceneNode	*_camera;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
+  std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
@@ -48,6 +49,7 @@ private:
   void				moveCamera(irr::core::vector3df, irr::core::vector3df);
   irr::f32			coords(irr::f32, irr::f32);
   void				initMainMenu();
+  void				initOptMenu();
   
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);

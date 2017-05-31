@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May 30 17:34:35 2017 Pashervz
-// Last update Wed May 31 15:24:26 2017 Pashervz
+// Last update Wed May 31 16:56:00 2017 Pashervz
 //
 
 #pragma once
@@ -19,16 +19,14 @@ public:
   std::vector<irr::f32>			_positions;
   std::vector<irr::f32>			_textDim;
   const wchar_t				*_text;
-  irr::io::path				_texture;
   irr::video::SColor			_color;
   
   GButton(std::vector<irr::f32> positions,
 	  std::vector<irr::f32> textDim,
 	  const wchar_t *text,
-	  const irr::io::path& texture,
 	  irr::video::SColor color) : _positions(positions),
 					  _textDim(textDim),
-					  _text(text), _texture(texture), _color(color) {}
+					  _text(text), _color(color) {}
   ~GButton() {}
   
   void			setButton(irr::scene::ISceneManager *scene, irr::gui::IGUIEnvironment *guienv)
