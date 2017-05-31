@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Mon May 29 18:23:48 2017 Pierre Zawadil
+// Last update Wed May 31 15:26:10 2017 Pashervz
 //
 
 #include <iostream>
@@ -42,7 +42,10 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 						    irr::core::vector3df(5033.79f,
 									 576.37f,
 									 5373.57f));
-
+  _camera->setPosition(irr::core::vector3df(5035.62f, 806.83f, 4877.94f));
+  _camera->setTarget(irr::core::vector3df(5066.22f, 808.67f, 4824.34f));
+  _camera->setFarValue(42000.0f);
+  this->initMainMenu();
   this->skyDome("assets/moon.png");
   this->ground();
   this->constructMenuArea();
@@ -95,73 +98,73 @@ void		Graphic::skyDome(const irr::io::path& image)
 				     16, 16, 1.f, 2.0f);
 }
 
-void		Graphic::button(irr::f32 xPos, irr::f32 yPos, irr::f32 zPos,
-				irr::f32 xRot, irr::f32 yRot, irr::f32 zRot,
-				const wchar_t *text,
-				const irr::io::path& filename,
-				bool const&)
-{
-  irr::scene::IMeshSceneNode	*cube =
-    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-				    irr::core::vector3df(xPos, yPos, zPos),
-				    irr::core::vector3df(xRot, yRot, zRot));
-
-  cube->setScale(irr::core::vector3df(5.0f, 1.0f, 1.0f));
-
-  cube->setMaterialTexture(0, _driver->getTexture(filename));
-  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  cube->setMaterialType(irr::video::EMT_SOLID);
-
-  writeText(xPos, yPos, zPos, text);
-}
-
 // ------------------------------------------------------------ //
 // ------------------------ MENU METHODS ---------------------- //
 // ------------------------------------------------------------ //
 
-void		Graphic::constructMenuArea()
+void			Graphic::constructMenuArea()
 {
 
 }
 
-void		Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
+void						Graphic::initMainMenu()
 {
-  irr::f32	y = 620.f;
-  //tmp pour test mouvement
-  irr::f32	yBis = 720.f;
+  std::vector<irr::f32>				initPos;
+  std::vector<irr::f32>				initTextDim;
+  irr::video::SColor				color(255, 255, 255, 0);
+  
+  initPos.push_back(5070.f);
+  initPos.push_back(830.f);
+  initPos.push_back(4820.f);
+  initTextDim.push_back(35.f);
+  initTextDim.push_back(10.f);
+  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							   initTextDim,
+							   L"play",
+							   "assets/deathStar.jpg",
+							   color)));
+  initPos.at(1) = 810.f;
+  // initTextDim[0] += 15;
+  // initTextDim[1] += 5;
+  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							   initTextDim,
+							   L"scores",
+							   "assets/deathStar.jpg",
+							   color)));
+  initPos.at(1) = 790.f;
+  // initTextDim[0] -= 15;
+  // initTextDim[1] -= 5;
+  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							   initTextDim,
+							   L"options",
+							   "assets/deathStar.jpg",
+							   color)));
+  initPos.at(1) = 770.f;
+  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							   initTextDim,
+							   L"quit",
+							   "assets/deathStar.jpg",
+							   color)));
+  for (auto it = _buttonMM.begin() ; it != _buttonMM.end() ; ++it)
+    it->get()->setButton(_sceneManager, _guienv);
+}
 
-  // irr::core::vector3df(5400, 600, 5200)
-  // irr::core::vector3df(5350, 590, 5215)
-  for (auto it = map.begin(); it != map.end(); ++it)
+void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
+{
+  int			idx = 0;
+
+  for (auto it = map.begin() ; it != map.end() ; ++it)
     {
-      button(5330.f, y, 5225.0f, 0.f, 107.f, 0.f,
-	     static_cast<Button *>(it->get())->getContent().c_str(),
-	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
-
-      //tmp pour test mouvement
-      button(5600.f, yBis, 5455.0f, 0.f, 0.f, 0.f,
-	     static_cast<Button *>(it->get())->getContent().c_str(),
-	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
-
-      y -= 20.f;
-      //tmp pour test mouvement
-      yBis -= 20.f;
+      if (static_cast<Button *>(it->get())->getIsSelected() == true)
+	_buttonMM[idx].get()->_button->setColor(irr::video::SColor(255, 255, 0, 0));
+      else
+	_buttonMM[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+      ++idx;
     }
 }
 
-void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
+void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const&)
 {
-  irr::f32	y = 660.f;
-
-  // irr::core::vector3df(5800, 700, 5600)
-  // irr::core::vector3df(5850, 690, 5815)
-  for (auto it = map.begin(); it != map.end(); ++it)
-    {
-      button(5850.f, y, 5815.0f, 0.f, 0.f, 0.f,
-	     static_cast<Button *>(it->get())->getContent().c_str(),
-	     (it->get())->getPath(), static_cast<Button *>(it->get())->getIsSelected());
-      y += 20.f;
-    }
 }
 
 void		Graphic::displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&)
@@ -327,62 +330,6 @@ void		Graphic::moveCamera(irr::core::vector3df pos,
 					  coords(_camera->getTarget().Y, targ.Y),
 					  coords(_camera->getTarget().Z, targ.Z)));
 }
-
-void		Graphic::writeText(irr::scene::IMeshSceneNode *cube,
-				   const wchar_t *text)
-{
-  _sceneManager->addTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				  text,
-				  irr::video::SColor(255, 255, 255, 0),
-				  cube);
-}
-
-void		Graphic::writeText(irr::f32 xPos,
-				   irr::f32 yPos,
-				   irr::f32 zPos,
-				   const wchar_t *text)
-{
-  static int	i = 0;
-  if (i < 8)
-    {
-      _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					       text, 0,
-					       irr::core::dimension2d<irr::f32>(25.f, 10.f),
-					       irr::core::vector3df(xPos + 5.7f,
-								    yPos + 2,
-								    zPos), -1,
-					       irr::video::SColor(255,255,255, 0),
-					       irr::video::SColor(255,255,255, 0));
-    }
-  else
-    _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					     text, 0,
-					     irr::core::dimension2d<irr::f32>(25.f, 10.f),
-					     irr::core::vector3df(xPos,
-								  yPos + 2,
-								  zPos - 5.7f), -1,
-					     irr::video::SColor(255,255,255, 0),
-					     irr::video::SColor(255,255,255, 0));
-  ++i;
-}
-
-void		Graphic::writeText(irr::s32 x,
-				   irr::s32 y,
-				   irr::s32 xBord,
-				   irr::s32 yBord,
-				   const wchar_t *text)
-{
-  // ECRIRE SUR LA FENETRE (STATIC)
-  irr::gui::IGUISkin* skin = _guienv->getSkin();
-  irr::gui::IGUIFont* font = _guienv->getFont("assets/font/myfont.xml");
-  skin->setFont(font);
-  skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255,255,255, 0));
-  // LIGNE D'EXEMPLE
-  //  _guienv->addStaticText(text, irr::core::rect<irr::s32>(10, 10, 1000, 1000), false);
-  _guienv->addStaticText(text, irr::core::rect<irr::s32>(x, y, xBord, yBord), false);
-}
-
-
 
 // THIS WAS IN MANAGE_DISPLAY
 // moveCamera(irr::core::vector3df(5600, 690, 5400),

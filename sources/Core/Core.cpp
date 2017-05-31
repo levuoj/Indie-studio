@@ -6,7 +6,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Mon May 29 15:55:19 2017 Lebrun Kilian
+// Last update Mon May 29 15:11:32 2017 Pashervz
 //
 
 #include <iostream>
@@ -21,7 +21,7 @@ Core::Core()
   this->_graphic = std::unique_ptr<Graphic>(new Graphic());
   // this->_toLoad = MAIN_MENU;
   // --- TEST --- //
-  this->_toLoad = GAME;
+  this->_toLoad = MAIN_MENU;
   std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
   molft.push_back({ irr::KEY_UP, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_SPACE});
   this->_game = std::unique_ptr<ManageGame>(new ManageGame(1, molft));
@@ -29,7 +29,7 @@ Core::Core()
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
-  //this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+  this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
 void			Core::launch()
@@ -52,7 +52,6 @@ void			Core::launch()
 	{
 	  if (loaded != GAME)
 	    {
-	      //std::cout << "MENU LOADED" << std::endl;
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
@@ -62,8 +61,6 @@ void			Core::launch()
 	  else
 	    {
 	      this->_toLoad = this->_game->transferKey(receiver.getKey());
-	      //std::cout << "GAME : " << GAME << std::endl;
-	      //std::cout << "GAME : " << this->_toLoad << std::endl;
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
@@ -71,13 +68,11 @@ void			Core::launch()
 	  receiver.setKey(irr::KEY_OEM_8);
 	  loaded = this->_toLoad;
 	}
-
       if (this->_toLoad != GAME)
 	this->_menu[this->_toLoad]->notify();
       else
 	{
 	  this->_game->notify();
 	}
-      std::cout << elapsed << std::endl;
     }
 }
