@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 31 10:43:54 2017 Pierre Zawadil
+// Last update Wed May 31 11:03:58 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -13,7 +13,7 @@
 
 #define COL 60; // C'EST MOCHE, AU MOINS LE METTRE DANS LE .HPP
 
-void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int y, int x, int i, const Element::EType &type)
+void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int y, int x, int & i, const Element::EType &type)
 {
   x = pos % COL;
   y = (pos - x) / COL;
@@ -21,6 +21,7 @@ void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int y, int x, int i, 
     {
       this->_players.push_back(Player(std::make_pair(x, y), type));
       ++i;
+      std::cout << "JE SUSI LA" << std::endl;
     }
   else
     {
@@ -41,20 +42,19 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
-      switch (it->get()->getType())
-
+      switch ((*it)->getType())
 	{
 	case Element::EType::POD1 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
 	  break;
 	case Element::EType::POD2 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
 	  break;
 	case Element::EType::POD3 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
 	  break;
 	case Element::EType::POD4 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, it->get()->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
 	  break;
 	default:
 	  break;
@@ -145,6 +145,7 @@ GameElement			*ManageGame::ElementFromChar(const char c)
 void				ManageGame::loadMap()
 {
   ManageFile      file("./assets/circuit/newCircuit.txt");
+  std::cout << "lol" << std::endl;
   std::string     map;
 
   map = file.readFile();

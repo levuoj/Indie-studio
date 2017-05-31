@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Tue May 30 17:50:28 2017 Lebrun Kilian
+// Last update Wed May 31 10:57:39 2017 DaZe
 //
 
 #include "test.hpp"
@@ -13,7 +13,7 @@
 
 Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
 {
-  std::cout << carPos.first << " " << carPos.second << std::endl;
+  std::cout << carPos.first << " -- " << carPos.second << std::endl;
   this->_car = std::shared_ptr<Car>(new Car(carPos, type));
     //  this->_car->setPosMap(carPos);
 }
