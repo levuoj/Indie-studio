@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 31 11:03:58 2017 DaZe
+// Last update Wed May 31 15:56:04 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -120,7 +120,7 @@ GameElement			*ManageGame::ElementFromChar(const char c)
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "assets/Sebulba-pod/Sebulba-pod.obj";
       type = Element::EType::POD2;
       break;
     case 's':
