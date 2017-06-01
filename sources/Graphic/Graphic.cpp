@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 15:16:26 2017 Pierre Zawadil
+// Last update Thu Jun  1 15:22:15 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -293,15 +293,10 @@ void		Graphic::setCar(Element::EType type,
   pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
 						       0, -1, irr::core::vector3df(x, y, z), // POSITION
 						       irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
-<<<<<<< HEAD
 						       irr::core::vector3df(0.01f, 0.01f, 0.01f)); // ECHELLE
   std::cout << "First pos x = " << x << ", y = " << y << ", z = " << z << std::endl;
   if (pods[type] != NULL)
     pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-=======
-						       irr::core::vector3df(.010f, .010f, .010f)); // ECHELLE
-  pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
->>>>>>> 86d83b02a4c6d63baf5920936f2299f46f1baa35
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
