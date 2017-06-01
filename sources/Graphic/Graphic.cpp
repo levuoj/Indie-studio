@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 15:49:51 2017 jouvel
+// Last update Thu Jun  1 17:27:11 2017 jouvel
 //
 
 #include <iostream>
@@ -49,6 +49,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   this->skyDome("assets/moon.png");
   this->ground();
   this->constructMenuArea();
+  _device->setWindowCaption("STAR WARS - PodRacer");
   // this->constructGameArea();
 }
 
