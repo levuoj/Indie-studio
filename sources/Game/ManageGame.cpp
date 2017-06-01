@@ -5,13 +5,13 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 31 19:43:26 2017 DaZe
+// Last update Thu Jun  1 10:11:39 2017 DaZe
 //
 
 #include "ManageGame.hpp"
 #include "Convert.hpp"
 
-static const int	ManageGame::_col = 60;
+const int	ManageGame::_col = 60;
 
 void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int & i, const Element::EType &type)
 {
@@ -118,7 +118,7 @@ GameElement			*ManageGame::ElementFromChar(const char c)
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "./assets/Teemto-pod-2.FBX";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD2;
       break;
     case 's':
@@ -157,13 +157,13 @@ void				ManageGame::loadMap()
 void				ManageGame::updateMap()
 {
   _AIs.at(0).chooseAction();
+  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   if (_AIs.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
     _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPrevPos())) =
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
-  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
   if (_players.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
-    _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) =
+    _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) = 
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
   printMap();
 }

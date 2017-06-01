@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Wed May 31 10:57:39 2017 DaZe
+// Last update Thu Jun  1 10:48:35 2017 DaZe
 //
 
 #include "test.hpp"
@@ -38,8 +38,9 @@ void		Player::driver(const irr::EKEY_CODE &key)
   if (it != _functors.end())
     it->second();
   else
-    std::cout << "\nchut" << std::endl;//this->_car->slowDown();
-   this->_car.get()->move();
+    {}
+    //this->_car->slowDown();
+   this->_car->move();
   // std::cout << this->_car->getSpeed() << std::endl;
   // std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
   // std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
