@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Tue May 30 17:51:12 2017 Lebrun Kilian
+// Last update Thu Jun  1 14:10:57 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -21,23 +21,19 @@ AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
   _functors[4] = [this](){this->part4();};
   _functors[5] = [this](){this->part5();};
   _functors[6] = [this](){this->part6();}; */
-  std::cout << "JE souis constructor AI" << std::endl;
 }
 
 void			AI::part1()
 {
-  std::cout << "PART 1" << std::endl;
   if (this->_car->getSpeed() <= Car::_maxSpeed)
     this->_car->accelerate();
-  else if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 4]->getType()
+  else if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 6]->getType()
 	   == Element::EType::BLOCK)
     _idx = 2;
-  std::cout << "POS = " << Convert::coordToPos<int>(this->_car->getPosMap()) << std::endl; 
 }
 
 void			AI::part2()
 {
-  std::cout << "PART 2" << std::endl;
   if (this->_car->getAbsoluteAngle() != 270.0f)
     this->_car->turnRight();
   else
@@ -46,7 +42,6 @@ void			AI::part2()
 
 void			AI::part3()
 {
-  std::cout << "PART 3" << std::endl;
   if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 240]->getType()
       == Element::EType::BLOCK && _idx != 0)
     _idx = 4;
@@ -54,19 +49,94 @@ void			AI::part3()
 
 void			AI::part4()
 {
-  std::cout << "PART 4" << std::endl;
-  if (_car->getAngle() != -180.0f)
+  if (_car->getAbsoluteAngle() != 180.0f)
     _car->turnRight();
-  else
+  else if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 5]->getType()
+	   == Element::EType::BLOCK)
     _idx = 5;
 }
 
 void			AI::part5()
 {
+  if (_car->getAbsoluteAngle() != 120.0f)
+    _car->turnRight();
+  else
+    _idx = 6;
 }
 
 void			AI::part6()
 {
+  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 180]->getType()
+      == Element::EType::BLOCK)
+    _idx = 7;
+}
+
+void			AI::part7()
+{
+  if (_car->getAbsoluteAngle() != 180.0f)
+    _car->turnLeft();
+  else
+    _idx = 8;
+}
+
+void			AI::part8()
+{
+  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 5]->getType()
+      == Element::EType::BLOCK)
+    _idx = 9;
+}
+
+void			AI::part9()
+{
+  if (_car->getAbsoluteAngle() != 240.0f)
+    _car->turnLeft();
+  else
+    _idx = 10;
+}
+
+void			AI::part10()
+{
+  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 177]->getType()
+      == Element::EType::BLOCK)
+    _idx = 11;
+}
+
+void			AI::part11()
+{
+  if (_car->getAbsoluteAngle() != 180.0f)
+    _car->turnRight();
+  else
+    _idx = 12;
+}
+
+void			AI::part12()
+{
+  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 5]->getType()
+      == Element::EType::BLOCK)
+    _idx = 13;
+}
+
+void			AI::part13()
+{
+  if (_car->getAbsoluteAngle() != 90.0f)
+    _car->turnRight();
+  else
+    _idx = 14;
+}
+
+void			AI::part14()
+{
+  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 240]->getType()
+      == Element::EType::BLOCK)
+    _idx = 15;
+}
+
+void			AI::part15()
+{
+  if (_car->getAbsoluteAngle() != 0.0f)
+    _car->turnRight();
+  else
+    _idx = 1;
 }
 
 void			AI::chooseAction()
@@ -77,7 +147,6 @@ void			AI::chooseAction()
   if (it != _functors.end())
   it->second(); */
   
-  std::cout << "IDX = " << _idx << std::endl;
   switch (_idx)
     {
     case 1:
@@ -98,6 +167,32 @@ void			AI::chooseAction()
     case 6:
       part6();
       break ;
+    case 7:
+      part7();
+      break ;
+    case 8:
+      part8();
+      break ;
+    case 9:
+      part9();
+      break ;
+    case 10:
+      part10();
+      break ;
+    case 11:
+      part11();
+      break ;
+    case 12:
+      part12();
+      break ;
+    case 13:
+      part13();
+      break ;
+    case 14:
+      part14();
+      break ;
+    case 15:
+      part15();
     default:
       break ;
     }
@@ -115,7 +210,7 @@ void			AI::chooseAction()
    if (_idx == 2 && _car->getAngle() != -180.0f)
      _car->turnRight();
      std::cout << _car->getAbsoluteAngle() << std::endl; */
-   _car.get()->move();
+  _car.get()->move();
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)

@@ -5,11 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed May 31 19:04:49 2017 Pashervz
+// Last update Thu Jun  1 14:57:02 2017 Pierre Zawadil
 //
 
 #include <iostream>
 #include <cmath>
+#include <stdexcept>
 #include "Graphic.hpp"
 #include "Button.hpp"
 #include "ManageGame.hpp"
@@ -30,6 +31,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
   _driver	= _device->getVideoDriver();
   _sceneManager = _device->getSceneManager();
+  //_sceneManager->addExternalMeshLoader(new IrrAssimpImport(_sceneManager));
 
   _device->getCursorControl()->setVisible(false);
 
@@ -186,7 +188,7 @@ void						Graphic::initOptMenu()
 							    initTextDim,
 							    L"off",
 							    color)));
-  
+
   for (auto it = _buttonOpt.begin() ; it != _buttonOpt.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
   initTextDim[0] = 25;
@@ -266,17 +268,21 @@ void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
 }
 
 void		Graphic::setCar(Element::EType type,
-				irr::io::path path,
+				irr::io::path,
 				irr::f32 x,
 				irr::f32 y,
 				irr::f32 z)
 {
-  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh(path),
+  // std::cout << "MUST SEEEE --> " << path.c_str() << std::endl;
+  // if (path == NULL)
+  //   throw (std::runtime_error("Empty path"));
+  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
 						       0, -1, irr::core::vector3df(x, y, z), // POSITION
 						       irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
-						       irr::core::vector3df(.010f, .010f, .010f)); // ECHELLE
+						       irr::core::vector3df(0.01f, 0.01f, 0.01f)); // ECHELLE
   std::cout << "First pos x = " << x << ", y = " << y << ", z = " << z << std::endl;
-  pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  if (pods[type] != NULL)
+    pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
@@ -359,6 +365,15 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  irr::core::vector3df newPos	= this->pods[type]->getPosition();
 	  newPos.X = x - SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().first / 100;
 	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
+	  // std::cout << "newPos.Z : " << newPos.Z << std::endl;
+	  std::cout << "/**********************************\\" << std::endl;
+	  std::cout << "Pos.x = " << static_cast<Car *>(elem.get())->getPos().first << std::endl;
+
+	  std::cout << "Pos.y = " << static_cast<Car *>(elem.get())->getPos().second << std::endl;
+	  std::cout << "PosMap.x = " << static_cast<Car *>(elem.get())->getPosMap().first << std::endl;
+
+	  std::cout << "PosMap.y = " << static_cast<Car *>(elem.get())->getPosMap().second << std::endl;
+	  std::cout << "\\**********************************/" << std::endl;
 	  this->pods[type]->setPosition(newPos);
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
 	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));

@@ -19,6 +19,7 @@ ENDIF(CMAKE_CXX_FLAGS_DEBUG)
 INCLUDE_DIRECTORIES(
   "/usr/include/irrlicht"
   ${PROJECT_SOURCE_DIR}/includes
+  ${PROJECT_SOURCE_DIR}/sources/IrrAssimp
   )
 
 FILE(GLOB SRCS sources/*.cpp)
