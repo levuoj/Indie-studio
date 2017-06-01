@@ -1,0 +1,587 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 31.05.2017 13:48:19
+
+newmtl Rope01
+	Ns 19.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0039 0.0157
+	Ks 0.0990 0.0990 0.0990
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__55_RGB_Multiply.tga
+	map_Kd Map__55_RGB_Multiply.tga
+	map_bump -bm 1.5000 Map__28_Mix.tga
+
+newmtl ENG_Brown_Metal2
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.1451 0.0824 0.0706
+	Ks 0.1098 0.1098 0.1098
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__47_RGB_Multiply.tga
+	map_Kd Map__47_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+	map_refl tatooine.jpg
+
+newmtl Eng_Black_trim33d
+	Ns 29.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.1603 0.1603 0.1603
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+
+newmtl Eng_Black_trim33
+	Ns 29.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.1603 0.1603 0.1603
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+
+newmtl SEB_ENG_04
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Engine04.jpg
+	map_Kd Seb_Engine04.jpg
+
+newmtl ENG_01
+	Ns 21.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Map__118_Mix.tga
+
+newmtl ENG_Grey_Metal2
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3765 0.3765 0.3765
+	Ks 0.1482 0.1482 0.1482
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__47_RGB_Multiply.tga
+	map_Kd Map__47_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+	map_refl tatooine.jpg
+
+newmtl ENG_Grey_Metal
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3765 0.3765 0.3765
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__47_RGB_Multiply.tga
+	map_Kd Map__47_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+	map_refl tatooine.jpg
+
+newmtl Rubber_hose
+	Ns 15.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.0344 0.0344 0.0344
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump dvGSTK3.jpg
+	bump dvGSTK3.jpg
+
+newmtl Eng_Black_trim3
+	Ns 29.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.1603 0.1603 0.1603
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+
+newmtl ENG_Brown_Metal3
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3765 0.2902 0.2196
+	Ks 0.1570 0.1570 0.1570
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__47_RGB_Multiply.tga
+	map_Kd Map__47_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+	map_refl tatooine.jpg
+
+newmtl Eng_Black_trim
+	Ns 29.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+
+newmtl ENG_Brown_Metal
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3765 0.2902 0.2196
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__47_RGB_Multiply.tga
+	map_Kd Map__47_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+	map_refl tatooine.jpg
+
+newmtl Rubber
+	Ns 15.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.0344 0.0344 0.0344
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump dvGSTK2.jpg
+	bump dvGSTK2.jpg
+
+newmtl Eng_Black_02
+	Ns 29.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+
+newmtl SEB_ENG_02
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 02.jpg
+	map_Kd 02.jpg
+	map_bump 02_b.jpg
+	bump 02_b.jpg
+
+newmtl seb_Wing_Metal
+	Ns 30.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3765 0.2902 0.2196
+	Ks 0.4033 0.4357 0.4422
+	Ke 0.0000 0.0000 0.0000
+	map_Ka W_01.jpg
+	map_Kd W_01.jpg
+	map_bump W_01_b.jpg
+	bump W_01_b.jpg
+	map_refl tatooine.jpg
+
+newmtl SEB_Fan
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Fan01.jpg
+	map_Kd Seb_Fan01.jpg
+
+newmtl Seb_Vent
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Vent01.jpg
+	map_Kd Seb_Vent01.jpg
+
+newmtl Seb_Fan02
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Fan02.jpg
+	map_Kd Seb_Fan02.jpg
+
+newmtl SEB_ENG_03
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 03.jpg
+	map_Kd 03.jpg
+	map_bump 02_b.jpg
+	bump 02_b.jpg
+
+newmtl SEB_Exhaust
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Exhuast01.jpg
+	map_Kd Seb_Exhuast01.jpg
+	map_bump Seb_Exhuast01_b.jpg
+	bump Seb_Exhuast01_b.jpg
+
+newmtl ads
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__89_Checker.tga
+	map_Kd Map__89_Checker.tga
+
+newmtl SEB_ENG_WING_TOP
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 01.jpg
+	map_Kd 01.jpg
+	map_bump Seb_b.jpg
+	bump Seb_b.jpg
+
+newmtl SEB_ENG_WING_BOT
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka BOT.jpg
+	map_Kd BOT.jpg
+	map_bump BOT_b.jpg
+	bump BOT_b.jpg
+
+newmtl Eng_Black_trim111
+	Ns 29.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0863 0.0863 0.0863
+	Ks 0.1603 0.1603 0.1603
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+
+newmtl SEB_ENG_05
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Engine05.jpg
+	map_Kd Seb_Engine05.jpg
+
+newmtl Black_trim
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0039 0.0157
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__123_Missing_TextureMap.tga
+	map_Kd Map__123_Missing_TextureMap.tga
+
+newmtl Seb_Pod01
+	Ns 39.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.3882 0.5294 0.1922
+	Kd 0.3882 0.5294 0.1922
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Pod01.jpg
+	map_Kd Seb_Pod01.jpg
+	map_bump Seb_Pod01_bmp.jpg
+	bump Seb_Pod01_bmp.jpg
+
+newmtl Grey_Metal
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3294 0.3294 0.3294
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__124_Missing_TextureMap.tga
+	map_Kd Map__124_Missing_TextureMap.tga
+	map_refl tatooine.jpg
+
+newmtl Seb_Pod_Bottom
+	Ns 39.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0928 0.0641 0.3046
+	Kd 0.2784 0.1922 0.9137
+	Ks 0.0900 0.0900 0.0900
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Pod_Bottom.jpg
+	map_Kd Seb_Pod_Bottom.jpg
+	map_bump Seb_Pod_Bottom_b.jpg
+	bump Seb_Pod_Bottom_b.jpg
+
+newmtl Black_Matte
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4863 0.1843 0.0196
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+
+newmtl Seb_Glass
+	Ns 25.0000
+	Ni 1.5000
+	d 0.7500
+	Tr 0.2500
+	Tf 0.7500 0.7500 0.7500 
+	illum 2
+	Ka 0.0118 0.0078 0.0353
+	Kd 0.9804 0.9804 0.9961
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__75_RGB_Multiply.tga
+	map_Kd Map__75_RGB_Multiply.tga
+	map_refl tatooine.jpg
+
+newmtl Black_trim2
+	Ns 19.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0039 0.0157
+	Ks 0.0990 0.0990 0.0990
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__55_RGB_Multiply.tga
+	map_Kd Map__55_RGB_Multiply.tga
+	map_bump -bm 1.5000 Map__28_Mix.tga
+
+newmtl Eng_Black_trim2
+	Ns 29.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0039 0.0157
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__42_RGB_Multiply.tga
+	map_Kd Map__42_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+	map_refl tatooine.jpg
+
+newmtl Eng_Red_Metal
+	Ns 23.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3451 0.0824 0.0588
+	Ks 0.2520 0.2520 0.2520
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Map__38_RGB_Multiply.tga
+	map_Kd Map__38_RGB_Multiply.tga
+	map_bump Plateox.jpg
+	bump Plateox.jpg
+	map_refl tatooine.jpg
+
+newmtl Seb_fAN03
+	Ns 0.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.3882 0.5294 0.1922
+	Kd 0.3882 0.5294 0.1922
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka Seb_Fan03.jpg
+	map_Kd Seb_Fan03.jpg
+
+newmtl wire_008008136
+	Ns 32
+	d 1
+	Tr 0
+	Tf 1 1 1
+	illum 2
+	Ka 0.0314 0.0314 0.5333
+	Kd 0.0314 0.0314 0.5333
+	Ks 0.3500 0.3500 0.3500

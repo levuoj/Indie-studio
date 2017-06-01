@@ -1,0 +1,856 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 31.05.2017 15:14:34
+
+newmtl podengine_achte7
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 6ENGIN.JPG
+	map_Kd 6ENGIN.JPG
+
+newmtl podengine_achte6
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 7ENGIN.JPG
+	map_Kd 7ENGIN.JPG
+
+newmtl podengine_achte5
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 5ENGIN.JPG
+	map_Kd 5ENGIN.JPG
+
+newmtl podengine_achte4
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 6ENGIN.JPG
+	map_Kd 6ENGIN.JPG
+
+newmtl podengine_beeme1
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka DETAIL.JPG
+	map_Kd DETAIL.JPG
+
+newmtl podengine_buize1
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4706 0.4706 0.5176
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podengine_cabel1
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka DETAIL.JPG
+	map_Kd DETAIL.JPG
+
+newmtl podengine_kabel1
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8235 0.8235 0.8235
+	Ks 0.3400 0.3400 0.3400
+	Ke 0.0000 0.0000 0.0000
+	map_Ka DETAIL.JPG
+	map_Kd DETAIL.JPG
+
+newmtl podengine_kap
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CAP2.JPG
+	map_Kd CAP2.JPG
+
+newmtl podengine_midde4
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 3ENGIN.JPG
+	map_Kd 3ENGIN.JPG
+
+newmtl podengine_midde7
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 5ENGIN.JPG
+	map_Kd 5ENGIN.JPG
+
+newmtl podengine_midde6
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 5ENGIN.JPG
+	map_Kd 5ENGIN.JPG
+
+newmtl podengine_midde5
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2ENGIN.JPG
+	map_Kd 2ENGIN.JPG
+
+newmtl podengine_prope1
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4706 0.4706 0.5176
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podengine_puntp1
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4706 0.4706 0.5176
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podengine_voor11
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 1ENGIN.JPG
+	map_Kd 1ENGIN.JPG
+
+newmtl podengine_voor21
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2ENGIN.JPG
+	map_Kd 2ENGIN.JPG
+
+newmtl podengine_voorb1
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 1ENGIN.JPG
+	map_Kd 1ENGIN.JPG
+
+newmtl podengine_voord1
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2ENGIN.JPG
+	map_Kd 2ENGIN.JPG
+
+newmtl podengine_achte3
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 6ENGIN.JPG
+	map_Kd 6ENGIN.JPG
+
+newmtl podengine_achte2
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 7ENGIN.JPG
+	map_Kd 7ENGIN.JPG
+
+newmtl podengine_achte1
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 5ENGIN.JPG
+	map_Kd 5ENGIN.JPG
+
+newmtl podengine_achter
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 6ENGIN.JPG
+	map_Kd 6ENGIN.JPG
+
+newmtl podengine_beemer
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka DETAIL.JPG
+	map_Kd DETAIL.JPG
+
+newmtl podengine_buizen
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4706 0.4706 0.5176
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podengine_cabelh
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka DETAIL.JPG
+	map_Kd DETAIL.JPG
+
+newmtl podengine_kabelh
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8235 0.8235 0.8235
+	Ks 0.3400 0.3400 0.3400
+	Ke 0.0000 0.0000 0.0000
+	map_Ka DETAIL.JPG
+	map_Kd DETAIL.JPG
+
+newmtl podengine_kaplef
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8784 0.6235 0.8549
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CAP2.JPG
+	map_Kd CAP2.JPG
+
+newmtl podengine_midden
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 3ENGIN.JPG
+	map_Kd 3ENGIN.JPG
+
+newmtl podengine_midde3
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 5ENGIN.JPG
+	map_Kd 5ENGIN.JPG
+
+newmtl podengine_midde2
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 5ENGIN.JPG
+	map_Kd 5ENGIN.JPG
+
+newmtl podengine_midde1
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2ENGIN.JPG
+	map_Kd 2ENGIN.JPG
+
+newmtl podengine_propel
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4706 0.4706 0.5176
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podengine_puntpr
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4706 0.4706 0.5176
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podengine_voor1
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 1ENGIN.JPG
+	map_Kd 1ENGIN.JPG
+
+newmtl podengine_voor2
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7529 0.7529 0.7529
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2ENGIN.JPG
+	map_Kd 2ENGIN.JPG
+
+newmtl podengine_voorbu
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 1ENGIN.JPG
+	map_Kd 1ENGIN.JPG
+
+newmtl podengine_voorde
+	Ns 90.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.9059 0.9059 0.9961
+	Ks 0.1333 0.1333 0.1467
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2ENGIN.JPG
+	map_Kd 2ENGIN.JPG
+
+newmtl Material__6
+	Ns 25.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.2052 0.1425 0.2536
+	Kd 0.6157 0.4275 0.7608
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka around.JPG
+	map_Kd around.JPG
+
+newmtl cockpit_cirkel
+	Ns 53.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8784 0.1216 0.7451
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka AROUND.JPG
+	map_Kd AROUND.JPG
+
+newmtl cockpit_insideco
+	Ns 53.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4980 0.4980 0.4980
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CONTROLS.JPG
+	map_Kd CONTROLS.JPG
+
+newmtl Material__2
+	Ns 25.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0667 0.1843 0.0588
+	Kd 0.2000 0.5529 0.1765
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka sides.JPG
+	map_Kd sides.JPG
+
+newmtl Material__1
+	Ns 25.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.1791 0.0654 0.0654
+	Kd 0.5373 0.1961 0.1961
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka sides.JPG
+	map_Kd sides.JPG
+
+newmtl Metal_Old_Skillet
+	Ns 0.0000
+	Ni 1.0000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.4196 0.4196 0.4196
+	Ks 0.5924 0.5924 0.5924
+	Ke 0.0000 0.0000 0.0000
+
+newmtl cockpit_seatdeta
+	Ns 53.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7490 0.7490 0.7490
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl cockpit_sides
+	Ns 53.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 1.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka sides.JPG
+	map_Kd sides.JPG
+
+newmtl Material__7
+	Ns 25.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0641 0.1582 0.1817
+	Kd 0.1922 0.4745 0.5451
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2detail.JPG
+	map_Kd 2detail.JPG
+
+newmtl cockpit_winghold
+	Ns 53.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0902 0.8863 0.9098
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka DETAIL.JPG
+	map_Kd DETAIL.JPG
+
+newmtl Material__3
+	Ns 25.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0889 0.0641 0.1817
+	Kd 0.2667 0.1922 0.5451
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka wing.JPG
+	map_Kd wing.JPG
+
+newmtl Material__4
+	Ns 25.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0353 0.2235 0.2170
+	Kd 0.1059 0.6706 0.6510
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka wing.JPG
+	map_Kd wing.JPG
+
+newmtl podcockpit_comp2
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.6824 0.6824 0.6824
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podcockpit_compu
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5569 0.5569 0.5569
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CONTROLS.JPG
+	map_Kd CONTROLS.JPG
+
+newmtl podcockpit_comp1
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+
+newmtl Material__8
+	Ns 25.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.1817 0.0641 0.1725
+	Kd 0.5451 0.1922 0.5176
+	Ks 0.0450 0.0450 0.0450
+	Ke 0.0000 0.0000 0.0000
+	map_Ka 2detail.JPG
+	map_Kd 2detail.JPG
+
+newmtl podcockpit_stee1
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3137 0.3137 0.3137
+	Ks 0.4000 0.4000 0.4000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podcockpit_steel
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.7255 0.7255 0.7255
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CONTROLS.JPG
+	map_Kd CONTROLS.JPG
+
+newmtl podcockpit_stee2
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.6824 0.6824 0.6824
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CONTROLS.JPG
+	map_Kd CONTROLS.JPG
+
+newmtl podcockpit_stoel
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.2980 0.4902 0.2510
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+
+newmtl podcockpit_stuu3
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3137 0.3137 0.3137
+	Ks 0.4000 0.4000 0.4000
+	Ke 0.0000 0.0000 0.0000
+	map_refl FRACTALR.TGA
+
+newmtl podcockpit_stuu1
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.6824 0.6824 0.6824
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CONTROLS.JPG
+	map_Kd CONTROLS.JPG
+
+newmtl podcockpit_stuur
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.6824 0.6824 0.6824
+	Ks 0.1200 0.1200 0.1200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka CONTROLS.JPG
+	map_Kd CONTROLS.JPG
+
+newmtl podcockpit_stuu2
+	Ns 74.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.3137 0.3137 0.3137
+	Ks 0.4000 0.4000 0.4000
+	Ke 0.0000 0.0000 0.0000
+	map_refl FRACTALR.TGA
+
+newmtl teemtopodcabel
+	Ns 43.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.1961 0.1961 0.1961
+	Ks 0.3700 0.3700 0.3700
+	Ke 0.0000 0.0000 0.0000
