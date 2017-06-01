@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun  1 13:59:59 2017 Lebrun Kilian
+// Last update Thu Jun  1 14:11:29 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -157,12 +157,25 @@ void				ManageGame::loadMap()
 void				ManageGame::updateMap()
 {
   _AIs.at(0).chooseAction();
+  _AIs.at(1).chooseAction();
+  _AIs.at(2).chooseAction();
   _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
+  _map.at(Convert::coordToPos<int>(_AIs.at(1).getCar()->getPosMap())) = _AIs.at(1).getCar();
+  _map.at(Convert::coordToPos<int>(_AIs.at(2).getCar()->getPosMap())) = _AIs.at(2).getCar();
+  _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
   if (_AIs.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
     _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPrevPos())) =
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
-  _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
-  if (_players.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
+  
+  if (_AIs.at(1).getCar()->getPrevPos() != _AIs.at(1).getCar()->getPosMap())
+    _map.at(Convert::coordToPos<int>(_AIs.at(1).getCar()->getPrevPos())) =
+      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  
+  if (_AIs.at(2).getCar()->getPrevPos() != _AIs.at(2).getCar()->getPosMap())
+    _map.at(Convert::coordToPos<int>(_AIs.at(2).getCar()->getPrevPos())) =
+      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  
+  if (_players.at(0).getCar()->getPrevPos() != _players.at(0).getCar()->getPosMap())
     _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) = 
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
   printMap();

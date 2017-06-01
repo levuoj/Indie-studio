@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Thu Jun  1 11:46:26 2017 Lebrun Kilian
+// Last update Thu Jun  1 14:10:57 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -210,7 +210,7 @@ void			AI::chooseAction()
    if (_idx == 2 && _car->getAngle() != -180.0f)
      _car->turnRight();
      std::cout << _car->getAbsoluteAngle() << std::endl; */
-  //   _car.get()->move();
+  _car.get()->move();
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
