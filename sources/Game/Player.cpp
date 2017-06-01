@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Thu Jun  1 11:45:36 2017 Lebrun Kilian
+// Last update Thu Jun  1 15:34:24 2017 DaZe
 //
 
 #include "test.hpp"
@@ -37,6 +37,7 @@ void		Player::driver(const irr::EKEY_CODE &key)
 
   if (it != _functors.end())
     it->second();
+
   // else
     // std::cout << "\nchut" << std::endl;//this->_car->slowDown();
    this->_car.get()->move();
