@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Thu May 25 15:22:50 2017 Pashervz
+// Last update Thu Jun  1 15:09:35 2017 Pashervz
 //
 
 #include <memory>
@@ -98,7 +98,7 @@ void			BindingMenu::openBindingConf()
 {
   try
     {
-      ManageFile		manageFile("bindings.conf");
+      ManageFile		manageFile("./Config/bindings.conf");
       std::string		file;
 
       file = manageFile.readFile();
@@ -113,6 +113,7 @@ void			BindingMenu::openBindingConf()
 
 void			BindingMenu::defaultP1()
 {
+  std::cout << "yololo" << std::endl;
   this->_bindings.clear();
   this->_bindings.push_back(irr::KEY_KEY_Z);
   static_cast<Bind *>(this->_map[0].get())->setKey(irr::KEY_KEY_Z);
