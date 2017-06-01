@@ -5,11 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed May 31 12:05:41 2017 Pierre Zawadil
+// Last update Wed May 31 19:17:09 2017 DaZe
 //
 
 #include <iostream>
 #include <cmath>
+#include "IrrAssimp.h"
 #include "Graphic.hpp"
 #include "Button.hpp"
 #include "ManageGame.hpp"
@@ -30,6 +31,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
   _driver	= _device->getVideoDriver();
   _sceneManager = _device->getSceneManager();
+  //_sceneManager->addExternalMeshLoader(new IrrAssimpImport(_sceneManager));
 
   _device->getCursorControl()->setVisible(false);
 
@@ -189,12 +191,23 @@ void		Graphic::setCar(Element::EType type,
 				irr::f32 y,
 				irr::f32 z)
 {
-  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh(path),
-						       0, -1, irr::core::vector3df(x, y, z), // POSITION
-						       irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
-						       irr::core::vector3df(.010f, .010f, .010f)); // ECHELLE
+  std::cout << "MUST SEEEE --> " << path.c_str() << std::endl;
+  if (type == Element::EType::POD2)
+    {
+      IrrAssimp assimp(_sceneManager);
+      pods[type] = _sceneManager->addAnimatedMeshSceneNode(assimp.getMesh(path),
+							   0, -1, irr::core::vector3df(x, y, z), // POSITION
+							   irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
+							   irr::core::vector3df(10.f, 10.f, 10.f)); // ECHELLE
+    }
+  else
+    pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh(path),
+							 0, -1, irr::core::vector3df(x, y, z), // POSITION
+							 irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
+							 irr::core::vector3df(10.f, 10.f, 10.f)); // ECHELLE
   std::cout << "First pos x = " << x << ", y = " << y << ", z = " << z << std::endl;
-  pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  if (pods[type] != NULL)
+    pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,

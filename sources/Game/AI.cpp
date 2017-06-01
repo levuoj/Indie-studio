@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed May 31 15:41:16 2017 DaZe
+// Last update Wed May 31 16:50:24 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -127,7 +127,7 @@ void			AI::part13()
 
 void			AI::part14()
 {
-  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 180]->getType()
+  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 240]->getType()
       == Element::EType::BLOCK)
     _idx = 15;
 }
