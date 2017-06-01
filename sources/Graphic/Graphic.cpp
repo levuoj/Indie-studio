@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 15:22:15 2017 Pierre Zawadil
+// Last update Thu Jun  1 15:49:51 2017 jouvel
 //
 
 #include <iostream>
@@ -25,6 +25,9 @@ const irr::f32 Graphic::SQUARE_SIZE = 10.f;
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
+  _engine	= irrklang::createIrrKlangDevice();
+  _engine->play2D("media/star-wars-cantina-song.ogg", true);
+
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
 				    32);
@@ -51,6 +54,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
 Graphic::~Graphic()
 {
+  _engine->drop();
   _device->drop();
 }
 

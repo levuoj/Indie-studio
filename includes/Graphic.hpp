@@ -5,12 +5,13 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Wed May 31 20:23:40 2017 jouvel
+// Last update Thu Jun  1 15:51:22 2017 jouvel
 //
 
 #pragma once
 
 #include <irrlicht.h>
+#include <irrKlang.h>
 #include <unordered_map>
 #include <functional>
 #include "AObserver.hpp"
@@ -29,6 +30,7 @@ private:
   irr::video::IVideoDriver	*_driver;
   irr::scene::ISceneManager	*_sceneManager;
   irr::gui::IGUIEnvironment	*_guienv;
+  irrklang::ISoundEngine	*_engine;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
