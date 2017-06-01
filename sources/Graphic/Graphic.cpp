@@ -5,12 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 17:21:20 2017 Pierre Zawadil
+// Last update Thu Jun  1 17:31:56 2017 Pierre Zawadil
 //
 
 #include <iostream>
 #include <cmath>
-#include <stdexcept>
+#include "Error.hpp"
 #include "Graphic.hpp"
 #include "Button.hpp"
 #include "ManageGame.hpp"
