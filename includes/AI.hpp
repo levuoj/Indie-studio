@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:35:04 2017 thomas vigier
-// Last update Tue May 30 17:51:35 2017 Lebrun Kilian
+// Last update Wed May 31 15:15:13 2017 DaZe
 //
 
 #pragma once
@@ -33,6 +33,15 @@ public:
   void				part4();
   void				part5();
   void				part6();
+  void				part7();
+  void				part8();
+  void				part9();
+  void				part10();
+  void				part11();
+  void				part12();
+  void				part13();
+  void				part14();
+  void				part15();
 
   AI() = default;
   AI(std::pair<int, int> const& pos, const Element::EType );

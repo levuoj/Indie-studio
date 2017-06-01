@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 13:33:06 2017 Pashervz
-// Last update Wed May 24 14:41:46 2017 Pashervz
+// Last update Thu Jun  1 15:00:57 2017 Pashervz
 //
 
 #pragma once
@@ -22,5 +22,8 @@ public:
   ~OptionMenu() {}
   DType				transferKey(irr::EKEY_CODE);
   DType				select();
-  std::wstring const &		getPlayer() const;
+  std::string const &		getPlayer() const
+  {
+    return (_player);
+  }
 };

@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Wed May 31 10:26:28 2017 Pierre Zawadil
+// Last update Wed May 31 20:23:40 2017 jouvel
 //
 
 #pragma once
@@ -15,6 +15,8 @@
 #include <functional>
 #include "AObserver.hpp"
 #include "Utils.hpp"
+#include "GButton.hpp"
+#include "Camera.hpp"
 
 class	Graphic : public AObserver
 {
@@ -27,8 +29,10 @@ private:
   irr::video::IVideoDriver	*_driver;
   irr::scene::ISceneManager	*_sceneManager;
   irr::gui::IGUIEnvironment	*_guienv;
-  irr::scene::ICameraSceneNode	*_camera;
+  std::vector<std::unique_ptr<GButton>>		_buttonMM;
+  std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
+  Gcamera			_camera;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
   void				constructMenuArea();
@@ -41,21 +45,12 @@ private:
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
-  void				button(irr::f32, irr::f32, irr::f32,
-				       irr::f32, irr::f32, irr::f32,
-				       const wchar_t *,
-				       const irr::io::path&,
-				       bool const&);
   void				skyDome(const irr::io::path&);
   void				ground();
   void				moveCamera(irr::core::vector3df, irr::core::vector3df);
   irr::f32			coords(irr::f32, irr::f32);
-  void				writeText(irr::f32, irr::f32, irr::f32,
-					  const wchar_t *);
-  void				writeText(irr::scene::IMeshSceneNode *,
-					  const wchar_t *);
-  void				writeText(irr::s32, irr::s32, irr::s32, irr::s32,
-					  const wchar_t *);
+  void				initMainMenu();
+  void				initOptMenu();
 
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
