@@ -1,11 +1,11 @@
- //
+//
 // Graphic.hpp for irrlicht in /home/anthony/rendu/cpp/indie/Indie_studio/includes
 //
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Wed May 31 20:23:40 2017 jouvel
+// Last update Thu Jun  1 17:24:30 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -18,28 +18,26 @@
 #include "GButton.hpp"
 #include "Camera.hpp"
 
-class	Graphic : public AObserver
+class						Graphic : public AObserver
 {
 private:
   static const irr::f32	SQUARE_SIZE;
 
-  irr::u32			_width;
-  irr::u32			_height;
-  irr::IrrlichtDevice		*_device;
-  irr::video::IVideoDriver	*_driver;
-  irr::scene::ISceneManager	*_sceneManager;
-  irr::gui::IGUIEnvironment	*_guienv;
+  irr::u32					_width;
+  irr::u32					_height;
+  irr::IrrlichtDevice				*_device;
+  irr::video::IVideoDriver			*_driver;
+  irr::scene::ISceneManager			*_sceneManager;
+  irr::gui::IGUIEnvironment			*_guienv;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
+    Gcamera					_camera;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
-  Gcamera			_camera;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
-  void				constructMenuArea();
   void				displayMainMenu(std::vector<std::shared_ptr<Element>> const&);
   void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
   void				displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&);
-  void				displayExit(std::vector<std::shared_ptr<Element>> const&);
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
@@ -70,7 +68,6 @@ public:
     {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
     {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
     {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
-    {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };

@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 15:22:15 2017 Pierre Zawadil
+// Last update Thu Jun  1 17:21:20 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -45,8 +45,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   this->initOptMenu();
   this->skyDome("assets/moon.png");
   this->ground();
-  this->constructMenuArea();
-  // this->constructGameArea();
 }
 
 Graphic::~Graphic()
@@ -98,11 +96,6 @@ void		Graphic::skyDome(const irr::io::path& image)
 // ------------------------------------------------------------ //
 // ------------------------ MENU METHODS ---------------------- //
 // ------------------------------------------------------------ //
-
-void			Graphic::constructMenuArea()
-{
-
-}
 
 void						Graphic::initMainMenu()
 {
@@ -267,11 +260,6 @@ void		Graphic::displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&)
 
 }
 
-void		Graphic::displayExit(std::vector<std::shared_ptr<Element>> const&)
-{
-  // Utiliser __guienv pour afficher une fenetre avec les boutons YES et NO http://irrlicht.sourceforge.net/docu/example005.html
-}
-
 // ------------------------------------------------------------ //
 // ------------------------ GAME METHODS ---------------------- //
 // ------------------------------------------------------------ //
@@ -287,14 +275,10 @@ void		Graphic::setCar(Element::EType type,
 				irr::f32 y,
 				irr::f32 z)
 {
-  // std::cout << "MUST SEEEE --> " << path.c_str() << std::endl;
-  // if (path == NULL)
-  //   throw (std::runtime_error("Empty path"));
   pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
-						       0, -1, irr::core::vector3df(x, y, z), // POSITION
-						       irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
-						       irr::core::vector3df(0.01f, 0.01f, 0.01f)); // ECHELLE
-  std::cout << "First pos x = " << x << ", y = " << y << ", z = " << z << std::endl;
+						       0, -1, irr::core::vector3df(x, y, z),
+						       irr::core::vector3df(0.f, 270.f, 0.f),
+						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
   if (pods[type] != NULL)
     pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
@@ -308,7 +292,6 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 				    irr::core::vector3df(0.f, 0.f, 0.f));
   irr::scene::IMeshSceneNode        *wall;
 
-  //  std::cout << ">> In initMap" << std::endl;
   switch (elem->getType())
     {
     case Element::EType::BLOCK :
@@ -361,10 +344,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 		     irr::core::vector3df(5096.f, 563.f, 5451.f));
   for (auto const& elem : map)
     {
-      // std::cout << elem->getPath()[0];
       if (i % 60 == 0)
 	{
-	  // std::cout << std::endl;
 	  x = 5330.f;
 	  z += SQUARE_SIZE;
 	}
@@ -379,15 +360,6 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  irr::core::vector3df newPos	= this->pods[type]->getPosition();
 	  newPos.X = x - SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().first / 100;
 	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
-	  // std::cout << "newPos.Z : " << newPos.Z << std::endl;
-	  std::cout << "/**********************************\\" << std::endl;
-	  std::cout << "Pos.x = " << static_cast<Car *>(elem.get())->getPos().first << std::endl;
-
-	  std::cout << "Pos.y = " << static_cast<Car *>(elem.get())->getPos().second << std::endl;
-	  std::cout << "PosMap.x = " << static_cast<Car *>(elem.get())->getPosMap().first << std::endl;
-
-	  std::cout << "PosMap.y = " << static_cast<Car *>(elem.get())->getPosMap().second << std::endl;
-	  std::cout << "\\**********************************/" << std::endl;
 	  this->pods[type]->setPosition(newPos);
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
 	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
@@ -395,9 +367,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       x -= 10.f;
       ++i;
     }
-  // std::cout << std::endl;
   first = false;
-  std::cout << "QUIT DISPLAY" << std::endl;
 }
 
 // ------------------------------------------------------------ //
@@ -414,32 +384,7 @@ bool		Graphic::running(void)
   return (_device->run());
 }
 
-
 void		Graphic::setEventReceiver(irr::IEventReceiver *receiver)
 {
   _device->setEventReceiver(receiver);
 }
-
-
-// THIS WAS IN MANAGE_DISPLAY
-// moveCamera(irr::core::vector3df(5600, 690, 5400),
-//	     irr::core::vector3df(5600, 690, 5450));
-// moveCamera(irr::core::vector3df(5400, 600, 5200),
-//	     irr::core::vector3df(5550, ++y, 5215));
-
-// tmp camera
-// static int y = 590;
-// _camera->setRotation(irr::core::vector3df(0,--y,0));
-// _camera->bindTargetAndRotation(true);
-// tmp camera
-
-// if (y == 0)
-//   y = 590;
-//  irr::core::stringw str = y;
-// irr::core::stringw str = L"X = ";
-// str += _camera->getAbsolutePosition().X;
-// str += L" Y = ";
-// str += _camera->getAbsolutePosition().Y;
-// str += L" Z = ";
-// str += _camera->getAbsolutePosition().Z;
-//  _device->setWindowCaption(str.c_str());
