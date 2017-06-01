@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun  1 15:16:39 2017 Pierre Zawadil
+// Last update Thu Jun  1 15:24:05 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -29,7 +29,7 @@ Core::Core()
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
-  this->_menu.emplace(BINDINGS, std::shared_ptr<AMenu>(new BindingMenu("P1")));
+  // this->_menu.emplace(BINDINGS, std::shared_ptr<AMenu>(new BindingMenu("P1")));
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
