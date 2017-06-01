@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Thu Jun  1 09:22:05 2017 Pashervz
+// Last update Thu Jun  1 17:21:02 2017 Pashervz
 //
 
 #include <memory>
@@ -31,7 +31,6 @@ DType		MainMenu::select() const
 	 return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
        }
     }
-  std::cout << "Le prout c'est cool" << std::endl;
   return (MAIN_MENU);
 }
 

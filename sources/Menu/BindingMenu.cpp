@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Thu Jun  1 15:09:35 2017 Pashervz
+// Last update Thu Jun  1 16:31:43 2017 Pashervz
 //
 
 #include <memory>
@@ -15,25 +15,21 @@
 #include "ManageFile.hpp"
 #include "BindingMenu.hpp"
 
-BindingMenu::BindingMenu(std::string const & player) : AMenu("Bindings", BINDINGS), _player(player)
+BindingMenu::BindingMenu(std::string const & player) : AMenu("Bindings", BINDINGS),
+						       _player(player)
 {
   this->_type = DType::BINDINGS;
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
   this->openBindingConf();
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[0]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[1]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[2]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[3]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[4]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
 std::wstring const	BindingMenu::stringToWstring(std::string const & str) const
-{
+{ 
   std::wstring		tmp(str.begin(), str.end());
 
   return (tmp);
@@ -113,7 +109,6 @@ void			BindingMenu::openBindingConf()
 
 void			BindingMenu::defaultP1()
 {
-  std::cout << "yololo" << std::endl;
   this->_bindings.clear();
   this->_bindings.push_back(irr::KEY_KEY_Z);
   static_cast<Bind *>(this->_map[0].get())->setKey(irr::KEY_KEY_Z);
