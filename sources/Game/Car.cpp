@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed May 31 14:53:01 2017 DaZe
+// Last update Wed May 31 19:36:49 2017 Lebrun Kilian
 //
 
 #include <cmath>
@@ -66,13 +66,11 @@ bool            Car::checkArrounding()
 
 void            Car::accelerate()
 {
-  std::cout << "En avant toute !!!" << std::endl;
-  std::cout << "speed : " << this->_speed << std::endl;
-  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-    }
+  // if (checkArrounding() == false)
+  //   {
+  //     this->_speed = 0.0f;
+  //     return;
+  //   }
   if (this->_speed <= this->_maxSpeed)
   {
     std::cout << "sexe" << std::endl;
@@ -82,8 +80,6 @@ void            Car::accelerate()
 
 void            Car::deccelerate()
 {
-  std::cout << "J'enlève les voiles, Capitaine" << std::endl;
-  std::cout << "speed : " << this->_speed << std::endl;
   // if (checkArrounding() == false)
   //   {
   //     this->_speed = 0.0f;
@@ -95,8 +91,6 @@ void            Car::deccelerate()
 
 void            Car::slowDown()
 {
-  // std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
-  // std::cout << "speed : " << this->_speed;
   // if (checkArrounding() == false)
   //   {
   //     this->_speed = 0.0f;
@@ -110,7 +104,6 @@ void            Car::slowDown()
 
 void            Car::move()
 {
-  std::cout << _pos.first << " --- " << _pos.second << std::endl;
   auto tmp = this->_prevPos;
   this->_prevPos = this->_posMap;
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
@@ -138,13 +131,10 @@ void            Car::move()
 
   if (this->_posMap == this->_prevPos)
     this->_prevPos = tmp;
-  std::cout << "POS = " << Convert::coordToPos<int>(_posMap) << std::endl;
-  std::cout << "PREV POS = " << Convert::coordToPos<int>(_prevPos) << std::endl;
 }
 
 void            Car::turnLeft()
 {
-  std::cout << "A BABOOOOOOORD" << std::endl;
   if (checkArrounding() == false)
     {
       this->_speed = 0.0f;
@@ -156,13 +146,10 @@ void            Car::turnLeft()
 
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
- 
-  std::cout << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 void            Car::turnRight()
 {
-  std::cout << "A TRIBOOOOOOORD" << std::endl;
   if (checkArrounding() == false)
     {
       this->_speed = 0.0f;
@@ -173,8 +160,6 @@ void            Car::turnRight()
   this->_angle -= 5.0f;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
-
-  // std::cout << "TURN RIGHT dir == " << _dir.first << " --- " << _dir.second << std::endl;
 }
 
 float		Car::getAbsoluteAngle() const
@@ -191,7 +176,6 @@ void                            Car::launchPowerUp()
 
 void                            Car::setPosMap(const std::pair<int, int> & pos)
 {
-  // std::cout << pos.first << " --- " << pos.second << std::endl;
   this->_posMap = pos;
 }
 

@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed May 31 15:41:16 2017 DaZe
+// Last update Wed May 31 19:51:21 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
@@ -21,7 +21,6 @@ AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
   _functors[4] = [this](){this->part4();};
   _functors[5] = [this](){this->part5();};
   _functors[6] = [this](){this->part6();}; */
-  std::cout << "JE souis constructor AI" << std::endl;
 }
 
 void			AI::part1()

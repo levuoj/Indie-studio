@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed May 31 11:27:02 2017 Pierre Zawadil
+// Last update Thu Jun  1 11:43:22 2017 Lebrun Kilian
 //
 
 #include <iostream>
@@ -281,6 +281,14 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  // std::cout << "newPos.X : " << newPos.X << std::endl;
 	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  // std::cout << "newPos.Z : " << newPos.Z << std::endl;
+	  std::cout << "/**********************************\\" << std::endl;
+	  std::cout << "Pos.x = " << static_cast<Car *>(elem.get())->getPos().first << std::endl;
+	  
+	  std::cout << "Pos.y = " << static_cast<Car *>(elem.get())->getPos().second << std::endl;
+	  std::cout << "PosMap.x = " << static_cast<Car *>(elem.get())->getPosMap().first << std::endl;
+	  
+	  std::cout << "PosMap.y = " << static_cast<Car *>(elem.get())->getPosMap().second << std::endl;
+	  std::cout << "\\**********************************/" << std::endl;
 	  this->pods[type]->setPosition(newPos);
 
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
