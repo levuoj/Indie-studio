@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed May 31 20:43:38 2017 jouvel
+// Last update Wed May 31 19:04:49 2017 Pashervz
 //
 
 #include <iostream>
@@ -36,8 +36,8 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _guienv	= _device->getGUIEnvironment();
 
   _camera.initCamera(_sceneManager,
-		     irr::core::vector3df(5035.62f, 806.83f, 4877.94f),
-		     irr::core::vector3df(5066.22f, 808.67f, 4824.34f));
+		     irr::core::vector3df(5035, 806, 4877),
+		     irr::core::vector3df(5066, 808, 4824));
 
   this->initMainMenu();
   this->initOptMenu();
@@ -150,7 +150,7 @@ void						Graphic::initOptMenu()
   initPos.push_back(4990);
   initPos.push_back(825);
   initPos.push_back(4852);
-  initTextDim.push_back(25.f);
+  initTextDim.push_back(10.f);
   initTextDim.push_back(10.f);
   _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
@@ -176,18 +176,21 @@ void						Graphic::initOptMenu()
 							    color)));
   initPos[0] = 4990;
   initPos[1] = 805;
-  initPos[1] = 4852;
+  initPos[2] = 4852;
   _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"ON",
+							    L"on",
 							    color)));
   initPos[1] = 783;
   _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"ON",
+							    L"off",
 							    color)));
+  
   for (auto it = _buttonOpt.begin() ; it != _buttonOpt.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
+  initTextDim[0] = 25;
+  initTextDim[1] = 10;
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
 				     L"options", 0,
 				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
@@ -201,12 +204,12 @@ void						Graphic::initOptMenu()
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
 				     L"music", 0,
 				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(5000, 805, 4830),
+				   irr::core::vector3df(5015, 805, 4830),
 				     -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
 				     L"audio", 0,
 				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(5000, 785, 4830),
+				   irr::core::vector3df(5015, 785, 4830),
 				     -1, color, color);
 }
 
@@ -214,9 +217,8 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
 {
   int			idx = 0;
 
-  std::cerr << "MAIN" << std::endl;
-  _camera.moveCamera(irr::core::vector3df(5035.62f, 806.83f, 4877.94f),
-		     irr::core::vector3df(5066.22f, 808.67f, 4824.34f));
+  _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
+		     irr::core::vector3df(5066, 808, 4824));
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -232,8 +234,8 @@ void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
   int			idx = 0;
 
   std::cerr << "OPTION" << std::endl;
-  _camera.moveCamera(irr::core::vector3df(5023.62f, 806.83f, 4894.94f),
-		     irr::core::vector3df(4985.71f, 808.67f, 4861.74f));
+  _camera.moveCamera(irr::core::vector3df(5023, 806, 4894),
+		     irr::core::vector3df(4985, 808, 4861));
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
