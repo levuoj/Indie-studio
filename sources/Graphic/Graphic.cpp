@@ -5,13 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 11:45:07 2017 Lebrun Kilian
+// Last update Thu Jun  1 12:00:37 2017 Lebrun Kilian
 //
 
 #include <iostream>
 #include <cmath>
 #include <stdexcept>
-#include "IrrAssimp.h"
 #include "Graphic.hpp"
 #include "Button.hpp"
 #include "ManageGame.hpp"
@@ -187,15 +186,15 @@ void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
 }
 
 void		Graphic::setCar(Element::EType type,
-				irr::io::path path,
+				irr::io::path,
 				irr::f32 x,
 				irr::f32 y,
 				irr::f32 z)
 {
-  std::cout << "MUST SEEEE --> " << path.c_str() << std::endl;
-  if (path == NULL)
-    throw (std::runtime_error("Empty path"));
-  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh(path),
+  // std::cout << "MUST SEEEE --> " << path.c_str() << std::endl;
+  // if (path == NULL)
+  //   throw (std::runtime_error("Empty path"));
+  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
 						       0, -1, irr::core::vector3df(x, y, z), // POSITION
 						       irr::core::vector3df(0.f, 270.f, 0.f), // DIRECTION
 						       irr::core::vector3df(0.01f, 0.01f, 0.01f)); // ECHELLE
