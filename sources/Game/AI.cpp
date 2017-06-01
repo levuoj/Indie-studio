@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed May 31 19:51:21 2017 Lebrun Kilian
+// Last update Thu Jun  1 11:46:26 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
@@ -126,7 +126,7 @@ void			AI::part13()
 
 void			AI::part14()
 {
-  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 180]->getType()
+  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 240]->getType()
       == Element::EType::BLOCK)
     _idx = 15;
 }
@@ -147,7 +147,6 @@ void			AI::chooseAction()
   if (it != _functors.end())
   it->second(); */
   
-  std::cout << "IDX = " << _idx << std::endl;
   switch (_idx)
     {
     case 1:
@@ -211,7 +210,7 @@ void			AI::chooseAction()
    if (_idx == 2 && _car->getAngle() != -180.0f)
      _car->turnRight();
      std::cout << _car->getAbsoluteAngle() << std::endl; */
-   _car.get()->move();
+  //   _car.get()->move();
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)

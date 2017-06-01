@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Tue May 30 17:56:19 2017 Pierre Zawadil
+// Last update Wed May 31 19:23:17 2017 DaZe
 //
 
 #include <iostream>
@@ -72,6 +72,6 @@ void			Core::launch()
 	this->_menu[this->_toLoad]->notify();
       else
 	this->_game->notify();
-      std::cout << elapsed << std::endl;
+      std::cout << "TEMPS ECOULE / BOUCLE : " << elapsed << std::endl;
     }
 }

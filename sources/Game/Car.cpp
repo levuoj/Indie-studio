@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed May 31 19:36:49 2017 Lebrun Kilian
+// Last update Thu Jun  1 11:46:12 2017 Lebrun Kilian
 //
 
 #include <cmath>
@@ -72,10 +72,7 @@ void            Car::accelerate()
   //     return;
   //   }
   if (this->_speed <= this->_maxSpeed)
-  {
-    std::cout << "sexe" << std::endl;
     this->_speed += this->_inertia;
-  }
 }
 
 void            Car::deccelerate()
@@ -104,6 +101,7 @@ void            Car::slowDown()
 
 void            Car::move()
 {
+  std::cout << "Absolute Angle = " << getAbsoluteAngle() << std::endl;
   auto tmp = this->_prevPos;
   this->_prevPos = this->_posMap;
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
@@ -131,6 +129,9 @@ void            Car::move()
 
   if (this->_posMap == this->_prevPos)
     this->_prevPos = tmp;
+  std::cout << "POS CELL : " << _pos.first << " --- " << _pos.second << std::endl;
+  std::cout << "POSMAP = " << Convert::coordToPos<int>(_posMap) << std::endl;
+  std::cout << "PREV POS MAP = " << Convert::coordToPos<int>(_prevPos) << std::endl;
 }
 
 void            Car::turnLeft()

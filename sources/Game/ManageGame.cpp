@@ -5,23 +5,24 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed May 31 11:03:58 2017 DaZe
+// Last update Thu Jun  1 10:11:39 2017 DaZe
 //
 
 #include "ManageGame.hpp"
 #include "Convert.hpp"
 
-#define COL 60; // C'EST MOCHE, AU MOINS LE METTRE DANS LE .HPP
+const int	ManageGame::_col = 60;
 
-void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int y, int x, int & i, const Element::EType &type)
+void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int & i, const Element::EType &type)
 {
-  x = pos % COL;
-  y = (pos - x) / COL;
+  int			x, y;
+
+  x = pos % _col;
+  y = (pos - x) / _col;
   if (i < nbPlayers)
     {
       this->_players.push_back(Player(std::make_pair(x, y), type));
       ++i;
-      std::cout << "JE SUSI LA" << std::endl;
     }
   else
     {
@@ -33,8 +34,6 @@ void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int y, int x, int & i
 ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys)
 {
   int     pos(0);
-  int     x(0);
-  int     y(0);
   int     i(0);
 
   this->_type = DType::GAME;
@@ -45,16 +44,16 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
       switch ((*it)->getType())
 	{
 	case Element::EType::POD1 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, i, (*it)->getType());
 	  break;
 	case Element::EType::POD2 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, i, (*it)->getType());
 	  break;
 	case Element::EType::POD3 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, i, (*it)->getType());
 	  break;
 	case Element::EType::POD4 :
-	  this->initPlayerAndIa(nbPlayers, pos, x, y, i, (*it)->getType());
+	  this->initPlayerAndIa(nbPlayers, pos, i, (*it)->getType());
 	  break;
 	default:
 	  break;
@@ -92,8 +91,7 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 
 GameElement			*ManageGame::ElementFromChar(const char c)
 {
-    irr::io::path			path;
-  //  std::string			path;
+  irr::io::path			path;
   Element::EType		type;
   std::pair<float, float>	pos(50.0f, 50.0f);
 
@@ -116,19 +114,19 @@ GameElement			*ManageGame::ElementFromChar(const char c)
       type = Element::EType::ENDLINE;
       break;
     case '>':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD2;
       break;
     case 's':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD3;
       break;
     case 'g':
-      path = "assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD4;
       break;
     case '-':
@@ -145,7 +143,6 @@ GameElement			*ManageGame::ElementFromChar(const char c)
 void				ManageGame::loadMap()
 {
   ManageFile      file("./assets/circuit/newCircuit.txt");
-  std::cout << "lol" << std::endl;
   std::string     map;
 
   map = file.readFile();
@@ -160,13 +157,13 @@ void				ManageGame::loadMap()
 void				ManageGame::updateMap()
 {
   _AIs.at(0).chooseAction();
+  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   if (_AIs.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
     _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPrevPos())) =
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
-  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
   _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
   if (_players.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
-    _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) =
+    _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) = 
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
   printMap();
 }

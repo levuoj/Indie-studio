@@ -19,6 +19,7 @@ ENDIF(CMAKE_CXX_FLAGS_DEBUG)
 INCLUDE_DIRECTORIES(
   "/usr/include/irrlicht"
   ${PROJECT_SOURCE_DIR}/includes
+  ${PROJECT_SOURCE_DIR}/sources/IrrAssimp
   )
 
 FILE(GLOB SRCS sources/*.cpp)
@@ -26,6 +27,7 @@ FILE(GLOB SRCS_GAME sources/Game/*.cpp)
 FILE(GLOB SRCS_MENU sources/Menu/*.cpp)
 FILE(GLOB SRCS_GRAPHIC sources/Graphic/*.cpp)
 FILE(GLOB SRCS_CORE sources/Core/*.cpp)
+FILE(GLOB SRCS_IRRASSIMP sources/IrrAssimp/*.cpp)
 FILE(GLOB HDRS includes/*.hpp)
 
 ADD_EXECUTABLE(Racer
@@ -34,9 +36,11 @@ ADD_EXECUTABLE(Racer
   ${SRCS_GAME}
   ${SRCS_MENU}
   ${SRCS_GRAPHIC}
+  ${SRCS_IRRASSIMP}
   ${HDRS}
   )
 
 TARGET_LINK_LIBRARIES(Racer
   "/usr/local/lib/libIrrlicht.so"
+  "/usr/local/lib/libassimp.so"
   )
