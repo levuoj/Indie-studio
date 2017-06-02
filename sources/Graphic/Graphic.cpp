@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  2 18:00:49 2017 jouvel
+// Last update Fri Jun  2 18:40:40 2017 DaZe
 //
 
 #include <iostream>
@@ -334,6 +334,23 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
   cube->setMaterialType(irr::video::EMT_SOLID);
 }
 
+void		Graphic::displayChrono()
+{
+  static bool	first = true;
+
+  if (first)
+    {
+      irr::gui::IGUISkin *skin = _guienv->getSkin();
+      irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
+      skin->setFont(font);
+      skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 255, 0));
+      _guienv->addStaticText(L"01:01:100",
+			     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
+			     false);
+      first = false;
+    }
+}
+
 void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 {
   int		i = 0;
@@ -352,11 +369,13 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  x = 5330.f;
 	  z += SQUARE_SIZE;
 	}
+      if (!first)
+	displayChrono();
       if (!first && next)
 	{
 	  next = false;
 	  _engine->stopAllSounds();
-	  _engine->play2D("assets/music/betting.ogg", false);
+	  //	  _engine->play2D("assets/music/betting.ogg", false);
 	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
 	}
       if (first)

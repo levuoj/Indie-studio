@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Thu Jun  1 17:31:31 2017 jouvel
+// Last update Fri Jun  2 18:25:40 2017 DaZe
 //
 
 #pragma once
@@ -52,6 +52,7 @@ private:
   irr::f32			coords(irr::f32, irr::f32);
   void				initMainMenu();
   void				initOptMenu();
+  void				displayChrono();
 
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
