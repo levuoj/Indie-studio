@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Thu Jun  1 14:10:57 2017 DaZe
+// Last update Fri Jun  2 10:11:24 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -25,11 +25,15 @@ AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 
 void			AI::part1()
 {
-  if (this->_car->getSpeed() <= Car::_maxSpeed)
-    this->_car->accelerate();
-  else if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 6]->getType()
+  if (_car->getSpeed() <= Car::_maxSpeed)
+    _car->accelerate();
+  else if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
 	   == Element::EType::BLOCK)
-    _idx = 2;
+    {
+      std::cout << "JE SUIS IDX = 2" << std::endl;
+      _idx = 2;
+    }
+  
 }
 
 void			AI::part2()
@@ -141,12 +145,12 @@ void			AI::part15()
 
 void			AI::chooseAction()
 {
-/*  std::cout << "ChooseAction" << std::endl;
-  const auto it = _functors.find(_idx);
+  std::cout << "ChooseAction --- IDX = " << _idx << std::endl;
+  /*  const auto it = _functors.find(_idx);
   
   if (it != _functors.end())
   it->second(); */
-  
+
   switch (_idx)
     {
     case 1:
