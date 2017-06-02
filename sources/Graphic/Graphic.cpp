@@ -5,11 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  2 14:16:30 2017 jouvel
+// Last update Fri Jun  2 15:59:57 2017 jouvel
 //
 
 #include <iostream>
 #include <cmath>
+#include <random>
 #include <stdexcept>
 #include "Graphic.hpp"
 #include "Button.hpp"
@@ -27,7 +28,13 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 {
   _engine	= irrklang::createIrrKlangDevice();
 
-  _engine->play2D("media/star-wars-cantina-song.ogg", true);
+  std::random_device    rd;
+  std::default_random_engine generator(rd());
+  std::uniform_int_distribution<int> distribution(0,4);
+  if (distribution(generator) == 0)
+    _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
+  else
+    _engine->play2D("assets/music/star-wars-cantina-song.ogg", true);
 
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
@@ -147,7 +154,6 @@ void						Graphic::initOptMenu()
   std::vector<irr::f32>				initPos;
   std::vector<irr::f32>				initTextDim;
   irr::video::SColor				color(255, 255, 255, 0);
-
 
   initPos.push_back(4960);
   initPos.push_back(823);
@@ -361,7 +367,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	{
 	  next = false;
 	  _engine->stopAllSounds();
-	   _engine->play2D("media/duel-of-the-fates.ogg", true);
+	   _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
 	}
       if (first)
 	this->initMap(elem, x, y, z);
