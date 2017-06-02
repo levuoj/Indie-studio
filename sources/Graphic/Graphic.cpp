@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  2 18:16:32 2017 jouvel
+// Last update Fri Jun  2 19:07:45 2017 jouvel
 //
 
 #include <iostream>
@@ -340,12 +340,12 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   int		i = 0;
   irr::f32	x = 5330.f;
   irr::f32	y = 560.f;
-  irr::f32	z = 5225.f;
+  irr::f32	z = 4925.f;
   static bool	first = true;
   static bool	next = true;
 
-  _camera.moveCamera(irr::core::vector3df(5097.f, 860.f, 5175.f),
-		     irr::core::vector3df(5096.f, 563.f, 5451.f));
+  _camera.moveCamera(irr::core::vector3df(5032.f, 814.f, 4968.f),
+		     irr::core::vector3df(5032.f, 589.f, 5069.f));
   for (auto const& elem : map)
     {
       if (i % 60 == 0)
