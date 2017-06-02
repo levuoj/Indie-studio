@@ -5,13 +5,14 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Wed May 31 19:23:17 2017 DaZe
+// Last update Thu Jun  1 15:24:05 2017 Pierre Zawadil
 //
 
 #include <iostream>
 #include <irrlicht.h>
 #include "EventReceiver.hpp"
 #include "Core.hpp"
+#include "BindingMenu.hpp"
 #include "MainMenu.hpp"
 #include "OptionMenu.hpp"
 
@@ -28,6 +29,7 @@ Core::Core()
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
+  // this->_menu.emplace(BINDINGS, std::shared_ptr<AMenu>(new BindingMenu("P1")));
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
@@ -53,7 +55,17 @@ void			Core::launch()
 	    {
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
-		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+		{
+		  if (loaded == BINDINGS)
+		    {
+		      this->_menu[BINDINGS] =
+			std::make_shared<BindingMenu>
+			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
+		      this->_menu[BINDINGS]->setObserver(this->_graphic.get());
+		    }
+		  else
+		    this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+		}
 	      else if (this->_toLoad == GAME)
 		this->_game->setObserver(this->_graphic.get());
 	    }
@@ -67,7 +79,6 @@ void			Core::launch()
 	  receiver.setKey(irr::KEY_OEM_8);
 	  loaded = this->_toLoad;
 	}
-
       if (this->_toLoad != GAME)
 	this->_menu[this->_toLoad]->notify();
       else

@@ -5,13 +5,14 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:09:23 2017 Pashervz
-// Last update Mon May 29 15:08:50 2017 Lebrun Kilian
+// Last update Thu Jun  1 15:08:24 2017 Pashervz
 //
 
 #pragma once
 
 #include <irrlicht.h>
 #include <functional>
+#include "Bind.hpp"
 #include "AMenu.hpp"
 
 class BindingMenu : public AMenu
@@ -63,10 +64,10 @@ private:
 
   std::unordered_map<std::string, std::function<void()>>	_defaultMap =
     {
-      {"Player 1", std::bind(&BindingMenu::defaultP1, this)},
-      {"Player 2", std::bind(&BindingMenu::defaultP2, this)},
-      {"Player 3", std::bind(&BindingMenu::defaultP3, this)},
-      {"Player 4", std::bind(&BindingMenu::defaultP4, this)}
+      {"P1", std::bind(&BindingMenu::defaultP1, this)},
+      {"P2", std::bind(&BindingMenu::defaultP2, this)},
+      {"P3", std::bind(&BindingMenu::defaultP3, this)},
+      {"P4", std::bind(&BindingMenu::defaultP4, this)}
     };
   
   std::string			_player;
@@ -76,6 +77,7 @@ private:
 public:
   BindingMenu(std::string const & player);
   ~BindingMenu() {}
+  
   DType			transferKey(irr::EKEY_CODE);
   void			select(irr::EKEY_CODE);
   void			openBindingConf();
@@ -91,4 +93,8 @@ public:
   void			defaultP4();
   std::wstring const	stringToWstring(std::string const &) const;
   void			saveChanges();
+  std::string const &	getPlayer() const
+  {
+    return (_player);
+  }
 };
