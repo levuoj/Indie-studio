@@ -5,11 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  2 14:16:30 2017 jouvel
+// Last update Fri Jun  2 18:00:49 2017 jouvel
 //
 
 #include <iostream>
 #include <cmath>
+#include <random>
 #include <stdexcept>
 #include "Graphic.hpp"
 #include "Button.hpp"
@@ -25,9 +26,18 @@ const irr::f32 Graphic::SQUARE_SIZE = 10.f;
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
-  _engine	= irrklang::createIrrKlangDevice();
+  std::random_device rd;
+  std::default_random_engine generator(rd());
+  std::uniform_int_distribution<int> distribution(0,4);
 
-  _engine->play2D("media/star-wars-cantina-song.ogg", true);
+  _engine	= irrklang::createIrrKlangDevice();
+  if (!_engine)
+    throw Error("irrklang can't be launched");
+
+  if (distribution(generator) == 0)
+    _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
+  else
+    _engine->play2D("assets/music/star-wars-cantina-song.ogg", true);
 
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
@@ -50,7 +60,8 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   this->skyDome("assets/moon.png");
   this->ground();
   _device->setWindowCaption(L"STAR WARS - PodRacer");
-  // this->constructGameArea();
+  // POUR LE LOGO - TITRE DU JEU
+  // _device->getGUIEnvironment()->addImage(_driver->getTexture("assets/starwarspodracerlogo.png"), irr::core::position2d<irr::s32>(690, 10));
 }
 
 Graphic::~Graphic()
@@ -68,6 +79,7 @@ void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, D
   _driver->beginScene(true, true,
 		      irr::video::SColor(0, 255, 255, 255));
   _sceneManager->drawAll();
+  _device->getGUIEnvironment()->drawAll();
   _guienv->drawAll();
   _driver->endScene();
 }
@@ -106,38 +118,22 @@ void		Graphic::skyDome(const irr::io::path& image)
 
 void						Graphic::initMainMenu()
 {
-  std::vector<irr::f32>				initPos;
-  std::vector<irr::f32>				initTextDim;
+  std::vector<irr::f32>				initPos = {5070.f, 830.f, 4820.f};
+  std::vector<irr::f32>				initTextDim = {35.f, 10.f};
   irr::video::SColor				color(255, 255, 255, 0);
+  std::vector<const wchar_t *>			NameMainMenu = {L"play",
+								L"scores",
+								L"options",
+								L"exit"};
 
-  initPos.push_back(5070.f);
-  initPos.push_back(830.f);
-  initPos.push_back(4820.f);
-  initTextDim.push_back(35.f);
-  initTextDim.push_back(10.f);
-  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-							   initTextDim,
-							   L"play",
-							   color)));
-  initPos.at(1) = 810.f;
-  // initTextDim[0] += 15;
-  // initTextDim[1] += 5;
-  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-							   initTextDim,
-							   L"scores",
-							   color)));
-  initPos.at(1) = 790.f;
-  // initTextDim[0] -= 15;
-  // initTextDim[1] -= 5;
-  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-							   initTextDim,
-							   L"options",
-							   color)));
-  initPos.at(1) = 770.f;
-  _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-							   initTextDim,
-							   L"exit",
-							   color)));
+  for (auto const c : NameMainMenu)
+    {
+      _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							       initTextDim,
+							       c,
+							       color)));
+      initPos.at(1) -= 20.f;
+    }
   for (auto it = _buttonMM.begin() ; it != _buttonMM.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
 }
@@ -147,7 +143,6 @@ void						Graphic::initOptMenu()
   std::vector<irr::f32>				initPos;
   std::vector<irr::f32>				initTextDim;
   irr::video::SColor				color(255, 255, 255, 0);
-
 
   initPos.push_back(4960);
   initPos.push_back(823);
@@ -361,7 +356,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	{
 	  next = false;
 	  _engine->stopAllSounds();
-	   _engine->play2D("media/duel-of-the-fates.ogg", true);
+	  _engine->play2D("assets/music/betting.ogg", false);
+	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
 	}
       if (first)
 	this->initMap(elem, x, y, z);
