@@ -5,12 +5,13 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Thu Jun  1 17:24:30 2017 Pierre Zawadil
+// Last update Thu Jun  1 17:31:31 2017 jouvel
 //
 
 #pragma once
 
 #include <irrlicht.h>
+#include <irrKlang.h>
 #include <unordered_map>
 #include <functional>
 #include "AObserver.hpp"
@@ -22,16 +23,18 @@ class						Graphic : public AObserver
 {
 private:
   static const irr::f32	SQUARE_SIZE;
-
   irr::u32					_width;
   irr::u32					_height;
   irr::IrrlichtDevice				*_device;
   irr::video::IVideoDriver			*_driver;
   irr::scene::ISceneManager			*_sceneManager;
   irr::gui::IGUIEnvironment			*_guienv;
+  Gcamera					_camera;
+  irrklang::ISoundEngine			*_engine;
+
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
-    Gcamera					_camera;
+
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
