@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 17:34:46 2017 jouvel
+// Last update Fri Jun  2 14:16:30 2017 jouvel
 //
 
 #include <iostream>
@@ -26,6 +26,7 @@ const irr::f32 Graphic::SQUARE_SIZE = 10.f;
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
   _engine	= irrklang::createIrrKlangDevice();
+
   _engine->play2D("media/star-wars-cantina-song.ogg", true);
 
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
@@ -345,6 +346,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	y = 560.f;
   irr::f32	z = 5225.f;
   static bool	first = true;
+  static bool	next = true;
 
   _camera.moveCamera(irr::core::vector3df(5097.f, 860.f, 5175.f),
 		     irr::core::vector3df(5096.f, 563.f, 5451.f));
@@ -354,6 +356,12 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	{
 	  x = 5330.f;
 	  z += SQUARE_SIZE;
+	}
+      if (!first && next)
+	{
+	  next = false;
+	  _engine->stopAllSounds();
+	   _engine->play2D("media/duel-of-the-fates.ogg", true);
 	}
       if (first)
 	this->initMap(elem, x, y, z);
