@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  2 16:31:55 2017 jouvel
+// Last update Fri Jun  2 18:00:49 2017 jouvel
 //
 
 #include <iostream>
@@ -26,11 +26,14 @@ const irr::f32 Graphic::SQUARE_SIZE = 10.f;
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
-  _engine	= irrklang::createIrrKlangDevice();
-
-  std::random_device    rd;
+  std::random_device rd;
   std::default_random_engine generator(rd());
   std::uniform_int_distribution<int> distribution(0,4);
+
+  _engine	= irrklang::createIrrKlangDevice();
+  if (!_engine)
+    throw Error("irrklang can't be launched");
+
   if (distribution(generator) == 0)
     _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
   else
@@ -353,7 +356,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	{
 	  next = false;
 	  _engine->stopAllSounds();
-	   _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
+	  _engine->play2D("assets/music/betting.ogg", false);
+	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
 	}
       if (first)
 	this->initMap(elem, x, y, z);
