@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri Jun  2 14:55:48 2017 DaZe
+// Last update Fri Jun  2 18:11:02 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -68,12 +68,15 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
       it.setKeys(keys.at(i));
       ++i;
     }
+  
   _finishLine[0] = 89;
   _finishLine[1] = 149;
   _finishLine[2] = 209;
   _finishLine[3] = 269;
   _finishLine[4] = 329;
   _finishLine[5] = 389;
+
+  _chrono.start();
 }
 
 DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
@@ -89,11 +92,15 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   // arr[6] = this->_map[a + 49].get()->getType();
   // arr[7] = this->_map[a - 1].get()->getType();
   // this->_players.at(0).setArroundingCar(arr);
+  _chrono.incTime();
+
   if (!_victory)
     {
       this->_players.at(0).driver(key);
       updateMap();
     }
+  else
+    _chrono.stop();
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
 
   return (DType::GAME);
@@ -216,7 +223,12 @@ void				ManageGame::updateMap()
   printMap();
 }
 
-void                        ManageGame::printMap()
+Chrono const&			ManageGame::getChrono() const
+{
+  return (_chrono);
+}
+
+void				ManageGame::printMap()
 {
   int	i = 0;
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
