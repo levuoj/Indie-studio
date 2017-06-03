@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May  8 19:43:34 2017 Pashervz
-// Last update Mon May 29 13:59:51 2017 Pashervz
+// Last update Sat Jun  3 15:01:41 2017 Pashervz
 //
 
 #pragma once
@@ -28,5 +28,5 @@ private:
 public:
   Core();
   ~Core() {}
-  void		launch();
+  int		launch();
 };

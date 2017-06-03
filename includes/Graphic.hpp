@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Sat Jun  3 12:36:48 2017 Pashervz
+// Last update Sat Jun  3 12:41:37 2017 Pashervz
 //
 
 #pragma once
@@ -71,8 +71,9 @@ public:
   {
     {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
     {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
-    {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)    {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
-    {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
+    {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
+    {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
+    //    {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };

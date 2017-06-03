@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Sat Jun  3 12:35:56 2017 Pashervz
+// Last update Sat Jun  3 15:01:20 2017 Pashervz
 //
 
 #include <iostream>
@@ -33,7 +33,7 @@ Core::Core()
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
-void			Core::launch()
+int			Core::launch()
 {
   EventReceiver		receiver;
   DType			loaded		= this->_toLoad;
@@ -63,6 +63,8 @@ void			Core::launch()
 			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
 		      this->_menu[BINDINGS]->setObserver(this->_graphic.get());
 		    }
+		  else if (this->_toLoad == EXIT)
+		    return (EXIT_SUCCESS);
 		  else
 		    this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 		}
@@ -85,4 +87,5 @@ void			Core::launch()
 	this->_game->notify();
       //      std::cerr << this->_toLoad << std::endl;
     }
+  return (EXIT_SUCCESS);
 }

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Sat Jun  3 12:35:39 2017 Pashervz
+// Last update Sat Jun  3 12:42:21 2017 Pashervz
 //
 
 #include <memory>
@@ -48,12 +48,10 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
     {
     case irr::KEY_DOWN:
       this->goDown();
-      checker = false;
       _engine->play2D("assets/music/fx4.wav", false);
       break;
     case irr::KEY_UP:
       this->goUp();
-      checker = false;
       _engine->play2D("assets/music/fx4.wav", false);
       break;
     case irr::KEY_RETURN:
