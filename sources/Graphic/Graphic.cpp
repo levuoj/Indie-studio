@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  2 19:07:45 2017 jouvel
+// Last update Sat Jun  3 12:26:36 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -40,6 +40,8 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   else
     _engine->play2D("assets/music/star-wars-cantina-song.ogg", true);
 
+  if (!_engine)
+    throw (Error("Music asset not found"));
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
 				    32);
@@ -100,6 +102,9 @@ void		Graphic::ground()
 				       irr::video::SColor(255, 255, 255, 255),
 				       5, irr::scene::ETPS_17, 4);
 
+
+  if (!terrain)
+    throw (Error("Terrain asset not found"));
   terrain->setMaterialTexture(0, _driver->getTexture("assets/sand.jpg"));
   terrain->setMaterialTexture(1, _driver->getTexture("assets/detailmap3.jpg"));
   terrain->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -282,8 +287,9 @@ void		Graphic::setCar(Element::EType type,
 						       0, -1, irr::core::vector3df(x, y, z),
 						       irr::core::vector3df(0.f, 270.f, 0.f),
 						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
-  if (pods[type] != NULL)
-    pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  if (!pods[type])
+    throw (Error("Pod mesh not found"));
+  pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
