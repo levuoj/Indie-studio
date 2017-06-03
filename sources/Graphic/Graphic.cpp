@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  2 18:00:49 2017 jouvel
+// Last update Sat Jun  3 12:37:21 2017 Pashervz
 //
 
 #include <iostream>
@@ -57,6 +57,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
   this->initMainMenu();
   this->initOptMenu();
+  this->initBindings();
   this->skyDome("assets/moon.png");
   this->ground();
   _device->setWindowCaption(L"STAR WARS - PodRacer");
@@ -210,6 +211,87 @@ void						Graphic::initOptMenu()
 				     -1, color, color);
 }
 
+void		Graphic::initBindings()
+{
+  std::vector<irr::f32>				initPos;
+  std::vector<irr::f32>				initTextDim;
+  irr::video::SColor				color(255, 255, 255, 0);
+
+
+  initPos.push_back(4970);
+  initPos.push_back(1025);
+  initPos.push_back(4810);
+  initTextDim.push_back(10.f);
+  initTextDim.push_back(10.f);
+  _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"z",
+							    color)));
+  initPos[0] = 4900;
+  initPos[2] = 4880;
+  _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"q",
+							    color)));
+  initPos[0] = 4970;
+  initPos[1] = 1004;
+  initPos[2] = 4810;
+  _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"s",
+							    color)));
+    
+  initPos[0] = 4900;
+  initPos[1] = 1003;
+  initPos[2] = 4880;
+  _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"d",
+							    color)));
+  initPos[0] = 4940;
+  initPos[1] = 970;
+  initPos[2] = 4820;
+  _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							    initTextDim,
+							    L"e",
+							    color)));
+  
+  for (auto it = _buttonB.begin() ; it != _buttonB.end() ; ++it)
+    it->get()->setButton(_sceneManager, _guienv);
+  initTextDim[0] = 25;
+  initTextDim[1] = 10;
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"bindings", 0,
+					   irr::core::dimension2d<irr::f32>(50, 20),
+					   irr::core::vector3df(4940, 1055, 4820),
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"forward", 0,
+					   irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4990, 1022.5f, 4806),
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"left", 0,
+					   irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4990, 1005, 4806),
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"backward", 0,
+					   irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4940, 1021, 4864),
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"right", 0,
+					   irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4940, 1005, 4864),
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"object", 0,
+					   irr::core::dimension2d<irr::f32>(50, 20),
+					   irr::core::vector3df(4940, 985, 4820),
+					   -1, color, color);
+}
+
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
 {
   int			idx = 0;
@@ -257,9 +339,31 @@ void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
     }
 }
 
+void		Graphic::displayBindings(std::vector<std::shared_ptr<Element>> const& map)
+{
+  int			idx = 0;
+
+  _camera.moveCamera(irr::core::vector3df(4998, 1007, 4873),
+		     irr::core::vector3df(4985, 1008, 4861));
+  for (auto it = map.begin() ; it != map.end() ; ++it)
+    {
+      if (static_cast<Button *>(it->get())->getIsSelected() == true)
+	{
+	  _buttonB[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
+	  _buttonB[idx].get()->_button->setColor(irr::video::SColor(255, 0, 0, 255));
+	}
+      else
+	{
+	  _buttonB[idx].get()->_button->setText(static_cast<Button *>
+						  (it->get())->getContent().c_str());
+	  _buttonB[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+	}
+      ++idx;
+    }
+}
+
 void		Graphic::displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&)
 {
-
 }
 
 // ------------------------------------------------------------ //

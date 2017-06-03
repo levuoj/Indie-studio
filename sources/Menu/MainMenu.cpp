@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Fri Jun  2 17:49:25 2017 jouvel
+// Last update Sat Jun  3 12:35:39 2017 Pashervz
 //
 
 #include <memory>
@@ -37,21 +37,13 @@ DType		MainMenu::select() const
 	 return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
        }
     }
-  std::cout << "Le prout c'est cool" << std::endl;
   return (MAIN_MENU);
 }
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
-  static bool	checker = false;
   DType		selection = NOTHING;
 
-  if (checker == false)
-    {
-      this->printer();
-      std::cout << std::endl;
-      checker = true;
-    }
   switch (key)
     {
     case irr::KEY_DOWN:

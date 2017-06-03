@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun  1 15:24:05 2017 Pierre Zawadil
+// Last update Sat Jun  3 12:35:56 2017 Pashervz
 //
 
 #include <iostream>
@@ -56,7 +56,7 @@ void			Core::launch()
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		{
-		  if (loaded == BINDINGS)
+		  if (this->_toLoad == BINDINGS)
 		    {
 		      this->_menu[BINDINGS] =
 			std::make_shared<BindingMenu>
@@ -83,6 +83,6 @@ void			Core::launch()
 	this->_menu[this->_toLoad]->notify();
       else
 	this->_game->notify();
-      std::cout << "TEMPS ECOULE / BOUCLE : " << elapsed << std::endl;
+      //      std::cerr << this->_toLoad << std::endl;
     }
 }
