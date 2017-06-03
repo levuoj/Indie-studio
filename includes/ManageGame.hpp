@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Fri Jun  2 18:10:04 2017 DaZe
+// Last update Sat Jun  3 16:31:19 2017 DaZe
 //
 
 #pragma once
@@ -42,4 +42,6 @@ public:
   void				printMap();
   void				checkVictory(std::shared_ptr<Car>);
   Chrono const&			getChrono() const;
+  void				loadSave();
+  void				makeSave();
 };

@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sat Jun  3 12:09:56 2017 DaZe
+// Last update Sat Jun  3 16:34:53 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -96,12 +96,15 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 
   if (!_victory)
     {
-      this->_players.at(0).driver(key);
+      for (auto &it : _players)
+	it.driver(key);
       updateMap();
     }
   else
     {
       _chrono.stop();
+      std::cout << "CHRONO FINAL = " << _chrono.getTime() << std::endl;
+      makeSave();
       // return DType::VICTORY
     }
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
@@ -269,4 +272,40 @@ void				ManageGame::printMap()
 	}
       ++i;
     }
+}
+
+void				ManageGame::loadSave()
+{
+  
+}
+
+void				ManageGame::makeSave()
+{
+  std::string			str;
+  for (auto &it : _players)
+    {
+      str += "PLAYER ";
+      str += it.getCar()->getPosMap().first + " ";
+      str += it.getCar()->getPosMap().second + " ";
+      str += it.getCar()->getType() + " ";
+      str += std::to_string(it.getCar()->getAbsoluteAngle()) + " ";
+      str += it.getCar()->getLap() + " ";
+      str += it.getCar()->getFinished() + " \n";
+    }
+  for (auto &it : _AIs)
+    {
+      str += "AI ";
+      str += it.getCar()->getPosMap().first + " ";
+      str += it.getCar()->getPosMap().second + " ";
+      str += it.getCar()->getType() + " ";
+      str += std::to_string(it.getCar()->getAbsoluteAngle()) + " ";
+      str += it.getCar()->getLap() + " ";
+      str += it.getCar()->getFinished() + " \n";
+    }
+  str += _chrono.getTime();
+  str += "\n";
+
+  ManageFile			file("Save1");
+
+  file.writeFile(str);
 }

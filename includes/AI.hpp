@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:35:04 2017 thomas vigier
-// Last update Fri Jun  2 09:58:59 2017 DaZe
+// Last update Sat Jun  3 15:36:26 2017 DaZe
 //
 
 #pragma once
@@ -22,7 +22,7 @@ class				AI
   std::shared_ptr<Car>				_car;
   std::vector<std::shared_ptr<Element>>		_map;
   int						_idx;
-  std::unordered_map<int, std::function<void()>> _functors;
+  //  std::unordered_map<int, std::function<void()>> _functors;
 public:
   void				setMap(std::vector<std::shared_ptr<Element>> const &);
   std::shared_ptr<Car>		getCar() const;
