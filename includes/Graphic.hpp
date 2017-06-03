@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Fri Jun  2 18:25:40 2017 DaZe
+// Last update Sat Jun  3 16:44:43 2017 DaZe
 //
 
 #pragma once
@@ -34,7 +34,7 @@ private:
 
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
-
+  std::vector<std::unique_ptr<GButton>>		_buttonB;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
@@ -46,6 +46,7 @@ private:
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
+  void				displayBindings(std::vector<std::shared_ptr<Element>> const&);
   void				skyDome(const irr::io::path&);
   void				ground();
   void				moveCamera(irr::core::vector3df, irr::core::vector3df);
@@ -53,7 +54,7 @@ private:
   void				initMainMenu();
   void				initOptMenu();
   void				displayChrono();
-
+  void				initBindings();
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();
@@ -72,6 +73,8 @@ public:
     {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
     {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
     {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
+    {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
+    //    {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };

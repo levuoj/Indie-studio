@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 12:24:22 2017 Pashervz
-// Last update Fri Jun  2 17:47:55 2017 jouvel
+// Last update Sat Jun  3 15:04:41 2017 Pashervz
 //
 
 #pragma once
@@ -20,7 +20,8 @@ class MainMenu : public AMenu
       {L"main Menu", MAIN_MENU},
       {L"play", GAME},
       {L"options", OPTIONS},
-      {L"scores", LEADERBOARD}
+      {L"scores", LEADERBOARD},
+      {L"exit", EXIT}
     };
 
 public:

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May  8 19:43:47 2017 Pashervz
-// Last update Fri Jun  2 14:28:30 2017 jouvel
+// Last update Sat Jun  3 12:36:17 2017 Pashervz
 //
 
 #pragma once
@@ -35,10 +35,7 @@ public:
 
   void			writeFile(std::string const& str)
   {
-    std::cerr << str << std::endl;
-    _ofFile.open(_fileName, std::ofstream::app);
-    if (!_ofFile.is_open())
-      throw Error("Can't open file ");
+    _ofFile.open(_fileName);
     _ofFile << str;
     _ofFile.close();
   }
