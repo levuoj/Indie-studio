@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri Jun  2 18:11:02 2017 DaZe
+// Last update Sat Jun  3 12:09:56 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -100,7 +100,10 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
       updateMap();
     }
   else
-    _chrono.stop();
+    {
+      _chrono.stop();
+      // return DType::VICTORY
+    }
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
 
   return (DType::GAME);
@@ -195,7 +198,6 @@ void				ManageGame::checkVictory(std::shared_ptr<Car> car)
       _victory = true;
     }
 }
-
 
 void				ManageGame::updateMap()
 {
