@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Thu Jun  1 17:21:02 2017 Pashervz
+// Last update Fri Jun  2 18:27:27 2017 Pashervz
 //
 
 #include <memory>
@@ -36,24 +36,15 @@ DType		MainMenu::select() const
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
-  static bool	checker = false;
   DType		selection = NOTHING;
 
-  if (checker == false)
-    {
-      this->printer();
-      std::cout << std::endl;
-      checker = true;
-    }
   switch (key)
     {
     case irr::KEY_DOWN:
       this->goDown();
-      checker = false;
       break;
     case irr::KEY_UP:
       this->goUp();
-      checker = false;
       break;
     case irr::KEY_RETURN:
       selection = this->select();

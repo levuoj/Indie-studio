@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  1 19:33:41 2017 Pashervz
+// Last update Fri Jun  2 13:23:01 2017 Pashervz
 //
 
 #include <iostream>
@@ -251,9 +251,9 @@ void		Graphic::initBindings()
 							    initTextDim,
 							    L"d",
 							    color)));
-  initPos[0] = 4947;
-  initPos[1] = 981;
-  initPos[2] = 4815;
+  initPos[0] = 4940;
+  initPos[1] = 970;
+  initPos[2] = 4820;
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
 							    L"e",
@@ -290,8 +290,8 @@ void		Graphic::initBindings()
 					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
 					   L"object", 0,
-					   irr::core::dimension2d<irr::f32>(30, 10),
-					   irr::core::vector3df(4970, 985, 4806),
+					   irr::core::dimension2d<irr::f32>(50, 20),
+					   irr::core::vector3df(4940, 985, 4820),
 					   -1, color, color);
 }
 
