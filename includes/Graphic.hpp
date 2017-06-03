@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Thu Jun  1 17:31:31 2017 jouvel
+// Last update Sat Jun  3 12:31:57 2017 Pierre Zawadil
 //
 
 #pragma once
@@ -22,7 +22,7 @@
 class						Graphic : public AObserver
 {
 private:
-  static const irr::f32	SQUARE_SIZE;
+  static const irr::f32				_squareSize;
   irr::u32					_width;
   irr::u32					_height;
   irr::IrrlichtDevice				*_device;

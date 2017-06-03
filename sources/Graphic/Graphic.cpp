@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sat Jun  3 12:26:36 2017 Pierre Zawadil
+// Last update Sat Jun  3 12:33:33 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -18,12 +18,12 @@
 #include "ManageGame.hpp"
 #include "GameElement.hpp"
 
-const irr::f32 Graphic::SQUARE_SIZE = 10.f;
-
-#ifdef _MSC_VER
+#ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
+#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
+const irr::f32		Graphic::_squareSize = 10.f;
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
@@ -357,7 +357,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       if (i % 60 == 0)
 	{
 	  x = 5330.f;
-	  z += SQUARE_SIZE;
+	  z += _squareSize;
 	}
       if (!first && next)
 	{
@@ -375,8 +375,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  || type == Element::EType::POD4)
 	{
 	  irr::core::vector3df newPos	= this->pods[type]->getPosition();
-	  newPos.X = x - SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().first / 100;
-	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
+	  newPos.X = x - _squareSize * static_cast<GameElement *>(elem.get())->getPos().first / 100;
+	  newPos.Z = z + _squareSize * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[type]->setPosition(newPos);
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
 	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
