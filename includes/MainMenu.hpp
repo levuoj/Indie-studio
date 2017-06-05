@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 12:24:22 2017 Pashervz
-// Last update Sat Jun  3 15:04:41 2017 Pashervz
+// Last update Sat Jun  3 19:29:55 2017 Pashervz
 //
 
 #pragma once
@@ -18,7 +18,7 @@ class MainMenu : public AMenu
   std::unordered_map<std::wstring, DType>                _corresMap =
     {
       {L"main Menu", MAIN_MENU},
-      {L"play", GAME},
+      {L"play", PLAY},
       {L"options", OPTIONS},
       {L"scores", LEADERBOARD},
       {L"exit", EXIT}

@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sat Jun  3 12:37:21 2017 Pashervz
+// Last update Mon Jun  5 13:44:43 2017 Pashervz
 //
 
 #include <iostream>
@@ -357,6 +357,29 @@ void		Graphic::displayBindings(std::vector<std::shared_ptr<Element>> const& map)
 	  _buttonB[idx].get()->_button->setText(static_cast<Button *>
 						  (it->get())->getContent().c_str());
 	  _buttonB[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+	}
+      ++idx;
+    }
+}
+&é
+void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
+{
+  int			idx = 0;
+
+  _camera.moveCamera(irr::core::vector3df(4998, 1007, 4873),
+		     irr::core::vector3df(4985, 1008, 4861));
+  for (auto it = map.begin() ; it != map.end() ; ++it)
+    {
+      if (static_cast<Button *>(it->get())->getIsSelected() == true)
+	{
+	  _buttonP[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
+	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 0, 0, 255));
+	}
+      else
+	{
+	  _buttonP[idx].get()->_button->setText(static_cast<Button *>
+						  (it->get())->getContent().c_str());
+	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
 	}
       ++idx;
     }
