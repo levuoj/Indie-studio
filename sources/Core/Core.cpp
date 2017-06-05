@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun  1 15:24:05 2017 Pierre Zawadil
+// Last update Sat Jun  3 15:01:20 2017 Pashervz
 //
 
 #include <iostream>
@@ -33,7 +33,7 @@ Core::Core()
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
-void			Core::launch()
+int			Core::launch()
 {
   EventReceiver		receiver;
   DType			loaded		= this->_toLoad;
@@ -56,13 +56,15 @@ void			Core::launch()
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		{
-		  if (loaded == BINDINGS)
+		  if (this->_toLoad == BINDINGS)
 		    {
 		      this->_menu[BINDINGS] =
 			std::make_shared<BindingMenu>
 			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
 		      this->_menu[BINDINGS]->setObserver(this->_graphic.get());
 		    }
+		  else if (this->_toLoad == EXIT)
+		    return (EXIT_SUCCESS);
 		  else
 		    this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 		}
@@ -83,6 +85,7 @@ void			Core::launch()
 	this->_menu[this->_toLoad]->notify();
       else
 	this->_game->notify();
-      std::cout << "TEMPS ECOULE / BOUCLE : " << elapsed << std::endl;
+      //      std::cerr << this->_toLoad << std::endl;
     }
+  return (EXIT_SUCCESS);
 }
