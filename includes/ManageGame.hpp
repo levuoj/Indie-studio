@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Sat Jun  3 16:31:19 2017 DaZe
+// Last update Tue Jun  6 10:49:58 2017 DaZe
 //
 
 #pragma once
@@ -31,17 +31,31 @@ private:
   Chrono			_chrono;
 public:
   ManageGame(int, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
+  ManageGame(std::string const &, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
   ManageGame() = default;
   ~ManageGame() = default;
 
   void				initPlayerAndIa(int, int, int &, const Element::EType &);
+  void				construct(int);
   DType				transferKey(const irr::EKEY_CODE &);
   GameElement			*ElementFromChar(char);
-  void				loadMap();
+  GameElement			*ElementFromCharCar(char);
+  void				loadMap(std::string const &);
   void				updateMap();
   void				printMap();
   void				checkVictory(std::shared_ptr<Car>);
   Chrono const&			getChrono() const;
-  void				loadSave();
+  bool				loadSave(std::string const &);
+  bool				loadFile(std::string const &);
+  bool				loadLine(std::string const &);
+  bool				checkType(const std::vector<std::string> &);
+  bool				checkPosMap(const std::string &);
+  bool				checkCarType(const std::string &);
+  bool				checkAngle(const std::string &);
+  bool				checkLap(const std::string &);
+  bool				checkCheckpoint(const std::string &);
+  bool				checkDir(const std::string &);
+  bool				checkIdx(const std::string &);
+  bool				checkChrono(const std::string &);
   void				makeSave();
 };

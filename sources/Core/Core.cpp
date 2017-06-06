@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Sat Jun  3 16:44:21 2017 DaZe
+// Last update Mon Jun  5 18:06:36 2017 DaZe
 //
 
 #include <iostream>
@@ -25,7 +25,8 @@ Core::Core()
   std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
   molft.push_back({ irr::KEY_UP, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_SPACE});
   molft.push_back({ irr::KEY_KEY_Z, irr::KEY_KEY_S, irr::KEY_KEY_Q, irr::KEY_KEY_D, irr::KEY_KEY_W});
-  this->_game = std::unique_ptr<ManageGame>(new ManageGame(2, molft));
+  //this->_game = std::unique_ptr<ManageGame>(new ManageGame(2, molft));
+  this->_game = std::unique_ptr<ManageGame>(new ManageGame("Save1", molft));
   // this->_game->setObserver(this->_graphic.get());
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));

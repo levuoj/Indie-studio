@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Fri Jun  2 13:28:09 2017 DaZe
+// Last update Mon Jun  5 19:08:25 2017 DaZe
 //
 
 #include <cmath>
@@ -16,6 +16,16 @@ const float Car::_maxSpeed = 550;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 const float Car::_pi = 3.141592f;
+
+Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), edir(dir)
+{
+  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
+  _pos = std::make_pair(50.0f, 50.0f);
+  _type = type;
+  this->_dir.first = cosf(this->_angle * _pi / 180.0f);
+  this->_dir.second = sinf(this->_angle * _pi / 180.0f);
+  std::cout << "TYPE = " << type << std::endl;
+}
 
 Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), edir(EDirection::RIGHT)
 {
@@ -238,6 +248,11 @@ std::pair<int, int> const       &Car::getPrevPos() const
 float				Car::getSpeed() const
 {
   return (this->_speed);
+}
+
+Car::EDirection			Car::getEDir() const
+{
+  return (edir);
 }
 
 void				Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
