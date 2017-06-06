@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Thu May 25 17:03:36 2017 DaZe
+// Last update Tue Jun  6 15:08:00 2017 DaZe
 //
 
 #ifndef OBSERVABLE_HPP_
@@ -13,6 +13,7 @@
 
 #include <memory>
 #include <vector>
+#include "Chrono.hpp"
 #include "Element.hpp"
 #include "Utils.hpp"
 
@@ -24,6 +25,7 @@ protected:
   AObserver					*_observer;
   std::vector<std::shared_ptr<Element>>		_map;
   DType						_type;
+  Chrono					_chrono;
 public:
   Observable();
   Observable(DType type) : _type(type) {}
@@ -32,6 +34,7 @@ public:
   void						setObserver(AObserver *observer) {  _observer = observer; }
   std::vector<std::shared_ptr<Element>> const&	getMap() const { return (_map); }
   DType						getDType() const { return (_type); }
+  Chrono const &				getChrono() const { return (_chrono); }
 };
 
 #endif // OBSERVABLE_HPP_

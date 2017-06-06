@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue Jun  6 10:49:58 2017 DaZe
+// Last update Tue Jun  6 13:34:07 2017 DaZe
 //
 
 #pragma once
@@ -28,7 +28,6 @@ private:
   std::vector<Player>		_players;
   std::array<int, 6>		_finishLine;
   bool				_victory;
-  Chrono			_chrono;
 public:
   ManageGame(int, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
   ManageGame(std::string const &, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
@@ -57,5 +56,5 @@ public:
   bool				checkDir(const std::string &);
   bool				checkIdx(const std::string &);
   bool				checkChrono(const std::string &);
-  void				makeSave();
+  void				makeSave(std::string const &);
 };

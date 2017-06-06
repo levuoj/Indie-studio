@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue Jun  6 10:54:21 2017 DaZe
+// Last update Tue Jun  6 15:13:15 2017 DaZe
 //
 
 #include <chrono>
@@ -82,6 +82,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
       _map.clear();
       _AIs.clear();
       _players.clear();
+      _chrono.setTime(0.0);
       construct(1);
     }
 
@@ -134,21 +135,32 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   // this->_players.at(0).setArroundingCar(arr);
   _chrono.incTime();
 
-  if (!_victory)
+  if (_victory == false)
     {
-      for (auto &it : _players)
-	it.driver(key);
-      updateMap();
+      if (_chrono.getTime() > 5.0)
+	{
+	  for (auto &it : _players)
+	    it.driver(key);
+	  updateMap();
+	}
+      else if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
+	       && _type != DType::GAME)
+	{
+	  _chrono.setTime(0.0);
+	  _type = DType::GAME;
+	}
     }
   else
     {
       _chrono.stop();
+      std::cout << "CHORNO FINAAAAAL = " << _chrono.getTime() << std::endl;
+      return (DType::FINISH);
       std::cout << "CHRONO FINAL = " << _chrono.getTime() << std::endl;
       // return DType::VICTORY
     }
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
 
-  return (DType::GAME);
+  return (_type);
 }
 
 GameElement			*ManageGame::ElementFromCharCar(const char c)
@@ -548,7 +560,7 @@ bool				ManageGame::checkChrono(std::string const &chrono)
     }
 }
 
-void				ManageGame::makeSave()
+void				ManageGame::makeSave(std::string const& file)
 {
   std::string			str;
 
@@ -586,7 +598,7 @@ void				ManageGame::makeSave()
 
   std::ofstream			stream;
 
-  stream.open("Save1");
+  stream.open(file);
   stream << str;
   stream.close();
 }
