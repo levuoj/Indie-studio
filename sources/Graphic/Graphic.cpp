@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sat Jun  3 16:44:05 2017 DaZe
+// Last update Tue Jun  6 18:35:33 2017 DaZe
 //
 
 #include <iostream>
@@ -18,12 +18,12 @@
 #include "ManageGame.hpp"
 #include "GameElement.hpp"
 
-const irr::f32 Graphic::SQUARE_SIZE = 10.f;
-
-#ifdef _MSC_VER
+#ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
+#pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
+const irr::f32		Graphic::_squareSize = 10.f;
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
@@ -31,39 +31,36 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   std::default_random_engine generator(rd());
   std::uniform_int_distribution<int> distribution(0,4);
 
+  _device	= irr::createDevice(irr::video::EDT_OPENGL,
+				    irr::core::dimension2d<irr::u32>(_width, _height),
+				    32);
+  _driver	= _device->getVideoDriver();
+  _sceneManager = _device->getSceneManager();
+  //_sceneManager->addExternalMeshLoader(new IrrAssimpImport(_sceneManager));
+  _device->getCursorControl()->setVisible(false);
+  _guienv	= _device->getGUIEnvironment();
   _engine	= irrklang::createIrrKlangDevice();
   if (!_engine)
     throw Error("irrklang can't be launched");
 
+
+  _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
+		     irr::core::vector3df(5109, 872, 4747));
+  // _camera.initCamera(_sceneManager,
+  // 		     irr::core::vector3df(5035, 806, 4877),
+  // 		     irr::core::vector3df(5066, 808, 4824));
+  this->loadIntro();
   if (distribution(generator) == 0)
     _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
   else
     _engine->play2D("assets/music/star-wars-cantina-song.ogg", true);
-
-  _device	= irr::createDevice(irr::video::EDT_OPENGL,
-				    irr::core::dimension2d<irr::u32>(_width, _height),
-				    32);
-
-  _driver	= _device->getVideoDriver();
-  _sceneManager = _device->getSceneManager();
-  //_sceneManager->addExternalMeshLoader(new IrrAssimpImport(_sceneManager));
-
-  _device->getCursorControl()->setVisible(false);
-
-  _guienv	= _device->getGUIEnvironment();
-
-  _camera.initCamera(_sceneManager,
-		     irr::core::vector3df(5035, 806, 4877),
-		     irr::core::vector3df(5066, 808, 4824));
-
+  if (!_engine)
+    throw (Error("Music asset not found"));
   this->initMainMenu();
-  this->initOptMenu();
-  this->initBindings();
-  this->skyDome("assets/moon.png");
+  this->skyDome("assets/skydome.jpg");
   this->ground();
   _device->setWindowCaption(L"STAR WARS - PodRacer");
   // POUR LE LOGO - TITRE DU JEU
-  // _device->getGUIEnvironment()->addImage(_driver->getTexture("assets/starwarspodracerlogo.png"), irr::core::position2d<irr::s32>(690, 10));
 }
 
 Graphic::~Graphic()
@@ -72,16 +69,20 @@ Graphic::~Graphic()
   _device->drop();
 }
 
+void				Graphic::loadIntro()
+{
+  
+}
+
 void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, DType type)
 {
   if (!_device->run())
     return ;
-
   this->dispThis[type](map);
   _driver->beginScene(true, true,
 		      irr::video::SColor(0, 255, 255, 255));
   _sceneManager->drawAll();
-  _device->getGUIEnvironment()->drawAll();
+    _device->getGUIEnvironment()->drawAll();
   _guienv->drawAll();
   _driver->endScene();
 }
@@ -101,6 +102,9 @@ void		Graphic::ground()
 				       irr::video::SColor(255, 255, 255, 255),
 				       5, irr::scene::ETPS_17, 4);
 
+
+  if (!terrain)
+    throw (Error("Terrain asset not found"));
   terrain->setMaterialTexture(0, _driver->getTexture("assets/sand.jpg"));
   terrain->setMaterialTexture(1, _driver->getTexture("assets/detailmap3.jpg"));
   terrain->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -127,7 +131,12 @@ void						Graphic::initMainMenu()
 								L"scores",
 								L"options",
 								L"exit"};
-
+  
+  // _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+  // 					   L"options", 0,
+  // 					   irr::core::dimension2d<irr::f32>(50, 20),
+  // 					   irr::core::vector3df(5070, 820, 4820),
+  // 					   -1, color, color);
   for (auto const c : NameMainMenu)
     {
       _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
@@ -138,6 +147,9 @@ void						Graphic::initMainMenu()
     }
   for (auto it = _buttonMM.begin() ; it != _buttonMM.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
+  this->initOptMenu();
+  this->initBindings();
+  this->initPlayMenu();
 }
 
 void						Graphic::initOptMenu()
@@ -241,7 +253,7 @@ void		Graphic::initBindings()
 							    initTextDim,
 							    L"s",
 							    color)));
-    
+
   initPos[0] = 4900;
   initPos[1] = 1003;
   initPos[2] = 4880;
@@ -256,7 +268,7 @@ void		Graphic::initBindings()
 							    initTextDim,
 							    L"e",
 							    color)));
-  
+
   for (auto it = _buttonB.begin() ; it != _buttonB.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
   initTextDim[0] = 25;
@@ -291,6 +303,79 @@ void		Graphic::initBindings()
 					   irr::core::dimension2d<irr::f32>(50, 20),
 					   irr::core::vector3df(4940, 985, 4820),
 					   -1, color, color);
+}
+
+void						Graphic::initPlayMenu()
+{
+  std::vector<irr::f32>				initPos;
+  std::vector<irr::f32>				initTextDim;
+  irr::video::SColor				color(255, 255, 255, 0);
+
+  initPos.push_back(4980);
+  initPos.push_back(820);
+  initPos.push_back(4940);
+  initTextDim.push_back(40.f);
+  initTextDim.push_back(10.f);
+  _buttonP.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							  initTextDim,
+							  L"empty",
+							  color)));
+  initPos[0] = 5030;
+  _buttonP.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							  initTextDim,
+							  L"empty",
+							  color)));
+  initPos[0] = 5080;
+  _buttonP.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							  initTextDim,
+							  L"empty",
+							  color)));
+
+  initPos[0] = 5020;
+  initPos[1] = 781;
+  initTextDim[1] = 15;
+  initTextDim[0] = 8;
+  _buttonP.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							  initTextDim,
+							  L"1",
+							  color)));
+  initPos[0] = 5045;
+  initPos[1] = 781.5f;
+  _buttonP.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							  initTextDim,
+							  L"2",
+							  color)));
+  initPos[0] = 5070;
+  initPos[1] = 782.f;
+  _buttonP.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							  initTextDim,
+							  L"3",
+							  color)));
+  initPos[0] = 5093;
+  initPos[1] = 782.75f;
+  _buttonP.push_back(std::unique_ptr<GButton>(new GButton(initPos,
+							  initTextDim,
+							  L"4",
+							  color)));
+
+  for (auto it = _buttonP.begin() ; it != _buttonP.end() ; ++it)
+    it->get()->setButton(_sceneManager, _guienv);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"load save :", 0,
+					   irr::core::dimension2d<irr::f32>(40, 15),
+					   irr::core::vector3df(4980, 840, 4940),
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"new game", 0,
+					   irr::core::dimension2d<irr::f32>(40, 15),
+					   irr::core::vector3df(5030, 800, 4940),
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"number of player :", 0,
+					   irr::core::dimension2d<irr::f32>(55, 15),
+					   irr::core::vector3df(4980, 780, 4940),
+					   -1, color, color);
+  
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
@@ -351,7 +436,7 @@ void		Graphic::displayBindings(std::vector<std::shared_ptr<Element>> const& map)
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
 	{
 	  _buttonB[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
-	  _buttonB[idx].get()->_button->setColor(irr::video::SColor(255, 0, 0, 255));
+	  _buttonB[idx].get()->_button->setColor(irr::video::SColor(255, 255, 0, 255));
 	}
       else
 	{
@@ -359,6 +444,29 @@ void		Graphic::displayBindings(std::vector<std::shared_ptr<Element>> const& map)
 						  (it->get())->getContent().c_str());
 	  _buttonB[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
 	}
+      ++idx;
+    }
+}
+
+void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
+{
+   int			idx = 0;
+
+  _camera.moveCamera(irr::core::vector3df(5035, 808, 4877),
+		     irr::core::vector3df(5033, 808, 4919));
+  for (auto it = map.begin() ; it != map.end() ; ++it)
+    {
+      if (static_cast<Button *>(it->get())->getIsSelected() == true)
+  	{
+  	  _buttonP[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
+  	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 0, 255, 255));
+  	}
+      else
+  	{
+  	  _buttonP[idx].get()->_button->setText(static_cast<Button *>
+  						  (it->get())->getContent().c_str());
+  	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+  	}
       ++idx;
     }
 }
@@ -386,8 +494,9 @@ void		Graphic::setCar(Element::EType type,
 						       0, -1, irr::core::vector3df(x, y, z),
 						       irr::core::vector3df(0.f, 270.f, 0.f),
 						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
-  if (pods[type] != NULL)
-    pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  if (!pods[type])
+    throw (Error("Pod mesh not found"));
+  pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
@@ -472,7 +581,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       if (i % 60 == 0)
 	{
 	  x = 5330.f;
-	  z += SQUARE_SIZE;
+	  z += _squareSize;
 	}
       if (!first)
 	displayChrono();
@@ -492,8 +601,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  || type == Element::EType::POD4)
 	{
 	  irr::core::vector3df newPos	= this->pods[type]->getPosition();
-	  newPos.X = x - SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().first / 100;
-	  newPos.Z = z + SQUARE_SIZE * static_cast<GameElement *>(elem.get())->getPos().second / 100;
+	  newPos.X = x - _squareSize * static_cast<GameElement *>(elem.get())->getPos().first / 100;
+	  newPos.Z = z + _squareSize * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[type]->setPosition(newPos);
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
 	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));

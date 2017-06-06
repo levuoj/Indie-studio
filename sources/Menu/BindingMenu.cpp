@@ -5,10 +5,9 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Sat Jun  3 12:31:05 2017 Pashervz
+// Last update Sat Jun  3 19:36:41 2017 Pashervz
 //
 
-#include <memory>
 #include <sstream>
 #include "Bind.hpp"
 #include "Button.hpp"
@@ -293,7 +292,7 @@ std::string const		BindingMenu::writeChanges()
 
 void				BindingMenu::saveChanges()
 {
-  std::ofstream	        stream;
+  std::ofstream			stream;
   
   stream.open("./Config/" + this->_player + ".conf");
   stream << this->writeChanges();
