@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Sat Jun  3 19:32:50 2017 Pashervz
+// Last update Mon Jun  5 17:23:46 2017 Pashervz
 //
 
 #pragma once
@@ -22,7 +22,7 @@
 class						Graphic : public AObserver
 {
 private:
-  static const irr::f32	SQUARE_SIZE;
+  static const irr::f32				_squareSize;
   irr::u32					_width;
   irr::u32					_height;
   irr::IrrlichtDevice				*_device;
@@ -49,6 +49,7 @@ private:
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				displayBindings(std::vector<std::shared_ptr<Element>> const&);
+  void				loadIntro();
   void				skyDome(const irr::io::path&);
   void				ground();
   void				moveCamera(irr::core::vector3df, irr::core::vector3df);
@@ -76,7 +77,7 @@ public:
     {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
     {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
     {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
-    {DType::PLAY, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
+    {DType::PLAY, std::bind(&Graphic::displayPlayMenu, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };

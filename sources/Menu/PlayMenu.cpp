@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Sat Jun  3 16:07:36 2017 Pashervz
-// Last update Sat Jun  3 19:45:56 2017 Pashervz
+// Last update Mon Jun  5 16:11:32 2017 Pashervz
 //
 
 #include <sstream>
@@ -25,9 +25,10 @@ PlayMenu::PlayMenu() : AMenu("Play", PLAY)
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"4", "assets/deathStar.jpg", Button::BType::NBPLAYER)));
   for (int idx = 1; idx < 4; ++idx)
     {
-      std::string	str = "./Save/Save" + std::to_string(idx) + ".save";
+      std::string	str = "./Saves/Save" + std::to_string(idx) + ".save";
       this->openSave(str);
     }
+  this->assignContent();
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
@@ -39,7 +40,8 @@ bool				PlayMenu::getSaveName(std::string const & string)
   while (std::getline(iss, tmp))
     {
       std::wstring		toPush(tmp.begin(), tmp.end());
-      
+
+      std::wcout << toPush << std::endl; 
       _savesName.push_back(toPush);
       return (true);
     }
@@ -60,6 +62,15 @@ void			PlayMenu::openSave(std::string const & fileName)
   catch (std::exception const &)
     {
       _savesName.push_back(L"empty");
+    }
+}
+
+void                    PlayMenu::assignContent() 
+{
+  for (int idx = 0; idx < 3; ++idx)
+    {
+      std::wcout << _savesName[idx] << std::endl;
+      static_cast<Button *>(_map[idx].get())->setContent(_savesName[idx]);
     }
 }
 
@@ -103,5 +114,5 @@ DType		        PlayMenu::transferKey(irr::EKEY_CODE key)
     default:
       break;
     }
-  return (OPTIONS);
+  return (PLAY);
 }

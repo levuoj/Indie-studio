@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Sat Jun  3 15:01:20 2017 Pashervz
+// Last update Mon Jun  5 14:04:28 2017 Pashervz
 //
 
 #include <iostream>
@@ -15,6 +15,7 @@
 #include "BindingMenu.hpp"
 #include "MainMenu.hpp"
 #include "OptionMenu.hpp"
+#include "PlayMenu.hpp"
 
 Core::Core()
 {
@@ -29,6 +30,7 @@ Core::Core()
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
+  this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu));
   // this->_menu.emplace(BINDINGS, std::shared_ptr<AMenu>(new BindingMenu("P1")));
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }

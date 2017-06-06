@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Sat Jun  3 15:51:03 2017 Pashervz
-// Last update Sat Jun  3 19:46:23 2017 Pashervz
+// Last update Mon Jun  5 15:45:20 2017 Pashervz
 //
 
 #pragma once
@@ -26,6 +26,7 @@ public:
   bool			getSaveName(std::string const &);
   DType			select();
   DType			transferKey(irr::EKEY_CODE);
+  void			assignContent();
   std::wstring const &	getSave() const
   {
     return (_save);
