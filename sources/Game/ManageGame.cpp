@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue Jun  6 15:13:15 2017 DaZe
+// Last update Tue Jun  6 17:35:03 2017 DaZe
 //
 
 #include <chrono>
@@ -374,7 +374,7 @@ void				ManageGame::printMap()
 
 bool				ManageGame::loadSave(std::string const &file)
 {
-  if (loadFile(file) == false)
+  if (loadFile("/Saves/save" + file + ".save") == false)
     return (false);
   else
     return (true);
