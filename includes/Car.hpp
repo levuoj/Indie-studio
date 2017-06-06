@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Fri Jun  2 13:27:45 2017 DaZe
+// Last update Mon Jun  5 15:00:22 2017 DaZe
 //
 
 #pragma once
@@ -55,6 +55,7 @@ public:
     };
   EDirection                edir;
   Car() = default;
+  Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir);
   Car(std::pair<int, int> posMap, const Element::EType type);
   ~Car() {}
 
@@ -74,6 +75,7 @@ public:
   float					getAngle() const;
   float					getSpeed() const;
   short int				getLap() const;
+  Car::EDirection			getEDir() const;
   void					incLap();
   void					stop();
 

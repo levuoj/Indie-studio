@@ -4,8 +4,8 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Tue Jun  6 17:14:40 2017 Pashervz
+// Last update Tue Jun  6 17:16:13 2017 Pashervz
+// Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
 #pragma once
@@ -81,6 +81,8 @@ public:
     {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
     {DType::PLAY, std::bind(&Graphic::displayPlayMenu, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
+    {DType::GAME_CHRONO, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
+    {DType::FINISH, NULL},
     {DType::NOTHING, NULL}
   };
 };

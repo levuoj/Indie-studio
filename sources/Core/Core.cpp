@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Mon Jun  5 14:04:28 2017 Pashervz
+// Last update Tue Jun  6 17:57:04 2017 Pashervz
 //
 
 #include <iostream>
@@ -23,9 +23,7 @@ Core::Core()
   this->_toLoad = MAIN_MENU;
    // --- TEST --- //
   // this->_toLoad = GAME;
-  std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
-  molft.push_back({ irr::KEY_UP, irr::KEY_DOWN, irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_SPACE});
-  this->_game = std::unique_ptr<ManageGame>(new ManageGame(1, molft));
+  //this->_game = std::unique_ptr<ManageGame>(new ManageGame(2, molft));
   // this->_game->setObserver(this->_graphic.get());
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
@@ -42,7 +40,20 @@ int			Core::launch()
   irr::u32		then		= this->_graphic->getTime();
   irr::f32		lag		= 0.f;
   const irr::f32	MS_PER_UPDATE	= 16.f;
-
+  std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
+  
+  molft.push_back({ irr::KEY_UP,
+	irr::KEY_DOWN,
+	irr::KEY_LEFT,
+	irr::KEY_RIGHT,
+	irr::KEY_SPACE});
+  molft.push_back({
+      irr::KEY_KEY_Z,
+	irr::KEY_KEY_S,
+	irr::KEY_KEY_Q,
+	irr::KEY_KEY_D,
+	irr::KEY_KEY_W});
+  
   this->_graphic->setEventReceiver(&receiver);
   while (this->_graphic->running())
     {
@@ -71,7 +82,20 @@ int			Core::launch()
 		    this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 		}
 	      else if (this->_toLoad == GAME)
-		this->_game->setObserver(this->_graphic.get());
+		{
+		  if (static_cast<PlayMenu *>(this->_menu[PLAY].get())->getNewGame()
+		      == false)
+		    this->_game =
+		      std::unique_ptr<ManageGame>
+		      (new ManageGame(static_cast<PlayMenu *>
+				      (this->_menu[PLAY].get())->getSave(), molft));
+		  else
+		    this->_game = 
+		      std::unique_ptr<ManageGame>
+		      (new ManageGame(static_cast<PlayMenu *>
+				      (this->_menu[PLAY].get())->getNbPlayer(), molft));
+		  this->_game->setObserver(this->_graphic.get());
+		}
 	    }
 	  else
 	    {

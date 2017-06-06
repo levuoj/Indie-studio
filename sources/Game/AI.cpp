@@ -5,11 +5,16 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Fri Jun  2 10:11:24 2017 DaZe
+// Last update Mon Jun  5 18:32:45 2017 DaZe
 //
 
 #include "Convert.hpp"
 #include "AI.hpp"
+
+AI::AI(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir, int idx) : _idx(idx)
+{
+  _car = std::shared_ptr<Car>(new Car(posMap, type, angle, lap, isFinished, dir)); 
+}
 
 AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 {
@@ -25,14 +30,9 @@ AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 
 void			AI::part1()
 {
-  if (_car->getSpeed() <= Car::_maxSpeed)
-    _car->accelerate();
-  else if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
-	   == Element::EType::BLOCK)
-    {
-      std::cout << "JE SUIS IDX = 2" << std::endl;
-      _idx = 2;
-    }
+  if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
+      == Element::EType::BLOCK)
+    _idx = 2;
   
 }
 
@@ -151,6 +151,13 @@ void			AI::chooseAction()
   if (it != _functors.end())
   it->second(); */
 
+  std::cout << _car->getSpeed() << std::endl;
+  if (_car->getSpeed() <= Car::_maxSpeed)
+    {
+      std::cout << "JE ACCELERE" << std::endl;
+      _car->accelerate();
+    }
+  
   switch (_idx)
     {
     case 1:
@@ -225,4 +232,9 @@ void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
 std::shared_ptr<Car>		AI::getCar() const
 {
   return (_car);
+}
+
+int			AI::getIdx() const
+{
+  return (_idx);
 }
