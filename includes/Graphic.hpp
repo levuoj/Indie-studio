@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Mon Jun  5 17:23:46 2017 Pashervz
+// Last update Tue Jun  6 17:14:40 2017 Pashervz
 //
 
 #pragma once
@@ -58,6 +58,8 @@ private:
   void				initOptMenu();
   void				initBindings();
   void				initPlayMenu();
+  void				displayChrono();
+
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();

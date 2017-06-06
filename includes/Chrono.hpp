@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed May 10 13:56:36 2017 Pashervz
-// Last update Wed May 10 14:18:19 2017 Pashervz
+// Last update Fri Jun  2 16:32:09 2017 DaZe
 //
 
 #pragma once
@@ -13,21 +13,17 @@
 class Chrono
 {
 private:
-  double	_endingValue;
+  double	_time;
+  bool		_isStopped;
   
 public:
-  Chrono() {}
-  ~Chrono() {}
+  
   void		start();
   void		stop();
+  void		incTime();
+  void		setTime(const double);
+  double	getTime() const;
 
-  double	getEndingValue() const
-  {
-    return (_endingValue);
-  }
-
-  void		setEndingValue(double value)
-  {
-    _endingValue = value;
-  }
+  Chrono();
+  ~Chrono() = default;
 };

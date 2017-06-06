@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Tue May 30 17:49:55 2017 Lebrun Kilian
+// Last update Fri Jun  2 13:27:45 2017 DaZe
 //
 
 #pragma once
@@ -39,6 +39,8 @@ private:
   EState				_state;
   std::pair<int, int>			_prevPos;
   std::array<Element::EType, 8>		_arrounding;
+  short int				_lap;
+  bool					_isFinished;
 public:
   enum  EDirection
     {
@@ -64,9 +66,16 @@ public:
   void					turnRight();
   void					launchPowerUp();
   void					setPosMap(std::pair<int, int> const& pos);
+  void					setLap(const short int);
+  void					setSpeed(const float);
+  void					setFinished(bool);
+  bool					getFinished() const;
   float					getAbsoluteAngle() const;
   float					getAngle() const;
   float					getSpeed() const;
+  short int				getLap() const;
+  void					incLap();
+  void					stop();
 
   std::pair<int, int> const &		getPrevPos() const;
   std::pair<float, float> const&	getDir() const;

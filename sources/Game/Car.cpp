@@ -5,19 +5,19 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu Jun  1 11:46:12 2017 Lebrun Kilian
+// Last update Fri Jun  2 13:28:09 2017 DaZe
 //
 
 #include <cmath>
 #include "Convert.hpp"
 #include "Car.hpp"
 
-const float Car::_maxSpeed = 500;
+const float Car::_maxSpeed = 550;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 const float Car::_pi = 3.141592f;
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), edir(EDirection::RIGHT)
 {
   _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
@@ -72,7 +72,7 @@ void            Car::accelerate()
   //     return;
   //   }
   if (this->_speed <= this->_maxSpeed)
-    this->_speed += this->_inertia;
+    this->_speed += this->_inertia * 3;
 }
 
 void            Car::deccelerate()
@@ -83,7 +83,7 @@ void            Car::deccelerate()
   //     return;
   //   }
   if (this->_speed >= -this->_maxSpeed / 2)
-    this->_speed -= this->_inertia;
+    this->_speed -= this->_inertia * 3;
 }
 
 void            Car::slowDown()
@@ -180,6 +180,36 @@ void                            Car::setPosMap(const std::pair<int, int> & pos)
   this->_posMap = pos;
 }
 
+void				Car::setLap(const short int lap)
+{
+  _lap = lap;
+}
+
+void				Car::setSpeed(const float speed)
+{
+  _speed = speed;
+}
+
+void				Car::setFinished(bool finish)
+{
+  _isFinished = finish;
+}
+
+bool				Car::getFinished() const
+{
+  return (_isFinished);
+}
+
+short int			Car::getLap() const
+{
+  return (_lap);
+}
+
+void				Car::incLap()
+{
+  _lap += 1;
+}
+
 float                           Car::getAngle() const
 {
   return (this->_angle);
@@ -213,4 +243,9 @@ float				Car::getSpeed() const
 void				Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
 {
   this->_arrounding = arrounding;
+}
+
+void				Car::stop()
+{
+  setSpeed(0.0f);
 }

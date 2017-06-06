@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun  1 15:34:52 2017 DaZe
+// Last update Sat Jun  3 12:09:56 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -31,7 +31,7 @@ void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int & i, const Elemen
     }
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false)
 {
   int     pos(0);
   int     i(0);
@@ -68,6 +68,15 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
       it.setKeys(keys.at(i));
       ++i;
     }
+  
+  _finishLine[0] = 89;
+  _finishLine[1] = 149;
+  _finishLine[2] = 209;
+  _finishLine[3] = 269;
+  _finishLine[4] = 329;
+  _finishLine[5] = 389;
+
+  _chrono.start();
 }
 
 DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
@@ -83,8 +92,18 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   // arr[6] = this->_map[a + 49].get()->getType();
   // arr[7] = this->_map[a - 1].get()->getType();
   // this->_players.at(0).setArroundingCar(arr);
-  this->_players.at(0).driver(key);
-  updateMap();
+  _chrono.incTime();
+
+  if (!_victory)
+    {
+      this->_players.at(0).driver(key);
+      updateMap();
+    }
+  else
+    {
+      _chrono.stop();
+      // return DType::VICTORY
+    }
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
 
   return (DType::GAME);
@@ -155,34 +174,63 @@ void				ManageGame::loadMap()
     }
 }
 
+void				ManageGame::checkVictory(std::shared_ptr<Car> car)
+{
+  std::cout << "LAP = " << car->getLap() << std::endl;
+  for (const auto &it : _finishLine)
+    if (it + 480 == Convert::coordToPos<int>(car->getPosMap()))
+      {
+	car->setFinished(false);
+	std::cout << "CheckPoint" << std::endl;
+	break ;
+      }
+  for (const auto &it : _finishLine)
+    if (it == Convert::coordToPos<int>(car->getPosMap()) && car->getFinished() == false)
+      {
+	car->incLap();
+	car->setFinished(true);
+	std::cout << "INC LAP" << std::endl;
+	break ;
+      }
+  if (car->getLap() == 3)
+    {
+      car->stop();
+      _victory = true;
+    }
+}
+
 void				ManageGame::updateMap()
 {
-  _AIs.at(0).chooseAction();
-  _AIs.at(1).chooseAction();
-  _AIs.at(2).chooseAction();
-  _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
-  _map.at(Convert::coordToPos<int>(_AIs.at(1).getCar()->getPosMap())) = _AIs.at(1).getCar();
-  _map.at(Convert::coordToPos<int>(_AIs.at(2).getCar()->getPosMap())) = _AIs.at(2).getCar();
-  _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
-  if (_AIs.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
-    _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPrevPos())) =
-      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  for (auto &it : _AIs)
+    {
+      it.chooseAction();
+      
+      _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
+
+      checkVictory(it.getCar());
+      if (it.getCar()->getPrevPos() != it.getCar()->getPosMap())
+	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
+	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+    }
   
-  if (_AIs.at(1).getCar()->getPrevPos() != _AIs.at(1).getCar()->getPosMap())
-    _map.at(Convert::coordToPos<int>(_AIs.at(1).getCar()->getPrevPos())) =
-      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
-  
-  if (_AIs.at(2).getCar()->getPrevPos() != _AIs.at(2).getCar()->getPosMap())
-    _map.at(Convert::coordToPos<int>(_AIs.at(2).getCar()->getPrevPos())) =
-      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
-  
-  if (_players.at(0).getCar()->getPrevPos() != _players.at(0).getCar()->getPosMap())
-    _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) = 
-      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  for (auto &it : _players)
+    {
+      _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
+
+      checkVictory(it.getCar());
+      if (it.getCar()->getPrevPos() != it.getCar()->getPosMap())
+	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
+	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+    }
   printMap();
 }
 
-void                        ManageGame::printMap()
+Chrono const&			ManageGame::getChrono() const
+{
+  return (_chrono);
+}
+
+void				ManageGame::printMap()
 {
   int	i = 0;
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
