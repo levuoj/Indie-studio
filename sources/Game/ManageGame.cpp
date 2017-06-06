@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue Jun  6 17:35:03 2017 DaZe
+// Last update Tue Jun  6 18:37:25 2017 DaZe
 //
 
 #include <chrono>
@@ -99,6 +99,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
 ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false)
 {
   this->_type = DType::GAME;
+  construct(nbPlayers);
   std::cout << "JE CONSTROUIS MANAGAGAME" << std::endl;
   
   int i = 0;
@@ -114,8 +115,6 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
   _finishLine[3] = 269;
   _finishLine[4] = 329;
   _finishLine[5] = 389;
-  
-  construct(nbPlayers);
   
   _chrono.start();
 }
@@ -372,27 +371,36 @@ void				ManageGame::printMap()
     }
 }
 
-bool				ManageGame::loadSave(std::string const &file)
+bool				ManageGame::loadSave(std::string const &number)
 {
-  if (loadFile("/Saves/save" + file + ".save") == false)
+  if (loadFile("./Saves/Save" + number + ".save") == false)
     return (false);
   else
     return (true);
 }
 
-bool				ManageGame::loadFile(std::string const& file)
+bool				ManageGame::loadFile(std::string const& fileName)
 {
-  std::string			tmp;
-  std::ifstream			iss(file);
-  bool				skipFirst = false;
-  
-  while (std::getline(iss, tmp))
+  try
     {
-      std::cout << "LINE = " << tmp << std::endl;
-      if (skipFirst == true)
-	if (loadLine(tmp) == false)
-	  return (false);
-      skipFirst = true;
+      ManageFile		manageFile(fileName);
+      std::string		file = manageFile.readFile();
+      std::istringstream	iss(file);
+      bool			skipFirst = false;
+      std::string		tmp;
+      
+      while (std::getline(iss, tmp))
+	{
+	  std::cout << "LINE = " << tmp << std::endl;
+	  if (skipFirst == true)
+	    if (loadLine(tmp) == false)
+	      return (false);
+	  skipFirst = true;
+	}
+    }
+  catch (std::exception const &)
+    {
+      return (false);
     }
   return (true);
 }
