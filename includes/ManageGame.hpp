@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue Jun  6 13:34:07 2017 DaZe
+// Last update Wed Jun  7 11:41:43 2017 Pashervz
 //
 
 #pragma once
@@ -56,5 +56,5 @@ public:
   bool				checkDir(const std::string &);
   bool				checkIdx(const std::string &);
   bool				checkChrono(const std::string &);
-  void				makeSave(std::string const &);
+  void				makeSave(int);
 };

@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Tue Jun  6 17:16:13 2017 Pashervz
+// Last update Wed Jun  7 15:09:01 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -36,6 +36,7 @@ private:
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::vector<std::unique_ptr<GButton>>		_buttonB;
   std::vector<std::unique_ptr<GButton>>		_buttonP;
+  std::vector<std::unique_ptr<GButton>>		_buttonPause;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
@@ -43,6 +44,7 @@ private:
   void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
   void				displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&);
   void				displayPlayMenu(std::vector<std::shared_ptr<Element>> const&);
+  void				displayPause(std::vector<std::shared_ptr<Element>> const&);		
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
@@ -58,6 +60,7 @@ private:
   void				initOptMenu();
   void				initBindings();
   void				initPlayMenu();
+  void				initPauseMenu();
   void				displayChrono();
 
 public:
@@ -81,6 +84,7 @@ public:
     {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
     {DType::PLAY, std::bind(&Graphic::displayPlayMenu, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
+    {DType::PAUSE, std::bind(&Graphic::displayPause, this, std::placeholders::_1)},
     {DType::GAME_CHRONO, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::FINISH, NULL},
     {DType::NOTHING, NULL}

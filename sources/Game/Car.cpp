@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Mon Jun  5 19:08:25 2017 DaZe
+// Last update Wed Jun  7 15:40:14 2017 Pashervz
 //
 
 #include <cmath>
@@ -24,7 +24,6 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, sho
   _type = type;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
-  std::cout << "TYPE = " << type << std::endl;
 }
 
 Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), edir(EDirection::RIGHT)
@@ -139,9 +138,6 @@ void            Car::move()
 
   if (this->_posMap == this->_prevPos)
     this->_prevPos = tmp;
-  std::cout << "POS CELL : " << _pos.first << " --- " << _pos.second << std::endl;
-  std::cout << "POSMAP = " << Convert::coordToPos<int>(_posMap) << std::endl;
-  std::cout << "PREV POS MAP = " << Convert::coordToPos<int>(_prevPos) << std::endl;
 }
 
 void            Car::turnLeft()

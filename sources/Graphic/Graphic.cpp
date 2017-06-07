@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed Jun  7 17:10:33 2017 jouvel
+// Last update Wed Jun  7 15:53:15 2017 Pashervz
 //
 
 #include <iostream>
@@ -376,6 +376,43 @@ void						Graphic::initPlayMenu()
 					   irr::core::vector3df(4980, 780, 4940),
 					   -1, color, color);
 
+}
+
+void						Graphic::initPauseMenu()
+{
+  // std::vector<irr::f32>				initPos;
+  // std::vector<irr::f32>				initTextDim;
+  irr::video::SColor				color(255, 255, 255, 0);
+
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"save and exit", 0,
+					   irr::core::dimension2d<irr::f32>(40, 15),
+					   irr::core::vector3df(5062, 873, 5254),
+					   -1, color, color);
+}
+
+void			Graphic::displayPause(std::vector<std::shared_ptr<Element>> const&)
+{
+  //    int			idx = 0;
+
+  _camera.moveCamera(irr::core::vector3df(5033, 838, 5126),
+		     irr::core::vector3df(5045, 853, 5181));
+  // for (auto it = map.begin() ; it != map.end() ; ++it)
+  //   {
+  //     if (static_cast<Button *>(it->get())->getIsSelected() == true)
+  // 	{
+  // 	  _buttonMM[idx].get()->_button->setText(static_cast<Button *>
+  // 						 (it->get())->getContent().c_str());
+  // 	  _buttonMM[idx].get()->_button->setColor(irr::video::SColor(255, 255, 0, 0));
+  // 	}
+  //     else
+  // 	{
+  // 	  _buttonMM[idx].get()->_button->setText(static_cast<Button *>
+  // 						 (it->get())->getContent().c_str());
+  // 	  _buttonMM[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+  // 	}
+  //     ++idx;
+  //   }
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)

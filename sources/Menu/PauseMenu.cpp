@@ -1,29 +1,26 @@
 //
-// PlayMenu.cpp for PlayMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources/Menu
+// PauseMenu.cpp for PauseMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources/Menu
 // 
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
 // 
-// Started on  Sat Jun  3 16:07:36 2017 Pashervz
-// Last update Wed Jun  7 11:29:26 2017 Pashervz
+// Started on  Wed Jun  7 11:10:46 2017 Pashervz
+// Last update Wed Jun  7 11:56:15 2017 Pashervz
 //
 
 #include <sstream>
 #include "Button.hpp"
-#include "PlayMenu.hpp"
-#include "ManageFile.hpp"
 #include "SaveButton.hpp"
+#include "PauseMenu.hpp"
 
-PlayMenu::PlayMenu() : AMenu("Play", PLAY)
+PauseMenu::PauseMenu(ManageGame const & game) : AMenu("Pause", PAUSE), _game(game)
 {
-  this->_type = DType::PLAY;
+  this->_type = DType::PAUSE;
   this->_map.push_back(std::shared_ptr<SaveButton>(new SaveButton(L"n", "assets/deathStar.jpg", Button::BType::SAVE, 1)));
   this->_map.push_back(std::shared_ptr<SaveButton>(new SaveButton(L"n", "assets/deathStar.jpg", Button::BType::SAVE, 2)));
   this->_map.push_back(std::shared_ptr<SaveButton>(new SaveButton(L"n", "assets/deathStar.jpg", Button::BType::SAVE, 3)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"1", "assets/deathStar.jpg", Button::BType::NBPLAYER)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"2", "assets/deathStar.jpg", Button::BType::NBPLAYER)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"3", "assets/deathStar.jpg", Button::BType::NBPLAYER)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"4", "assets/deathStar.jpg", Button::BType::NBPLAYER)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"back to main menu", "assets/deathStar.jpg", Button::BType::EXIT)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"resume", "assets/deathStar.jpg", Button::BType::RESUME)));
   for (int idx = 1; idx < 4; ++idx)
     {
       std::string	str = "./Saves/Save" + std::to_string(idx) + ".save";
@@ -33,7 +30,7 @@ PlayMenu::PlayMenu() : AMenu("Play", PLAY)
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
-bool				PlayMenu::getSaveName(std::string const & string)
+bool				PauseMenu::getSaveName(std::string const & string)
 {
   std::string                   tmp;
   std::istringstream            iss(string);
@@ -42,14 +39,13 @@ bool				PlayMenu::getSaveName(std::string const & string)
     {
       std::wstring		toPush(tmp.begin(), tmp.end());
 
-      std::wcout << toPush << std::endl; 
       _savesName.push_back(toPush);
       return (true);
     }
   return (false);
 }
 
-void			PlayMenu::openSave(std::string const & fileName)
+void			PauseMenu::openSave(std::string const & fileName)
 {
   try
     {
@@ -66,7 +62,7 @@ void			PlayMenu::openSave(std::string const & fileName)
     }
 }
 
-void                    PlayMenu::assignContent()
+void                    PauseMenu::assignContent()
 {
   for (int idx = 0; idx < 3; ++idx)
     {
@@ -74,32 +70,31 @@ void                    PlayMenu::assignContent()
     }
 }
 
-DType			PlayMenu::select()
+DType			PauseMenu::select()
 {
   for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
     {
-     if (static_cast<Button *>((*it).get())->getIsSelected() == true &&
-	 static_cast<Button *>((*it).get())->getContent() != L"empty")
+     if (static_cast<Button *>((*it).get())->getIsSelected() == true)
        {
-	 if (static_cast<Button *>((*it).get())->getButtonType() == Button::BType::SAVE)
+	 if (static_cast<Button *>((*it).get())->getButtonType()
+	     == Button::BType::RESUME)
 	   {
-	     this->_save =
-	       std::to_string(static_cast<SaveButton *>((*it).get())->getNumber());
-	     this->_newGame = false;
 	     return (GAME);
+	   }
+	 else if (static_cast<Button *>((*it).get())->getButtonType()
+		  == Button::BType::SAVE)
+	   {
+	     this->_game.makeSave(static_cast<SaveButton *>((*it).get())->getNumber());
+	     return (MAIN_MENU);
 	   }
 	 else
-	   {
-	     this->_nbPlayer = std::stoi(static_cast<Button *>((*it).get())->getContent());
-	     this->_newGame = true;
-	     return (GAME);
-	   }
+	   return (MAIN_MENU);
        }
     }
-  return (PLAY);
+  return (PAUSE);
 }
 
-DType		        PlayMenu::transferKey(irr::EKEY_CODE key)
+DType		        PauseMenu::transferKey(irr::EKEY_CODE key)
 {
   switch (key)
     {
@@ -113,10 +108,10 @@ DType		        PlayMenu::transferKey(irr::EKEY_CODE key)
       return (this->select());
       break;
     case irr::KEY_ESCAPE:
-      return (MAIN_MENU);
+      return (GAME);
       break;
     default:
       break;
     }
-  return (PLAY);
+  return (PAUSE);
 }

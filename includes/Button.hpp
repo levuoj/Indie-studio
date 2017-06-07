@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 14:43:05 2017 Pashervz
-// Last update Sat Jun  3 19:34:53 2017 Pashervz
+// Last update Wed Jun  7 11:16:11 2017 Pashervz
 //
 
 #pragma once
@@ -22,6 +22,8 @@ public:
       BIND,
       PLAYER,
       NBPLAYER,
+      RESUME,
+      EXIT,
       SAVE
     };
   

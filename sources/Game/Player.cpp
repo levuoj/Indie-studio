@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Mon Jun  5 14:42:59 2017 DaZe
+// Last update Wed Jun  7 15:39:32 2017 Pashervz
 //
 
 #include "test.hpp"
@@ -18,7 +18,6 @@ Player::Player(std::pair<int, int> posMap, const Element::EType type, float angl
 
 Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
 {
-  std::cout << carPos.first << " -- " << carPos.second << std::endl;
   this->_car = std::shared_ptr<Car>(new Car(carPos, type));
     //  this->_car->setPosMap(carPos);
 }
@@ -44,13 +43,7 @@ void		Player::driver(const irr::EKEY_CODE &key)
     it->second();
 
   // else
-    // std::cout << "\nchut" << std::endl;//this->_car->slowDown();
    this->_car.get()->move();
-   std::cout << "\n/********** PLAYER ************\\" << std::endl;
-     std::cout << this->_car->getSpeed() << std::endl;
-   std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
-   std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
-   std::cout << "\\******************************/" << std::endl;
 }
 
 void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
