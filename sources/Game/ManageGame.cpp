@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun  1 10:11:39 2017 DaZe
+// Last update Thu Jun  1 15:34:52 2017 DaZe
 //
 
 #include "ManageGame.hpp"
@@ -83,9 +83,10 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   // arr[6] = this->_map[a + 49].get()->getType();
   // arr[7] = this->_map[a - 1].get()->getType();
   // this->_players.at(0).setArroundingCar(arr);
+  this->_players.at(0).driver(key);
   updateMap();
   // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
-  this->_players.at(0).driver(key);
+
   return (DType::GAME);
 }
 
@@ -157,12 +158,25 @@ void				ManageGame::loadMap()
 void				ManageGame::updateMap()
 {
   _AIs.at(0).chooseAction();
+  _AIs.at(1).chooseAction();
+  _AIs.at(2).chooseAction();
   _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPosMap())) = _AIs.at(0).getCar();
+  _map.at(Convert::coordToPos<int>(_AIs.at(1).getCar()->getPosMap())) = _AIs.at(1).getCar();
+  _map.at(Convert::coordToPos<int>(_AIs.at(2).getCar()->getPosMap())) = _AIs.at(2).getCar();
+  _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
   if (_AIs.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
     _map.at(Convert::coordToPos<int>(_AIs.at(0).getCar()->getPrevPos())) =
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
-  _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPosMap())) = _players.at(0).getCar();
-  if (_players.at(0).getCar()->getPrevPos() != _AIs.at(0).getCar()->getPosMap())
+  
+  if (_AIs.at(1).getCar()->getPrevPos() != _AIs.at(1).getCar()->getPosMap())
+    _map.at(Convert::coordToPos<int>(_AIs.at(1).getCar()->getPrevPos())) =
+      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  
+  if (_AIs.at(2).getCar()->getPrevPos() != _AIs.at(2).getCar()->getPosMap())
+    _map.at(Convert::coordToPos<int>(_AIs.at(2).getCar()->getPrevPos())) =
+      std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
+  
+  if (_players.at(0).getCar()->getPrevPos() != _players.at(0).getCar()->getPosMap())
     _map.at(Convert::coordToPos<int>(_players.at(0).getCar()->getPrevPos())) = 
       std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
   printMap();

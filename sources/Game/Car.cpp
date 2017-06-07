@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu Jun  1 10:40:27 2017 DaZe
+// Last update Thu Jun  1 11:46:12 2017 Lebrun Kilian
 //
 
 #include <cmath>
@@ -66,19 +66,17 @@ bool            Car::checkArrounding()
 
 void            Car::accelerate()
 {
-  std::cout << "speed : " << this->_speed << std::endl;
-  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-    }
+  // if (checkArrounding() == false)
+  //   {
+  //     this->_speed = 0.0f;
+  //     return;
+  //   }
   if (this->_speed <= this->_maxSpeed)
     this->_speed += this->_inertia;
 }
 
 void            Car::deccelerate()
 {
-  std::cout << "speed : " << this->_speed << std::endl;
   // if (checkArrounding() == false)
   //   {
   //     this->_speed = 0.0f;
@@ -90,8 +88,6 @@ void            Car::deccelerate()
 
 void            Car::slowDown()
 {
-  // std::cout << "J'enlève les voiles de moitié, Capitaine" << std::endl;
-  // std::cout << "speed : " << this->_speed;
   // if (checkArrounding() == false)
   //   {
   //     this->_speed = 0.0f;
@@ -181,7 +177,6 @@ void                            Car::launchPowerUp()
 
 void                            Car::setPosMap(const std::pair<int, int> & pos)
 {
-  // std::cout << pos.first << " --- " << pos.second << std::endl;
   this->_posMap = pos;
 }
 

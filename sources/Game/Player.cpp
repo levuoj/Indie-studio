@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Thu Jun  1 10:48:35 2017 DaZe
+// Last update Thu Jun  1 15:34:24 2017 DaZe
 //
 
 #include "test.hpp"
@@ -32,18 +32,20 @@ void    Player::initDir()
 
 void		Player::driver(const irr::EKEY_CODE &key)
 {
-  this->initDir();
+  // this->initDir();
   const auto        &it = _functors.find(key);
 
   if (it != _functors.end())
     it->second();
-  else
-    {}
-    //this->_car->slowDown();
-   this->_car->move();
-  // std::cout << this->_car->getSpeed() << std::endl;
-  // std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
-  // std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
+
+  // else
+    // std::cout << "\nchut" << std::endl;//this->_car->slowDown();
+   this->_car.get()->move();
+   std::cout << "\n/********** PLAYER ************\\" << std::endl;
+     std::cout << this->_car->getSpeed() << std::endl;
+   std::cout << this->_car->getPos().first << " ------------------------- " << this->_car->getPos().second << std::endl;
+   std::cout << this->_car->getPosMap().first << " ------------------------- " << this->_car->getPosMap().second << std::endl;
+   std::cout << "\\******************************/" << std::endl;
 }
 
 void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)

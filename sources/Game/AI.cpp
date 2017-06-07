@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Thu Jun  1 10:42:21 2017 DaZe
+// Last update Thu Jun  1 14:10:57 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -21,7 +21,6 @@ AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
   _functors[4] = [this](){this->part4();};
   _functors[5] = [this](){this->part5();};
   _functors[6] = [this](){this->part6();}; */
-  std::cout << "JE souis constructor AI" << std::endl;
 }
 
 void			AI::part1()
@@ -211,7 +210,7 @@ void			AI::chooseAction()
    if (_idx == 2 && _car->getAngle() != -180.0f)
      _car->turnRight();
      std::cout << _car->getAbsoluteAngle() << std::endl; */
-  //   _car.get()->move();
+  _car.get()->move();
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
