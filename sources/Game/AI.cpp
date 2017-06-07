@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Thu Jun  1 14:10:57 2017 DaZe
+// Last update Thu Jun  1 17:32:36 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
@@ -14,13 +14,6 @@
 AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 {
   _car = std::shared_ptr<Car>(new Car(pos, type));
-  /*  _functors.reserve(6);
-  _functors[1] = [this](){this->part1();};
-  _functors[2] = [this](){this->part2();};
-  _functors[3] = [this](){this->part3();};
-  _functors[4] = [this](){this->part4();};
-  _functors[5] = [this](){this->part5();};
-  _functors[6] = [this](){this->part6();}; */
 }
 
 void			AI::part1()

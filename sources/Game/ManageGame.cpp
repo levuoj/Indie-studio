@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun  1 15:34:52 2017 DaZe
+// Last update Mon Jun  5 15:45:23 2017 Lebrun Kilian
 //
 
 #include "ManageGame.hpp"
@@ -72,21 +72,19 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 
 DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 {
-  // std::array<Element::EType, 8>   arr;
-  // int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
-  // arr[0] = this->_map[a - 51].get()->getType();
-  // arr[1] = this->_map[a - 50].get()->getType();
-  // arr[2] = this->_map[a - 49].get()->getType();
-  // arr[3] = this->_map[a + 1].get()->getType();
-  // arr[4] = this->_map[a + 51].get()->getType();
-  // arr[5] = this->_map[a + 50].get()->getType();
-  // arr[6] = this->_map[a + 49].get()->getType();
-  // arr[7] = this->_map[a - 1].get()->getType();
-  // this->_players.at(0).setArroundingCar(arr);
+  std::array<Element::EType, 8>   arr;
+  int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
+  arr[0] = this->_map[a - 61]->getType();
+  arr[1] = this->_map[a - 60]->getType();
+  arr[2] = this->_map[a - 59]->getType();
+  arr[3] = this->_map[a + 1]->getType();
+  arr[4] = this->_map[a + 61]->getType();
+  arr[5] = this->_map[a + 60]->getType();
+  arr[6] = this->_map[a + 59]->getType();
+  arr[7] = this->_map[a - 1]->getType();
+  this->_players.at(0).setArroundingCar(arr);
   this->_players.at(0).driver(key);
   updateMap();
-  // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
-
   return (DType::GAME);
 }
 
@@ -221,4 +219,5 @@ void                        ManageGame::printMap()
 	}
       ++i;
     }
+  std::cout << std::endl;
 }
