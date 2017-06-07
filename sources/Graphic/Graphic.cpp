@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed Jun  7 13:39:01 2017 DaZe
+// Last update Wed Jun  7 14:42:55 2017 DaZe
 //
 
 #include <iostream>
@@ -551,26 +551,26 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 
 void		Graphic::displayChrono(bool first)
 {
-  std::string time = std::to_string(_time);
+  std::string time = std::to_string(_time).substr(0, 5);
 
-  std::cout << "CHORNO = " << time << std::endl;
+  //  std::cout << "CHORNO = " << time << std::endl;
   std::wstring wide_string = std::wstring(time.begin(), time.end());
   const wchar_t* result = wide_string.c_str();
   
   if (first == true)
     {
-      std::cout << "JE SUIS LE TROU MDR" << std::endl;
+      //      std::cout << "JE SUIS LE TROU MDR" << std::endl;
       irr::gui::IGUISkin *skin = _guienv->getSkin();
       irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
       skin->setFont(font);
       skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
       _text = _guienv->addStaticText(result,
 			     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
-			     false);
+				     false);
     }
   else
     {
-      std::cout << "JE SUIS LE FALSE MDR" << std::endl;
+      //      std::cout << "JE SUIS LE FALSE MDR" << std::endl;
       _text->setText(result);
     }
 }
@@ -581,11 +581,19 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	x = 5330.f;
   irr::f32	y = 560.f;
   irr::f32	z = 4925.f;
-  static bool	first = true;
-  static bool	next = true;
+  static bool   first = true;
 
   _camera.moveCamera(irr::core::vector3df(5032.f, 814.f, 4968.f),
 		     irr::core::vector3df(5032.f, 589.f, 5069.f));
+  
+  if (first == true)
+	{
+	  _engine->stopAllSounds();
+	  displayChrono(true);
+	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
+	}
+      else
+	displayChrono(false);
   for (auto const& elem : map)
     {
       if (i % 60 == 0)
@@ -593,21 +601,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  x = 5330.f;
 	  z += _squareSize;
 	}
-      if (!first && next)
-	{
-	  next = false;
-	  _engine->stopAllSounds();
-	  //	  _engine->play2D("assets/music/betting.ogg", false);
-	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
-	}
       if (first)
-	{
-	  std::cout << "JE SUIS LE PREMIERE¢®Ð<®Ð" << std::endl;
-	  this->initMap(elem, x, y, z);
-	  displayChrono(true);
-	}
-      else
-	displayChrono(false);
+	this->initMap(elem, x, y, z);
       Element::EType type		= elem->getType();
       if (type == Element::EType::POD1
 	  || type == Element::EType::POD2
@@ -624,6 +619,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       x -= 10.f;
       ++i;
     }
+  std::cerr << "first is false" << std::endl;
   first = false;
 }
 
