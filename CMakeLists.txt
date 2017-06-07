@@ -40,4 +40,5 @@ ADD_EXECUTABLE(Racer
 
 TARGET_LINK_LIBRARIES(Racer
   "/usr/local/lib/libIrrlicht.so"
+  "/usr/local/lib/libIrrKlang.so"
   )

@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Mon Jun  5 15:16:09 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:10:08 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -52,11 +52,13 @@ private:
   EState				_state;
   std::pair<int, int>			_prevPos;
   std::array<Element::EType, 8>		_arrounding;
+  short int				_lap;
+  bool					_isFinished;
   EDirection				_edir;
-
 public:
 
   Car() = default;
+  Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir);
   Car(std::pair<int, int> posMap, const Element::EType type);
   ~Car() {}
 
@@ -68,9 +70,17 @@ public:
   void					turnRight();
   void					launchPowerUp();
   void					setPosMap(std::pair<int, int> const& pos);
+  void					setLap(const short int);
+  void					setSpeed(const float);
+  void					setFinished(bool);
+  bool					getFinished() const;
   float					getAbsoluteAngle() const;
   float					getAngle() const;
   float					getSpeed() const;
+  short int				getLap() const;
+  Car::EDirection			getEDir() const;
+  void					incLap();
+  void					stop();
 
   std::pair<int, int> const &		getPrevPos() const;
   std::pair<float, float> const&	getDir() const;

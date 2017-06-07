@@ -5,11 +5,16 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Thu Jun  1 17:32:36 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:06:45 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
 #include "AI.hpp"
+
+AI::AI(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir, int idx) : _idx(idx)
+{
+  _car = std::shared_ptr<Car>(new Car(posMap, type, angle, lap, isFinished, dir)); 
+}
 
 AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 {
@@ -18,11 +23,10 @@ AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 
 void			AI::part1()
 {
-  if (this->_car->getSpeed() <= Car::_maxSpeed)
-    this->_car->accelerate();
-  else if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 6]->getType()
-	   == Element::EType::BLOCK)
+  if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
+      == Element::EType::BLOCK)
     _idx = 2;
+  
 }
 
 void			AI::part2()
@@ -134,11 +138,18 @@ void			AI::part15()
 
 void			AI::chooseAction()
 {
-/*  std::cout << "ChooseAction" << std::endl;
-  const auto it = _functors.find(_idx);
+  std::cout << "ChooseAction --- IDX = " << _idx << std::endl;
+  /*  const auto it = _functors.find(_idx);
   
   if (it != _functors.end())
   it->second(); */
+
+  std::cout << _car->getSpeed() << std::endl;
+  if (_car->getSpeed() <= Car::_maxSpeed)
+    {
+      std::cout << "JE ACCELERE" << std::endl;
+      _car->accelerate();
+    }
   
   switch (_idx)
     {
@@ -214,4 +225,9 @@ void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
 std::shared_ptr<Car>		AI::getCar() const
 {
   return (_car);
+}
+
+int			AI::getIdx() const
+{
+  return (_idx);
 }

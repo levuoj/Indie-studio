@@ -5,19 +5,29 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed Jun  7 14:42:59 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:10:28 2017 Lebrun Kilian
 //
 
 #include <cmath>
 #include "Convert.hpp"
 #include "Car.hpp"
 
-const float Car::_maxSpeed = 500;
+const float Car::_maxSpeed = 550;
 const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 const float Car::_pi = 3.141592f;
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), _edir(dir)
+{
+  //  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
+  _pos = std::make_pair(50.0f, 50.0f);
+  _type = type;
+  this->_dir.first = cosf(this->_angle * _pi / 180.0f);
+  this->_dir.second = sinf(this->_angle * _pi / 180.0f);
+  std::cout << "TYPE = " << type << std::endl;
+}
+
+Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT)
 {
   _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
@@ -27,13 +37,13 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap
 void            Car::accelerate()
 {
   if (this->_speed <= this->_maxSpeed)
-    this->_speed += this->_inertia;
+    this->_speed += this->_inertia * 3;
 }
 
 void            Car::deccelerate()
 {
   if (this->_speed >= -this->_maxSpeed / 2)
-    this->_speed -= this->_inertia;
+    this->_speed -= this->_inertia * 3;
 }
 
 void            Car::slowDown()
@@ -329,6 +339,36 @@ void                            Car::setPosMap(const std::pair<int, int> & pos)
   this->_posMap = pos;
 }
 
+void				Car::setLap(const short int lap)
+{
+  _lap = lap;
+}
+
+void				Car::setSpeed(const float speed)
+{
+  _speed = speed;
+}
+
+void				Car::setFinished(bool finish)
+{
+  _isFinished = finish;
+}
+
+bool				Car::getFinished() const
+{
+  return (_isFinished);
+}
+
+short int			Car::getLap() const
+{
+  return (_lap);
+}
+
+void				Car::incLap()
+{
+  _lap += 1;
+}
+
 float                           Car::getAngle() const
 {
   return (this->_angle);
@@ -359,6 +399,11 @@ float				Car::getSpeed() const
   return (this->_speed);
 }
 
+Car::EDirection			Car::getEDir() const
+{
+  return (_edir);
+}
+
 void				Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
 {
   this->_arrounding = arrounding;
@@ -367,4 +412,9 @@ void				Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
 void        Car::setEdir(const EDirection &dir)
 {
 	this->_edir = dir;
+}
+
+void				Car::stop()
+{
+  setSpeed(0.0f);
 }

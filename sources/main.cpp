@@ -4,7 +4,7 @@
 // Made by Pierre Zawadil
 // Login   <pierre.zawadil@epitech.eu>
 // Started on  Mon May  8 11:13:42 2017 Pierre Zawadil
-// Last update Mon May 15 10:06:58 2017 Pierre Zawadil
+// Last update Sat Jun  3 15:01:19 2017 Pashervz
 //
 
 #include <iostream>
@@ -20,7 +20,8 @@ int		main(int ac, char **av)
     {
       Core	core;
 
-      core.launch();
+      if (core.launch() == EXIT_SUCCESS)
+	return (EXIT_SUCCESS);
     }
   catch(std::exception const &msg)
     {

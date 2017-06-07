@@ -5,31 +5,70 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Thu May 25 15:22:50 2017 Pashervz
+// Last update Sat Jun  3 19:36:41 2017 Pashervz
 //
 
-#include <memory>
 #include <sstream>
 #include "Bind.hpp"
 #include "Button.hpp"
-#include "ManageFile.hpp"
 #include "BindingMenu.hpp"
 
-BindingMenu::BindingMenu(std::string const & player) : AMenu("Bindings", BINDINGS), _player(player)
+BindingMenu::BindingMenu(std::string const & player) : AMenu("Bindings", BINDINGS),
+						       _player(player)
 {
   this->_type = DType::BINDINGS;
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
+  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
   this->openBindingConf();
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[0]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[1]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[2]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[3]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(this->stringToWstring(_bindingsStrings[4]),
-						      "assets/deathStar.jpg", Button::BType::BIND)));
+  this->assignContent();
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
+}
+
+void			BindingMenu::keyToString()
+{
+  _bindingsStrings.clear();
+  for (const auto it : _bindings)
+    {
+      for (const auto it2 : _corresMap)
+	{
+	  if (it == it2.second)
+	    _bindingsStrings.push_back(it2.first);
+	}
+    }
+}
+
+void			BindingMenu::assignContent()
+{
+  int			idx = 0;
+  
+  for (auto it = _map.begin() ; it != _map.end() ; ++it)
+    {
+      static_cast<Button *>(it->get())->setContent(_bindingsStrings[idx]);
+      ++idx;
+    }
+}
+
+void			BindingMenu::getBinds()
+{
+  _bindings.clear();
+  for (auto it = _map.begin() ; it != _map.end() ; ++it)
+    {
+      _bindings.push_back(static_cast<Bind *>(it->get())->getKey());
+    }
+}
+
+void			BindingMenu::assignBinds()
+{
+  int			idx = 0;
+
+  for (auto it = _map.begin() ; it != _map.end() ; ++it)
+    {
+      static_cast<Bind *>(it->get())->setKey(_bindings[idx]);
+      ++idx;
+    }
 }
 
 std::wstring const	BindingMenu::stringToWstring(std::string const & str) const
@@ -39,21 +78,21 @@ std::wstring const	BindingMenu::stringToWstring(std::string const & str) const
   return (tmp);
 }
 
-bool			BindingMenu::stringsToKey(std::vector<std::string> const & strings)
+bool			BindingMenu::stringsToKey()
 {
-  for (const auto it : strings)
+  for (const auto it : _bindingsStrings)
     {
       for (const auto it2 : _corresMap)
 	{
 	  if (it == it2.first)
 	    {
-	      this->_bindingsStrings.push_back(it);
 	      this->_bindings.push_back(it2.second);
 	    }
-	  else
-	    return (false);
 	}
     }
+  if (this->_bindings.size() != 5)
+    return (false);
+  this->assignBinds();
   return (true);
 }
 
@@ -61,15 +100,16 @@ bool			BindingMenu::fillBindingMap(std::string const & line)
 {
   std::istringstream		iss(line);
   std::string			tmp;
-  std::vector<std::string>	keyStrings;
-  
+
   while (std::getline(iss, tmp, ' '))
     {
-      keyStrings.push_back(tmp);
+      this->_bindingsStrings.push_back(this->stringToWstring(tmp));
     }
-  this->_bindings.erase(this->_bindings.begin() + 1);
-  this->_bindings.resize(5);
-  if (this->stringsToKey(keyStrings) == false)
+  if (this->_bindingsStrings.size() != 6)
+    return (false);
+  this->_bindingsStrings.erase(this->_bindingsStrings.begin());
+  this->_bindingsStrings.resize(5);
+  if (this->stringsToKey() == false)
     return (false);
   return (true);
 }
@@ -87,7 +127,8 @@ bool			BindingMenu::getPlayerInfo(std::string const & file)
       cmpPlayer = tmp.substr(0, pos);
       if (cmpPlayer == this->_player)
 	{
-	  this->fillBindingMap(tmp);
+	  if (this->fillBindingMap(tmp) == false)
+	    return (false);
 	  return (true);
 	}
     }
@@ -98,7 +139,9 @@ void			BindingMenu::openBindingConf()
 {
   try
     {
-      ManageFile		manageFile("bindings.conf");
+      ManageFile		manageFile("./Config/"
+					   +  this->_player
+					   + ".conf");
       std::string		file;
 
       file = manageFile.readFile();
@@ -122,8 +165,9 @@ void			BindingMenu::defaultP1()
   static_cast<Bind *>(this->_map[2].get())->setKey(irr::KEY_KEY_Q);
   this->_bindings.push_back(irr::KEY_KEY_D);
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_KEY_D);
-  this->_bindings.push_back(irr::KEY_SHIFT);
-  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_SHIFT);
+  this->_bindings.push_back(irr::KEY_LSHIFT);
+  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_LSHIFT);
+  this->keyToString();
 }
 
 void			BindingMenu::defaultP2()
@@ -139,6 +183,7 @@ void			BindingMenu::defaultP2()
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_KEY_J);
   this->_bindings.push_back(irr::KEY_SPACE);
   static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_SPACE);
+  this->keyToString();
 }
 
 void			BindingMenu::defaultP3()
@@ -152,8 +197,9 @@ void			BindingMenu::defaultP3()
   static_cast<Bind *>(this->_map[2].get())->setKey(irr::KEY_KEY_K);
   this->_bindings.push_back(irr::KEY_KEY_M);
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_KEY_M);
-  this->_bindings.push_back(irr::KEY_MENU);
-  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_MENU);
+  this->_bindings.push_back(irr::KEY_LMENU);
+  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_LMENU);
+  this->keyToString();
 }
 
 void			BindingMenu::defaultP4()
@@ -167,8 +213,9 @@ void			BindingMenu::defaultP4()
   static_cast<Bind *>(this->_map[2].get())->setKey(irr::KEY_LEFT);
   this->_bindings.push_back(irr::KEY_RIGHT);
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_RIGHT);
-  this->_bindings.push_back(irr::KEY_CONTROL);
-  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_CONTROL);
+  this->_bindings.push_back(irr::KEY_LCONTROL);
+  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_LCONTROL);
+  this->keyToString();
 }
 
 void			BindingMenu::defaultFill(std::string const & player)
@@ -190,12 +237,19 @@ void			BindingMenu::select(irr::EKEY_CODE key)
 {
   for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
     {
-      if (key == irr::KEY_RETURN)
+      if (key == irr::KEY_RETURN &&
+	  static_cast<Button *>((*it).get())->getIsSelected() == true)
 	{
-	  if (static_cast<Button *>((*it).get())->getIsSelected() == true)
-	    static_cast<Bind *>((*it).get())->setMode(true);
+	  if (static_cast<Bind *>((*it).get())->getMode() == false)
+	    {
+	      static_cast<Bind *>((*it).get())->setMode(true);
+	      _bindMode = true;
+	    }
 	  else if (static_cast<Bind *>((*it).get())->getMode() == true)
-	    static_cast<Bind *>((*it).get())->setMode(false);
+	    {
+	      static_cast<Bind *>((*it).get())->setMode(false);
+	      _bindMode = false;
+	    }
 	  break;
 	}
       else
@@ -208,8 +262,6 @@ void			BindingMenu::select(irr::EKEY_CODE key)
 		    {
 		      if (key == it3.second)
 			{
-			  static_cast<Button *>((*it).get())
-			    ->setContent(this->stringToWstring(it3.first));
 			  static_cast<Bind *>((*it).get())->setKey(key);
 			  break;
 			}
@@ -218,40 +270,64 @@ void			BindingMenu::select(irr::EKEY_CODE key)
 	    }
 	}
     }
+  this->getBinds();
+  this->assignContent();
+  this->keyToString();
 }
 
-void			BindingMenu::saveChanges()
+std::string const		BindingMenu::writeChanges()
 {
-  this->_bindings.clear();
-  this->_bindingsStrings.clear();
-  for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
+  std::vector<std::string>	config;
+  
+  for (const auto it :  _bindingsStrings)
     {
-      this->_bindings.push_back(static_cast<Bind *>((*it).get())->getKey());
-      for (auto it2 : _corresMap)
-	{
-	  if (static_cast<Bind *>((*it).get())->getKey() == it2.second)
-	    this->_bindingsStrings.push_back(it2.first);
-	  break;
-	}
+      std::string str(it.begin(), it.end());
+      config.push_back(str);
     }
+  return (this->_player + ": " +
+	  config[0]+ " " + config[1] +
+	  " " + config[2] + " " + config[3] +
+	  " " + config[4] + "\n");
 }
+
+void				BindingMenu::saveChanges()
+{
+  std::ofstream			stream;
+  
+  stream.open("./Config/" + this->_player + ".conf");
+  stream << this->writeChanges();
+  stream.close();
+}
+
+// static void		printvector(std::vector<std::wstring> vector)
+// {
+//   for (auto it : vector)
+//     std::wcout << it << " ";
+//   std::cout << "\n";
+// }
 
 DType                   BindingMenu::transferKey(irr::EKEY_CODE key)
 {
-  switch (key)
+  if (_bindMode == false)
     {
-    case irr::KEY_DOWN:
-      this->goDown();
-      break;
-    case irr::KEY_UP:
-      this->goUp();
-      break;
-    case irr::KEY_ESCAPE:
-      this->saveChanges();
-      return (OPTIONS);
-    default:
-      this->select(key);
-      break;
+      switch (key)
+	{
+	case irr::KEY_RIGHT:
+	  this->goDown();
+	  break;
+	case irr::KEY_LEFT:
+	  this->goUp();
+	  break;
+	case irr::KEY_ESCAPE:
+	  this->saveChanges();
+	  return (OPTIONS);
+	default:
+	  this->select(key);
+	  break;
+	}
     }
+  else
+    this->select(key);
+  //  printvector(this->_bindingsStrings);
   return (BINDINGS);
 }

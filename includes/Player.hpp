@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:32:29 2017 thomas vigier
-// Last update Thu Jun  1 17:49:20 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:07:01 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -26,6 +26,7 @@ class			Player
 public:
 
   Player(const std::pair<int, int> &carPos, const Element::EType type);
+  Player(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir);
   ~Player() {};
   void			initDir();
   void			driver(const irr::EKEY_CODE &key);

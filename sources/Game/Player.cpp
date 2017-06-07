@@ -5,11 +5,16 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Thu Jun  1 17:57:24 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:00:01 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
 #include "Player.hpp"
+
+Player::Player(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir)
+{
+  _car = std::shared_ptr<Car>(new Car(posMap, type, angle, lap, isFinished, dir));
+}
 
 Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
 {
