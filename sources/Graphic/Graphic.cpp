@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue Jun  6 17:15:38 2017 Pashervz
+// Last update Wed Jun  7 17:10:33 2017 jouvel
 //
 
 #include <iostream>
@@ -47,8 +47,8 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
 		     irr::core::vector3df(5109, 872, 4747));
   // _camera.initCamera(_sceneManager,
-  // 		     irr::core::vector3df(5035, 806, 4877),
-  // 		     irr::core::vector3df(5066, 808, 4824));
+  //		     irr::core::vector3df(5035, 806, 4877),
+  //		     irr::core::vector3df(5066, 808, 4824));
   this->loadIntro();
   if (distribution(generator) == 0)
     _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
@@ -71,7 +71,7 @@ Graphic::~Graphic()
 
 void				Graphic::loadIntro()
 {
-  
+
 }
 
 void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, DType type)
@@ -131,12 +131,12 @@ void						Graphic::initMainMenu()
 								L"scores",
 								L"options",
 								L"exit"};
-  
+
   // _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-  // 					   L"options", 0,
-  // 					   irr::core::dimension2d<irr::f32>(50, 20),
-  // 					   irr::core::vector3df(5070, 820, 4820),
-  // 					   -1, color, color);
+  //					   L"options", 0,
+  //					   irr::core::dimension2d<irr::f32>(50, 20),
+  //					   irr::core::vector3df(5070, 820, 4820),
+  //					   -1, color, color);
   for (auto const c : NameMainMenu)
     {
       _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
@@ -375,7 +375,7 @@ void						Graphic::initPlayMenu()
 					   irr::core::dimension2d<irr::f32>(55, 15),
 					   irr::core::vector3df(4980, 780, 4940),
 					   -1, color, color);
-  
+
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
@@ -457,16 +457,16 @@ void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
-  	{
-  	  _buttonP[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
-  	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 0, 255, 255));
-  	}
+	{
+	  _buttonP[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
+	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 0, 255, 255));
+	}
       else
-  	{
-  	  _buttonP[idx].get()->_button->setText(static_cast<Button *>
-  						  (it->get())->getContent().c_str());
-  	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
-  	}
+	{
+	  _buttonP[idx].get()->_button->setText(static_cast<Button *>
+						  (it->get())->getContent().c_str());
+	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+	}
       ++idx;
     }
 }
@@ -570,12 +570,12 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   int		i = 0;
   irr::f32	x = 5330.f;
   irr::f32	y = 560.f;
-  irr::f32	z = 4925.f;
+  irr::f32	z = 5125.f;
   static bool	first = true;
   static bool	next = true;
 
-  _camera.moveCamera(irr::core::vector3df(5032.f, 814.f, 4968.f),
-		     irr::core::vector3df(5032.f, 589.f, 5069.f));
+  _camera.moveCamera(irr::core::vector3df(5033.f, 838.f, 5126.f),
+		     irr::core::vector3df(5033.f, 770.f, 5172.f));
   for (auto const& elem : map)
     {
       if (i % 60 == 0)
