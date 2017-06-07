@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Mon Jun  5 19:08:25 2017 DaZe
+// Last update Wed Jun  7 10:43:56 2017 DaZe
 //
 
 #include <cmath>
@@ -19,7 +19,7 @@ const float Car::_pi = 3.141592f;
 
 Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), edir(dir)
 {
-  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
+  //  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
   _type = type;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);

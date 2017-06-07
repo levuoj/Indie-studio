@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Tue Jun  6 18:37:51 2017 DaZe
+// Last update Wed Jun  7 11:15:45 2017 DaZe
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -31,6 +31,8 @@ private:
   irr::gui::IGUIEnvironment			*_guienv;
   Gcamera					_camera;
   irrklang::ISoundEngine			*_engine;
+  double					_time;
+  irr::gui::IGUIStaticText			*_text;
 
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
@@ -58,7 +60,7 @@ private:
   void				initOptMenu();
   void				initBindings();
   void				initPlayMenu();
-  void				displayChrono();
+  void				displayChrono(bool);
 
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);

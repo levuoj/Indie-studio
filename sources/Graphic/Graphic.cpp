@@ -5,11 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue Jun  6 18:36:45 2017 DaZe
+// Last update Wed Jun  7 13:39:01 2017 DaZe
 //
 
 #include <iostream>
 #include <cmath>
+#include <string>
 #include "Error.hpp"
 #include <random>
 #include <stdexcept>
@@ -548,20 +549,29 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
   cube->setMaterialType(irr::video::EMT_SOLID);
 }
 
-void		Graphic::displayChrono()
+void		Graphic::displayChrono(bool first)
 {
-  static bool	first = true;
+  std::string time = std::to_string(_time);
 
-  if (first)
+  std::cout << "CHORNO = " << time << std::endl;
+  std::wstring wide_string = std::wstring(time.begin(), time.end());
+  const wchar_t* result = wide_string.c_str();
+  
+  if (first == true)
     {
+      std::cout << "JE SUIS LE TROU MDR" << std::endl;
       irr::gui::IGUISkin *skin = _guienv->getSkin();
       irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
       skin->setFont(font);
-      skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 255, 0));
-      _guienv->addStaticText(L"01:01:100",
+      skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
+      _text = _guienv->addStaticText(result,
 			     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
 			     false);
-      first = false;
+    }
+  else
+    {
+      std::cout << "JE SUIS LE FALSE MDR" << std::endl;
+      _text->setText(result);
     }
 }
 
@@ -583,8 +593,6 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  x = 5330.f;
 	  z += _squareSize;
 	}
-      if (!first)
-	displayChrono();
       if (!first && next)
 	{
 	  next = false;
@@ -593,7 +601,13 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
 	}
       if (first)
-	this->initMap(elem, x, y, z);
+	{
+	  std::cout << "JE SUIS LE PREMIERE¢®Ð<®Ð" << std::endl;
+	  this->initMap(elem, x, y, z);
+	  displayChrono(true);
+	}
+      else
+	displayChrono(false);
       Element::EType type		= elem->getType();
       if (type == Element::EType::POD1
 	  || type == Element::EType::POD2
@@ -620,6 +634,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 void		Graphic::actualize(Observable const& observable)
 {
   this->manageDisplay(observable.getMap(), observable.getDType());
+  _time = observable.getChrono().getTime();
 }
 
 bool		Graphic::running(void)
