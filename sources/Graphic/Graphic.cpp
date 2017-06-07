@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed Jun  7 14:59:47 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:19:32 2017 DaZe
 //
 
 #include <iostream>
@@ -553,13 +553,11 @@ void		Graphic::displayChrono(bool first)
 {
   std::string time = std::to_string(_time).substr(0, 5);
 
-  //  std::cout << "CHORNO = " << time << std::endl;
   std::wstring wide_string = std::wstring(time.begin(), time.end());
   const wchar_t* result = wide_string.c_str();
   
   if (first == true)
     {
-      //      std::cout << "JE SUIS LE TROU MDR" << std::endl;
       irr::gui::IGUISkin *skin = _guienv->getSkin();
       irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
       skin->setFont(font);
@@ -569,10 +567,7 @@ void		Graphic::displayChrono(bool first)
 				     false);
     }
   else
-    {
-      //      std::cout << "JE SUIS LE FALSE MDR" << std::endl;
       _text->setText(result);
-    }
 }
 
 void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
@@ -619,7 +614,6 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       x -= 10.f;
       ++i;
     }
-  std::cerr << "first is false" << std::endl;
   first = false;
 }
 

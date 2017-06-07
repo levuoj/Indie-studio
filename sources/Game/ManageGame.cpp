@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed Jun  7 15:06:13 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:32:20 2017 DaZe
 //
 
 #include <chrono>
@@ -64,7 +64,7 @@ void			ManageGame::construct(int nbPlayers)
     }  
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false), _isStarted(false)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -96,7 +96,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false), _isStarted(false)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
@@ -128,7 +128,15 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
   
   if (_victory == false)
     {
-      if (_chrono.getTime() > 5.0)
+      if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
+	  && _isStarted == false)
+	{
+	  std::cerr << "JE PASSE ANS LA BOUCLE TAVU" << std::endl;
+	  _isStarted = true,
+	  _chrono.setTime(0.0);
+	  _type = DType::GAME;
+	}
+      else if (_isStarted == true)
 	{
 	  for (auto &it : _players)
 	    {
@@ -146,16 +154,11 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 	    }
 	  updateMap();
 	}
-      else if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
-	       && _type != DType::GAME)
-	{
-	  _chrono.setTime(0.0);
-	  _type = DType::GAME;
-	}
     }
   else
     {
       _chrono.stop();
+      std::cerr << "CHORNO FINAL = " << _chrono.getTime() << std::endl;
       return (DType::FINISH);
     }
   return (_type);
