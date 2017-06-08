@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Mon Jun  5 11:02:53 2017 jouvel
+// Last update Thu Jun  8 12:48:06 2017 jouvel
 //
 
 #pragma once
@@ -14,6 +14,9 @@
 #include <irrKlang.h>
 #include <unordered_map>
 #include <functional>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 #include "AObserver.hpp"
 #include "Utils.hpp"
 #include "GButton.hpp"
