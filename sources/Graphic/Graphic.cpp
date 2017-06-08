@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed Jun  7 15:19:32 2017 DaZe
+// Last update Thu Jun  8 02:24:54 2017 jouvel
 //
 
 #include <iostream>
@@ -32,6 +32,10 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   std::default_random_engine generator(rd());
   std::uniform_int_distribution<int> distribution(0,4);
 
+  _alternative = false;
+  if (distribution(generator) == 0)
+    _alternative = true;
+
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
 				    32);
@@ -48,10 +52,10 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
 		     irr::core::vector3df(5109, 872, 4747));
   // _camera.initCamera(_sceneManager,
-  // 		     irr::core::vector3df(5035, 806, 4877),
-  // 		     irr::core::vector3df(5066, 808, 4824));
+  //		     irr::core::vector3df(5035, 806, 4877),
+  //		     irr::core::vector3df(5066, 808, 4824));
   this->loadIntro();
-  if (distribution(generator) == 0)
+  if (_alternative)
     _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
   else
     _engine->play2D("assets/music/star-wars-cantina-song.ogg", true);
@@ -72,7 +76,7 @@ Graphic::~Graphic()
 
 void				Graphic::loadIntro()
 {
-  
+
 }
 
 void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, DType type)
@@ -132,12 +136,12 @@ void						Graphic::initMainMenu()
 								L"scores",
 								L"options",
 								L"exit"};
-  
+
   // _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-  // 					   L"options", 0,
-  // 					   irr::core::dimension2d<irr::f32>(50, 20),
-  // 					   irr::core::vector3df(5070, 820, 4820),
-  // 					   -1, color, color);
+  //					   L"options", 0,
+  //					   irr::core::dimension2d<irr::f32>(50, 20),
+  //					   irr::core::vector3df(5070, 820, 4820),
+  //					   -1, color, color);
   for (auto const c : NameMainMenu)
     {
       _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
@@ -376,7 +380,7 @@ void						Graphic::initPlayMenu()
 					   irr::core::dimension2d<irr::f32>(55, 15),
 					   irr::core::vector3df(4980, 780, 4940),
 					   -1, color, color);
-  
+
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
@@ -458,16 +462,16 @@ void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
-  	{
-  	  _buttonP[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
-  	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 0, 255, 255));
-  	}
+	{
+	  _buttonP[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
+	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 0, 255, 255));
+	}
       else
-  	{
-  	  _buttonP[idx].get()->_button->setText(static_cast<Button *>
-  						  (it->get())->getContent().c_str());
-  	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
-  	}
+	{
+	  _buttonP[idx].get()->_button->setText(static_cast<Button *>
+						  (it->get())->getContent().c_str());
+	  _buttonP[idx].get()->_button->setColor(irr::video::SColor(255, 255, 255, 0));
+	}
       ++idx;
     }
 }
@@ -491,10 +495,16 @@ void		Graphic::setCar(Element::EType type,
 				irr::f32 y,
 				irr::f32 z)
 {
-  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
-						       0, -1, irr::core::vector3df(x, y, z),
-						       irr::core::vector3df(0.f, 270.f, 0.f),
-						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
+  if (_alternative)
+    pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("assets/fish/fish.obj"), 0, -1,
+							 irr::core::vector3df(x, y + 10, z),
+							 irr::core::vector3df(0.f, 90.f, 0.f),
+							 irr::core::vector3df(3.f, 3.f, 3.f));
+  else
+    pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
+							 0, -1, irr::core::vector3df(x, y, z),
+							 irr::core::vector3df(0.f, 270.f, 0.f),
+							 irr::core::vector3df(0.01f, 0.01f, 0.01f));
   if (!pods[type])
     throw (Error("Pod mesh not found"));
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -555,7 +565,7 @@ void		Graphic::displayChrono(bool first)
 
   std::wstring wide_string = std::wstring(time.begin(), time.end());
   const wchar_t* result = wide_string.c_str();
-  
+
   if (first == true)
     {
       irr::gui::IGUISkin *skin = _guienv->getSkin();
@@ -580,12 +590,15 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 
   _camera.moveCamera(irr::core::vector3df(5032.f, 814.f, 4968.f),
 		     irr::core::vector3df(5032.f, 589.f, 5069.f));
-  
+
   if (first == true)
 	{
 	  _engine->stopAllSounds();
 	  displayChrono(true);
-	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
+	  if (_alternative)
+	    _engine->play2D("assets/music/fates_mlg.ogg", true);
+	  else
+	    _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
 	}
       else
 	displayChrono(false);

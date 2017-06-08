@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Wed Jun  7 14:29:29 2017 DaZe
+// Last update Wed Jun  7 20:46:32 2017 jouvel
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -33,6 +33,7 @@ private:
   irrklang::ISoundEngine			*_engine;
   double					_time;
   irr::gui::IGUIStaticText			*_text;
+  bool						_alternative;
 
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
