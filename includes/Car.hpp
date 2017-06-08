@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Mon Jun  5 15:00:22 2017 DaZe
+// Last update Wed Jun  7 15:10:08 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -23,6 +23,18 @@ public:
   static const float		_inertia;
   static const float		_pi;
 
+	enum  EDirection
+    {
+      UP_LEFT,
+      UP,
+      UP_RIGHT,
+      RIGHT,
+      DOWN_RIGHT,
+      DOWN,
+      DOWN_LEFT,
+      LEFT
+    };
+
 private:
   enum  EState
     {
@@ -31,6 +43,7 @@ private:
       WALL,
       SHOOT
     };
+
   std::pair<int, int>			_posMap;
   float					_speed;
   std::pair<float, float>		_dir;
@@ -41,19 +54,9 @@ private:
   std::array<Element::EType, 8>		_arrounding;
   short int				_lap;
   bool					_isFinished;
+  EDirection				_edir;
 public:
-  enum  EDirection
-    {
-      UP,
-      UP_RIGHT,
-      UP_LEFT,
-      DOWN,
-      DOWN_LEFT,
-      DOWN_RIGHT,
-      LEFT,
-      RIGHT
-    };
-  EDirection                edir;
+
   Car() = default;
   Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir);
   Car(std::pair<int, int> posMap, const Element::EType type);
@@ -85,5 +88,7 @@ public:
   std::pair<int, int> const&		getPosMap() const;
 
   bool					checkArrounding();
+  bool					checkBackArrounding();
   void					setArrounding(const std::array<Element::EType, 8> &arrounding);
+  void					setEdir(const EDirection &);
 };

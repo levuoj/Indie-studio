@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed Jun  7 15:39:00 2017 Pashervz
+// Last update Wed Jun  7 16:03:43 2017 Pashervz
 //
 
 #include <chrono>
@@ -63,7 +63,7 @@ void			ManageGame::construct(int nbPlayers)
     }  
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false), _isStarted(false)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -95,7 +95,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false), _isStarted(false)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
@@ -118,49 +118,48 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
   _chrono.start();
 }
 
-DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
+DType				ManageGame::transferKey(const irr::EKEY_CODE &key)
 {
-  // std::array<Element::EType, 8>   arr;
-  // int a = Convert::coordToPos<int>(this->_players.at(0).getPosMap());
-  // arr[0] = this->_map[a - 51].get()->getType();
-  // arr[1] = this->_map[a - 50].get()->getType();
-  // arr[2] = this->_map[a - 49].get()->getType();
-  // arr[3] = this->_map[a + 1].get()->getType();
-  // arr[4] = this->_map[a + 51].get()->getType();
-  // arr[5] = this->_map[a + 50].get()->getType();
-  // arr[6] = this->_map[a + 49].get()->getType();
-  // arr[7] = this->_map[a - 1].get()->getType();
-  // this->_players.at(0).setArroundingCar(arr);
+  int				a = 0;
+  std::array<Element::EType, 8> arr;
+  
   _chrono.incTime();
-
   if (key == irr::KEY_ESCAPE)
-    {
-      std::cout << "je return pause" << std::endl;
       return (PAUSE);
-    }
   if (_victory == false)
     {
-      if (_chrono.getTime() > 5.0)
+      if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
+	  && _isStarted == false)
 	{
-	  for (auto &it : _players)
-	    it.driver(key);
-	  updateMap();
-	}
-      else if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
-	       && _type != DType::GAME)
-	{
+	  std::cerr << "JE PASSE ANS LA BOUCLE TAVU" << std::endl;
+	  _isStarted = true,
 	  _chrono.setTime(0.0);
 	  _type = DType::GAME;
+	}
+      else if (_isStarted == true)
+	{
+	  for (auto &it : _players)
+	    {
+	      a = Convert::coordToPos<int>(it.getPosMap());
+	      arr[0] = this->_map[a - 61]->getType();
+	      arr[1] = this->_map[a - 60]->getType();
+	      arr[2] = this->_map[a - 59]->getType();
+	      arr[3] = this->_map[a + 1]->getType();
+	      arr[4] = this->_map[a + 61]->getType();
+	      arr[5] = this->_map[a + 60]->getType();
+	      arr[6] = this->_map[a + 59]->getType();
+	      arr[7] = this->_map[a - 1]->getType();
+	      it.setArroundingCar(arr);
+	      it.driver(key);
+	    }
+	  updateMap();
 	}
     }
   else
     {
       _chrono.stop();
       return (DType::FINISH);
-      // return DType::VICTORY
     }
-  // std::cout << "LA KEYYYYY EST EGALE A = " << key << std::endl;
-
   return (_type);
 }
 
@@ -324,8 +323,6 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  std::cout << "je update la map" << std::endl;
-  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const
@@ -371,6 +368,42 @@ void				ManageGame::printMap()
   // 	}
   //     ++i;
   //   }
+  int	i = 0;
+  for (auto it = this->_map.begin(); it != _map.end(); ++it)
+    {
+      if (i % 60 == 0)
+	std::cout << std::endl;
+      switch (it->get()->getType())
+	{
+	case Element::EType::BLOCK:
+	  std::cout << "X";
+	  break;
+	case Element::EType::ROAD:
+	  std::cout << " ";
+	  break;
+	case Element::EType::ENDLINE:
+	  std::cout << "o";
+	  break;
+	case Element::EType::POD1:
+	  std::cout << ">";
+	  break;
+	case Element::EType::POD2:
+	  std::cout << ">";
+	  break;
+	case Element::EType::POD3:
+	  std::cout << ">";
+	  break;
+	case Element::EType::POD4:
+	  std::cout << ">";
+	  break;
+	case Element::EType::LINE:
+	  std::cout << "-";
+	  break;
+	default:
+	  break;
+	}
+      ++i;
+    }
 }
 
 bool				ManageGame::loadSave(std::string const &number)

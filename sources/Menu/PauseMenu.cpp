@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed Jun  7 11:10:46 2017 Pashervz
-// Last update Wed Jun  7 11:56:15 2017 Pashervz
+// Last update Thu Jun  8 16:04:02 2017 Pashervz
 //
 
 #include <sstream>
@@ -13,14 +13,14 @@
 #include "SaveButton.hpp"
 #include "PauseMenu.hpp"
 
-PauseMenu::PauseMenu(ManageGame const & game) : AMenu("Pause", PAUSE), _game(game)
+PauseMenu::PauseMenu(ManageGame *game) : AMenu("Pause", PAUSE), _game(game)
 {
   this->_type = DType::PAUSE;
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"back to game", "assets/deathStar.jpg", Button::BType::RESUME)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"back to menu", "assets/deathStar.jpg", Button::BType::EXIT)));
   this->_map.push_back(std::shared_ptr<SaveButton>(new SaveButton(L"n", "assets/deathStar.jpg", Button::BType::SAVE, 1)));
   this->_map.push_back(std::shared_ptr<SaveButton>(new SaveButton(L"n", "assets/deathStar.jpg", Button::BType::SAVE, 2)));
   this->_map.push_back(std::shared_ptr<SaveButton>(new SaveButton(L"n", "assets/deathStar.jpg", Button::BType::SAVE, 3)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"back to main menu", "assets/deathStar.jpg", Button::BType::EXIT)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"resume", "assets/deathStar.jpg", Button::BType::RESUME)));
   for (int idx = 1; idx < 4; ++idx)
     {
       std::string	str = "./Saves/Save" + std::to_string(idx) + ".save";
@@ -66,7 +66,7 @@ void                    PauseMenu::assignContent()
 {
   for (int idx = 0; idx < 3; ++idx)
     {
-      static_cast<Button *>(_map[idx].get())->setContent(_savesName[idx]);
+      static_cast<Button *>(_map[idx + 2].get())->setContent(_savesName[idx]);
     }
 }
 
@@ -84,7 +84,7 @@ DType			PauseMenu::select()
 	 else if (static_cast<Button *>((*it).get())->getButtonType()
 		  == Button::BType::SAVE)
 	   {
-	     this->_game.makeSave(static_cast<SaveButton *>((*it).get())->getNumber());
+	     this->_game->makeSave(static_cast<SaveButton *>((*it).get())->getNumber());
 	     return (MAIN_MENU);
 	   }
 	 else
@@ -92,6 +92,18 @@ DType			PauseMenu::select()
        }
     }
   return (PAUSE);
+}
+
+void			PauseMenu::printVector()
+{
+  for (auto it = _map.begin() ; it != _map.end() ; ++it)
+    {
+      if (static_cast<Button *>((*it).get())->getIsSelected() == true)
+	std::cout << "selected" << std::endl;
+      else
+	std::cout << "nope" << std::endl;
+    }
+  std::cout << "--------------------------" << std::endl;
 }
 
 DType		        PauseMenu::transferKey(irr::EKEY_CODE key)
@@ -113,5 +125,6 @@ DType		        PauseMenu::transferKey(irr::EKEY_CODE key)
     default:
       break;
     }
+  printVector();
   return (PAUSE);
 }

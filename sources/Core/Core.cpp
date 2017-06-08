@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Wed Jun  7 15:33:55 2017 Pashervz
+// Last update Thu Jun  8 16:24:40 2017 Pashervz
 //
 
 #include <iostream>
@@ -76,12 +76,12 @@ int			Core::launch()
 		      this->_menu[BINDINGS] =
 			std::make_shared<BindingMenu>
 			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
-		      this->_menu[BINDINGS]->setObserver(this->_graphic.get());
 		    }
 		  else if (this->_toLoad == EXIT)
 		    return (EXIT_SUCCESS);
-		  else
-		    this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+		  else if (this->_toLoad == PLAY)
+		    this->_menu[PLAY] = std::make_shared<PlayMenu>();
+		  this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 		}
 	      else if (this->_toLoad == GAME)
 		{
@@ -111,7 +111,7 @@ int			Core::launch()
 	    {
 	      this->_toLoad = this->_game->transferKey(receiver.getKey());
 	      if (this->_toLoad == PAUSE)
-		std::cout << "PAUSE !" << std::endl;
+		this->_menu[PAUSE] = std::make_shared<PauseMenu>(this->_game.get());
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }

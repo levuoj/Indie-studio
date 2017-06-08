@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:39:52 2017 Pashervz
+// Last update Wed Jun  7 16:00:50 2017 Pashervz
 //
 
 #include "Convert.hpp"
@@ -19,13 +19,6 @@ AI::AI(std::pair<int, int> posMap, const Element::EType type, float angle, short
 AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 {
   _car = std::shared_ptr<Car>(new Car(pos, type));
-  /*  _functors.reserve(6);
-  _functors[1] = [this](){this->part1();};
-  _functors[2] = [this](){this->part2();};
-  _functors[3] = [this](){this->part3();};
-  _functors[4] = [this](){this->part4();};
-  _functors[5] = [this](){this->part5();};
-  _functors[6] = [this](){this->part6();}; */
 }
 
 void			AI::part1()

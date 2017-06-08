@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Tue May  9 11:32:29 2017 thomas vigier
-// Last update Mon Jun  5 14:27:22 2017 DaZe
+// Last update Wed Jun  7 15:07:01 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -35,7 +35,7 @@ public:
   Car::EDirection	dirFromAngle(int angle);
   std::pair<int, int>	getPosMap()
   {
-    return (this->_posMap);
+    return (this->_car->getPosMap());
   }
   std::shared_ptr<Car>  getCar() const
   {

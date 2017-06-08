@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:40:14 2017 Pashervz
+// Last update Wed Jun  7 16:00:39 2017 Pashervz
 //
 
 #include <cmath>
@@ -17,113 +17,87 @@ const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 const float Car::_pi = 3.141592f;
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), edir(dir)
+Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), _edir(dir)
 {
-  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
+  //  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
   _type = type;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 }
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT)
 {
   _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
   _type = type;
 }
 
-bool            Car::checkArrounding()
-{
-  switch (this->edir)
-    {
-    case EDirection::RIGHT:
-      if (this->_arrounding.at(3) == Element::EType::BLOCK)
-	return (false);
-      break;
-    case EDirection::LEFT:
-      if (this->_arrounding.at(7) == Element::EType::BLOCK)
-	return (false);
-      break;
-    case EDirection::UP:
-      if (this->_arrounding.at(1) == Element::EType::BLOCK)
-	return (false);
-    case EDirection::UP_LEFT:
-      if (this->_arrounding.at(0) == Element::EType::BLOCK)
-	return (false);
-      break;
-    case EDirection::UP_RIGHT:
-      if (this->_arrounding.at(2) == Element::EType::BLOCK)
-	return (false);
-      break;
-    case EDirection::DOWN:
-      if (this->_arrounding.at(5) == Element::EType::BLOCK)
-	return (false);
-    case EDirection::DOWN_RIGHT:
-      if (this->_arrounding.at(4) == Element::EType::BLOCK)
-	return (false);
-      break;
-    case EDirection::DOWN_LEFT:
-      if (this->_arrounding.at(6) == Element::EType::BLOCK)
-	return (false);
-      break;
-    default:
-      break;
-    }
-  return (true);
-}
-
 void            Car::accelerate()
 {
-  // if (checkArrounding() == false)
-  //   {
-  //     this->_speed = 0.0f;
-  //     return;
-  //   }
   if (this->_speed <= this->_maxSpeed)
     this->_speed += this->_inertia * 3;
 }
 
 void            Car::deccelerate()
 {
-  // if (checkArrounding() == false)
-  //   {
-  //     this->_speed = 0.0f;
-  //     return;
-  //   }
   if (this->_speed >= -this->_maxSpeed / 2)
     this->_speed -= this->_inertia * 3;
 }
 
 void            Car::slowDown()
 {
-  // if (checkArrounding() == false)
-  //   {
-  //     this->_speed = 0.0f;
-  //     return;
-  //   }
   if (this->_speed > 0)
-    this->_speed -= this->_inertia / 2;
+    this->_speed -= this->_inertia / 0.5;
   else if (this->_speed < 0)
-    this->_speed += this->_inertia / 2;
+    this->_speed += this->_inertia / 0.5;
 }
 
 void            Car::move()
 {
-  std::cout << "Absolute Angle = " << getAbsoluteAngle() << std::endl;
+  for (const auto &it : this->_arrounding)
+    {
+      if (it >= 0 && it <= 11)
+	std::cout << it << std::endl;
+    }
+  if (this->_speed >= 0)
+    {
+      if (checkArrounding() == false)
+	{
+	  this->_speed = 0.0f;
+	  return;
+	}
+    }
+  else
+    if (checkBackArrounding() == false)
+      {
+	this->_speed = 0.0f;
+	return;
+      }
   auto tmp = this->_prevPos;
   this->_prevPos = this->_posMap;
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
+      // if (checkAngleArrounding() == false)
+      // 	{
+      // 	  this->_speed = 0.0f;
+      // 	  return
+      // 	}
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
     }
   else if (this->_pos.first < 0)
     {
+      // if (checkBackAngleArrounding() == false)
+      // 	{
+      // 	  this->_speed = 0.0f;
+      // 	  return
+      // 	}
       this->_posMap.first -= 1;
       this->_pos.first += 100.0f;
     }
+  
   this->_pos.second = this->_pos.second + (this->_speed / this->_fps) * this->_dir.second * -1;
   if (this->_pos.second > 100)
     {
@@ -142,12 +116,7 @@ void            Car::move()
 
 void            Car::turnLeft()
 {
-  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-    }
-  if (this->_angle >= 360)
+   if (this->_angle >= 360)
     this->_angle = 0.0f;
   this->_angle += 5.0f;
 
@@ -157,16 +126,199 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
-  if (checkArrounding() == false)
-    {
-      this->_speed = 0.0f;
-      return;
-    }
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 5.0f;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
+}
+
+bool            Car::checkArrounding()
+{
+  if (this->_edir >= 0 && this->_edir <= 7)
+    {
+      switch (this->_edir)
+	{
+	case EDirection::RIGHT:
+	  if (getAbsoluteAngle() >= 5 && getAbsoluteAngle() < 30)
+	    {
+	      if (this->_arrounding.at(2) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 355 && getAbsoluteAngle() > 330)
+	    {
+	      if (this->_arrounding.at(4) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(3) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::LEFT:
+	  if (getAbsoluteAngle() >= 185 && getAbsoluteAngle() < 210)
+	    {
+	      if (this->_arrounding.at(6) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 175 && getAbsoluteAngle() > 150)
+	    {
+	      if (this->_arrounding.at(0) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(7) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::UP:
+	  if (getAbsoluteAngle() >= 95 && getAbsoluteAngle() < 120)
+	    {
+	      if (this->_arrounding.at(0) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 85 && getAbsoluteAngle() > 60)
+	    {
+	      if (this->_arrounding.at(2) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(1) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::UP_LEFT:
+	  if (this->_arrounding.at(0) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+
+	case EDirection::UP_RIGHT:
+	  if (this->_arrounding.at(2) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	 
+	case EDirection::DOWN:
+	  if (getAbsoluteAngle() >= 275 && getAbsoluteAngle() < 300)
+	    {
+	      if (this->_arrounding.at(4) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 265 && getAbsoluteAngle() > 240)
+	    {
+	      if (this->_arrounding.at(6) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(5) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::DOWN_RIGHT:
+	  if (this->_arrounding.at(4) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::DOWN_LEFT:
+	  if (this->_arrounding.at(6) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	default:
+	  break;
+	}
+      return (true);
+    }
+  return (true);
+}
+
+bool            Car::checkBackArrounding()
+{
+  if (this->_edir >= 0 && this->_edir <= 7)
+    {
+      switch (this->_edir)
+	{
+	case EDirection::RIGHT:
+	  if (getAbsoluteAngle() >= 5 && getAbsoluteAngle() < 30)
+	    {
+	      if (this->_arrounding.at(6) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 355 && getAbsoluteAngle() > 330)
+	    {
+	      if (this->_arrounding.at(0) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(7) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::LEFT:
+	  if (getAbsoluteAngle() >= 185 && getAbsoluteAngle() < 210)
+	    {
+	      if (this->_arrounding.at(2) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 175 && getAbsoluteAngle() > 150)
+	    {
+	      if (this->_arrounding.at(4) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(3) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::UP:
+	  if (getAbsoluteAngle() >= 95 && getAbsoluteAngle() < 120)
+	    {
+	      if (this->_arrounding.at(4) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 85 && getAbsoluteAngle() > 60)
+	    {
+	      if (this->_arrounding.at(6) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(5) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::UP_LEFT:
+	  if (this->_arrounding.at(4) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::UP_RIGHT:
+	  if (this->_arrounding.at(6) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::DOWN:
+	  if (getAbsoluteAngle() >= 275 && getAbsoluteAngle() < 300)
+	    {
+	      if (this->_arrounding.at(0) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  else if (getAbsoluteAngle() <= 265 && getAbsoluteAngle() > 240)
+	    {
+	      if (this->_arrounding.at(2) == Element::EType::BLOCK)
+		return (false);
+	    }
+	  if (this->_arrounding.at(1) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::DOWN_RIGHT:
+	  if (this->_arrounding.at(0) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	case EDirection::DOWN_LEFT:
+	  if (this->_arrounding.at(2) == Element::EType::BLOCK)
+	    return (false);
+	  break;
+	  
+	default:
+	  break;
+	}
+      return (true);
+    }
+  return (true);
 }
 
 float		Car::getAbsoluteAngle() const
@@ -248,12 +400,17 @@ float				Car::getSpeed() const
 
 Car::EDirection			Car::getEDir() const
 {
-  return (edir);
+  return (_edir);
 }
 
 void				Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
 {
   this->_arrounding = arrounding;
+}
+
+void        Car::setEdir(const EDirection &dir)
+{
+	this->_edir = dir;
 }
 
 void				Car::stop()

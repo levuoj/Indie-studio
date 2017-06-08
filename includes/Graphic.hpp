@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Wed Jun  7 15:09:01 2017 Pashervz
+// Last update Thu Jun  8 16:39:24 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -22,21 +22,28 @@
 class						Graphic : public AObserver
 {
 private:
-  static const irr::f32				_squareSize;
-  irr::u32					_width;
-  irr::u32					_height;
-  irr::IrrlichtDevice				*_device;
-  irr::video::IVideoDriver			*_driver;
-  irr::scene::ISceneManager			*_sceneManager;
-  irr::gui::IGUIEnvironment			*_guienv;
-  Gcamera					_camera;
-  irrklang::ISoundEngine			*_engine;
-
+  static const irr::f32					_squareSize;
+  irr::u32						_width;
+  irr::u32						_height;
+  irr::IrrlichtDevice					*_device;
+  irr::video::IVideoDriver				*_driver;
+  irr::scene::ISceneManager				*_sceneManager;
+  irr::gui::IGUIEnvironment				*_guienv;
+  Gcamera						_camera;
+  irrklang::ISoundEngine				*_engine;
+  double						_time;
+  irr::gui::IGUIStaticText				*_text;
+  std::vector<irr::scene::IBillboardTextSceneNode *>	_pauseText;
+    std::vector<irr::scene::IBillboardTextSceneNode *>	_playText;
+  
+  bool						_initPause = true;
+  
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::vector<std::unique_ptr<GButton>>		_buttonB;
   std::vector<std::unique_ptr<GButton>>		_buttonP;
   std::vector<std::unique_ptr<GButton>>		_buttonPause;
+  
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
@@ -61,7 +68,9 @@ private:
   void				initBindings();
   void				initPlayMenu();
   void				initPauseMenu();
-  void				displayChrono();
+  void				displayChrono(bool);
+  void				clearPauseMenu();
+  void				clearPlayMenu();
 
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);

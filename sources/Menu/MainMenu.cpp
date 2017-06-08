@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Mon Jun  5 14:19:06 2017 Pashervz
+// Last update Thu Jun  8 15:51:19 2017 Pashervz
 //
 
 #include <memory>
@@ -42,8 +42,6 @@ DType		MainMenu::select() const
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
-  DType		selection = NOTHING;
-
   switch (key)
     {
     case irr::KEY_DOWN:
@@ -55,8 +53,7 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
       _engine->play2D("assets/music/fx4.wav", false);
       break;
     case irr::KEY_RETURN:
-      selection = this->select();
-      return (selection);
+      return (this->select());
     case irr::KEY_ESCAPE:
       return (EXIT);
     default:

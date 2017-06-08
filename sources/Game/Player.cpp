@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:39:32 2017 Pashervz
+// Last update Wed Jun  7 15:59:32 2017 Pashervz
 //
 
 #include "test.hpp"
@@ -19,7 +19,6 @@ Player::Player(std::pair<int, int> posMap, const Element::EType type, float angl
 Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
 {
   this->_car = std::shared_ptr<Car>(new Car(carPos, type));
-    //  this->_car->setPosMap(carPos);
 }
 
 Car::EDirection	Player::dirFromAngle(int angle)
@@ -31,19 +30,17 @@ Car::EDirection	Player::dirFromAngle(int angle)
 
 void    Player::initDir()
 {
-  this->_car->edir = dirFromAngle(this->_car->getAbsoluteAngle());
+  this->_car->setEdir(dirFromAngle(this->_car->getAbsoluteAngle()));
 }
 
 void		Player::driver(const irr::EKEY_CODE &key)
 {
-  // this->initDir();
+  this->initDir();
   const auto        &it = _functors.find(key);
 
   if (it != _functors.end())
     it->second();
-
-  // else
-   this->_car.get()->move();
+  this->_car.get()->move();
 }
 
 void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
