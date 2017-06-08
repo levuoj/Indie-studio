@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed Jun  7 15:32:20 2017 DaZe
+// Last update Thu Jun  8 09:26:20 2017 DaZe
 //
 
 #include <chrono>
@@ -38,7 +38,8 @@ void			ManageGame::construct(int nbPlayers)
 {
   int			pos(0);
   int			i(0);
-  
+
+  _isStarted = false;
   this->loadMap("NORMAL");
 
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
@@ -64,7 +65,7 @@ void			ManageGame::construct(int nbPlayers)
     }  
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false), _isStarted(false)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -75,7 +76,6 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
   _finishLine[3] = 269;
   _finishLine[4] = 329;
   _finishLine[5] = 389;
-  
   if (loadSave(file) == false)
     {
       std::cout << "J'AI RATE" << std::endl;
@@ -86,6 +86,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
       construct(1);
     }
 
+  _isStarted = true;
   int i = 0;
   for (auto &it : this->_players)
     {
@@ -96,7 +97,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false), _isStarted(false)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);

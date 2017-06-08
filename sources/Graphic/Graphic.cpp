@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed Jun  7 15:19:32 2017 DaZe
+// Last update Thu Jun  8 09:28:56 2017 DaZe
 //
 
 #include <iostream>
@@ -492,7 +492,7 @@ void		Graphic::setCar(Element::EType type,
 				irr::f32 z)
 {
   pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
-						       0, -1, irr::core::vector3df(x, y, z),
+						       0, -1, irr::core::vector3df(x + 6, y - 25, z - 4),
 						       irr::core::vector3df(0.f, 270.f, 0.f),
 						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
   if (!pods[type])
@@ -562,7 +562,7 @@ void		Graphic::displayChrono(bool first)
       irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
       skin->setFont(font);
       skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
-      _text = _guienv->addStaticText(result,
+      _text = _guienv->addStaticText(L"",
 			     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
 				     false);
     }
@@ -587,8 +587,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  displayChrono(true);
 	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
 	}
-      else
-	displayChrono(false);
+  else if (_isStarted == true)
+    displayChrono(false);
   for (auto const& elem : map)
     {
       if (i % 60 == 0)
@@ -625,6 +625,7 @@ void		Graphic::actualize(Observable const& observable)
 {
   this->manageDisplay(observable.getMap(), observable.getDType());
   _time = observable.getChrono().getTime();
+  _isStarted = observable.getStarted();
 }
 
 bool		Graphic::running(void)
