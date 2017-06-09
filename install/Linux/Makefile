@@ -5,24 +5,24 @@
 ## Login   <pierre.zawadil@epitech.eu>
 ##
 ## Started on  Thu Jun  8 15:15:53 2017 Pierre Zawadil
-## Last update Thu Jun  8 18:14:11 2017 Pierre Zawadil
+## Last update Fri Jun  9 17:54:33 2017 DaZe
 ##
 
 
 all	:	help
 
 help	:
-		@echo "\033[0;31mRun 'sudo make install' to install the Game !"
+		@echo "\033[0;31mRun 'make install' to install the Game !"
 
 install	:
 		@echo "\033[0;31m[WELCOME TO FRATERNITY STUDIO INSTALLER]"
 		@echo "\033[0;33m[INSTALLING LIBRARIES]\033[0;32m"
 
-		cp libIrrlicht.so.1.8.4 /usr/local/lib/
-		cp libIrrKlang.so /usr/local/lib/
+		sudo cp libIrrlicht.so.1.8.4 /usr/local/lib/
+		sudo cp libIrrKlang.so /usr/local/lib/
 
-		ln -s -f /usr/local/lib/libIrrlicht.so.1.8.4 /usr/local/lib/libIrrlicht.so.1.8
-		ln -s -f /usr/local/lib/libIrrlicht.so.1.8 /usr/local/lib/libIrrlicht.so
+		sudo ln -s -f /usr/local/lib/libIrrlicht.so.1.8.4 /usr/local/lib/libIrrlicht.so.1.8
+		sudo ln -s -f /usr/local/lib/libIrrlicht.so.1.8 /usr/local/lib/libIrrlicht.so
 
 		@echo "\033[0;33m[CREATING GAME DIRECTORY]\033[0;32m"
 
@@ -37,7 +37,7 @@ install	:
 
 		@echo "\033[0;33m[CREATING BINARY IN /USR/BIN]\033[0;32m"
 
-		ln -sf ~/Racer/Racer.sh /usr/bin/Racer
+		sudo ln -sf ~/Racer/Racer.sh /usr/bin/Racer
 
 		@echo "\033[0;33m[DECOMPRESSING ASSETS]\033[0;32m"
 
