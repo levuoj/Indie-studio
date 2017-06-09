@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:02:36 2017 Anthony Jouvel
-// Last update Thu Jun  8 12:48:06 2017 jouvel
+// Last update Fri Jun  9 10:34:03 2017 jouvel
 //
 
 #pragma once
@@ -14,9 +14,7 @@
 #include <irrKlang.h>
 #include <unordered_map>
 #include <functional>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "IrrAssimpImport.h"
 #include "AObserver.hpp"
 #include "Utils.hpp"
 #include "GButton.hpp"
@@ -34,22 +32,28 @@ private:
   irr::gui::IGUIEnvironment			*_guienv;
   Gcamera					_camera;
   irrklang::ISoundEngine			*_engine;
+  double					_time;
+  irr::gui::IGUIStaticText			*_text;
+  bool						_alternative;
 
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::vector<std::unique_ptr<GButton>>		_buttonB;
+  std::vector<std::unique_ptr<GButton>>		_buttonP;
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
   void				displayMainMenu(std::vector<std::shared_ptr<Element>> const&);
   void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
   void				displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&);
+  void				displayPlayMenu(std::vector<std::shared_ptr<Element>> const&);
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				displayBindings(std::vector<std::shared_ptr<Element>> const&);
+  void				loadIntro();
   void				skyDome(const irr::io::path&);
   void				ground();
   void				moveCamera(irr::core::vector3df, irr::core::vector3df);
@@ -57,6 +61,9 @@ private:
   void				initMainMenu();
   void				initOptMenu();
   void				initBindings();
+  void				initPlayMenu();
+  void				displayChrono(bool);
+
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();
@@ -76,8 +83,10 @@ public:
     {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
     {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderBoard, this, std::placeholders::_1)},
     {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
-    //    {DType::EXIT, std::bind(&Graphic::displayExit, this, std::placeholders::_1)},
+    {DType::PLAY, std::bind(&Graphic::displayPlayMenu, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
+    {DType::GAME_CHRONO, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
+    {DType::FINISH, NULL},
     {DType::NOTHING, NULL}
   };
 };

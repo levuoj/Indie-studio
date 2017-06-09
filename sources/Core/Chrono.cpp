@@ -5,27 +5,36 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed May 10 14:02:13 2017 Pashervz
-// Last update Wed May 10 14:22:12 2017 Pashervz
+// Last update Fri Jun  2 16:32:28 2017 DaZe
 //
 
 #include <iostream>
-#include <chrono>
 #include "Chrono.hpp"
 
-void					Chrono::start()
+Chrono::Chrono() : _time(0.0f), _isStopped(false) {}
+
+void			Chrono::start()
 {
-  std::chrono::duration<double>		diff;
-  auto					start  = std::chrono::high_resolution_clock::now();
-  auto					end = start;
-  
-  while (diff.count() < _endingValue)
-    {
-      end = std::chrono::high_resolution_clock::now();
-      diff = end - start;
-      std::cout << diff.count() << std::endl;
-    }
+  _isStopped = false;
 }
 
 void			Chrono::stop()
 {
+  _isStopped = true;
+}
+
+void			Chrono::incTime()
+{
+  if (!_isStopped)
+    _time += 0.016f;
+}
+
+void			Chrono::setTime(const double time)
+{
+  _time = time;
+}
+
+double			Chrono::getTime() const
+{
+  return (_time);
 }

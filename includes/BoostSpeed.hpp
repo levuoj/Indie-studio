@@ -8,5 +8,5 @@
 
 class BoostSpeed : public PowerUp
 {
-
+  
 };

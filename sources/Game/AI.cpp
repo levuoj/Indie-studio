@@ -5,31 +5,28 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Thu Jun  1 14:10:57 2017 DaZe
+// Last update Wed Jun  7 15:06:45 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
 #include "AI.hpp"
 
+AI::AI(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir, int idx) : _idx(idx)
+{
+  _car = std::shared_ptr<Car>(new Car(posMap, type, angle, lap, isFinished, dir)); 
+}
+
 AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 {
   _car = std::shared_ptr<Car>(new Car(pos, type));
-  /*  _functors.reserve(6);
-  _functors[1] = [this](){this->part1();};
-  _functors[2] = [this](){this->part2();};
-  _functors[3] = [this](){this->part3();};
-  _functors[4] = [this](){this->part4();};
-  _functors[5] = [this](){this->part5();};
-  _functors[6] = [this](){this->part6();}; */
 }
 
 void			AI::part1()
 {
-  if (this->_car->getSpeed() <= Car::_maxSpeed)
-    this->_car->accelerate();
-  else if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 6]->getType()
-	   == Element::EType::BLOCK)
+  if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
+      == Element::EType::BLOCK)
     _idx = 2;
+  
 }
 
 void			AI::part2()
@@ -141,11 +138,18 @@ void			AI::part15()
 
 void			AI::chooseAction()
 {
-/*  std::cout << "ChooseAction" << std::endl;
-  const auto it = _functors.find(_idx);
+  std::cout << "ChooseAction --- IDX = " << _idx << std::endl;
+  /*  const auto it = _functors.find(_idx);
   
   if (it != _functors.end())
   it->second(); */
+
+  std::cout << _car->getSpeed() << std::endl;
+  if (_car->getSpeed() <= Car::_maxSpeed)
+    {
+      std::cout << "JE ACCELERE" << std::endl;
+      _car->accelerate();
+    }
   
   switch (_idx)
     {
@@ -221,4 +225,9 @@ void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
 std::shared_ptr<Car>		AI::getCar() const
 {
   return (_car);
+}
+
+int			AI::getIdx() const
+{
+  return (_idx);
 }
