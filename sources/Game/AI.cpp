@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:06:45 2017 Lebrun Kilian
+// Last update Fri Jun  9 17:20:24 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -138,18 +138,13 @@ void			AI::part15()
 
 void			AI::chooseAction()
 {
-  std::cout << "ChooseAction --- IDX = " << _idx << std::endl;
   /*  const auto it = _functors.find(_idx);
   
   if (it != _functors.end())
   it->second(); */
 
-  std::cout << _car->getSpeed() << std::endl;
   if (_car->getSpeed() <= Car::_maxSpeed)
-    {
-      std::cout << "JE ACCELERE" << std::endl;
       _car->accelerate();
-    }
   
   switch (_idx)
     {

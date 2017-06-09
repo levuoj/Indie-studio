@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:10:28 2017 Lebrun Kilian
+// Last update Fri Jun  9 17:23:29 2017 DaZe
 //
 
 #include <cmath>
@@ -24,7 +24,6 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, sho
   _type = type;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
-  std::cout << "TYPE = " << type << std::endl;
 }
 
 Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT)
@@ -56,11 +55,11 @@ void            Car::slowDown()
 
 void            Car::move()
 {
-  for (const auto &it : this->_arrounding)
+  /*  for (const auto &it : this->_arrounding)
     {
       if (it >= 0 && it <= 11)
 	std::cout << it << std::endl;
-    }
+	} */
   if (this->_speed >= 0)
     {
       if (checkArrounding() == false)

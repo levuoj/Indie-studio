@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun  8 09:26:20 2017 DaZe
+// Last update Fri Jun  9 17:30:24 2017 DaZe
 //
 
 #include <chrono>
@@ -132,7 +132,6 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
       if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
 	  && _isStarted == false)
 	{
-	  std::cerr << "JE PASSE ANS LA BOUCLE TAVU" << std::endl;
 	  _isStarted = true,
 	  _chrono.setTime(0.0);
 	  _type = DType::GAME;
@@ -279,12 +278,10 @@ void				ManageGame::loadMap(std::string const &str)
 
 void				ManageGame::checkVictory(std::shared_ptr<Car> car)
 {
-  std::cout << "LAP = " << car->getLap() << std::endl;
   for (const auto &it : _finishLine)
     if (it + 480 == Convert::coordToPos<int>(car->getPosMap()))
       {
 	car->setFinished(false);
-	std::cout << "CheckPoint" << std::endl;
 	break ;
       }
   for (const auto &it : _finishLine)
@@ -292,7 +289,6 @@ void				ManageGame::checkVictory(std::shared_ptr<Car> car)
       {
 	car->incLap();
 	car->setFinished(true);
-	std::cout << "INC LAP" << std::endl;
 	break ;
       }
   if (car->getLap() == 3)
@@ -311,7 +307,8 @@ void				ManageGame::updateMap()
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
 
       checkVictory(it.getCar());
-      if (it.getCar()->getPrevPos() != it.getCar()->getPosMap())
+      if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
+	  Element::EType::ROAD)
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
@@ -321,12 +318,12 @@ void				ManageGame::updateMap()
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
 
       checkVictory(it.getCar());
-      if (it.getCar()->getPrevPos() != it.getCar()->getPosMap())
+      if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
+	  Element::EType::ROAD)
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  std::cout << "je update la map" << std::endl;
-  printMap();
+  //  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const
