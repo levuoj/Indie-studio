@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun  9 10:55:51 2017 jouvel
+// Last update Fri Jun  9 11:06:14 2017 jouvel
 //
 
 #include <iostream>
@@ -35,7 +35,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _alternative = false;
   if (distribution(generator) == 0)
     _alternative = true;
-  _alternative = true;
 
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
