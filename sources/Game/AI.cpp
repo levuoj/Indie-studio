@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Mon Jun 12 10:37:31 2017 DaZe
+// Last update Tue Jun 13 14:32:11 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -213,7 +213,6 @@ void			AI::chooseAction()
   else
     if (_car->getSpeed() <= Car::_maxSpeed)
       _car->accelerate();
-  
   switch (_idx)
     {
     case 1:

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Tue Jun 13 16:17:28 2017 Pierre Zawadil
+// Last update Tue Jun 13 18:30:58 2017 DaZe
 //
 
 #include <iostream>
@@ -16,16 +16,37 @@
 #include "MainMenu.hpp"
 #include "OptionMenu.hpp"
 #include "PlayMenu.hpp"
+#include "PauseMenu.hpp"
+#include "Leaderboard.hpp"
 
 Core::Core()
 {
   this->_graphic = std::unique_ptr<Graphic>(new Graphic());
   this->_toLoad = MAIN_MENU;
+  this->initBindings();
+   // --- TEST --- //
+  // this->_toLoad = GAME;
+  //this->_game = std::unique_ptr<ManageGame>(new ManageGame(2, molft));
+  // this->_game->setObserver(this->_graphic.get());
+  // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
+  this->_menu.emplace(LEADERBOARD, std::shared_ptr<AMenu>(new Leaderboard));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
   this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu));
-  // this->_menu.emplace(BINDINGS, std::shared_ptr<AMenu>(new BindingMenu("P1")));
+  this->_menu.emplace(PAUSE, std::shared_ptr<AMenu>(new PauseMenu));
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+}
+
+void			Core::initBindings()
+{
+  this->_bindings.push_back({irr::KEY_KEY_Z, irr::KEY_KEY_S,
+	irr::KEY_KEY_Q, irr::KEY_KEY_D, irr::KEY_LSHIFT});
+  this->_bindings.push_back({irr::KEY_KEY_Y, irr::KEY_KEY_H,
+	irr::KEY_KEY_G, irr::KEY_KEY_J, irr::KEY_SPACE});
+  this->_bindings.push_back({irr::KEY_KEY_O, irr::KEY_KEY_L,
+	irr::KEY_KEY_K, irr::KEY_KEY_M, irr::KEY_LMENU});
+  this->_bindings.push_back({irr::KEY_UP, irr::KEY_DOWN,
+	irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_LCONTROL});
 }
 
 int			Core::launch()
@@ -35,22 +56,6 @@ int			Core::launch()
   irr::u32		then		= this->_graphic->getTime();
   irr::f32		lag		= 0.f;
   const irr::f32	MS_PER_UPDATE	= 16.f;
-  std::vector<std::array<irr::EKEY_CODE, 5>>  keys;
-
-  keys.push_back({
-      irr::KEY_UP,
-	irr::KEY_DOWN,
-	irr::KEY_LEFT,
-	irr::KEY_RIGHT,
-	irr::KEY_SPACE});
-
-  keys.push_back({
-      irr::KEY_KEY_Z,
-	irr::KEY_KEY_S,
-	irr::KEY_KEY_Q,
-	irr::KEY_KEY_D,
-	irr::KEY_KEY_W
-	});
 
   this->_graphic->setEventReceiver(&receiver);
   receiver.init();
@@ -63,26 +68,38 @@ int			Core::launch()
 
       while (lag >= MS_PER_UPDATE)
 	{
-
 	  receiver.startEventProcess();
-
-	  if (loaded != GAME)
+	  if (loaded != GAME && loaded != PAUSE)
 	    {
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		{
-		  if (this->_toLoad == BINDINGS)
+		  switch (this->_toLoad)
 		    {
+		    case BINDINGS:
 		      this->_menu[BINDINGS] =
 			std::make_shared<BindingMenu>
 			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
-		      this->_menu[BINDINGS]->setObserver(this->_graphic.get());
+		      break;
+		    case EXIT:
+		      return (EXIT_SUCCESS);
+		    case PLAY:
+		      this->_menu[PLAY] = std::make_shared<PlayMenu>();
+		      break;
+		    case OPTIONS:
+		      if (loaded == BINDINGS)
+			{
+			  this->_bindings[std::atoi((static_cast<BindingMenu *>
+						     (this->_menu[BINDINGS].get())
+						     ->getPlayer()).c_str() - 1)] =
+			    static_cast<BindingMenu *>(this->_menu[BINDINGS].get())
+			    ->getBindings();
+			}
+		    default:
+		      break;
 		    }
-		  else if (this->_toLoad == EXIT)
-		    return (EXIT_SUCCESS);
-		  else
-		    this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+		  this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 		}
 	      else if (this->_toLoad == GAME)
 		{
@@ -91,23 +108,33 @@ int			Core::launch()
 		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getSave(), keys));
+				      (this->_menu[PLAY].get())->getSave(), _bindings));
 		  else
 		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getNbPlayer(), keys));
+				      (this->_menu[PLAY].get())->getNbPlayer(), _bindings));
 		  this->_game->setObserver(this->_graphic.get());
 		}
+	    }
+	  else if (loaded == PAUSE)
+	    {
+	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
+	      if (this->_toLoad == GAME)
+		this->_game->setObserver(this->_graphic.get());
+	      else
+		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
 	  else
 	    {
 	      this->_toLoad = this->_game->transferKey(receiver);
+	      if (this->_toLoad == PAUSE)
+		this->_menu[PAUSE] = std::make_shared<PauseMenu>(this->_game.get());
+	      
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
-
-
+	  
 	  lag -= MS_PER_UPDATE;
 	  loaded = this->_toLoad;
 
@@ -117,7 +144,6 @@ int			Core::launch()
 	this->_menu[this->_toLoad]->notify();
       else
 	this->_game->notify();
-
     }
   return (EXIT_SUCCESS);
 }

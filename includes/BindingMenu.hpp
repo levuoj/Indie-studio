@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:09:23 2017 Pashervz
-// Last update Fri Jun  2 19:15:05 2017 Pashervz
+// Last update Tue Jun 13 15:29:11 2017 Pashervz
 //
 
 #pragma once
@@ -69,10 +69,10 @@ private:
 
   std::unordered_map<std::string, std::function<void()>>	_defaultMap =
     {
-      {"P1", std::bind(&BindingMenu::defaultP1, this)},
-      {"P2", std::bind(&BindingMenu::defaultP2, this)},
-      {"P3", std::bind(&BindingMenu::defaultP3, this)},
-      {"P4", std::bind(&BindingMenu::defaultP4, this)}
+      {"1", std::bind(&BindingMenu::defaultP1, this)},
+      {"2", std::bind(&BindingMenu::defaultP2, this)},
+      {"3", std::bind(&BindingMenu::defaultP3, this)},
+      {"4", std::bind(&BindingMenu::defaultP4, this)}
     };
 
   bool				_bindMode = false;
@@ -107,5 +107,9 @@ public:
   std::string const &	getPlayer() const
   {
     return (_player);
+  }
+  std::vector<irr::EKEY_CODE> const & getBindings() const
+  {
+    return (_bindings);
   }
 };

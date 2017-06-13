@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue Jun 13 15:12:10 2017 Pierre Zawadil
+// Last update Tue Jun 13 18:33:32 2017 DaZe
 //
 
 #include <chrono>
@@ -41,7 +41,6 @@ void			ManageGame::construct(int nbPlayers)
 
   _isStarted = false;
   this->loadMap("NORMAL");
-
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
       switch ((*it)->getType())
@@ -65,7 +64,7 @@ void			ManageGame::construct(int nbPlayers)
     }
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false), _nbFinish(0)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys) : _victory(false), _nbFinish(0)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -97,7 +96,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false), _nbFinish(0)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys) : _victory(false), _nbFinish(0)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
@@ -126,6 +125,9 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
   int a;
   std::array<Element::EType, 8>   arr;
 
+  if (receiver.keyDown(irr::KEY_ESCAPE) == true)
+    return (PAUSE);
+  
   if (_victory == false)
     {
       if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
@@ -158,7 +160,6 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
   else
     {
       _chrono.stop();
-      std::cerr << "CHORNO FINAL = " << _chrono.getTime() << std::endl;
       return (DType::FINISH);
     }
   return (_type);
@@ -291,7 +292,6 @@ void				ManageGame::checkVictory(std::shared_ptr<Car> const &car)
 	car->setFinished(true);
 	break ;
       }
-  std::cout << "NB LAP = " << car->getLap() << std::endl;
   if (car->getLap() == 3 && car->getStop() == false)
     {
       car->stop();
@@ -375,7 +375,6 @@ void				ManageGame::printMap()
 	}
       ++i;
     }
-  std::cout << std::endl;
 }
 
 bool				ManageGame::loadSave(std::string const &number)
@@ -424,7 +423,6 @@ bool				ManageGame::loadLine(std::string const& line)
       (input.size() != 7 && input.at(0) == "PLAYER") ||
       (input.size() != 2 && input.at(0) == "CHRONO"))
     {
-      std::cout << "INPUT SIZE ERROR" << std::endl;
       return (false);
     }
   if (input.at(0) == "CHRONO")
@@ -448,7 +446,6 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 	  checkAngle(input.at(3)) == false || checkLap(input.at(4)) == false ||
 	  checkCheckpoint(input.at(5)) == false || checkDir(input.at(6)) == false)
 	return (false);
-      std::cout << "JE SUIS LE TYPE = " << Convert::strToCarType(input.at(2)) << std::endl;
     _players.push_back(Player(Convert::posToCoord<int>(std::stoi(input.at(1))),
 			      Convert::strToCarType(input.at(2)),
 			      std::stof(input.at(3)),
@@ -465,7 +462,6 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 	  checkCheckpoint(input.at(5)) == false || checkDir(input.at(6)) == false ||
 	  checkIdx(input.at(7)) == false)
 	return (false);
-      std::cout << "JE SUIS LE TYPE = " << Convert::strToCarType(input.at(2)) << std::endl;
     _AIs.push_back(AI(Convert::posToCoord<int>(std::stoi(input.at(1))),
 		      Convert::strToCarType(input.at(2)),
 		      std::stof(input.at(3)),
@@ -479,7 +475,6 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
     }
   else
     {
-      std::cout << "IF ELSE IF ELSE ERROR" << std::endl;
       return (false);
     }
   return (true);
@@ -491,7 +486,6 @@ bool				ManageGame::checkPosMap(std::string const& pos)
     return (true);
   else
     {
-      std::cout << "POS MAP ERROR" << std::endl;
       return (false);
     }
 }
@@ -503,7 +497,6 @@ bool				ManageGame::checkCarType(std::string const& cType)
     return (true);
   else
     {
-      std::cout << "CAR TYPE ERROR" << std::endl;
       return (false);
     }
 }
@@ -515,7 +508,6 @@ bool				ManageGame::checkAngle(std::string const& angle)
     return (true);
   else
     {
-      std::cout << "ANGLE ERROR" << std::endl;
       return (false);
     }
 }
@@ -526,7 +518,6 @@ bool				ManageGame::checkLap(std::string const& lap)
     return (true);
   else
     {
-      std::cout << "LAP ERROR" << std::endl;
       return (false);
     }
 }
@@ -537,7 +528,6 @@ bool				ManageGame::checkCheckpoint(std::string const& cp)
     return (true);
   else
     {
-      std::cout << "CHECKPOINT ERROR" << std::endl;
       return (false);
     }
 }
@@ -548,7 +538,6 @@ bool				ManageGame::checkDir(std::string const& dir)
     return (true);
   else
     {
-      std::cout << "DIR ERROR" << std::endl;
       return (false);
     }
 }
@@ -559,7 +548,6 @@ bool				ManageGame::checkIdx(std::string const &idx)
     return (true);
   else
     {
-      std::cout << "IDX ERROR" << std::endl;
       return (false);
     }
 }
@@ -570,12 +558,11 @@ bool				ManageGame::checkChrono(std::string const &chrono)
     return (true);
   else
     {
-      std::cout << "CHORNO ERROR" << std::endl;
       return (false);
     }
 }
 
-void				ManageGame::makeSave(std::string const& file)
+void				ManageGame::makeSave(int number)
 {
   std::string			str;
 
@@ -612,8 +599,8 @@ void				ManageGame::makeSave(std::string const& file)
   str += "\n";
 
   std::ofstream			stream;
-
-  stream.open(file);
+  
+  stream.open("./Saves/Save" + std::to_string(number) + ".save");
   stream << str;
   stream.close();
 }
