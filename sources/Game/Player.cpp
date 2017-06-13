@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Tue Jun 13 15:12:28 2017 Pierre Zawadil
+// Last update Tue Jun 13 17:12:18 2017 Pierre Zawadil
 //
 
 #include "test.hpp"
@@ -43,7 +43,7 @@ void		Player::driver(EventReceiver const& receiver)
       if (receiver.keyDown(it.first)) // Receiver non const car appelle de fonction ici
 	{
 	  it.second();
-	  this->_car.get()->move();
+	  this->_car->move();
 	}
     }
 }
