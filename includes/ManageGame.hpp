@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue Jun 13 14:13:31 2017 DaZe
+// Last update Tue Jun 13 18:16:09 2017 DaZe
 //
 
 #pragma once
@@ -31,8 +31,8 @@ private:
   short int			_nbFinish;
 
 public:
-  ManageGame(int, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
-  ManageGame(std::string const &, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
+  ManageGame(int, const std::vector<std::vector<irr::EKEY_CODE>> &);
+  ManageGame(std::string const &, const std::vector<std::vector<irr::EKEY_CODE>> &);
   ManageGame() = default;
   ~ManageGame() = default;
 

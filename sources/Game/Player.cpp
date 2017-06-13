@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:59:32 2017 Pashervz
+// Last update Tue Jun 13 15:45:58 2017 Pashervz
 //
 
 #include "test.hpp"
@@ -43,7 +43,7 @@ void		Player::driver(const irr::EKEY_CODE &key)
   this->_car.get()->move();
 }
 
-void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
+void		Player::setKeys(const std::vector<irr::EKEY_CODE> &keys)
 {
   this->_keys = keys;
   _functors[this->_keys.at(0)] = std::bind(&Car::accelerate, this->_car);
