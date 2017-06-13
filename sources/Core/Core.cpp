@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Tue Jun 13 14:06:02 2017 Pashervz
+// Last update Tue Jun 13 16:13:08 2017 Pashervz
 //
 
 #include <iostream>
@@ -23,6 +23,7 @@ Core::Core()
 {
   this->_graphic = std::unique_ptr<Graphic>(new Graphic());
   this->_toLoad = MAIN_MENU;
+  this->initBindings();
    // --- TEST --- //
   // this->_toLoad = GAME;
   //this->_game = std::unique_ptr<ManageGame>(new ManageGame(2, molft));
@@ -36,6 +37,18 @@ Core::Core()
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
+void			Core::initBindings()
+{
+  this->_bindings.push_back({irr::KEY_KEY_Z, irr::KEY_KEY_S,
+	irr::KEY_KEY_Q, irr::KEY_KEY_D, irr::KEY_LSHIFT});
+  this->_bindings.push_back({irr::KEY_KEY_Y, irr::KEY_KEY_H,
+	irr::KEY_KEY_G, irr::KEY_KEY_J, irr::KEY_SPACE});
+  this->_bindings.push_back({irr::KEY_KEY_O, irr::KEY_KEY_L,
+	irr::KEY_KEY_K, irr::KEY_KEY_M, irr::KEY_LMENU});
+  this->_bindings.push_back({irr::KEY_UP, irr::KEY_DOWN,
+	irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_LCONTROL});
+}
+
 int			Core::launch()
 {
   EventReceiver		receiver;
@@ -43,21 +56,6 @@ int			Core::launch()
   irr::u32		then		= this->_graphic->getTime();
   irr::f32		lag		= 0.f;
   const irr::f32	MS_PER_UPDATE	= 16.f;
-  std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
-  
-  molft.push_back({
-      irr::KEY_UP,
-	irr::KEY_DOWN,
-	irr::KEY_LEFT,
-	irr::KEY_RIGHT,
-	irr::KEY_SPACE});
-  molft.push_back({
-      irr::KEY_KEY_Z,
-	irr::KEY_KEY_S,
-	irr::KEY_KEY_Q,
-	irr::KEY_KEY_D,
-	irr::KEY_KEY_W});
-  
   this->_graphic->setEventReceiver(&receiver);
   while (this->_graphic->running())
     {
@@ -73,32 +71,45 @@ int			Core::launch()
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		{
-		  if (this->_toLoad == BINDINGS)
+		  switch (this->_toLoad)
 		    {
+		    case BINDINGS:
 		      this->_menu[BINDINGS] =
 			std::make_shared<BindingMenu>
 			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
+		      break;
+		    case EXIT:
+		      return (EXIT_SUCCESS);
+		    case PLAY:
+		      this->_menu[PLAY] = std::make_shared<PlayMenu>();
+		      break;
+		    case OPTIONS:
+		      if (loaded == BINDINGS)
+			{
+			  this->_bindings[std::atoi((static_cast<BindingMenu *>
+						     (this->_menu[BINDINGS].get())
+						     ->getPlayer()).c_str() - 1)] =
+			    static_cast<BindingMenu *>(this->_menu[BINDINGS].get())
+			    ->getBindings();
+			}
+		    default:
+		      break;
 		    }
-		  else if (this->_toLoad == EXIT)
-		    return (EXIT_SUCCESS);
-		  else if (this->_toLoad == PLAY)
-		    this->_menu[PLAY] = std::make_shared<PlayMenu>();
 		  this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 		}
 	      else if (this->_toLoad == GAME)
 		{
-		  std::cout << "je lance le jeu" << std::endl;
 		  if (static_cast<PlayMenu *>(this->_menu[PLAY].get())->getNewGame()
 		      == false)
 		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getSave(), molft));
+				      (this->_menu[PLAY].get())->getSave(), _bindings));
 		  else
 		    this->_game = 
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getNbPlayer(), molft));
+				      (this->_menu[PLAY].get())->getNbPlayer(), _bindings));
 		  this->_game->setObserver(this->_graphic.get());
 		}
 	    }

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May  8 19:43:34 2017 Pashervz
-// Last update Sat Jun  3 15:01:41 2017 Pashervz
+// Last update Tue Jun 13 15:38:43 2017 Pashervz
 //
 
 #pragma once
@@ -25,8 +25,11 @@ private:
   DType							_toLoad;
   std::unordered_map<DType, std::shared_ptr<AMenu>>	_menu;
   std::unique_ptr<ManageGame>				_game;
+  std::vector<std::vector<irr::EKEY_CODE>>		_bindings;
+  
 public:
   Core();
   ~Core() {}
   int		launch();
+  void		initBindings();
 };

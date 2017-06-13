@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed Jun  7 16:03:43 2017 Pashervz
+// Last update Tue Jun 13 15:42:32 2017 Pashervz
 //
 
 #include <chrono>
@@ -63,7 +63,7 @@ void			ManageGame::construct(int nbPlayers)
     }  
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false), _isStarted(false)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys) : _victory(false), _isStarted(false)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -95,7 +95,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false), _isStarted(false)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys) : _victory(false), _isStarted(false)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
