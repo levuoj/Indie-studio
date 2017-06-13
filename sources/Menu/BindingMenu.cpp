@@ -1,11 +1,11 @@
 //
 // BindingMenu.cpp for BindingMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Sat Jun  3 19:36:41 2017 Pashervz
+// Last update Tue Jun 13 14:41:30 2017 Pierre Zawadil
 //
 
 #include <sstream>
@@ -43,7 +43,7 @@ void			BindingMenu::keyToString()
 void			BindingMenu::assignContent()
 {
   int			idx = 0;
-  
+
   for (auto it = _map.begin() ; it != _map.end() ; ++it)
     {
       static_cast<Button *>(it->get())->setContent(_bindingsStrings[idx]);
@@ -118,7 +118,7 @@ bool			BindingMenu::getPlayerInfo(std::string const & file)
 {
   std::string			tmp;
   std::istringstream		iss(file);
-  
+
   while (std::getline(iss, tmp))
     {
       std::size_t		pos = tmp.find(":", 0);
@@ -132,7 +132,7 @@ bool			BindingMenu::getPlayerInfo(std::string const & file)
 	  return (true);
 	}
     }
-  return (false);  
+  return (false);
 }
 
 void			BindingMenu::openBindingConf()
@@ -278,7 +278,7 @@ void			BindingMenu::select(irr::EKEY_CODE key)
 std::string const		BindingMenu::writeChanges()
 {
   std::vector<std::string>	config;
-  
+
   for (const auto it :  _bindingsStrings)
     {
       std::string str(it.begin(), it.end());
@@ -293,7 +293,7 @@ std::string const		BindingMenu::writeChanges()
 void				BindingMenu::saveChanges()
 {
   std::ofstream			stream;
-  
+
   stream.open("./Config/" + this->_player + ".conf");
   stream << this->writeChanges();
   stream.close();

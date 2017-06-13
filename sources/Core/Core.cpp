@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Tue Jun  6 18:37:39 2017 DaZe
+// Last update Tue Jun 13 16:17:28 2017 Pierre Zawadil
 //
 
 #include <iostream>
@@ -21,11 +21,6 @@ Core::Core()
 {
   this->_graphic = std::unique_ptr<Graphic>(new Graphic());
   this->_toLoad = MAIN_MENU;
-   // --- TEST --- //
-  // this->_toLoad = GAME;
-  //this->_game = std::unique_ptr<ManageGame>(new ManageGame(2, molft));
-  // this->_game->setObserver(this->_graphic.get());
-  // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
   this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu));
@@ -40,21 +35,25 @@ int			Core::launch()
   irr::u32		then		= this->_graphic->getTime();
   irr::f32		lag		= 0.f;
   const irr::f32	MS_PER_UPDATE	= 16.f;
-  std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
-  
-  molft.push_back({ irr::KEY_UP,
+  std::vector<std::array<irr::EKEY_CODE, 5>>  keys;
+
+  keys.push_back({
+      irr::KEY_UP,
 	irr::KEY_DOWN,
 	irr::KEY_LEFT,
 	irr::KEY_RIGHT,
 	irr::KEY_SPACE});
-  molft.push_back({
+
+  keys.push_back({
       irr::KEY_KEY_Z,
 	irr::KEY_KEY_S,
 	irr::KEY_KEY_Q,
 	irr::KEY_KEY_D,
-	irr::KEY_KEY_W});
-  
+	irr::KEY_KEY_W
+	});
+
   this->_graphic->setEventReceiver(&receiver);
+  receiver.init();
   while (this->_graphic->running())
     {
       const irr::u32	now		= this->_graphic->getTime();
@@ -64,9 +63,13 @@ int			Core::launch()
 
       while (lag >= MS_PER_UPDATE)
 	{
+
+	  receiver.startEventProcess();
+
 	  if (loaded != GAME)
 	    {
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
+
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		{
 		  if (this->_toLoad == BINDINGS)
@@ -88,30 +91,33 @@ int			Core::launch()
 		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getSave(), molft));
+				      (this->_menu[PLAY].get())->getSave(), keys));
 		  else
-		    this->_game = 
+		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getNbPlayer(), molft));
+				      (this->_menu[PLAY].get())->getNbPlayer(), keys));
 		  this->_game->setObserver(this->_graphic.get());
 		}
 	    }
 	  else
 	    {
-	      this->_toLoad = this->_game->transferKey(receiver.getKey());
+	      this->_toLoad = this->_game->transferKey(receiver);
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
+
+
 	  lag -= MS_PER_UPDATE;
-	  receiver.setKey(irr::KEY_OEM_8);
 	  loaded = this->_toLoad;
+
 	}
+
       if (this->_toLoad != GAME)
 	this->_menu[this->_toLoad]->notify();
       else
 	this->_game->notify();
-      //      std::cerr << this->_toLoad << std::endl;
+
     }
   return (EXIT_SUCCESS);
 }

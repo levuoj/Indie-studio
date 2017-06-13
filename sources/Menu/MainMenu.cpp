@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Mon Jun  5 14:19:06 2017 Pashervz
+// Last update Tue Jun 13 15:20:45 2017 Pierre Zawadil
 //
 
 #include <memory>
@@ -44,6 +44,7 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
   DType		selection = NOTHING;
 
+  std::cout << "Key : " << key << std::endl;
   switch (key)
     {
     case irr::KEY_DOWN:

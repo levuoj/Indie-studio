@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue Jun 13 14:27:39 2017 Lebrun Kilian
+// Last update Tue Jun 13 15:12:10 2017 Pierre Zawadil
 //
 
 #include <chrono>
@@ -62,14 +62,14 @@ void			ManageGame::construct(int nbPlayers)
 	  break;
 	}
       pos++;
-    }  
+    }
 }
 
 ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false), _nbFinish(0)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
-  
+
   _finishLine[0] = 89;
   _finishLine[1] = 149;
   _finishLine[2] = 209;
@@ -93,7 +93,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
       it.setKeys(keys.at(i));
       ++i;
     }
-  
+
   _chrono.start();
 }
 
@@ -101,31 +101,31 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
-  
+
   int i = 0;
   for (auto &it : this->_players)
     {
       it.setKeys(keys.at(i));
       ++i;
     }
-  
+
   _finishLine[0] = 89;
   _finishLine[1] = 149;
   _finishLine[2] = 209;
   _finishLine[3] = 269;
   _finishLine[4] = 329;
   _finishLine[5] = 389;
-  
+
   _chrono.start();
 }
 
-DType			ManageGame::transferKey(const EventReceiver &receiver)
+DType			ManageGame::transferKey(EventReceiver const& receiver)
 {
   _chrono.incTime();
-  
+
   int a;
   std::array<Element::EType, 8>   arr;
-  
+
   if (_victory == false)
     {
       if (_chrono.getTime() >= 5.0 && _chrono.getTime() <= 5.1
@@ -149,7 +149,7 @@ DType			ManageGame::transferKey(const EventReceiver &receiver)
 	      arr[6] = this->_map[a + 59]->getType();
 	      arr[7] = this->_map[a - 1]->getType();
 	      it.setArroundingCar(arr);
-	      
+
 	      it.driver(receiver);
 	    }
 	  updateMap();
@@ -309,7 +309,7 @@ void				ManageGame::updateMap()
   for (auto &it : _AIs)
     {
       it.chooseAction();
-      
+
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
 
       checkVictory(it.getCar());
@@ -318,7 +318,7 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  
+
   for (auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
@@ -395,7 +395,7 @@ bool				ManageGame::loadFile(std::string const& fileName)
       std::istringstream	iss(file);
       bool			skipFirst = false;
       std::string		tmp;
-      
+
       while (std::getline(iss, tmp))
 	{
 	  std::cout << "LINE = " << tmp << std::endl;
@@ -417,7 +417,7 @@ bool				ManageGame::loadLine(std::string const& line)
   std::string			tmp;
   std::istringstream		iss(line);
   std::vector<std::string>	input;
-  
+
   while (std::getline(iss, tmp, ' '))
     input.push_back(tmp);
   if ((input.size() != 8 && input.at(0) == "AI") ||
@@ -583,7 +583,7 @@ void				ManageGame::makeSave(std::string const& file)
 
   std::stringstream ss;
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
-  
+
   ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d-%X");
   str += ss.str();
   str += "\n";

@@ -1,11 +1,11 @@
 //
 // Player.cpp for  in /home/Kilian/Rendu/C++/Indie_studio/sources/Game
-// 
+//
 // Made by Lebrun Kilian
 // Login   <kilian.lebrun@epitech.eu>
-// 
+//
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Tue Jun 13 14:27:45 2017 Lebrun Kilian
+// Last update Tue Jun 13 15:12:28 2017 Pierre Zawadil
 //
 
 #include "test.hpp"
@@ -24,7 +24,7 @@ Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
 Car::EDirection	Player::dirFromAngle(int angle)
 {
   static Car::EDirection	slices[] = { Car::EDirection::RIGHT, Car::EDirection::UP_RIGHT, Car::EDirection::UP, Car::EDirection::UP, Car::EDirection::UP_LEFT, Car::EDirection::LEFT, Car::EDirection::LEFT, Car::EDirection::DOWN_LEFT, Car::EDirection::DOWN, Car::EDirection::DOWN, Car::EDirection::DOWN_RIGHT, Car::EDirection::RIGHT };
-  
+
   return (slices[angle / 30]);
 }
 
@@ -33,17 +33,16 @@ void    Player::initDir()
   this->_car->setEdir(dirFromAngle(this->_car->getAbsoluteAngle()));
 }
 
-void		Player::driver(const EventReceiver &key)
+void		Player::driver(EventReceiver const& receiver)
 {
   this->initDir();
   // const auto        &it = _functors.find(key);
 
-  for (const auto &it = this->_functors)
+  for (auto const& it : this->_functors)
     {
-      if (keyDown(it->first()))
+      if (receiver.keyDown(it.first)) // Receiver non const car appelle de fonction ici
 	{
-	  if (it->first() != _functors.end())
-	    it->second();
+	  it.second();
 	  this->_car.get()->move();
 	}
     }
