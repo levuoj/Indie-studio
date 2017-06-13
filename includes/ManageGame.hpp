@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue Jun 13 18:16:09 2017 DaZe
+// Last update Tue Jun 13 18:28:43 2017 DaZe
 //
 
 #pragma once
@@ -38,7 +38,7 @@ public:
 
   void				initPlayerAndIa(int, int, int &, const Element::EType &);
   void				construct(int);
-  DType				transferKey(const irr::EKEY_CODE &);
+  DType				transferKey(EventReceiver const&);
   GameElement			*ElementFromChar(char);
   GameElement			*ElementFromCharCar(char);
   void				loadMap(std::string const &);
