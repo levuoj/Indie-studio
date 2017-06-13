@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Mon Jun 12 10:33:35 2017 DaZe
+// Last update Tue Jun 13 14:27:39 2017 Lebrun Kilian
 //
 
 #include <chrono>
@@ -119,7 +119,7 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_COD
   _chrono.start();
 }
 
-DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
+DType			ManageGame::transferKey(const EventReceiver &receiver)
 {
   _chrono.incTime();
   
@@ -149,7 +149,8 @@ DType			ManageGame::transferKey(const irr::EKEY_CODE &key)
 	      arr[6] = this->_map[a + 59]->getType();
 	      arr[7] = this->_map[a - 1]->getType();
 	      it.setArroundingCar(arr);
-	      it.driver(key);
+	      
+	      it.driver(receiver);
 	    }
 	  updateMap();
 	}

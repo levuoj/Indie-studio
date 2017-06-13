@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:00:01 2017 Lebrun Kilian
+// Last update Tue Jun 13 14:27:45 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
@@ -33,16 +33,20 @@ void    Player::initDir()
   this->_car->setEdir(dirFromAngle(this->_car->getAbsoluteAngle()));
 }
 
-void		Player::driver(const irr::EKEY_CODE &key)
+void		Player::driver(const EventReceiver &key)
 {
   this->initDir();
-  const auto        &it = _functors.find(key);
+  // const auto        &it = _functors.find(key);
 
-  if (it != _functors.end())
-    it->second();
-//  else
-//    this->_car->slowDown();
-  this->_car.get()->move();
+  for (const auto &it = this->_functors)
+    {
+      if (keyDown(it->first()))
+	{
+	  if (it->first() != _functors.end())
+	    it->second();
+	  this->_car.get()->move();
+	}
+    }
 }
 
 void		Player::setKeys(const std::array<irr::EKEY_CODE, 5> &keys)
