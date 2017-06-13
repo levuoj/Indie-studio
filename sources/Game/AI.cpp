@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Fri Jun  9 17:20:24 2017 DaZe
+// Last update Mon Jun 12 10:37:31 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -23,9 +23,16 @@ AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
 
 void			AI::part1()
 {
-  if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
+  if (_car->getType() == Element::EType::POD3 && _car->getLap() != 0)
+    {
+      if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 7]->getType()
       == Element::EType::BLOCK)
     _idx = 2;
+    }
+  else
+    if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
+	== Element::EType::BLOCK)
+      _idx = 2;
   
 }
 
@@ -39,9 +46,16 @@ void			AI::part2()
 
 void			AI::part3()
 {
-  if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 240]->getType()
+  if (_car->getType() == Element::EType::POD3)
+    {
+      if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 300]->getType()
       == Element::EType::BLOCK && _idx != 0)
-    _idx = 4;
+	_idx = 4;
+    }
+  else
+    if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 240]->getType()
+	== Element::EType::BLOCK && _idx != 0)
+      _idx = 4;
 }
 
 void			AI::part4()
@@ -55,17 +69,34 @@ void			AI::part4()
 
 void			AI::part5()
 {
-  if (_car->getAbsoluteAngle() != 120.0f)
-    _car->turnRight();
+  if (_car->getType() == Element::EType::POD3)
+    {
+      if (_car->getAbsoluteAngle() != 140.0f)
+	_car->turnRight();
+      else
+	_idx = 6;
+    }
   else
-    _idx = 6;
+    {
+      if (_car->getAbsoluteAngle() != 120.0f)
+	_car->turnRight();
+      else
+	_idx = 6;
+    }
 }
 
 void			AI::part6()
 {
-  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 180]->getType()
-      == Element::EType::BLOCK)
-    _idx = 7;
+  if (_car->getType() == Element::EType::POD3)
+    {
+      if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 240]->getType()
+	  == Element::EType::BLOCK)
+	_idx = 7;
+    }
+  else
+    if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 120]->getType()
+	== Element::EType::BLOCK)
+      _idx = 7;
 }
 
 void			AI::part7()
@@ -85,17 +116,34 @@ void			AI::part8()
 
 void			AI::part9()
 {
-  if (_car->getAbsoluteAngle() != 240.0f)
-    _car->turnLeft();
+  if (_car->getType() == Element::EType::POD3)
+    {
+      if (_car->getAbsoluteAngle() != 220.0f)
+	_car->turnLeft();
+      else
+	_idx = 10;
+    }
   else
-    _idx = 10;
+    {
+      if (_car->getAbsoluteAngle() != 240.0f)
+	_car->turnLeft();
+      else
+	_idx = 10;
+    }    
 }
 
 void			AI::part10()
 {
-  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 177]->getType()
-      == Element::EType::BLOCK)
-    _idx = 11;
+  if (_car->getType() == Element::EType::POD3)
+    {
+      if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 295]->getType()
+	  == Element::EType::BLOCK)
+	_idx = 11;
+    }
+  else
+    if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) + 177]->getType()
+	== Element::EType::BLOCK)
+      _idx = 11;
 }
 
 void			AI::part11()
@@ -108,9 +156,16 @@ void			AI::part11()
 
 void			AI::part12()
 {
-  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 5]->getType()
-      == Element::EType::BLOCK)
-    _idx = 13;
+  if (_car->getType() == Element::EType::POD3)
+    {
+      if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 7]->getType()
+	  == Element::EType::BLOCK)
+	_idx = 13;
+    }
+  else
+    if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 5]->getType()
+	== Element::EType::BLOCK)
+      _idx = 13;
 }
 
 void			AI::part13()
@@ -123,9 +178,16 @@ void			AI::part13()
 
 void			AI::part14()
 {
-  if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 240]->getType()
-      == Element::EType::BLOCK)
-    _idx = 15;
+  if (_car->getType() == Element::EType::POD3)
+    {
+      if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 360]->getType()
+	  == Element::EType::BLOCK)
+	_idx = 15;
+    }
+  else
+    if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 240]->getType()
+	== Element::EType::BLOCK)
+      _idx = 15;
 }
 
 void			AI::part15()
@@ -143,7 +205,13 @@ void			AI::chooseAction()
   if (it != _functors.end())
   it->second(); */
 
-  if (_car->getSpeed() <= Car::_maxSpeed)
+  if (_car->getType() == Element::EType::POD4)
+    {
+      if (_car->getSpeed() <= Car::_maxSpeed - 60)
+	_car->accelerate();
+    }
+  else
+    if (_car->getSpeed() <= Car::_maxSpeed)
       _car->accelerate();
   
   switch (_idx)
@@ -209,7 +277,8 @@ void			AI::chooseAction()
    if (_idx == 2 && _car->getAngle() != -180.0f)
      _car->turnRight();
      std::cout << _car->getAbsoluteAngle() << std::endl; */
-  _car.get()->move();
+  if (_car->getStop() == false)
+    _car.get()->move();
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)

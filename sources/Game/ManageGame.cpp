@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri Jun  9 17:30:24 2017 DaZe
+// Last update Mon Jun 12 10:33:35 2017 DaZe
 //
 
 #include <chrono>
@@ -65,7 +65,7 @@ void			ManageGame::construct(int nbPlayers)
     }  
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr::EKEY_CODE, 5>> &keys) : _victory(false), _nbFinish(0)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -97,11 +97,10 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::array<irr
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::array<irr::EKEY_CODE, 5>> & keys) : _victory(false), _nbFinish(0)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
-  std::cout << "JE CONSTROUIS MANAGAGAME" << std::endl;
   
   int i = 0;
   for (auto &it : this->_players)
@@ -276,7 +275,7 @@ void				ManageGame::loadMap(std::string const &str)
     }
 }
 
-void				ManageGame::checkVictory(std::shared_ptr<Car> car)
+void				ManageGame::checkVictory(std::shared_ptr<Car> const &car)
 {
   for (const auto &it : _finishLine)
     if (it + 480 == Convert::coordToPos<int>(car->getPosMap()))
@@ -291,9 +290,15 @@ void				ManageGame::checkVictory(std::shared_ptr<Car> car)
 	car->setFinished(true);
 	break ;
       }
-  if (car->getLap() == 3)
+  std::cout << "NB LAP = " << car->getLap() << std::endl;
+  if (car->getLap() == 3 && car->getStop() == false)
     {
       car->stop();
+      car->setStop(true);
+      ++_nbFinish;
+    }
+  if (_nbFinish == 3)
+    {
       _victory = true;
     }
 }
@@ -323,7 +328,7 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  //  printMap();
+  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const

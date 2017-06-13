@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Thu Jun  8 09:22:55 2017 DaZe
+// Last update Sat Jun 10 10:53:57 2017 DaZe
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -52,6 +52,7 @@ private:
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				displayBindings(std::vector<std::shared_ptr<Element>> const&);
+  void				finish(std::vector<std::shared_ptr<Element>> const&);
   void				loadIntro();
   void				skyDome(const irr::io::path&);
   void				ground();
@@ -85,7 +86,7 @@ public:
     {DType::PLAY, std::bind(&Graphic::displayPlayMenu, this, std::placeholders::_1)},
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::GAME_CHRONO, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
-    {DType::FINISH, NULL},
+    {DType::FINISH, std::bind(&Graphic::finish, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };
 };

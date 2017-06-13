@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  8 09:28:56 2017 DaZe
+// Last update Sat Jun 10 10:58:26 2017 DaZe
 //
 
 #include <iostream>
@@ -615,6 +615,12 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       ++i;
     }
   first = false;
+}
+
+void		Graphic::finish(std::vector<std::shared_ptr<Element>> const&)
+{
+  std::cout << "JE SUIS FINISH" << std::endl;
+  _text->setText(L"Congratulations !\nYou win !");
 }
 
 // ------------------------------------------------------------ //

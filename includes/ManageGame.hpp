@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Thu Jun  8 09:24:52 2017 DaZe
+// Last update Mon Jun 12 09:36:07 2017 DaZe
 //
 
 #pragma once
@@ -28,6 +28,7 @@ private:
   std::vector<Player>		_players;
   std::array<int, 6>		_finishLine;
   bool				_victory;
+  short int			_nbFinish;
 
 public:
   ManageGame(int, const std::vector<std::array<irr::EKEY_CODE, 5>> &);
@@ -43,7 +44,7 @@ public:
   void				loadMap(std::string const &);
   void				updateMap();
   void				printMap();
-  void				checkVictory(std::shared_ptr<Car>);
+  void				checkVictory(std::shared_ptr<Car> const&);
   Chrono const&			getChrono() const;
   bool				loadSave(std::string const &);
   bool				loadFile(std::string const &);
