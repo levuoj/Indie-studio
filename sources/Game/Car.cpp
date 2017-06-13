@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Mon Jun 12 10:32:29 2017 DaZe
+// Last update Tue Jun 13 18:10:06 2017 Lebrun Kilian
 //
 
 #include <cmath>
@@ -55,11 +55,7 @@ void            Car::slowDown()
 
 void            Car::move()
 {
-  /*  for (const auto &it : this->_arrounding)
-    {
-      if (it >= 0 && it <= 11)
-	std::cout << it << std::endl;
-	} */
+  std::cout << "JE MOVE" << std::endl;
   if (this->_speed >= 0)
     {
       if (checkArrounding() == false)
@@ -79,21 +75,11 @@ void            Car::move()
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
-      // if (checkAngleArrounding() == false)
-      // 	{
-      // 	  this->_speed = 0.0f;
-      // 	  return
-      // 	}
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
     }
   else if (this->_pos.first < 0)
     {
-      // if (checkBackAngleArrounding() == false)
-      // 	{
-      // 	  this->_speed = 0.0f;
-      // 	  return
-      // 	}
       this->_posMap.first -= 1;
       this->_pos.first += 100.0f;
     }

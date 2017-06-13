@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue Jun 13 15:12:10 2017 Pierre Zawadil
+// Last update Tue Jun 13 18:04:25 2017 Lebrun Kilian
 //
 
 #include <chrono>
@@ -291,7 +291,6 @@ void				ManageGame::checkVictory(std::shared_ptr<Car> const &car)
 	car->setFinished(true);
 	break ;
       }
-  std::cout << "NB LAP = " << car->getLap() << std::endl;
   if (car->getLap() == 3 && car->getStop() == false)
     {
       car->stop();

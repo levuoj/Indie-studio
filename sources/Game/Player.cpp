@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Tue Jun 13 17:12:18 2017 Pierre Zawadil
+// Last update Tue Jun 13 18:07:17 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
@@ -36,12 +36,12 @@ void    Player::initDir()
 void		Player::driver(EventReceiver const& receiver)
 {
   this->initDir();
-  // const auto        &it = _functors.find(key);
 
   for (auto const& it : this->_functors)
     {
-      if (receiver.keyDown(it.first)) // Receiver non const car appelle de fonction ici
+      if (receiver.keyDown(it.first))
 	{
+	  std::cout << "---------------\n key = " << it.first << std::endl;
 	  it.second();
 	  this->_car->move();
 	}
