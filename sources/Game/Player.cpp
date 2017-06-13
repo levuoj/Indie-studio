@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:00:01 2017 Lebrun Kilian
+// Last update Wed Jun  7 15:59:32 2017 Pashervz
 //
 
 #include "test.hpp"
@@ -40,8 +40,6 @@ void		Player::driver(const irr::EKEY_CODE &key)
 
   if (it != _functors.end())
     it->second();
-//  else
-//    this->_car->slowDown();
   this->_car.get()->move();
 }
 

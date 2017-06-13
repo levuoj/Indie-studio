@@ -1,11 +1,11 @@
-//
+//1;4601;0c
 // OptionMenu.cpp for OptionMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources
 // 
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 13:28:27 2017 Pashervz
-// Last update Sat Jun  3 16:43:26 2017 Pashervz
+// Last update Tue Jun 13 12:18:13 2017 Pashervz
 //
 
 #include <memory>
@@ -66,10 +66,8 @@ DType			OptionMenu::transferKey(irr::EKEY_CODE key)
       break;
     case irr::KEY_RETURN:
       return (this->select());
-      break;
     case irr::KEY_ESCAPE:
       return (MAIN_MENU);
-      break;
     default:
       break;
     }

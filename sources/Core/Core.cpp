@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Tue Jun  6 18:37:39 2017 DaZe
+// Last update Tue Jun 13 14:06:02 2017 Pashervz
 //
 
 #include <iostream>
@@ -16,6 +16,8 @@
 #include "MainMenu.hpp"
 #include "OptionMenu.hpp"
 #include "PlayMenu.hpp"
+#include "PauseMenu.hpp"
+#include "Leaderboard.hpp"
 
 Core::Core()
 {
@@ -27,9 +29,10 @@ Core::Core()
   // this->_game->setObserver(this->_graphic.get());
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
+  this->_menu.emplace(LEADERBOARD, std::shared_ptr<AMenu>(new Leaderboard));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
   this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu));
-  // this->_menu.emplace(BINDINGS, std::shared_ptr<AMenu>(new BindingMenu("P1")));
+  this->_menu.emplace(PAUSE, std::shared_ptr<AMenu>(new PauseMenu));
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
@@ -42,7 +45,8 @@ int			Core::launch()
   const irr::f32	MS_PER_UPDATE	= 16.f;
   std::vector<std::array<irr::EKEY_CODE, 5>>  molft;
   
-  molft.push_back({ irr::KEY_UP,
+  molft.push_back({
+      irr::KEY_UP,
 	irr::KEY_DOWN,
 	irr::KEY_LEFT,
 	irr::KEY_RIGHT,
@@ -64,7 +68,7 @@ int			Core::launch()
 
       while (lag >= MS_PER_UPDATE)
 	{
-	  if (loaded != GAME)
+	  if (loaded != GAME && loaded != PAUSE)
 	    {
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
@@ -74,15 +78,16 @@ int			Core::launch()
 		      this->_menu[BINDINGS] =
 			std::make_shared<BindingMenu>
 			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
-		      this->_menu[BINDINGS]->setObserver(this->_graphic.get());
 		    }
 		  else if (this->_toLoad == EXIT)
 		    return (EXIT_SUCCESS);
-		  else
-		    this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+		  else if (this->_toLoad == PLAY)
+		    this->_menu[PLAY] = std::make_shared<PlayMenu>();
+		  this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 		}
 	      else if (this->_toLoad == GAME)
 		{
+		  std::cout << "je lance le jeu" << std::endl;
 		  if (static_cast<PlayMenu *>(this->_menu[PLAY].get())->getNewGame()
 		      == false)
 		    this->_game =
@@ -97,9 +102,19 @@ int			Core::launch()
 		  this->_game->setObserver(this->_graphic.get());
 		}
 	    }
+	  else if (loaded == PAUSE)
+	    {
+	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
+	      if (this->_toLoad == GAME)
+		this->_game->setObserver(this->_graphic.get());
+	      else
+		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
+	    }
 	  else
 	    {
 	      this->_toLoad = this->_game->transferKey(receiver.getKey());
+	      if (this->_toLoad == PAUSE)
+		this->_menu[PAUSE] = std::make_shared<PauseMenu>(this->_game.get());
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
@@ -111,7 +126,6 @@ int			Core::launch()
 	this->_menu[this->_toLoad]->notify();
       else
 	this->_game->notify();
-      //      std::cerr << this->_toLoad << std::endl;
     }
   return (EXIT_SUCCESS);
 }

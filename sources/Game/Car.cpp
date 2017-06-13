@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Mon Jun 12 10:32:29 2017 DaZe
+// Last update Tue Jun 13 14:11:26 2017 DaZe
 //
 
 #include <cmath>
