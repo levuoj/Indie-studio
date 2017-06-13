@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Tue Jun 13 18:22:45 2017 DaZe
+// Last update Tue Jun 13 19:53:32 2017 Lebrun Kilian
 //
 
 #include "test.hpp"
@@ -38,14 +38,11 @@ void		Player::driver(EventReceiver const& receiver)
   this->initDir();
 
   for (auto const& it : this->_functors)
-    {
-      if (receiver.keyDown(it.first))
-	{
-	  std::cout << "---------------\n key = " << it.first << std::endl;
-	  it.second();
-	  this->_car->move();
-	}
-    }
+    if (receiver.keyDown(it.first))
+      {
+	it.second();
+      }
+  this->_car->move();
 }
 
 void		Player::setKeys(const std::vector<irr::EKEY_CODE> &keys)
