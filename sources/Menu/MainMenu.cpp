@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Tue Jun 13 15:20:45 2017 Pierre Zawadil
+// Last update Tue Jun 13 16:38:49 2017 Pierre Zawadil
 //
 
 #include <memory>
@@ -21,10 +21,10 @@ MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
     throw Error("irrklang can't be launched");
 
   this->_type = DType::MAIN_MENU;
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"play", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"scores", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"options", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"exit", "assets/deathStar.jpg", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"play", "", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"scores", "", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"options", "", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"exit", "", Button::BType::MENU)));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
@@ -44,7 +44,6 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
   DType		selection = NOTHING;
 
-  std::cout << "Key : " << key << std::endl;
   switch (key)
     {
     case irr::KEY_DOWN:
