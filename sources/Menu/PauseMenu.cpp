@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed Jun  7 11:10:46 2017 Pashervz
-// Last update Thu Jun  8 16:04:02 2017 Pashervz
+// Last update Tue Jun 13 12:34:40 2017 Pashervz
 //
 
 #include <sstream>
@@ -94,18 +94,6 @@ DType			PauseMenu::select()
   return (PAUSE);
 }
 
-void			PauseMenu::printVector()
-{
-  for (auto it = _map.begin() ; it != _map.end() ; ++it)
-    {
-      if (static_cast<Button *>((*it).get())->getIsSelected() == true)
-	std::cout << "selected" << std::endl;
-      else
-	std::cout << "nope" << std::endl;
-    }
-  std::cout << "--------------------------" << std::endl;
-}
-
 DType		        PauseMenu::transferKey(irr::EKEY_CODE key)
 {
   switch (key)
@@ -125,6 +113,5 @@ DType		        PauseMenu::transferKey(irr::EKEY_CODE key)
     default:
       break;
     }
-  printVector();
   return (PAUSE);
 }

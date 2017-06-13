@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun  8 16:24:40 2017 Pashervz
+// Last update Tue Jun 13 14:06:02 2017 Pashervz
 //
 
 #include <iostream>
@@ -17,6 +17,7 @@
 #include "OptionMenu.hpp"
 #include "PlayMenu.hpp"
 #include "PauseMenu.hpp"
+#include "Leaderboard.hpp"
 
 Core::Core()
 {
@@ -28,6 +29,7 @@ Core::Core()
   // this->_game->setObserver(this->_graphic.get());
   // --- TEST --- //
   this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
+  this->_menu.emplace(LEADERBOARD, std::shared_ptr<AMenu>(new Leaderboard));
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
   this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu));
   this->_menu.emplace(PAUSE, std::shared_ptr<AMenu>(new PauseMenu));
@@ -85,6 +87,7 @@ int			Core::launch()
 		}
 	      else if (this->_toLoad == GAME)
 		{
+		  std::cout << "je lance le jeu" << std::endl;
 		  if (static_cast<PlayMenu *>(this->_menu[PLAY].get())->getNewGame()
 		      == false)
 		    this->_game =

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Thu Jun  8 15:51:19 2017 Pashervz
+// Last update Tue Jun 13 13:39:17 2017 Pashervz
 //
 
 #include <memory>
@@ -22,7 +22,7 @@ MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 
   this->_type = DType::MAIN_MENU;
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"play", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"scores", "assets/deathStar.jpg", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"ranking", "assets/deathStar.jpg", Button::BType::MENU)));
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"options", "assets/deathStar.jpg", Button::BType::MENU)));
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"exit", "assets/deathStar.jpg", Button::BType::MENU)));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);

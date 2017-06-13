@@ -5,9 +5,10 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  8 16:55:52 2017 Pashervz
+// Last update Tue Jun 13 14:06:34 2017 Pashervz
 //
 
+#include <sstream>
 #include <iostream>
 #include <cmath>
 #include <string>
@@ -18,6 +19,7 @@
 #include "Button.hpp"
 #include "ManageGame.hpp"
 #include "GameElement.hpp"
+#include "ManageFile.hpp"
 
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
@@ -142,11 +144,6 @@ void						Graphic::initMainMenu()
 								L"options",
 								L"exit"};
 
-  // _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-  //					   L"options", 0,
-  //					   irr::core::dimension2d<irr::f32>(50, 20),
-  //					   irr::core::vector3df(5070, 820, 4820),
-  //					   -1, color, color);
   for (auto const c : NameMainMenu)
     {
       _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
@@ -160,6 +157,38 @@ void						Graphic::initMainMenu()
   this->initOptMenu();
   this->initBindings();
   this->initPlayMenu();
+  this->initLeaderboard();
+}
+
+void						Graphic::initLeaderboard()
+{
+  try
+    {
+      ManageFile				manageFile("./Config/leaderboard");
+      std::string				file;
+
+      file = manageFile.readFile();
+
+      std::string				tmp;
+      std::istringstream			iss(file);
+      int					idx = 0;
+      
+      while (std::getline(iss, tmp) && idx < 3)
+	{
+	  std::size_t				size;
+	  std::stod(tmp, &size);
+
+	  std::wstring				score(tmp.begin(), tmp.end());
+	  _leaderboard.push_back(score);
+	  ++idx;
+	}
+    }
+  catch (std::exception const &)
+    {
+      _leaderboard.clear();
+      for (int idx = 0; idx < 3; ++idx)
+	_leaderboard.push_back(L"no score");
+    }
 }
 
 void						Graphic::initOptMenu()
@@ -471,6 +500,30 @@ void			Graphic::clearPlayMenu()
     }
 }
 
+void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
+{
+  // _camera.MoveCamera();
+  _textLeaderboard.push_back(_guienv->addStaticText(L"ranking",
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+  _textLeaderboard.push_back(_guienv->addStaticText((L"1st place : " +
+						     _leaderboard[0]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+  _textLeaderboard.push_back(_guienv->addStaticText((L"2nd place : " +
+						     _leaderboard[1]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+  _textLeaderboard.push_back(_guienv->addStaticText((L"3rd place : " +
+						     _leaderboard[2]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+}
+
 void			Graphic::displayPause(std::vector<std::shared_ptr<Element>> const& map)
 {
   int			idx = 0;
@@ -591,10 +644,6 @@ void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
 	}
       ++idx;
     }
-}
-
-void		Graphic::displayLeaderBoard(std::vector<std::shared_ptr<Element>> const&)
-{
 }
 
 // ------------------------------------------------------------ //
