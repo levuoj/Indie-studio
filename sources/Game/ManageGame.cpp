@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed Jun 14 09:30:42 2017 DaZe
+// Last update Wed Jun 14 16:46:31 2017 DaZe
 //
 
 #include <chrono>
@@ -160,6 +160,7 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
   else
     {
       _chrono.stop();
+      makeRanking();
       return (DType::FINISH);
     }
   return (_type);
@@ -323,8 +324,15 @@ void				ManageGame::updateMap()
   for (auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-
-      checkVictory(it.getCar());
+      if (it.getCar()->getStop() == false)
+	  checkVictory(it.getCar());
+      else if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
+	{
+	  _ranking.push_back(_chrono.getTime());
+	  std::cerr << "j'ai push mon time" << std::endl;
+	  it.getCar()->setIsRank(false);
+	}
+      
       if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
 	  Element::EType::ROAD)
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
@@ -604,4 +612,46 @@ void				ManageGame::makeSave(int number)
   stream.open("./Saves/Save" + std::to_string(number) + ".save");
   stream << str;
   stream.close();
+}
+
+void				ManageGame::writeRanking()
+{
+  std::string		toWrite;
+  std::ofstream		stream;
+
+  std::sort(_ranking.begin(), _ranking.end(), std::less<double>());
+
+  if (_ranking.size() < 3)
+    {
+      for (auto it : _ranking)
+	toWrite += std::to_string(it) + "\n";
+    }
+  else
+    {
+      for (int idx = 0; idx < 3; ++idx)
+	toWrite += std::to_string(_ranking.at(idx)) + "\n";
+    }
+  
+  stream.open("Config/leaderboard");
+  stream << toWrite;
+  stream.close();
+}
+
+void				ManageGame::makeRanking()
+{
+  try
+    {
+      ManageFile		manageFile("Config/leaderboard");
+      std::string		file = manageFile.readFile();
+      std::istringstream	iss(file);
+      std::string		tmp;
+
+      while (getline(iss, tmp))
+	_ranking.push_back(std::stod(tmp));
+      writeRanking();
+    }
+  catch (std::exception const &)
+    {
+      writeRanking();
+    }
 }

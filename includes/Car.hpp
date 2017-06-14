@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Mon Jun 12 10:32:51 2017 DaZe
+// Last update Wed Jun 14 14:50:36 2017 DaZe
 //
 
 #pragma once
@@ -56,6 +56,7 @@ private:
   bool					_isFinished;
   EDirection				_edir;
   bool					_isStopped;
+  bool					_isRank;
   
 public:
 
@@ -76,8 +77,10 @@ public:
   void					setSpeed(const float);
   void					setFinished(bool);
   void					setStop(const bool);
+  void					setIsRank(const bool);
   bool					getStop() const;
   bool					getFinished() const;
+  bool					getIsRank() const;
   float					getAbsoluteAngle() const;
   float					getAngle() const;
   float					getSpeed() const;
