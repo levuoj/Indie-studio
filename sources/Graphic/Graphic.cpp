@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Tue Jun 13 14:06:34 2017 Pashervz
+// Last update Wed Jun 14 13:33:16 2017 Pashervz
 //
 
 #include <sstream>
@@ -63,11 +63,9 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   // 		     irr::core::vector3df(5033.f, 770.f, 5172.f));
   this->loadIntro();
   if (distribution(generator) == 0)
-    _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
+  _sounds.playMusic("assets/music/cantina-band-star-wars-cover-melodica.ogg");
   else
-    _engine->play2D("assets/music/star-wars-cantina-song.ogg", true);
-  if (!_engine)
-    throw (Error("Music asset not found"));
+    _sounds.playMusic("assets/music/star-wars-cantina-song.ogg");
   this->initMainMenu();
   this->skyDome("assets/skydome.jpg");
   this->ground();
@@ -77,7 +75,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
 Graphic::~Graphic()
 {
-  _engine->drop();
   _device->drop();
 }
 
@@ -144,6 +141,11 @@ void						Graphic::initMainMenu()
 								L"options",
 								L"exit"};
 
+  // _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+  //					   L"options", 0,
+  //					   irr::core::dimension2d<irr::f32>(50, 20),
+  //					   irr::core::vector3df(5070, 820, 4820),
+  //					   -1, color, color);
   for (auto const c : NameMainMenu)
     {
       _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
@@ -546,6 +548,13 @@ void			Graphic::displayPause(std::vector<std::shared_ptr<Element>> const& map)
 	}
       ++idx;
     }
+					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					   L"number of player :", 0,
+					   irr::core::dimension2d<irr::f32>(55, 15),
+					   irr::core::vector3df(4980, 780, 4940),
+					   -1, color, color);
+
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
@@ -725,7 +734,7 @@ void		Graphic::displayChrono(bool first)
 
   std::wstring wide_string = std::wstring(time.begin(), time.end());
   const wchar_t* result = wide_string.c_str();
-  
+
   if (first == true)
     {
       _text = _guienv->addStaticText(result,
@@ -754,9 +763,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 		     irr::core::vector3df(5033.f, 770.f, 5172.f));
   if (first == true)
 	{
-	  _engine->stopAllSounds();
 	  displayChrono(true);
-	  _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
+	  _sounds.playMusic("assets/music/duel-of-the-fates.ogg");
 	}
   else
     displayChrono(false);

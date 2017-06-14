@@ -5,21 +5,16 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Tue Jun 13 13:39:17 2017 Pashervz
+// Last update Wed Jun 14 13:27:27 2017 Pashervz
 //
 
 #include <memory>
-#include <irrKlang.h>
 #include "Error.hpp"
 #include "Button.hpp"
 #include "MainMenu.hpp"
 
 MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 {
-  _engine = irrklang::createIrrKlangDevice();
-  if (!_engine)
-    throw Error("irrklang can't be launched");
-
   this->_type = DType::MAIN_MENU;
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"play", "assets/deathStar.jpg", Button::BType::MENU)));
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"ranking", "assets/deathStar.jpg", Button::BType::MENU)));
@@ -46,11 +41,9 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
     {
     case irr::KEY_DOWN:
       this->goDown();
-      _engine->play2D("assets/music/fx4.wav", false);
       break;
     case irr::KEY_UP:
       this->goUp();
-      _engine->play2D("assets/music/fx4.wav", false);
       break;
     case irr::KEY_RETURN:
       return (this->select());
