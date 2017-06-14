@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Tue Jun 13 18:33:32 2017 DaZe
+// Last update Wed Jun 14 09:30:42 2017 DaZe
 //
 
 #include <chrono>
@@ -151,8 +151,8 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
 	      arr[6] = this->_map[a + 59]->getType();
 	      arr[7] = this->_map[a - 1]->getType();
 	      it.setArroundingCar(arr);
-
-	      it.driver(receiver);
+	      if (it.getCar()->getStop() == false)
+		it.driver(receiver);
 	    }
 	  updateMap();
 	}
@@ -308,7 +308,8 @@ void				ManageGame::updateMap()
 {
   for (auto &it : _AIs)
     {
-      it.chooseAction();
+      if (it.getCar()->getStop() == false)
+	it.chooseAction();
 
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
 

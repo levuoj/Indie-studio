@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Tue Jun 13 18:25:17 2017 DaZe
+// Last update Wed Jun 14 08:51:52 2017 DaZe
 //
 
 #include <cmath>
@@ -36,13 +36,13 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap
 void            Car::accelerate()
 {
   if (this->_speed <= this->_maxSpeed)
-    this->_speed += this->_inertia * 3;
+    this->_speed += this->_inertia;
 }
 
 void            Car::deccelerate()
 {
   if (this->_speed >= -this->_maxSpeed / 2)
-    this->_speed -= this->_inertia * 3;
+    this->_speed -= this->_inertia;
 }
 
 void            Car::slowDown()
@@ -102,9 +102,10 @@ void            Car::move()
 
 void            Car::turnLeft()
 {
+  std::cout << "ANGLE = " << _angle << std::endl;
    if (this->_angle >= 360)
     this->_angle = 0.0f;
-  this->_angle += 5.0f;
+  this->_angle += 2.5f;
 
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
@@ -112,9 +113,10 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
+  std::cout << "ANGLE = " << _angle << std::endl;
   if (this->_angle <= -360)
     this->_angle = 0.0f;
-  this->_angle -= 5.0f;
+  this->_angle -= 2.5f;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 }

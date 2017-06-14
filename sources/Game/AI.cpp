@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Tue Jun 13 14:32:11 2017 DaZe
+// Last update Wed Jun 14 09:30:52 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -26,14 +26,13 @@ void			AI::part1()
   if (_car->getType() == Element::EType::POD3 && _car->getLap() != 0)
     {
       if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 7]->getType()
-      == Element::EType::BLOCK)
-    _idx = 2;
+	  == Element::EType::BLOCK)
+	_idx = 2;
     }
   else
     if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 6]->getType()
 	== Element::EType::BLOCK)
       _idx = 2;
-  
 }
 
 void			AI::part2()
@@ -184,6 +183,12 @@ void			AI::part14()
 	  == Element::EType::BLOCK)
 	_idx = 15;
     }
+  else if (_car->getType() == Element::EType::POD1)
+    {
+      if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 300]->getType()
+	  == Element::EType::BLOCK)
+	_idx = 15;
+    }
   else
     if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 240]->getType()
 	== Element::EType::BLOCK)
@@ -205,6 +210,8 @@ void			AI::chooseAction()
   if (it != _functors.end())
   it->second(); */
 
+  std::cout << "JE SUIS UNE AI JE BOUGE" << std::endl;
+  
   if (_car->getType() == Element::EType::POD4)
     {
       if (_car->getSpeed() <= Car::_maxSpeed - 60)
@@ -276,8 +283,7 @@ void			AI::chooseAction()
    if (_idx == 2 && _car->getAngle() != -180.0f)
      _car->turnRight();
      std::cout << _car->getAbsoluteAngle() << std::endl; */
-  if (_car->getStop() == false)
-    _car.get()->move();
+  _car.get()->move();
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
