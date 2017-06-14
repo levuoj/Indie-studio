@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun  8 02:24:54 2017 jouvel
+// Last update Tue Jun 13 18:10:36 2017 jouvel
 //
 
 #include <iostream>
@@ -32,10 +32,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   std::default_random_engine generator(rd());
   std::uniform_int_distribution<int> distribution(0,4);
 
-  _alternative = false;
-  if (distribution(generator) == 0)
-    _alternative = true;
-
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
 				    32);
@@ -44,23 +40,15 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   //_sceneManager->addExternalMeshLoader(new IrrAssimpImport(_sceneManager));
   _device->getCursorControl()->setVisible(false);
   _guienv	= _device->getGUIEnvironment();
-  _engine	= irrklang::createIrrKlangDevice();
-  if (!_engine)
-    throw Error("irrklang can't be launched");
-
 
   _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
 		     irr::core::vector3df(5109, 872, 4747));
-  // _camera.initCamera(_sceneManager,
-  //		     irr::core::vector3df(5035, 806, 4877),
-  //		     irr::core::vector3df(5066, 808, 4824));
+
   this->loadIntro();
-  if (_alternative)
-    _engine->play2D("assets/music/cantina-band-star-wars-cover-melodica.ogg", true);
+  if (distribution(generator) == 0)
+  _sounds.playMusic("assets/music/cantina-band-star-wars-cover-melodica.ogg");
   else
-    _engine->play2D("assets/music/star-wars-cantina-song.ogg", true);
-  if (!_engine)
-    throw (Error("Music asset not found"));
+    _sounds.playMusic("assets/music/star-wars-cantina-song.ogg");
   this->initMainMenu();
   this->skyDome("assets/skydome.jpg");
   this->ground();
@@ -70,7 +58,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
 Graphic::~Graphic()
 {
-  _engine->drop();
   _device->drop();
 }
 
@@ -495,16 +482,10 @@ void		Graphic::setCar(Element::EType type,
 				irr::f32 y,
 				irr::f32 z)
 {
-  if (_alternative)
-    pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("assets/fish/fish.obj"), 0, -1,
-							 irr::core::vector3df(x, y + 10, z),
-							 irr::core::vector3df(0.f, 90.f, 0.f),
-							 irr::core::vector3df(3.f, 3.f, 3.f));
-  else
-    pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
-							 0, -1, irr::core::vector3df(x, y, z),
-							 irr::core::vector3df(0.f, 270.f, 0.f),
-							 irr::core::vector3df(0.01f, 0.01f, 0.01f));
+  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
+						       0, -1, irr::core::vector3df(x, y, z),
+						       irr::core::vector3df(0.f, 270.f, 0.f),
+						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
   if (!pods[type])
     throw (Error("Pod mesh not found"));
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -593,12 +574,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 
   if (first == true)
 	{
-	  _engine->stopAllSounds();
 	  displayChrono(true);
-	  if (_alternative)
-	    _engine->play2D("assets/music/fates_mlg.ogg", true);
-	  else
-	    _engine->play2D("assets/music/duel-of-the-fates.ogg", true);
+	  _sounds.playMusic("assets/music/duel-of-the-fates.ogg");
 	}
       else
 	displayChrono(false);

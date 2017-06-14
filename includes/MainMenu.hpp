@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 12:24:22 2017 Pashervz
-// Last update Sat Jun  3 19:29:55 2017 Pashervz
+// Last update Tue Jun 13 14:54:20 2017 jouvel
 //
 
 #pragma once
@@ -14,7 +14,6 @@
 
 class MainMenu : public AMenu
 {
-  irrklang::ISoundEngine				*_engine;
   std::unordered_map<std::wstring, DType>                _corresMap =
     {
       {L"main Menu", MAIN_MENU},

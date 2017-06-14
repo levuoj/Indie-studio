@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Wed Jun  7 20:46:32 2017 jouvel
+// Last update Tue Jun 13 14:31:07 2017 jouvel
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -18,6 +18,7 @@
 #include "Utils.hpp"
 #include "GButton.hpp"
 #include "Camera.hpp"
+#include "Music.hpp"
 
 class						Graphic : public AObserver
 {
@@ -30,10 +31,9 @@ private:
   irr::scene::ISceneManager			*_sceneManager;
   irr::gui::IGUIEnvironment			*_guienv;
   Gcamera					_camera;
-  irrklang::ISoundEngine			*_engine;
   double					_time;
   irr::gui::IGUIStaticText			*_text;
-  bool						_alternative;
+  Music						_sounds;
 
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
