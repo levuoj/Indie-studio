@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun 15 21:42:35 2017 Pashervz
+// Last update Thu Jun 15 22:56:55 2017 Pashervz
 //
 
 #include <iostream>
@@ -42,13 +42,13 @@ Core::Core()
 void			Core::initBindings()
 {
   this->_bindings.push_back({irr::KEY_KEY_Z, irr::KEY_KEY_S,
-	irr::KEY_KEY_Q, irr::KEY_KEY_D, irr::KEY_LSHIFT});
+	irr::KEY_KEY_Q, irr::KEY_KEY_D});
   this->_bindings.push_back({irr::KEY_KEY_Y, irr::KEY_KEY_H,
-	irr::KEY_KEY_G, irr::KEY_KEY_J, irr::KEY_SPACE});
+	irr::KEY_KEY_G, irr::KEY_KEY_J});
   this->_bindings.push_back({irr::KEY_KEY_O, irr::KEY_KEY_L,
-	irr::KEY_KEY_K, irr::KEY_KEY_M, irr::KEY_LMENU});
+	irr::KEY_KEY_K, irr::KEY_KEY_M});
   this->_bindings.push_back({irr::KEY_UP, irr::KEY_DOWN,
-	irr::KEY_LEFT, irr::KEY_RIGHT, irr::KEY_LCONTROL});
+	irr::KEY_LEFT, irr::KEY_RIGHT});
 }
 
 int			Core::launch()

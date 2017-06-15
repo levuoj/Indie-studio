@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 22:35:31 2017 Pashervz
+// Last update Thu Jun 15 23:20:09 2017 Pashervz
 //
 
 #include <sstream>
@@ -224,20 +224,23 @@ void						Graphic::initOptMenu()
 					   irr::core::vector3df(4940, 855, 4820),
 					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				     L"bindings", 0,
-				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(4985, 822.5f, 4806),
-				     -1, color, color);
+					   L"bindings", 0,
+					   irr::core::dimension2d<irr::f32>
+					   (initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4985, 822.5f, 4806),
+					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				     L"music", 0,
-				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(4985, 805, 4806),
-				     -1, color, color);
+					   L"music", 0,
+					   irr::core::dimension2d<irr::f32>
+					   (initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4985, 805, 4806),
+					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				     L"audio", 0,
-				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(4985, 785, 4806),
-				     -1, color, color);
+					   L"audio", 0,
+					   irr::core::dimension2d<irr::f32>
+					   (initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4985, 785, 4806),
+					   -1, color, color);
 }
 
 void		Graphic::initBindings()
@@ -254,20 +257,20 @@ void		Graphic::initBindings()
   initTextDim.push_back(10.f);
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"z",
+							    L"",
 							    color)));
   initPos[0] = 4900;
   initPos[2] = 4880;
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"q",
+							    L"",
 							    color)));
   initPos[0] = 4970;
   initPos[1] = 1004;
   initPos[2] = 4810;
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"s",
+							    L"",
 							    color)));
 
   initPos[0] = 4900;
@@ -275,16 +278,8 @@ void		Graphic::initBindings()
   initPos[2] = 4880;
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"d",
+							    L"",
 							    color)));
-  initPos[0] = 4940;
-  initPos[1] = 970;
-  initPos[2] = 4820;
-  _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-							    initTextDim,
-							    L"e",
-							    color)));
-
   for (auto it = _buttonB.begin() ; it != _buttonB.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
   initTextDim[0] = 25;
@@ -315,9 +310,11 @@ void		Graphic::initBindings()
 					   irr::core::vector3df(4940, 1005, 4864),
 					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"object", 0,
-					   irr::core::dimension2d<irr::f32>(50, 20),
-					   irr::core::vector3df(4940, 985, 4820),
+					   L"press enter to change and valid",
+					   0,
+					   irr::core::dimension2d<irr::f32>
+					   (140, 30),
+					   irr::core::vector3df(4940, 980, 4820),
 					   -1, color, color);
 }
 
@@ -680,12 +677,13 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 						    false));
       _textEndGame.push_back(_guienv->addStaticText(L"press esc to quit",
 						    irr::core::rect<irr::s32>
-						    (300, 800, 10000, 10000),
+						    (400, 800, 10000, 10000),
 						    false));
       _textEndGame[0]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
       _textEndGame[1]->setOverrideColor(irr::video::SColor(255, 255, 215, 0));
       _textEndGame[2]->setOverrideColor(irr::video::SColor(255, 192, 192, 192));
       _textEndGame[3]->setOverrideColor(irr::video::SColor(255, 205, 127, 50));
+      _textEndGame[4]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
       _finish = true;
     }
 }
