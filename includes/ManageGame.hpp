@@ -5,12 +5,13 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue Jun 13 18:28:43 2017 DaZe
+// Last update Thu Jun 15 10:36:45 2017 DaZe
 //
 
 #pragma once
 
 #include <vector>
+#include <algorithm>
 #include <string>
 #include <Keycodes.h>
 #include "ManageFile.hpp"
@@ -29,6 +30,9 @@ private:
   std::array<int, 6>		_finishLine;
   bool				_victory;
   short int			_nbFinish;
+  std::vector<double>		_ranking;
+  Chrono			_startChrono;
+  std::vector<double>		_endScore;
 
 public:
   ManageGame(int, const std::vector<std::vector<irr::EKEY_CODE>> &);
@@ -60,4 +64,7 @@ public:
   bool				checkChrono(const std::string &);
   bool				getStarted() const;
   void				makeSave(int);
+  void				makeRanking();
+  void				makeEndScore();
+  void				writeRanking();
 };

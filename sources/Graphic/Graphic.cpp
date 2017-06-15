@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 11:18:46 2017 Pashervz
+// Last update Thu Jun 15 11:47:15 2017 Pashervz
 //
 
 #include <sstream>
@@ -670,6 +670,7 @@ void			Graphic::openFile(std::vector<std::wstring> vec,
       ManageFile		manageFile(path);
       std::string		file;
 
+      std::cerr << "j'ouvre " << path << std::endl;
       file = manageFile.readFile();
 
       std::string		tmp;
