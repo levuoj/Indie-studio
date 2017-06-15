@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun 15 12:54:55 2017 DaZe
+// Last update Thu Jun 15 20:25:58 2017 Pierre Zawadil
 //
 
 #include <chrono>
@@ -127,7 +127,7 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
 
   if (receiver.keyDown(irr::KEY_ESCAPE) == true)
     return (PAUSE);
-  
+
   if (_victory == false)
     {
       if (_startChrono.getTime() >= 17.0 &&
@@ -194,19 +194,19 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
       type = Element::EType::ENDLINE;
       break;
     case '>':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TieBomber.b3d";
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TieDefender.b3d";
       type = Element::EType::POD2;
       break;
     case 's':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TieInterceptor.b3d";
       type = Element::EType::POD3;
       break;
     case 'g':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TiePhantom.b3d";
       type = Element::EType::POD4;
       break;
     case '-':
@@ -323,9 +323,9 @@ void				ManageGame::updateMap()
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
 	}
-      
+
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-      
+
       if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
 	  Element::EType::ROAD)
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
@@ -346,7 +346,7 @@ void				ManageGame::updateMap()
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
 	}
-      
+
       if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
 	  Element::EType::ROAD)
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
@@ -622,7 +622,7 @@ void				ManageGame::makeSave(int number)
   str += "\n";
 
   std::ofstream			stream;
-  
+
   stream.open("./Saves/Save" + std::to_string(number) + ".save");
   stream << str;
   stream.close();
@@ -645,7 +645,7 @@ void				ManageGame::writeRanking()
       for (int idx = 0; idx < 3; ++idx)
 	toWrite += std::to_string(_ranking.at(idx)) + "\n";
     }
-  
+
   stream.open("Saves/leaderboard");
   stream << toWrite;
   stream.close();
@@ -676,10 +676,10 @@ void				ManageGame::makeEndScore()
   std::ofstream		stream;
 
   std::sort(_endScore.begin(), _endScore.end(), std::less<double>());
-  
+
   for (int idx = 0; idx < 3; ++idx)
     toWrite += std::to_string(_endScore.at(idx)) + "\n";
-  
+
   stream.open("Saves/endgame");
   stream << toWrite;
   stream.close();

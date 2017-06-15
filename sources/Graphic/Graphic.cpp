@@ -48,20 +48,20 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
   skin->setFont(font);
   skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
-  
+
   _meshAsteroid = _sceneManager->getMesh("assets/asteroid/asteroid.obj");
-  
+
   if (!_engine)
     throw Error("irrklang can't be launched");
 
 
    _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
-  		     irr::core::vector3df(5109, 872, 4747));
+		     irr::core::vector3df(5109, 872, 4747));
   // _camera.initCamera(_sceneManager,
   //		     irr::core::vector3df(5035, 806, 4877),
   //		     irr::core::vector3df(5066, 808, 4824));
   // _camera.initCamera(_sceneManager, irr::core::vector3df(5033.f, 838.f, 5126.f),
-  // 		     irr::core::vector3df(5033.f, 770.f, 5172.f));
+  //		     irr::core::vector3df(5033.f, 770.f, 5172.f));
   this->loadIntro();
   if (distribution(generator) == 0)
   _sounds.playMusic("assets/music/cantina-band-star-wars-cover-melodica.ogg");
@@ -408,17 +408,17 @@ void						Graphic::initPauseMenu()
   initTextDim.push_back(70);
   initTextDim.push_back(16);
   _buttonPause.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-  							      initTextDim,
-  							      L"",
-  							      color)));
-  
+							      initTextDim,
+							      L"",
+							      color)));
+
   initPos[0] = 5085;
   initPos[1] = 785;
   initPos[2] = 5195;
   _buttonPause.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-  							      initTextDim,
-  							      L"",
-  							      color)));
+							      initTextDim,
+							      L"",
+							      color)));
   initPos[0] = 4965;
   initPos[1] = 750;
   initPos[2] = 5155;
@@ -427,35 +427,35 @@ void						Graphic::initPauseMenu()
   _buttonPause.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							      initTextDim,
 							      L"",
-   							      color)));
+							      color)));
   initPos[0] = 5032;
   initPos[1] = 750;
   initPos[2] = 5155;
   _buttonPause.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-  							      initTextDim,
-  							      L"",
-  							      color)));
+							      initTextDim,
+							      L"",
+							      color)));
   initPos[0] = 5095;
   initPos[1] = 750;
   initPos[2] = 5155;
   _buttonPause.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-  							      initTextDim,
-  							      L"",
-  							      color)));
+							      initTextDim,
+							      L"",
+							      color)));
   for (auto it = _buttonPause.begin() ; it != _buttonPause.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
   _pauseText.push_back(_sceneManager->addBillboardTextSceneNode
-  		       (_guienv->getFont("assets/font/myfont.xml"),
-  			L"", 0,
-  			irr::core::dimension2d<irr::f32>(30, 10),
-  			irr::core::vector3df(5032, 818, 5170),
-  			-1, color, color));
+		       (_guienv->getFont("assets/font/myfont.xml"),
+			L"", 0,
+			irr::core::dimension2d<irr::f32>(30, 10),
+			irr::core::vector3df(5032, 818, 5170),
+			-1, color, color));
   _pauseText.push_back(_sceneManager->addBillboardTextSceneNode
-  		       (_guienv->getFont("assets/font/myfont.xml"),
-  			L"", 0,
-  			irr::core::dimension2d<irr::f32>(70, 20),
-  			irr::core::vector3df(5032, 775, 5170),
-  			-1, color, color));  
+		       (_guienv->getFont("assets/font/myfont.xml"),
+			L"", 0,
+			irr::core::dimension2d<irr::f32>(70, 20),
+			irr::core::vector3df(5032, 775, 5170),
+			-1, color, color));
 }
 
 void			Graphic::clearPauseMenu()
@@ -493,7 +493,7 @@ void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
   irr::video::SColor	gold(255, 255, 215, 0);
   irr::video::SColor	silver(255, 192, 192, 192);
   irr::video::SColor	bronze(255, 205, 127, 50);
-  
+
   _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
 		     irr::core::vector3df(5132, 802, 4904));
   if (_uniqueD == false)
@@ -505,25 +505,25 @@ void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
 			    irr::core::vector3df(5065, 824, 4885),
 			    -1, title, title));
       _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
-      			   (_guienv->getFont("assets/font/myfont.xml"),
-      			    (L"1st Place : " + _leaderboard[0]).c_str(), 0,
-      			    irr::core::dimension2d<irr::f32>(40, 10),
-      			    irr::core::vector3df(5065, 812, 4885),
-      			    -1, gold, gold));
-      
+			   (_guienv->getFont("assets/font/myfont.xml"),
+			    (L"1st Place : " + _leaderboard[0]).c_str(), 0,
+			    irr::core::dimension2d<irr::f32>(40, 10),
+			    irr::core::vector3df(5065, 812, 4885),
+			    -1, gold, gold));
+
       _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
-      			   (_guienv->getFont("assets/font/myfont.xml"),
-      			    (L"2nd Place : " + _leaderboard[1]).c_str(), 0,
-      			    irr::core::dimension2d<irr::f32>(40, 10),
-      			    irr::core::vector3df(5065, 800, 4885),
-      			    -1, silver, silver));
-      
+			   (_guienv->getFont("assets/font/myfont.xml"),
+			    (L"2nd Place : " + _leaderboard[1]).c_str(), 0,
+			    irr::core::dimension2d<irr::f32>(40, 10),
+			    irr::core::vector3df(5065, 800, 4885),
+			    -1, silver, silver));
+
       _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
-      			   (_guienv->getFont("assets/font/myfont.xml"),
-      			    (L"3rd Place : " + _leaderboard[2]).c_str(), 0,
-      			    irr::core::dimension2d<irr::f32>(40, 10),
-      			    irr::core::vector3df(5065, 788, 4885),
-      			    -1, bronze, bronze));
+			   (_guienv->getFont("assets/font/myfont.xml"),
+			    (L"3rd Place : " + _leaderboard[2]).c_str(), 0,
+			    irr::core::dimension2d<irr::f32>(40, 10),
+			    irr::core::vector3df(5065, 788, 4885),
+			    -1, bronze, bronze));
       _uniqueD = true;
     }
 }
@@ -531,7 +531,7 @@ void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
 void			Graphic::displayPause(std::vector<std::shared_ptr<Element>> const& map)
 {
   int			idx = 0;
-  
+
   _initPause = false;
   _pauseText[0]->setText(L"pause");
   _pauseText[1]->setText(L"save and exit");
@@ -557,7 +557,7 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
   int			idx = 0;
 
   _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
-  		     irr::core::vector3df(5066, 808, 4824));
+		     irr::core::vector3df(5066, 808, 4824));
   clearPauseMenu();
   clearText();
   _uniqueD = false;
@@ -630,9 +630,9 @@ void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
 {
    int			idx = 0;
 
-   
+
   _camera.moveCamera(irr::core::vector3df(5035, 808, 4877),
-  		     irr::core::vector3df(5033, 808, 4919));
+		     irr::core::vector3df(5033, 808, 4919));
   _playText[0]->setText(L"load game");
   _playText[1]->setText(L"new game");
   _playText[2]->setText(L"number of players");
@@ -701,7 +701,7 @@ void			Graphic::openFile(std::vector<std::wstring> & vec,
 	  std::stod(tmp);
 
 	  std::wstring		score(tmp.begin(), tmp.end());
-	  
+
 	  vec.push_back(score);
 	  ++idx;
 	}
@@ -724,15 +724,15 @@ void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
 }
 
 void		Graphic::setCar(Element::EType type,
-				irr::io::path,
+				irr::io::path path,
 				irr::f32 x,
 				irr::f32 y,
 				irr::f32 z)
 {
-  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/TieInterceptor_Upload.blend.b3d"),
-						       0, -1, irr::core::vector3df(x + 6, y - 25, z - 4),
-						       irr::core::vector3df(0.f, 270.f, 0.f),
-						       irr::core::vector3df(100, 100, 100));
+  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh(path),
+						       0, -1, irr::core::vector3df(x + 6, y + 10, z - 4),
+						       irr::core::vector3df(0, 0, 0),
+						       irr::core::vector3df(18, 18, 18));
   if (!pods[type])
     throw (Error("Pod mesh not found"));
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -743,7 +743,6 @@ void		Graphic::setAsteroid(irr::io::path,
 				     irr::f32 y,
 				     irr::f32 z)
 {
-  std::cout << "coucou" << std::endl;
   (void) x;
   (void) y;
   (void) z;
@@ -752,9 +751,9 @@ void		Graphic::setAsteroid(irr::io::path,
 					    0, -1, irr::core::vector3df(x, y, z),
 					    irr::core::vector3df(0.f, 0.f, 0.f),
 					    irr::core::vector3df(2.f, 2.f, 2.f)
-					    
+
   );
-  
+
   asteroid->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   asteroid->setMaterialFlag(irr::video::EMF_BACK_FACE_CULLING, false);
   asteroid->setFrameLoop(0, 310);
@@ -774,8 +773,8 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
     case Element::EType::BLOCK :
       cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
       wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-                                             irr::core::vector3df(x, y + 10.f, z),
-                                             irr::core::vector3df(0.f, 0.f, 0.f));
+					     irr::core::vector3df(x, y + 10.f, z),
+					     irr::core::vector3df(0.f, 0.f, 0.f));
       wall->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
       wall->setMaterialFlag(irr::video::EMF_LIGHTING, false);
       wall->setMaterialType(irr::video::EMT_SOLID);
