@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Thu Jun 15 10:17:17 2017 Pashervz
-// Last update Thu Jun 15 11:11:27 2017 Pashervz
+// Last update Thu Jun 15 12:08:29 2017 Pashervz
 //
 
 #pragma once
@@ -19,6 +19,6 @@ public:
   {
     _type = ENDGAME;
   }
-  ~EndGame() {}
+  virtual ~EndGame() {}
   DType				transferKey(irr::EKEY_CODE);
 };

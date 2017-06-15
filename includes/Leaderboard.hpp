@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue Jun 13 12:05:24 2017 Pashervz
-// Last update Thu Jun 15 10:21:15 2017 Pashervz
+// Last update Thu Jun 15 12:08:47 2017 Pashervz
 //
 
 #pragma once
@@ -19,6 +19,6 @@ public:
   {
     _type = LEADERBOARD;
   }
-  ~Leaderboard() {}
+  virtual ~Leaderboard() {}
   DType					transferKey(irr::EKEY_CODE);
 };

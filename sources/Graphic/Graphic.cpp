@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 11:47:15 2017 Pashervz
+// Last update Thu Jun 15 13:06:22 2017 Pashervz
 //
 
 #include <sstream>
@@ -488,26 +488,29 @@ void			Graphic::clearText()
 
 void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
 {
-  // _camera.MoveCamera();
-  _textLeaderboard.push_back(_guienv->addStaticText(L"ranking",
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
-  _textLeaderboard.push_back(_guienv->addStaticText((L"1st place : " +
-						     _leaderboard[0]).c_str(),
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
-  _textLeaderboard.push_back(_guienv->addStaticText((L"2nd place : " +
-						     _leaderboard[1]).c_str(),
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
-  _textLeaderboard.push_back(_guienv->addStaticText((L"3rd place : " +
-						     _leaderboard[2]).c_str(),
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
+  if (_uniqueD == false)
+    {
+      _textLeaderboard.push_back(_guienv->addStaticText(L"ranking",
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+      _textLeaderboard.push_back(_guienv->addStaticText((L"1st place : " +
+							 _leaderboard[0]).c_str(),
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+      _textLeaderboard.push_back(_guienv->addStaticText((L"2nd place : " +
+							 _leaderboard[1]).c_str(),
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+      _textLeaderboard.push_back(_guienv->addStaticText((L"3rd place : " +
+							 _leaderboard[2]).c_str(),
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+      _uniqueD = true;
+    }
 }
 
 void			Graphic::displayPause(std::vector<std::shared_ptr<Element>> const& map)
@@ -542,6 +545,8 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
   		     irr::core::vector3df(5066, 808, 4824));
   clearPauseMenu();
   clearText();
+  _uniqueD = false;
+  _finish = false;
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -641,6 +646,7 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
       this->initLeaderboard();
       _finish = true;
     }
+  _textLeaderboard.clear();
   _textLeaderboard.push_back(_guienv->addStaticText(L"results",
 						    irr::core::rect<irr::s32>
 						    (780, 30, 10000, 10000),
@@ -662,7 +668,7 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 						    false));
 }
 
-void			Graphic::openFile(std::vector<std::wstring> vec,
+void			Graphic::openFile(std::vector<std::wstring> & vec,
 					  std::string const & path)
 {
   try
@@ -670,7 +676,6 @@ void			Graphic::openFile(std::vector<std::wstring> vec,
       ManageFile		manageFile(path);
       std::string		file;
 
-      std::cerr << "j'ouvre " << path << std::endl;
       file = manageFile.readFile();
 
       std::string		tmp;
@@ -682,6 +687,8 @@ void			Graphic::openFile(std::vector<std::wstring> vec,
 	  std::stod(tmp);
 
 	  std::wstring		score(tmp.begin(), tmp.end());
+	  
+	  vec.push_back(score);
 	  ++idx;
 	}
     }

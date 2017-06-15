@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May 22 17:09:23 2017 Pashervz
-// Last update Tue Jun 13 15:29:11 2017 Pashervz
+// Last update Thu Jun 15 12:07:56 2017 Pashervz
 //
 
 #pragma once
@@ -82,7 +82,7 @@ private:
   
 public:
   BindingMenu(std::string const & player);
-  ~BindingMenu() {}
+  virtual ~BindingMenu() {}
 
   DType			transferKey(irr::EKEY_CODE);
   void			assignContent();

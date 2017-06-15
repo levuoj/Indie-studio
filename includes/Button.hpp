@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 14:43:05 2017 Pashervz
-// Last update Wed Jun  7 11:16:11 2017 Pashervz
+// Last update Thu Jun 15 12:08:09 2017 Pashervz
 //
 
 #pragma once
@@ -37,7 +37,7 @@ public:
 									       _content(content),
 									       _isSelected(false),
 									       _ButtonType(type) {}
-  ~Button() {}
+  virtual ~Button() {}
 
   std::wstring const&	getContent() const
   {

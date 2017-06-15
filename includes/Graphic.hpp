@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Thu Jun 15 11:09:48 2017 Pashervz
+// Last update Thu Jun 15 13:06:24 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -40,6 +40,7 @@ private:
   bool							_initPause = true;
   bool							_isStarted;
   bool							_finish = false;
+  bool							_uniqueD = false;
   irr::scene::IAnimatedMesh				*_meshAsteroid;
 
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
@@ -86,7 +87,7 @@ private:
   void				clearPauseMenu();
   void				clearPlayMenu();
   void				clearText();
-  void				openFile(std::vector<std::wstring>, std::string const &);
+  void				openFile(std::vector<std::wstring> &, std::string const &);
   
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);

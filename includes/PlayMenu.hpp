@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Sat Jun  3 15:51:03 2017 Pashervz
-// Last update Wed Jun  7 11:30:52 2017 Pashervz
+// Last update Thu Jun 15 12:09:49 2017 Pashervz
 //
 
 #pragma once
@@ -22,7 +22,7 @@ private:
   
 public:
   PlayMenu();
-  ~PlayMenu() {}
+  virtual ~PlayMenu() {}
   void			openSave(std::string const &);
   bool			getSaveName(std::string const &);
   DType			select();
