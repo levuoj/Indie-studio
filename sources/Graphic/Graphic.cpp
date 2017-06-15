@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 19:53:10 2017 Pashervz
+// Last update Thu Jun 15 22:36:00 2017 Pierre Zawadil
 //
 
 #include <sstream>
@@ -33,7 +33,7 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   std::random_device rd;
   std::default_random_engine generator(rd());
   std::uniform_int_distribution<int> distribution(0,4);
-  
+
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
 				    32);
@@ -92,7 +92,7 @@ void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, D
   _driver->beginScene(true, true,
 		      irr::video::SColor(0, 255, 255, 255));
   _sceneManager->drawAll();
-    _device->getGUIEnvironment()->drawAll();
+  _device->getGUIEnvironment()->drawAll();
   _guienv->drawAll();
   _driver->endScene();
 }
@@ -872,7 +872,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  newPos.Z = z + _squareSize * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[type]->setPosition(newPos);
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
-	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
+	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f + 180.f), 0));
 	}
       x -= 10.f;
       ++i;
