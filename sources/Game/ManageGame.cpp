@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Wed Jun 14 16:46:31 2017 DaZe
+// Last update Thu Jun 15 10:44:13 2017 Lebrun Kilian
 //
 
 #include <chrono>
@@ -190,6 +190,10 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
       path = "o";
       type = Element::EType::ENDLINE;
       break;
+    case 'P':
+      path = "P";
+      type = Element::EType::POWERUP;
+      break;
     case '>':
       path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
       type = Element::EType::POD1;
@@ -240,6 +244,10 @@ GameElement			*ManageGame::ElementFromChar(const char c)
     case 'o':
       path = "o";
       type = Element::EType::ENDLINE;
+      break;
+    case 'P':
+      path = "P";
+      type = Element::EType::POWERUP;
       break;
     case '-':
       path = "-";
@@ -363,6 +371,9 @@ void				ManageGame::printMap()
 	  break;
 	case Element::EType::ENDLINE:
 	  std::cout << "o";
+	  break;
+	case Element::EType::POWERUP:
+	  std::cout << "P";
 	  break;
 	case Element::EType::POD1:
 	  std::cout << ">";
