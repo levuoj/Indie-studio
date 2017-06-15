@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun 15 11:44:13 2017 Pashervz
+// Last update Thu Jun 15 16:50:22 2017 Pashervz
 //
 
 #include <iostream>
@@ -92,7 +92,7 @@ int			Core::launch()
 			{
 			  this->_bindings[std::atoi((static_cast<BindingMenu *>
 						     (this->_menu[BINDINGS].get())
-						     ->getPlayer()).c_str() - 1)] =
+						     ->getPlayer()).c_str()) - 1] =
 			    static_cast<BindingMenu *>(this->_menu[BINDINGS].get())
 			    ->getBindings();
 			}

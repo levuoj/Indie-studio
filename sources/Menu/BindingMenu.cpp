@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Tue Jun 13 14:41:30 2017 Pierre Zawadil
+// Last update Thu Jun 15 16:36:59 2017 Pashervz
 //
 
 #include <sstream>
@@ -86,6 +86,7 @@ bool			BindingMenu::stringsToKey()
 	{
 	  if (it == it2.first)
 	    {
+	      std::wcout << "KEY = " << it2.first << std::endl;
 	      this->_bindings.push_back(it2.second);
 	    }
 	}
@@ -294,6 +295,7 @@ void				BindingMenu::saveChanges()
 {
   std::ofstream			stream;
 
+  this->stringsToKey();
   stream.open("./Config/" + this->_player + ".conf");
   stream << this->writeChanges();
   stream.close();

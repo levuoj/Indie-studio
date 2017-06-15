@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 13:06:22 2017 Pashervz
+// Last update Thu Jun 15 19:53:10 2017 Pashervz
 //
 
 #include <sstream>
@@ -161,6 +161,7 @@ void						Graphic::initMainMenu()
   this->initBindings();
   this->initPlayMenu();
   this->initLeaderboard();
+  clearPlayMenu();
 }
 
 void						Graphic::initLeaderboard()
@@ -482,33 +483,47 @@ void			Graphic::clearText()
 {
   for (auto it : _textEndGame)
     it->setText(L"");
-  for (auto it2 : _textLeaderboard)
+  for (auto it2 : _leaderboardText)
     it2->setText(L"");
 }
 
 void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
 {
+  irr::video::SColor	title(255, 255, 255, 0);
+  irr::video::SColor	gold(255, 255, 215, 0);
+  irr::video::SColor	silver(255, 192, 192, 192);
+  irr::video::SColor	bronze(255, 205, 127, 50);
+  
+  _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
+		     irr::core::vector3df(5132, 802, 4904));
   if (_uniqueD == false)
     {
-      _textLeaderboard.push_back(_guienv->addStaticText(L"ranking",
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
-      _textLeaderboard.push_back(_guienv->addStaticText((L"1st place : " +
-							 _leaderboard[0]).c_str(),
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
-      _textLeaderboard.push_back(_guienv->addStaticText((L"2nd place : " +
-							 _leaderboard[1]).c_str(),
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
-      _textLeaderboard.push_back(_guienv->addStaticText((L"3rd place : " +
-							 _leaderboard[2]).c_str(),
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
+      _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
+			   (_guienv->getFont("assets/font/myfont.xml"),
+			    L"Leaderboard", 0,
+			    irr::core::dimension2d<irr::f32>(30, 10),
+			    irr::core::vector3df(5065, 824, 4885),
+			    -1, title, title));
+      _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
+      			   (_guienv->getFont("assets/font/myfont.xml"),
+      			    (L"1st Place : " + _leaderboard[0]).c_str(), 0,
+      			    irr::core::dimension2d<irr::f32>(40, 10),
+      			    irr::core::vector3df(5065, 812, 4885),
+      			    -1, gold, gold));
+      
+      _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
+      			   (_guienv->getFont("assets/font/myfont.xml"),
+      			    (L"2nd Place : " + _leaderboard[1]).c_str(), 0,
+      			    irr::core::dimension2d<irr::f32>(40, 10),
+      			    irr::core::vector3df(5065, 800, 4885),
+      			    -1, silver, silver));
+      
+      _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
+      			   (_guienv->getFont("assets/font/myfont.xml"),
+      			    (L"3rd Place : " + _leaderboard[2]).c_str(), 0,
+      			    irr::core::dimension2d<irr::f32>(40, 10),
+      			    irr::core::vector3df(5065, 788, 4885),
+      			    -1, bronze, bronze));
       _uniqueD = true;
     }
 }
@@ -644,28 +659,26 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
     {
       openFile(_endgame, "./Saves/endgame");
       this->initLeaderboard();
-      _finish = true;
-    }
-  _textLeaderboard.clear();
-  _textLeaderboard.push_back(_guienv->addStaticText(L"results",
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
-  _textLeaderboard.push_back(_guienv->addStaticText((L"1st place : " +
+      _textEndGame.push_back(_guienv->addStaticText(L"results",
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+      _textEndGame.push_back(_guienv->addStaticText((L"1st place : " +
 						     _endgame[0]).c_str(),
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
-  _textLeaderboard.push_back(_guienv->addStaticText((L"2nd place : " +
-						     _endgame[1]).c_str(),
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
-  _textLeaderboard.push_back(_guienv->addStaticText((L"3rd place : " +
-						     _endgame[2]).c_str(),
-						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
-						    false));
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+      _textEndGame.push_back(_guienv->addStaticText((L"2nd place : " +
+							 _endgame[1]).c_str(),
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+      _textEndGame.push_back(_guienv->addStaticText((L"3rd place : " +
+							 _endgame[2]).c_str(),
+							irr::core::rect<irr::s32>
+							(780, 30, 10000, 10000),
+							false));
+    }
 }
 
 void			Graphic::openFile(std::vector<std::wstring> & vec,
@@ -715,10 +728,10 @@ void		Graphic::setCar(Element::EType type,
 				irr::f32 y,
 				irr::f32 z)
 {
-  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
+  pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/TieInterceptor_Upload.blend.b3d"),
 						       0, -1, irr::core::vector3df(x + 6, y - 25, z - 4),
 						       irr::core::vector3df(0.f, 270.f, 0.f),
-						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
+						       irr::core::vector3df(100, 100, 100));
   if (!pods[type])
     throw (Error("Pod mesh not found"));
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
@@ -750,37 +763,49 @@ void		Graphic::setAsteroid(irr::io::path,
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 				 irr::f32 x, irr::f32 y, irr::f32 z)
 {
-  irr::scene::IMeshSceneNode        *cube;
+  irr::scene::IMeshSceneNode	*cube =
+    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+				    irr::core::vector3df(x, y, z),
+				    irr::core::vector3df(0.f, 0.f, 0.f));
+  irr::scene::IMeshSceneNode	*wall;
   switch (elem->getType())
     {
     case Element::EType::BLOCK :
-      this->setAsteroid(elem->getPath(), x, y, z);
+      cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
+      wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+                                             irr::core::vector3df(x, y + 10.f, z),
+                                             irr::core::vector3df(0.f, 0.f, 0.f));
+      wall->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
+      wall->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+      wall->setMaterialType(irr::video::EMT_SOLID);
       break ;
     case Element::EType::ROAD :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
       break ;
     case Element::EType::ENDLINE :
-      cube = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-					     irr::core::vector3df(x, y, z),
-					     irr::core::vector3df(0.f, 0.f, 0.f));
       cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
-      cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-      cube->setMaterialType(irr::video::EMT_SOLID);
       break ;
     case Element::EType::POD1 :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD2 :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD3 :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD4 :
+      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     default :
       break ;
     }
+  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  cube->setMaterialType(irr::video::EMT_SOLID);
 }
 
 void		Graphic::displayChrono(bool first)

@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Thu Jun 15 13:06:24 2017 Pashervz
+// Last update Thu Jun 15 18:43:00 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -37,6 +37,7 @@ private:
   irr::gui::IGUIStaticText				*_text;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_pauseText;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_playText;
+  std::vector<irr::scene::IBillboardTextSceneNode *>	_leaderboardText;
   bool							_initPause = true;
   bool							_isStarted;
   bool							_finish = false;
@@ -51,7 +52,6 @@ private:
   
   std::vector<std::wstring>			_leaderboard;
   std::vector<std::wstring>			_endgame;
-  std::vector<irr::gui::IGUIStaticText *>	_textLeaderboard;
   std::vector<irr::gui::IGUIStaticText *>	_textEndGame;
   
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
