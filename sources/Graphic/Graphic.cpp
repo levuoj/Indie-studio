@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 19:53:10 2017 Pashervz
+// Last update Thu Jun 15 21:32:12 2017 Pashervz
 //
 
 #include <sstream>
@@ -660,24 +660,25 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
       openFile(_endgame, "./Saves/endgame");
       this->initLeaderboard();
       _textEndGame.push_back(_guienv->addStaticText(L"results",
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
       _textEndGame.push_back(_guienv->addStaticText((L"1st place : " +
 						     _endgame[0]).c_str(),
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
       _textEndGame.push_back(_guienv->addStaticText((L"2nd place : " +
-							 _endgame[1]).c_str(),
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
+						     _endgame[1]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
       _textEndGame.push_back(_guienv->addStaticText((L"3rd place : " +
-							 _endgame[2]).c_str(),
-							irr::core::rect<irr::s32>
-							(780, 30, 10000, 10000),
-							false));
+						     _endgame[2]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+      _finish = true;
     }
 }
 

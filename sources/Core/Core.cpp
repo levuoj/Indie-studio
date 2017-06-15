@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun 15 16:50:22 2017 Pashervz
+// Last update Thu Jun 15 21:42:35 2017 Pashervz
 //
 
 #include <iostream>
@@ -18,6 +18,7 @@
 #include "PlayMenu.hpp"
 #include "PauseMenu.hpp"
 #include "Leaderboard.hpp"
+#include "EndGame.hpp"
 
 Core::Core()
 {
@@ -34,6 +35,7 @@ Core::Core()
   this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
   this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu));
   this->_menu.emplace(PAUSE, std::shared_ptr<AMenu>(new PauseMenu));
+  this->_menu.emplace(ENDGAME, std::shared_ptr<AMenu>(new EndGame));
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
