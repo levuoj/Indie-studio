@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Wed Jun 14 15:01:43 2017 DaZe
+// Last update Thu Jun 15 10:36:45 2017 DaZe
 //
 
 #pragma once
@@ -31,6 +31,8 @@ private:
   bool				_victory;
   short int			_nbFinish;
   std::vector<double>		_ranking;
+  Chrono			_startChrono;
+  std::vector<double>		_endScore;
 
 public:
   ManageGame(int, const std::vector<std::vector<irr::EKEY_CODE>> &);
@@ -63,5 +65,6 @@ public:
   bool				getStarted() const;
   void				makeSave(int);
   void				makeRanking();
+  void				makeEndScore();
   void				writeRanking();
 };

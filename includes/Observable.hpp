@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Thu Jun  8 09:24:43 2017 DaZe
+// Last update Thu Jun 15 10:36:02 2017 DaZe
 //
 
 #ifndef OBSERVABLE_HPP_
@@ -27,6 +27,7 @@ protected:
   DType						_type;
   Chrono					_chrono;
   bool						_isStarted;
+  
 public:
   Observable();
   Observable(DType type) : _type(type) {}
