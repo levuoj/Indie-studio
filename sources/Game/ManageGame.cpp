@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun 15 11:41:07 2017 Pashervz
+// Last update Thu Jun 15 12:54:55 2017 DaZe
 //
 
 #include <chrono>
@@ -319,13 +319,12 @@ void				ManageGame::updateMap()
 
       if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
 	{
+	  std::cout << "JE MAKE CHRONIO AI" << std::endl;
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
 	}
       
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-      
-
       
       if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
 	  Element::EType::ROAD)
@@ -336,10 +335,13 @@ void				ManageGame::updateMap()
   for (auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
+
       if (it.getCar()->getStop() == false)
-	  checkVictory(it.getCar());
-      else if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
+	checkVictory(it.getCar());
+
+      if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
 	{
+	  std::cout << "JE MAKE CHRONIO PLAYER" << std::endl;
 	  _ranking.push_back(_chrono.getTime());
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
@@ -350,7 +352,7 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  printMap();
+  //  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const

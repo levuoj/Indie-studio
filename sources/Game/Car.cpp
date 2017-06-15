@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed Jun 14 15:13:38 2017 DaZe
+// Last update Thu Jun 15 12:09:57 2017 DaZe
 //
 
 #include <cmath>
@@ -55,7 +55,6 @@ void            Car::slowDown()
 
 void            Car::move()
 {
-  std::cout << "JE MOVE" << std::endl;
   if (this->_speed >= 0)
     {
       if (checkArrounding() == false)
@@ -102,7 +101,6 @@ void            Car::move()
 
 void            Car::turnLeft()
 {
-  std::cout << "ANGLE = " << _angle << std::endl;
    if (this->_angle >= 360)
     this->_angle = 0.0f;
   this->_angle += 2.5f;
@@ -113,7 +111,6 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
-  std::cout << "ANGLE = " << _angle << std::endl;
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 2.5f;
