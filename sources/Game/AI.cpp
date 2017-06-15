@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed Jun 14 09:30:52 2017 DaZe
+// Last update Thu Jun 15 12:10:42 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
@@ -214,11 +214,11 @@ void			AI::chooseAction()
   
   if (_car->getType() == Element::EType::POD4)
     {
-      if (_car->getSpeed() <= Car::_maxSpeed - 60)
+      if (_car->getSpeed() <= _car->getMaxSpeed() - 60)
 	_car->accelerate();
     }
   else
-    if (_car->getSpeed() <= Car::_maxSpeed)
+    if (_car->getSpeed() <= _car->getMaxSpeed())
       _car->accelerate();
   switch (_idx)
     {
