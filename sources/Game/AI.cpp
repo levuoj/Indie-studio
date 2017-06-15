@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 // 
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed Jun 14 09:30:52 2017 DaZe
+// Last update Thu Jun 15 12:07:02 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -210,7 +210,6 @@ void			AI::chooseAction()
   if (it != _functors.end())
   it->second(); */
 
-  std::cout << "JE SUIS UNE AI JE BOUGE" << std::endl;
   
   if (_car->getType() == Element::EType::POD4)
     {
