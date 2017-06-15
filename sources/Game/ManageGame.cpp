@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun 15 14:38:41 2017 Lebrun Kilian
+// Last update Thu Jun 15 16:59:37 2017 jouvel
 //
 
 #include <chrono>
@@ -122,12 +122,9 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
 {
   _startChrono.incTime();
 
-  int a;
-  std::array<Element::EType, 8>   arr;
-
   if (receiver.keyDown(irr::KEY_ESCAPE) == true)
     return (PAUSE);
-  
+
   if (_victory == false)
     {
       if (_startChrono.getTime() >= 17.0 &&
@@ -135,23 +132,26 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
 	  && _isStarted == false)
 	{
 	  _isStarted = true,
-	  _startChrono.setTime(0.0);
+	    _startChrono.setTime(0.0);
 	  _type = DType::GAME;
 	}
       else if (_isStarted == true)
 	{
 	  _chrono.incTime();
+
+	  int				pos;
+	  std::array<Element::EType, 8>	arr;
+
+	  for (auto &it : _AIs)
+	    {
+	      pos = Convert::coordToPos<int>(it.getPosMap());
+	      arr = this->arrounding(pos);
+	      it.setArroundingCar(arr);
+	    }
 	  for (auto &it : _players)
 	    {
-	      a = Convert::coordToPos<int>(it.getPosMap());
-	      arr[0] = this->_map[a - 61]->getType();
-	      arr[1] = this->_map[a - 60]->getType();
-	      arr[2] = this->_map[a - 59]->getType();
-	      arr[3] = this->_map[a + 1]->getType();
-	      arr[4] = this->_map[a + 61]->getType();
-	      arr[5] = this->_map[a + 60]->getType();
-	      arr[6] = this->_map[a + 59]->getType();
-	      arr[7] = this->_map[a - 1]->getType();
+	      pos = Convert::coordToPos<int>(it.getPosMap());
+	      arr = this->arrounding(pos);
 	      it.setArroundingCar(arr);
 	      if (it.getCar()->getStop() == false)
 		it.driver(receiver);
@@ -167,6 +167,21 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
       return (DType::ENDGAME);
     }
   return (_type);
+}
+
+const std::array<Element::EType, 8>	ManageGame::arrounding(int pos)
+{
+  std::array<Element::EType, 8>		arr;
+
+  arr[0] = this->_map[pos- 61]->getType();
+  arr[1] = this->_map[pos - 60]->getType();
+  arr[2] = this->_map[pos - 59]->getType();
+  arr[3] = this->_map[pos + 1]->getType();
+  arr[4] = this->_map[pos + 61]->getType();
+  arr[5] = this->_map[pos + 60]->getType();
+  arr[6] = this->_map[pos + 59]->getType();
+  arr[7] = this->_map[pos - 1]->getType();
+  return (arr);
 }
 
 GameElement			*ManageGame::ElementFromCharCar(const char c)
@@ -322,7 +337,7 @@ void				ManageGame::updateMap()
     {
       if (it.getCar()->getStop() == false)
 	it.chooseAction();
-      
+
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
 
       if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
@@ -330,9 +345,9 @@ void				ManageGame::updateMap()
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
 	}
-      
+
       checkVictory(it.getCar());
-      
+
       if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
 	  Element::EType::ROAD)
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
@@ -350,7 +365,7 @@ void				ManageGame::updateMap()
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
 	}
-      
+
       if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
 	  Element::EType::ROAD)
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
@@ -629,7 +644,7 @@ void				ManageGame::makeSave(int number)
   str += "\n";
 
   std::ofstream			stream;
-  
+
   stream.open("./Saves/Save" + std::to_string(number) + ".save");
   stream << str;
   stream.close();
@@ -652,7 +667,7 @@ void				ManageGame::writeRanking()
       for (int idx = 0; idx < 3; ++idx)
 	toWrite += std::to_string(_ranking.at(idx)) + "\n";
     }
-  
+
   stream.open("Saves/leaderboard");
   stream << toWrite;
   stream.close();
@@ -683,10 +698,10 @@ void				ManageGame::makeEndScore()
   std::ofstream		stream;
 
   std::sort(_endScore.begin(), _endScore.end(), std::less<double>());
-  
+
   for (int idx = 0; idx < 3; ++idx)
     toWrite += std::to_string(_endScore.at(idx)) + "\n";
-  
+
   stream.open("Saves/endgame");
   stream << toWrite;
   stream.close();

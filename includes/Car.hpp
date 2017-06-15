@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Thu Jun 15 13:52:44 2017 Lebrun Kilian
+// Last update Thu Jun 15 18:14:10 2017 jouvel
 //
 
 #pragma once
@@ -21,6 +21,14 @@ class Car : public GameElement
 public:
   static const float		_fps;
   static const float		_pi;
+
+  enum	EState
+    {
+      FAST,
+      SLOW,
+      OIL,
+      NONE
+    };
 
   enum  EDirection
     {
@@ -50,7 +58,9 @@ private:
   float					_maxSpeed;
   float					_inertia;
   Chrono				_chrono;
-  
+  EState				_state;
+  float					_speedSave;
+
 public:
 
   Car() = default;

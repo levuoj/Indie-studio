@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Tue Jun 13 18:30:58 2017 DaZe
+// Last update Thu Jun 15 16:12:10 2017 jouvel
 //
 
 #include <iostream>
@@ -130,11 +130,11 @@ int			Core::launch()
 	      this->_toLoad = this->_game->transferKey(receiver);
 	      if (this->_toLoad == PAUSE)
 		this->_menu[PAUSE] = std::make_shared<PauseMenu>(this->_game.get());
-	      
+
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
-	  
+
 	  lag -= MS_PER_UPDATE;
 	  loaded = this->_toLoad;
 
