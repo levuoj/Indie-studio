@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon Apr 24 14:12:03 2017 Pashervz
-// Last update Tue Jun  6 15:08:00 2017 DaZe
+// Last update Thu Jun  8 09:24:43 2017 DaZe
 //
 
 #ifndef OBSERVABLE_HPP_
@@ -26,6 +26,7 @@ protected:
   std::vector<std::shared_ptr<Element>>		_map;
   DType						_type;
   Chrono					_chrono;
+  bool						_isStarted;
 public:
   Observable();
   Observable(DType type) : _type(type) {}
@@ -35,6 +36,7 @@ public:
   std::vector<std::shared_ptr<Element>> const&	getMap() const { return (_map); }
   DType						getDType() const { return (_type); }
   Chrono const &				getChrono() const { return (_chrono); }
+  bool						getStarted() const { return (_isStarted); }
 };
 
 #endif // OBSERVABLE_HPP_

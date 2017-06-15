@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Tue Jun 13 16:13:08 2017 Pashervz
+// Last update Tue Jun 13 18:30:58 2017 DaZe
 //
 
 #include <iostream>
@@ -56,7 +56,9 @@ int			Core::launch()
   irr::u32		then		= this->_graphic->getTime();
   irr::f32		lag		= 0.f;
   const irr::f32	MS_PER_UPDATE	= 16.f;
+
   this->_graphic->setEventReceiver(&receiver);
+  receiver.init();
   while (this->_graphic->running())
     {
       const irr::u32	now		= this->_graphic->getTime();
@@ -66,9 +68,11 @@ int			Core::launch()
 
       while (lag >= MS_PER_UPDATE)
 	{
+	  receiver.startEventProcess();
 	  if (loaded != GAME && loaded != PAUSE)
 	    {
 	      this->_toLoad = this->_menu[this->_toLoad]->transferKey(receiver.getKey());
+
 	      if (loaded != this->_toLoad && this->_toLoad != GAME)
 		{
 		  switch (this->_toLoad)
@@ -106,7 +110,7 @@ int			Core::launch()
 		      (new ManageGame(static_cast<PlayMenu *>
 				      (this->_menu[PLAY].get())->getSave(), _bindings));
 		  else
-		    this->_game = 
+		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
 				      (this->_menu[PLAY].get())->getNbPlayer(), _bindings));
@@ -123,16 +127,19 @@ int			Core::launch()
 	    }
 	  else
 	    {
-	      this->_toLoad = this->_game->transferKey(receiver.getKey());
+	      this->_toLoad = this->_game->transferKey(receiver);
 	      if (this->_toLoad == PAUSE)
 		this->_menu[PAUSE] = std::make_shared<PauseMenu>(this->_game.get());
+	      
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
+	  
 	  lag -= MS_PER_UPDATE;
-	  receiver.setKey(irr::KEY_OEM_8);
 	  loaded = this->_toLoad;
+
 	}
+
       if (this->_toLoad != GAME)
 	this->_menu[this->_toLoad]->notify();
       else

@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Tue Jun 13 15:41:29 2017 Pashervz
+// Last update Tue Jun 13 18:28:43 2017 DaZe
 //
 
 #pragma once
@@ -28,7 +28,8 @@ private:
   std::vector<Player>		_players;
   std::array<int, 6>		_finishLine;
   bool				_victory;
-  bool				_isStarted;
+  short int			_nbFinish;
+
 public:
   ManageGame(int, const std::vector<std::vector<irr::EKEY_CODE>> &);
   ManageGame(std::string const &, const std::vector<std::vector<irr::EKEY_CODE>> &);
@@ -37,13 +38,13 @@ public:
 
   void				initPlayerAndIa(int, int, int &, const Element::EType &);
   void				construct(int);
-  DType				transferKey(const irr::EKEY_CODE &);
+  DType				transferKey(EventReceiver const&);
   GameElement			*ElementFromChar(char);
   GameElement			*ElementFromCharCar(char);
   void				loadMap(std::string const &);
   void				updateMap();
   void				printMap();
-  void				checkVictory(std::shared_ptr<Car>);
+  void				checkVictory(std::shared_ptr<Car> const&);
   Chrono const&			getChrono() const;
   bool				loadSave(std::string const &);
   bool				loadFile(std::string const &);
@@ -57,5 +58,6 @@ public:
   bool				checkDir(const std::string &);
   bool				checkIdx(const std::string &);
   bool				checkChrono(const std::string &);
+  bool				getStarted() const;
   void				makeSave(int);
 };

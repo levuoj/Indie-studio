@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Wed Jun  7 15:10:08 2017 Lebrun Kilian
+// Last update Mon Jun 12 10:32:51 2017 DaZe
 //
 
 #pragma once
@@ -55,6 +55,8 @@ private:
   short int				_lap;
   bool					_isFinished;
   EDirection				_edir;
+  bool					_isStopped;
+  
 public:
 
   Car() = default;
@@ -73,6 +75,8 @@ public:
   void					setLap(const short int);
   void					setSpeed(const float);
   void					setFinished(bool);
+  void					setStop(const bool);
+  bool					getStop() const;
   bool					getFinished() const;
   float					getAbsoluteAngle() const;
   float					getAngle() const;

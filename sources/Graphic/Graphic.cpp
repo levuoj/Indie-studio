@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Wed Jun 14 13:33:16 2017 Pashervz
+// Last update Thu Jun 15 11:18:46 2017 Pashervz
 //
 
 #include <sstream>
@@ -44,11 +44,12 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _guienv	= _device->getGUIEnvironment();
   _engine	= irrklang::createIrrKlangDevice();
 
-  
   irr::gui::IGUISkin *skin = _guienv->getSkin();
   irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
   skin->setFont(font);
   skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
+  
+  _meshAsteroid = _sceneManager->getMesh("assets/asteroid/asteroid.obj");
   
   if (!_engine)
     throw Error("irrklang can't be launched");
@@ -164,33 +165,8 @@ void						Graphic::initMainMenu()
 
 void						Graphic::initLeaderboard()
 {
-  try
-    {
-      ManageFile				manageFile("./Config/leaderboard");
-      std::string				file;
-
-      file = manageFile.readFile();
-
-      std::string				tmp;
-      std::istringstream			iss(file);
-      int					idx = 0;
-      
-      while (std::getline(iss, tmp) && idx < 3)
-	{
-	  std::size_t				size;
-	  std::stod(tmp, &size);
-
-	  std::wstring				score(tmp.begin(), tmp.end());
-	  _leaderboard.push_back(score);
-	  ++idx;
-	}
-    }
-  catch (std::exception const &)
-    {
-      _leaderboard.clear();
-      for (int idx = 0; idx < 3; ++idx)
-	_leaderboard.push_back(L"no score");
-    }
+  this->_leaderboard.clear();
+  openFile(_leaderboard, "./Saves/leaderboard");
 }
 
 void						Graphic::initOptMenu()
@@ -502,6 +478,14 @@ void			Graphic::clearPlayMenu()
     }
 }
 
+void			Graphic::clearText()
+{
+  for (auto it : _textEndGame)
+    it->setText(L"");
+  for (auto it2 : _textLeaderboard)
+    it2->setText(L"");
+}
+
 void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
 {
   // _camera.MoveCamera();
@@ -548,13 +532,6 @@ void			Graphic::displayPause(std::vector<std::shared_ptr<Element>> const& map)
 	}
       ++idx;
     }
-					   -1, color, color);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"number of player :", 0,
-					   irr::core::dimension2d<irr::f32>(55, 15),
-					   irr::core::vector3df(4980, 780, 4940),
-					   -1, color, color);
-
 }
 
 void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map)
@@ -564,6 +541,7 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
   _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
   		     irr::core::vector3df(5066, 808, 4824));
   clearPauseMenu();
+  clearText();
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -655,6 +633,65 @@ void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
     }
 }
 
+void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
+{
+  if (_finish == false)
+    {
+      openFile(_endgame, "./Saves/endgame");
+      this->initLeaderboard();
+      _finish = true;
+    }
+  _textLeaderboard.push_back(_guienv->addStaticText(L"results",
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+  _textLeaderboard.push_back(_guienv->addStaticText((L"1st place : " +
+						     _endgame[0]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+  _textLeaderboard.push_back(_guienv->addStaticText((L"2nd place : " +
+						     _endgame[1]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+  _textLeaderboard.push_back(_guienv->addStaticText((L"3rd place : " +
+						     _endgame[2]).c_str(),
+						    irr::core::rect<irr::s32>
+						    (780, 30, 10000, 10000),
+						    false));
+}
+
+void			Graphic::openFile(std::vector<std::wstring> vec,
+					  std::string const & path)
+{
+  try
+    {
+      ManageFile		manageFile(path);
+      std::string		file;
+
+      file = manageFile.readFile();
+
+      std::string		tmp;
+      std::istringstream	iss(file);
+      int			idx = 0;
+
+      while (std::getline(iss, tmp) && idx < 3)
+	{
+	  std::stod(tmp);
+
+	  std::wstring		score(tmp.begin(), tmp.end());
+	  ++idx;
+	}
+    }
+  catch (std::exception const &)
+    {
+      vec.clear();
+      for (int idx = 0; idx < 3; ++idx)
+	vec.push_back(L"no score");
+    }
+}
+
 // ------------------------------------------------------------ //
 // ------------------------ GAME METHODS ---------------------- //
 // ------------------------------------------------------------ //
@@ -671,7 +708,7 @@ void		Graphic::setCar(Element::EType type,
 				irr::f32 z)
 {
   pods[type] = _sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/Anakin_podracer/AnakinsPodRacer.obj"),
-						       0, -1, irr::core::vector3df(x, y, z),
+						       0, -1, irr::core::vector3df(x + 6, y - 25, z - 4),
 						       irr::core::vector3df(0.f, 270.f, 0.f),
 						       irr::core::vector3df(0.01f, 0.01f, 0.01f));
   if (!pods[type])
@@ -679,53 +716,63 @@ void		Graphic::setCar(Element::EType type,
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
+void		Graphic::setAsteroid(irr::io::path,
+				     irr::f32 x,
+				     irr::f32 y,
+				     irr::f32 z)
+{
+  std::cout << "coucou" << std::endl;
+  (void) x;
+  (void) y;
+  (void) z;
+  irr::scene::IAnimatedMeshSceneNode		*asteroid =
+    _sceneManager->addAnimatedMeshSceneNode(_meshAsteroid,
+					    0, -1, irr::core::vector3df(x, y, z),
+					    irr::core::vector3df(0.f, 0.f, 0.f),
+					    irr::core::vector3df(2.f, 2.f, 2.f)
+					    
+  );
+  
+  asteroid->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  asteroid->setMaterialFlag(irr::video::EMF_BACK_FACE_CULLING, false);
+  asteroid->setFrameLoop(0, 310);
+  asteroid->setMaterialTexture(0, _driver->getTexture("./assets/asteroid/asteroid.png"));
+}
+
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 				 irr::f32 x, irr::f32 y, irr::f32 z)
 {
-  irr::scene::IMeshSceneNode        *cube =
-    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-				    irr::core::vector3df(x, y, z),
-				    irr::core::vector3df(0.f, 0.f, 0.f));
-  irr::scene::IMeshSceneNode        *wall;
-
+  irr::scene::IMeshSceneNode        *cube;
   switch (elem->getType())
     {
     case Element::EType::BLOCK :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
-      wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-					     irr::core::vector3df(x, y + 10.f, z),
-					     irr::core::vector3df(0.f, 0.f, 0.f));
-      wall->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
-      wall->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-      wall->setMaterialType(irr::video::EMT_SOLID);
+      this->setAsteroid(elem->getPath(), x, y, z);
       break ;
     case Element::EType::ROAD :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
       break ;
     case Element::EType::ENDLINE :
+      cube = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+					     irr::core::vector3df(x, y, z),
+					     irr::core::vector3df(0.f, 0.f, 0.f));
       cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
+      cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+      cube->setMaterialType(irr::video::EMT_SOLID);
       break ;
     case Element::EType::POD1 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD2 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD3 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD4 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     default :
       break ;
     }
-  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  cube->setMaterialType(irr::video::EMT_SOLID);
 }
 
 void		Graphic::displayChrono(bool first)
@@ -737,12 +784,17 @@ void		Graphic::displayChrono(bool first)
 
   if (first == true)
     {
-      _text = _guienv->addStaticText(result,
-			     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
+      irr::gui::IGUISkin *skin = _guienv->getSkin();
+      irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
+      skin->setFont(font);
+      skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
+      _text = _guienv->addStaticText(L"",
+				     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
 				     false);
     }
   else
-      _text->setText(result);
+
+    _text->setText(result);
 }
 
 void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
@@ -766,7 +818,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  displayChrono(true);
 	  _sounds.playMusic("assets/music/duel-of-the-fates.ogg");
 	}
-  else
+  else if (_isStarted == true)
     displayChrono(false);
   for (auto const& elem : map)
     {
@@ -796,6 +848,12 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   first = false;
 }
 
+void		Graphic::finish(std::vector<std::shared_ptr<Element>> const&)
+{
+  std::cout << "JE SUIS FINISH" << std::endl;
+  _text->setText(L"Congratulations !\nYou win !");
+}
+
 // ------------------------------------------------------------ //
 // ----------------------- UTILS METHODS ---------------------- //
 // ------------------------------------------------------------ //
@@ -804,6 +862,7 @@ void		Graphic::actualize(Observable const& observable)
 {
   this->manageDisplay(observable.getMap(), observable.getDType());
   _time = observable.getChrono().getTime();
+  _isStarted = observable.getStarted();
 }
 
 bool		Graphic::running(void)

@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Wed Jun  7 16:00:39 2017 Pashervz
+// Last update Wed Jun 14 08:51:52 2017 DaZe
 //
 
 #include <cmath>
@@ -17,7 +17,7 @@ const float Car::_fps = 60;
 const float Car::_inertia = Car::_maxSpeed / Car::_fps;
 const float Car::_pi = 3.141592f;
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), _edir(dir)
+Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), _edir(dir), _isStopped(false)
 {
   //  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
@@ -26,7 +26,7 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, sho
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 }
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT)
+Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT), _isStopped(false)
 {
   _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
@@ -36,13 +36,13 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap
 void            Car::accelerate()
 {
   if (this->_speed <= this->_maxSpeed)
-    this->_speed += this->_inertia * 3;
+    this->_speed += this->_inertia;
 }
 
 void            Car::deccelerate()
 {
   if (this->_speed >= -this->_maxSpeed / 2)
-    this->_speed -= this->_inertia * 3;
+    this->_speed -= this->_inertia;
 }
 
 void            Car::slowDown()
@@ -55,11 +55,7 @@ void            Car::slowDown()
 
 void            Car::move()
 {
-  for (const auto &it : this->_arrounding)
-    {
-      if (it >= 0 && it <= 11)
-	std::cout << it << std::endl;
-    }
+  std::cout << "JE MOVE" << std::endl;
   if (this->_speed >= 0)
     {
       if (checkArrounding() == false)
@@ -79,21 +75,11 @@ void            Car::move()
   this->_pos.first = this->_pos.first + (this->_speed / this->_fps) * this->_dir.first;
   if (this->_pos.first > 100)
     {
-      // if (checkAngleArrounding() == false)
-      // 	{
-      // 	  this->_speed = 0.0f;
-      // 	  return
-      // 	}
       this->_posMap.first += 1;
       this->_pos.first -= 100.0f;
     }
   else if (this->_pos.first < 0)
     {
-      // if (checkBackAngleArrounding() == false)
-      // 	{
-      // 	  this->_speed = 0.0f;
-      // 	  return
-      // 	}
       this->_posMap.first -= 1;
       this->_pos.first += 100.0f;
     }
@@ -116,9 +102,10 @@ void            Car::move()
 
 void            Car::turnLeft()
 {
+  std::cout << "ANGLE = " << _angle << std::endl;
    if (this->_angle >= 360)
     this->_angle = 0.0f;
-  this->_angle += 5.0f;
+  this->_angle += 2.5f;
 
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
@@ -126,9 +113,10 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
+  std::cout << "ANGLE = " << _angle << std::endl;
   if (this->_angle <= -360)
     this->_angle = 0.0f;
-  this->_angle -= 5.0f;
+  this->_angle -= 2.5f;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 }
@@ -408,9 +396,19 @@ void				Car::setArrounding(const std::array<Element::EType, 8> &arrounding)
   this->_arrounding = arrounding;
 }
 
-void        Car::setEdir(const EDirection &dir)
+void				Car::setEdir(const EDirection &dir)
 {
 	this->_edir = dir;
+}
+
+void				Car::setStop(const bool b)
+{
+  _isStopped = b;
+}
+
+bool				Car::getStop() const
+{
+  return (_isStopped);
 }
 
 void				Car::stop()

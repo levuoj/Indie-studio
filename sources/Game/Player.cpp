@@ -1,14 +1,13 @@
 //
 // Player.cpp for  in /home/Kilian/Rendu/C++/Indie_studio/sources/Game
-// 
+//
 // Made by Lebrun Kilian
 // Login   <kilian.lebrun@epitech.eu>
-// 
+//
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Tue Jun 13 15:45:58 2017 Pashervz
+// Last update Thu Jun 15 11:10:35 2017 Pashervz
 //
 
-#include "test.hpp"
 #include "Player.hpp"
 
 Player::Player(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir)
@@ -24,7 +23,7 @@ Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
 Car::EDirection	Player::dirFromAngle(int angle)
 {
   static Car::EDirection	slices[] = { Car::EDirection::RIGHT, Car::EDirection::UP_RIGHT, Car::EDirection::UP, Car::EDirection::UP, Car::EDirection::UP_LEFT, Car::EDirection::LEFT, Car::EDirection::LEFT, Car::EDirection::DOWN_LEFT, Car::EDirection::DOWN, Car::EDirection::DOWN, Car::EDirection::DOWN_RIGHT, Car::EDirection::RIGHT };
-  
+
   return (slices[angle / 30]);
 }
 
@@ -33,14 +32,17 @@ void    Player::initDir()
   this->_car->setEdir(dirFromAngle(this->_car->getAbsoluteAngle()));
 }
 
-void		Player::driver(const irr::EKEY_CODE &key)
+void		Player::driver(EventReceiver const& receiver)
 {
   this->initDir();
-  const auto        &it = _functors.find(key);
+  
+  for (auto const& it : this->_functors)
+    if (receiver.keyDown(it.first))
+      {
+	it.second();
+      }
 
-  if (it != _functors.end())
-    it->second();
-  this->_car.get()->move();
+  this->_car->move();
 }
 
 void		Player::setKeys(const std::vector<irr::EKEY_CODE> &keys)

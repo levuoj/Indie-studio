@@ -5,12 +5,10 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue Jun 13 12:15:45 2017 Pashervz
-// Last update Tue Jun 13 12:50:48 2017 Pashervz
+// Last update Thu Jun 15 10:23:11 2017 Pashervz
 //
 
-#include <sstream>
 #include "Leaderboard.hpp"
-#include "ManageFile.hpp"
 
 DType				Leaderboard::transferKey(irr::EKEY_CODE key)
 {

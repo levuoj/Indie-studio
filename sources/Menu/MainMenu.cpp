@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Wed Jun 14 13:27:27 2017 Pashervz
+// Last update Wed Jun 14 13:42:04 2017 Pashervz
 //
 
 #include <memory>
@@ -16,10 +16,10 @@
 MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
 {
   this->_type = DType::MAIN_MENU;
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"play", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"ranking", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"options", "assets/deathStar.jpg", Button::BType::MENU)));
-  this->_map.push_back(std::shared_ptr<Button>(new Button(L"exit", "assets/deathStar.jpg", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"play", "", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"ranking", "", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"options", "", Button::BType::MENU)));
+  this->_map.push_back(std::shared_ptr<Button>(new Button(L"exit", "", Button::BType::MENU)));
   static_cast<Button *>(this->_map[0].get())->setIsSelected(true);
 }
 
@@ -37,6 +37,8 @@ DType		MainMenu::select() const
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
+  //  DType		selection = NOTHING;
+
   switch (key)
     {
     case irr::KEY_DOWN:

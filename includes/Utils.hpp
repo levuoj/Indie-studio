@@ -5,7 +5,7 @@
 // Login   <pierre.zawadil@epitech.eu>
 //
 // Started on  Mon May 15 11:59:20 2017 Pierre Zawadil
-// Last update Wed Jun  7 13:50:34 2017 Pashervz
+// Last update Thu Jun 15 10:26:46 2017 Pashervz
 //
 
 #pragma once
@@ -22,5 +22,5 @@ enum DType
     NOTHING,
     PAUSE,
     GAME_CHRONO,
-    FINISH
+    ENDGAME
   };
