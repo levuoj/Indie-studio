@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Thu Jun 15 18:43:00 2017 Pashervz
+// Last update Thu Jun 15 22:14:04 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -34,7 +34,7 @@ private:
   Gcamera						_camera;
   irrklang::ISoundEngine				*_engine;
   double						_time;
-  irr::gui::IGUIStaticText				*_text;
+  irr::gui::IGUIStaticText				*_textChrono;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_pauseText;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_playText;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_leaderboardText;
@@ -43,7 +43,8 @@ private:
   bool							_finish = false;
   bool							_uniqueD = false;
   irr::scene::IAnimatedMesh				*_meshAsteroid;
-
+  irr::gui::IGUISkin					*_skin;
+  irr::gui::IGUIFont					*_font;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::vector<std::unique_ptr<GButton>>		_buttonB;

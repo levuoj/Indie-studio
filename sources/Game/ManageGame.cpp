@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun 15 20:25:58 2017 Pierre Zawadil
+// Last update Thu Jun 15 22:04:04 2017 Pashervz
 //
 
 #include <chrono>
@@ -130,8 +130,8 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
 
   if (_victory == false)
     {
-      if (_startChrono.getTime() >= 17.0 &&
-	  _startChrono.getTime() <= 17.1
+      if (_startChrono.getTime() >= 7.0 &&
+	  _startChrono.getTime() <= 7.1
 	  && _isStarted == false)
 	{
 	  _isStarted = true,
