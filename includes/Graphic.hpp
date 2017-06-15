@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Tue Jun 13 14:14:20 2017 DaZe
+// Last update Thu Jun 15 17:07:56 2017 DaZe
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -101,7 +101,7 @@ public:
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::PAUSE, std::bind(&Graphic::displayPause, this, std::placeholders::_1)},
     {DType::GAME_CHRONO, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
-    {DType::FINISH, std::bind(&Graphic::finish, this, std::placeholders::_1)},
+    {DType::ENDGAME, std::bind(&Graphic::finish, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };
 };
