@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 21:32:12 2017 Pashervz
+// Last update Thu Jun 15 22:35:31 2017 Pashervz
 //
 
 #include <sstream>
@@ -44,11 +44,9 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _guienv	= _device->getGUIEnvironment();
   _engine	= irrklang::createIrrKlangDevice();
 
-  irr::gui::IGUISkin *skin = _guienv->getSkin();
-  irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
-  skin->setFont(font);
-  skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
-
+  _skin = _guienv->getSkin();
+  _font = _guienv->getFont("assets/font/myfont.xml");
+  _skin->setFont(_font);
   _meshAsteroid = _sceneManager->getMesh("assets/asteroid/asteroid.obj");
 
   if (!_engine)
@@ -221,10 +219,10 @@ void						Graphic::initOptMenu()
   initTextDim[0] = 25;
   initTextDim[1] = 10;
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				     L"options", 0,
-				     irr::core::dimension2d<irr::f32>(50, 20),
-				   irr::core::vector3df(4940, 855, 4820),
-				   -1, color, color);
+					   L"options", 0,
+					   irr::core::dimension2d<irr::f32>(50, 20),
+					   irr::core::vector3df(4940, 855, 4820),
+					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
 				     L"bindings", 0,
 				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
@@ -494,6 +492,7 @@ void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
   irr::video::SColor	silver(255, 192, 192, 192);
   irr::video::SColor	bronze(255, 205, 127, 50);
 
+  clearPlayMenu();
   _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
 		     irr::core::vector3df(5132, 802, 4904));
   if (_uniqueD == false)
@@ -535,7 +534,7 @@ void			Graphic::displayPause(std::vector<std::shared_ptr<Element>> const& map)
   _initPause = false;
   _pauseText[0]->setText(L"pause");
   _pauseText[1]->setText(L"save and exit");
-  _text->setText(L"");
+  _textChrono->setText(L"");
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -657,27 +656,36 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 {
   if (_finish == false)
     {
+      _textChrono->setText(L"");
       openFile(_endgame, "./Saves/endgame");
       this->initLeaderboard();
       _textEndGame.push_back(_guienv->addStaticText(L"results",
 						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
+						    (745, 30, 10000, 10000),
 						    false));
       _textEndGame.push_back(_guienv->addStaticText((L"1st place : " +
 						     _endgame[0]).c_str(),
 						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
+						    (480, 200, 10000, 10000),
 						    false));
       _textEndGame.push_back(_guienv->addStaticText((L"2nd place : " +
 						     _endgame[1]).c_str(),
 						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
+						    (480, 400, 10000, 10000),
 						    false));
       _textEndGame.push_back(_guienv->addStaticText((L"3rd place : " +
 						     _endgame[2]).c_str(),
 						    irr::core::rect<irr::s32>
-						    (780, 30, 10000, 10000),
+						    (480, 600, 10000, 10000),
 						    false));
+      _textEndGame.push_back(_guienv->addStaticText(L"press esc to quit",
+						    irr::core::rect<irr::s32>
+						    (300, 800, 10000, 10000),
+						    false));
+      _textEndGame[0]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
+      _textEndGame[1]->setOverrideColor(irr::video::SColor(255, 255, 215, 0));
+      _textEndGame[2]->setOverrideColor(irr::video::SColor(255, 192, 192, 192));
+      _textEndGame[3]->setOverrideColor(irr::video::SColor(255, 205, 127, 50));
       _finish = true;
     }
 }
@@ -817,17 +825,13 @@ void		Graphic::displayChrono(bool first)
 
   if (first == true)
     {
-      irr::gui::IGUISkin *skin = _guienv->getSkin();
-      irr::gui::IGUIFont *font = _guienv->getFont("assets/font/myfont.xml");
-      skin->setFont(font);
-      skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
-      _text = _guienv->addStaticText(L"",
+      _skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
+      _textChrono = _guienv->addStaticText(L"",
 				     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
 				     false);
     }
   else
-
-    _text->setText(result);
+    _textChrono->setText(result);
 }
 
 void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
@@ -879,12 +883,6 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
       ++i;
     }
   first = false;
-}
-
-void		Graphic::finish(std::vector<std::shared_ptr<Element>> const&)
-{
-  std::cout << "JE SUIS FINISH" << std::endl;
-  _text->setText(L"Congratulations !\nYou win !");
 }
 
 // ------------------------------------------------------------ //
