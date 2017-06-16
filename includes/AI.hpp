@@ -1,11 +1,11 @@
 //
 // Ai.hpp for Ai.hpp in /home/tvigier/Indie_studio/includes
-// 
+//
 // Made by thomas vigier
 // Login   <thomas.vigier@epitech.eu>
-// 
+//
 // Started on  Tue May  9 11:35:04 2017 thomas vigier
-// Last update Mon Jun  5 14:56:59 2017 DaZe
+// Last update Thu Jun 15 17:01:06 2017 jouvel
 //
 
 #pragma once
@@ -25,6 +25,7 @@ class				AI
   //  std::unordered_map<int, std::function<void()>> _functors;
 public:
   void				setMap(std::vector<std::shared_ptr<Element>> const &);
+  void				setArroundingCar(const std::array<Element::EType, 8> arr);
   std::shared_ptr<Car>		getCar() const;
   void				chooseAction();
   void				part1();
@@ -50,4 +51,8 @@ public:
      bool isFinished, Car::EDirection dir, int idx);
   ~AI() = default;
   AI(AI const &) = default;
+  std::pair<int, int>	getPosMap()
+  {
+    return (this->_car->getPosMap());
+  }
 };

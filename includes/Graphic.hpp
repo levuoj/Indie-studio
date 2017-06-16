@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Thu Jun 15 17:07:56 2017 DaZe
+// Last update Fri Jun 16 11:36:06 2017 DaZe
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -44,10 +44,10 @@ private:
   std::vector<std::unique_ptr<GButton>>		_buttonB;
   std::vector<std::unique_ptr<GButton>>		_buttonP;
   std::vector<std::unique_ptr<GButton>>		_buttonPause;
-  
+
   std::vector<std::wstring>			_leaderboard;
   std::vector<irr::gui::IGUIStaticText *>	_textLeaderboard;
-  
+
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
@@ -55,7 +55,7 @@ private:
   void				displayOptions(std::vector<std::shared_ptr<Element>> const&);
   void				displayLeaderboard(std::vector<std::shared_ptr<Element>> const&);
   void				displayPlayMenu(std::vector<std::shared_ptr<Element>> const&);
-  void				displayPause(std::vector<std::shared_ptr<Element>> const&);		
+  void				displayPause(std::vector<std::shared_ptr<Element>> const&);
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);

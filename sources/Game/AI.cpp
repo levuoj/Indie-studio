@@ -1,11 +1,11 @@
 //
 // AI.cpp for  in /home/Kilian/Rendu/C++/Indie_studio
-// 
+//
 // Made by Lebrun Kilian
 // Login   <kilian.lebrun@epitech.eu>
-// 
+//
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Wed Jun 14 09:30:52 2017 DaZe
+// Last update Thu Jun 15 17:21:45 2017 jouvel
 //
 
 #include "Convert.hpp"
@@ -13,7 +13,7 @@
 
 AI::AI(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir, int idx) : _idx(idx)
 {
-  _car = std::shared_ptr<Car>(new Car(posMap, type, angle, lap, isFinished, dir)); 
+  _car = std::shared_ptr<Car>(new Car(posMap, type, angle, lap, isFinished, dir));
 }
 
 AI::AI(std::pair<int, int> const& pos, const Element::EType type) : _idx(1)
@@ -128,7 +128,7 @@ void			AI::part9()
 	_car->turnLeft();
       else
 	_idx = 10;
-    }    
+    }
 }
 
 void			AI::part10()
@@ -206,19 +206,19 @@ void			AI::part15()
 void			AI::chooseAction()
 {
   /*  const auto it = _functors.find(_idx);
-  
+
   if (it != _functors.end())
   it->second(); */
 
   std::cout << "JE SUIS UNE AI JE BOUGE" << std::endl;
-  
+
   if (_car->getType() == Element::EType::POD4)
     {
-      if (_car->getSpeed() <= Car::_maxSpeed - 60)
+      if (_car->getSpeed() <= _car->getMaxSpeed() - 60)
 	_car->accelerate();
     }
   else
-    if (_car->getSpeed() <= Car::_maxSpeed)
+    if (_car->getSpeed() <= _car->getMaxSpeed())
       _car->accelerate();
   switch (_idx)
     {
@@ -269,7 +269,7 @@ void			AI::chooseAction()
     default:
       break ;
     }
-  
+
   //  part1();
   /*
    if (_idx == 1 && _map[Convert::coordToPos<int>(_car->getPosMap()) + 300]->getType()
@@ -289,6 +289,11 @@ void			AI::chooseAction()
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)
 {
   _map = map;
+}
+
+void			AI::setArroundingCar(const std::array<Element::EType, 8> arr)
+{
+  this->_car->setArrounding(arr);
 }
 
 std::shared_ptr<Car>		AI::getCar() const

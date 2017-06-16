@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Thu Jun 15 10:36:45 2017 DaZe
+// Last update Thu Jun 15 16:54:52 2017 jouvel
 //
 
 #pragma once
@@ -40,31 +40,32 @@ public:
   ManageGame() = default;
   ~ManageGame() = default;
 
-  void				initPlayerAndIa(int, int, int &, const Element::EType &);
-  void				construct(int);
-  DType				transferKey(EventReceiver const&);
-  GameElement			*ElementFromChar(char);
-  GameElement			*ElementFromCharCar(char);
-  void				loadMap(std::string const &);
-  void				updateMap();
-  void				printMap();
-  void				checkVictory(std::shared_ptr<Car> const&);
-  Chrono const&			getChrono() const;
-  bool				loadSave(std::string const &);
-  bool				loadFile(std::string const &);
-  bool				loadLine(std::string const &);
-  bool				checkType(const std::vector<std::string> &);
-  bool				checkPosMap(const std::string &);
-  bool				checkCarType(const std::string &);
-  bool				checkAngle(const std::string &);
-  bool				checkLap(const std::string &);
-  bool				checkCheckpoint(const std::string &);
-  bool				checkDir(const std::string &);
-  bool				checkIdx(const std::string &);
-  bool				checkChrono(const std::string &);
-  bool				getStarted() const;
-  void				makeSave(int);
-  void				makeRanking();
-  void				makeEndScore();
-  void				writeRanking();
+  void					initPlayerAndIa(int, int, int &, const Element::EType &);
+  void					construct(int);
+  DType					transferKey(EventReceiver const&);
+  const std::array<Element::EType, 8>	arrounding(int);
+  GameElement				*ElementFromChar(char);
+  GameElement				*ElementFromCharCar(char);
+  void					loadMap(std::string const &);
+  void					updateMap();
+  void					printMap();
+  void					checkVictory(std::shared_ptr<Car> const&);
+  Chrono const&				getChrono() const;
+  bool					loadSave(std::string const &);
+  bool					loadFile(std::string const &);
+  bool					loadLine(std::string const &);
+  bool					checkType(const std::vector<std::string> &);
+  bool					checkPosMap(const std::string &);
+  bool					checkCarType(const std::string &);
+  bool					checkAngle(const std::string &);
+  bool					checkLap(const std::string &);
+  bool					checkCheckpoint(const std::string &);
+  bool					checkDir(const std::string &);
+  bool					checkIdx(const std::string &);
+  bool					checkChrono(const std::string &);
+  bool					getStarted() const;
+  void					makeSave(int);
+  void					makeRanking();
+  void					makeEndScore();
+  void					writeRanking();
 };
