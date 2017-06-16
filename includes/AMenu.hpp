@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 12:26:19 2017 Pashervz
-// Last update Fri Jun  2 18:27:48 2017 Pashervz
+// Last update Fri Jun 16 13:29:00 2017 jouvel
 //
 
 #pragma once
@@ -14,14 +14,16 @@
 #include <unordered_map>
 #include "Observable.hpp"
 #include "Utils.hpp"
+#include "Music.hpp"
 
 class AMenu : public Observable
 {
 protected:
   std::string						_name;
+  Music							*_music;
 
 public:
-  AMenu(std::string const & name, DType type) : Observable(type), _name(name) {}
+  AMenu(std::string const & name, DType type, Music *music) : Observable(type), _name(name), _music(music) {}
   virtual ~AMenu() {}
   std::string const &	getName() const
   {

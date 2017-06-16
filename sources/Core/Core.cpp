@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Fri Jun 16 02:38:28 2017 Pashervz
+// Last update Fri Jun 16 13:49:13 2017 jouvel
 //
 
 #include <iostream>
@@ -30,12 +30,14 @@ Core::Core()
   //this->_game = std::unique_ptr<ManageGame>(new ManageGame(2, molft));
   // this->_game->setObserver(this->_graphic.get());
   // --- TEST --- //
-  this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu));
-  this->_menu.emplace(LEADERBOARD, std::shared_ptr<AMenu>(new Leaderboard));
-  this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu));
-  this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu));
-  this->_menu.emplace(PAUSE, std::shared_ptr<AMenu>(new PauseMenu));
-  this->_menu.emplace(ENDGAME, std::shared_ptr<AMenu>(new EndGame));
+  this->_music = std::unique_ptr<Music>(new Music());
+
+  this->_menu.emplace(MAIN_MENU, std::shared_ptr<AMenu>(new MainMenu(this->_music.get())));
+  this->_menu.emplace(LEADERBOARD, std::shared_ptr<AMenu>(new Leaderboard(this->_music.get())));
+  this->_menu.emplace(OPTIONS, std::shared_ptr<AMenu>(new OptionMenu(this->_music.get())));
+  this->_menu.emplace(PLAY, std::shared_ptr<AMenu>(new PlayMenu(this->_music.get())));
+  this->_menu.emplace(PAUSE, std::shared_ptr<AMenu>(new PauseMenu(this->_music.get())));
+  this->_menu.emplace(ENDGAME, std::shared_ptr<AMenu>(new EndGame(this->_music.get())));
   this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 }
 
@@ -82,12 +84,12 @@ int			Core::launch()
 		    case BINDINGS:
 		      this->_menu[BINDINGS] =
 			std::make_shared<BindingMenu>
-			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer());
+			(static_cast<OptionMenu *>(this->_menu[OPTIONS].get())->getPlayer(), _music.get());
 		      break;
 		    case EXIT:
 		      return (EXIT_SUCCESS);
 		    case PLAY:
-		      this->_menu[PLAY] = std::make_shared<PlayMenu>();
+		      this->_menu[PLAY] = std::make_shared<PlayMenu>(_music.get());
 		      break;
 		    case OPTIONS:
 		      if (loaded == BINDINGS)
@@ -131,7 +133,7 @@ int			Core::launch()
 	    {
 	      this->_toLoad = this->_game->transferKey(receiver);
 	      if (this->_toLoad == PAUSE)
-		this->_menu[PAUSE] = std::make_shared<PauseMenu>(this->_game.get());
+		this->_menu[PAUSE] = std::make_shared<PauseMenu>(this->_game.get(), _music.get());
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }

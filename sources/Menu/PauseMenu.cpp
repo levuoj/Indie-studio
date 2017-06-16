@@ -1,11 +1,11 @@
 //
 // PauseMenu.cpp for PauseMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources/Menu
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Wed Jun  7 11:10:46 2017 Pashervz
-// Last update Tue Jun 13 12:34:40 2017 Pashervz
+// Last update Fri Jun 16 14:03:45 2017 jouvel
 //
 
 #include <sstream>
@@ -13,7 +13,7 @@
 #include "SaveButton.hpp"
 #include "PauseMenu.hpp"
 
-PauseMenu::PauseMenu(ManageGame *game) : AMenu("Pause", PAUSE), _game(game)
+PauseMenu::PauseMenu(ManageGame *game, Music *music) : AMenu("Pause", PAUSE, music), _game(game)
 {
   this->_type = DType::PAUSE;
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"back to game", "assets/deathStar.jpg", Button::BType::RESUME)));
@@ -54,7 +54,7 @@ void			PauseMenu::openSave(std::string const & fileName)
 
       file = manageFile.readFile();
       if (this->getSaveName(file) == false)
-	_savesName.push_back(L"empty");     
+	_savesName.push_back(L"empty");
     }
   catch (std::exception const &)
     {
@@ -94,7 +94,7 @@ DType			PauseMenu::select()
   return (PAUSE);
 }
 
-DType		        PauseMenu::transferKey(irr::EKEY_CODE key)
+DType			PauseMenu::transferKey(irr::EKEY_CODE key)
 {
   switch (key)
     {
@@ -105,9 +105,11 @@ DType		        PauseMenu::transferKey(irr::EKEY_CODE key)
       this->goUp();
       break;
     case irr::KEY_RETURN:
+      this->_music->playSound("assets/music/selection.wav");
       return (this->select());
       break;
     case irr::KEY_ESCAPE:
+      this->_music->playSound("assets/music/selection.wav");
       return (GAME);
       break;
     default:

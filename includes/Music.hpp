@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Tue Jun 13 12:16:01 2017 jouvel
-// Last update Tue Jun 13 13:21:47 2017 jouvel
+// Last update Fri Jun 16 14:18:35 2017 jouvel
 //
 
 # pragma once
@@ -26,4 +26,5 @@ public:
   void				setSound(bool);
   void				playMusic(const std::string&);
   void				playSound(const std::string&);
+  void				setVol(float);
 };

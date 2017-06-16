@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Wed Jun 14 13:42:04 2017 Pashervz
+// Last update Fri Jun 16 14:03:30 2017 jouvel
 //
 
 #include <memory>
@@ -13,7 +13,7 @@
 #include "Button.hpp"
 #include "MainMenu.hpp"
 
-MainMenu::MainMenu() : AMenu("Main Menu", MAIN_MENU)
+MainMenu::MainMenu(Music *music) : AMenu("Main Menu", MAIN_MENU, music)
 {
   this->_type = DType::MAIN_MENU;
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"play", "", Button::BType::MENU)));
@@ -48,8 +48,10 @@ DType		MainMenu::transferKey(irr::EKEY_CODE key)
       this->goUp();
       break;
     case irr::KEY_RETURN:
+      this->_music->playSound("assets/music/selection.wav");
       return (this->select());
     case irr::KEY_ESCAPE:
+      this->_music->playSound("assets/music/escape.wav");
       return (EXIT);
     default:
       break;

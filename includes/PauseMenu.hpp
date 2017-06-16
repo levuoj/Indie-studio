@@ -1,11 +1,11 @@
 //
 // PauseMenu.hpp for PauseMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Wed Jun  7 11:03:33 2017 Pashervz
-// Last update Thu Jun 15 12:09:29 2017 Pashervz
+// Last update Fri Jun 16 13:39:20 2017 jouvel
 //
 
 #pragma once
@@ -18,10 +18,10 @@ class PauseMenu : public AMenu
 private:
   ManageGame			*_game;
   std::vector<std::wstring>	_savesName;
-  
+
 public:
-  PauseMenu() : AMenu("Pause", PAUSE) {}
-  PauseMenu(ManageGame *);
+  PauseMenu(Music *music) : AMenu("Pause", PAUSE, music) {}
+  PauseMenu(ManageGame *, Music *);
   virtual ~PauseMenu() {}
   void			openSave(std::string const &);
   bool			getSaveName(std::string const &);

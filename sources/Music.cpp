@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Tue Jun 13 12:24:39 2017 jouvel
-// Last update Fri Jun 16 02:28:50 2017 Pashervz
+// Last update Fri Jun 16 14:19:32 2017 jouvel
 //
 
 #include "Music.hpp"
@@ -55,4 +55,9 @@ void			Music::setMusic(bool state)
 void			Music::setSound(bool state)
 {
   _sound = state;
+}
+
+void			Music::setVol(float value)
+{
+  _engine->setSoundVolume(value);
 }
