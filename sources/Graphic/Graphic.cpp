@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun 16 14:29:23 2017 Pashervz
+// Last update Fri Jun 16 14:40:24 2017 Pashervz
 //
 
 #include <sstream>
@@ -364,7 +364,7 @@ void						Graphic::initPlayMenu()
   for (auto it = _buttonP.begin() ; it != _buttonP.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
   _playText.push_back(_sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"load save :", 0,
+					   L"load save", 0,
 					   irr::core::dimension2d<irr::f32>(40, 15),
 					   irr::core::vector3df(4980, 840, 4940),
 							       -1, color, color));
@@ -374,7 +374,7 @@ void						Graphic::initPlayMenu()
 					   irr::core::vector3df(5030, 800, 4940),
 							       -1, color, color));
   _playText.push_back(_sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-							       L"number of player :", 0,
+							       L"number of players", 0,
 							       irr::core::dimension2d<irr::f32>(55, 15),
 							       irr::core::vector3df(4980, 780, 4940),
 							       -1, color, color));
@@ -624,9 +624,9 @@ void		Graphic::displayPlayMenu(std::vector<std::shared_ptr<Element>> const& map)
 
   _camera.moveCamera(irr::core::vector3df(5035, 808, 4877),
 		     irr::core::vector3df(5033, 808, 4919));
-  _playText[0]->setText(L"load game");
+  _playText[0]->setText(L"load game :");
   _playText[1]->setText(L"new game");
-  _playText[2]->setText(L"number of players");
+  _playText[2]->setText(L"number of players :");
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
