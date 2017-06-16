@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun 16 14:40:24 2017 Pashervz
+// Last update Fri Jun 16 15:02:26 2017 jouvel
 //
 
 #include <sstream>
@@ -672,7 +672,7 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 						    false));
       _textEndGame.push_back(_guienv->addStaticText(L"press esc to quit",
 						    irr::core::rect<irr::s32>
-						    (670, 800, 10000, 10000),
+						    (590, 800, 10000, 10000),
 						    false));
       _textEndGame[0]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
       _textEndGame[1]->setOverrideColor(irr::video::SColor(255, 255, 215, 0));
@@ -713,7 +713,7 @@ void			Graphic::openFile(std::vector<std::wstring> & vec,
   catch (std::exception const &)
     {
       unsigned int	size = vec.size();
-      
+
       for (unsigned int idx = 0; idx < (3 - size); ++idx)
 	vec.push_back(L"no score");
     }
@@ -770,15 +770,18 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 {
   if (elem->getType() == Element::EType::ROAD)
     return ;
-  irr::scene::IMeshSceneNode	*cube =
-    _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-				    irr::core::vector3df(x, y, z),
-				    irr::core::vector3df(0.f, 0.f, 0.f));
+
+  irr::scene::IMeshSceneNode	*cube;
   irr::scene::IMeshSceneNode	*wall;
+
   switch (elem->getType())
     {
     case Element::EType::BLOCK :
+      cube = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+					     irr::core::vector3df(x, y, z));
       cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
+      cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+      cube->setMaterialType(irr::video::EMT_SOLID);
       wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
 					     irr::core::vector3df(x, y + 10.f, z),
 					     irr::core::vector3df(0.f, 0.f, 0.f));
@@ -787,32 +790,29 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
       wall->setMaterialType(irr::video::EMT_SOLID);
       break ;
     case Element::EType::ROAD :
-      //      cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
       break ;
     case Element::EType::ENDLINE :
+      cube = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
+					     irr::core::vector3df(x, y, z));
       cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
+      cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+      cube->setMaterialType(irr::video::EMT_SOLID);
       break ;
     case Element::EType::POD1 :
-      //     cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD2 :
-      //cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD3 :
-      //cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD4 :
-      //cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     default :
       break ;
     }
-  cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  cube->setMaterialType(irr::video::EMT_SOLID);
 }
 
 void		Graphic::displayChrono(bool first)
