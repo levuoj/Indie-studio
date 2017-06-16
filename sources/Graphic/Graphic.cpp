@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun 16 02:53:46 2017 Pashervz
+// Last update Fri Jun 16 13:19:28 2017 Pashervz
 //
 
 #include <sstream>
@@ -723,8 +723,9 @@ void			Graphic::openFile(std::vector<std::wstring> & vec,
     }
   catch (std::exception const &)
     {
-      vec.clear();
-      for (int idx = 0; idx < 3; ++idx)
+      unsigned int	size = vec.size();
+      
+      for (unsigned int idx = 0; idx < (3 - size); ++idx)
 	vec.push_back(L"no score");
     }
 }
