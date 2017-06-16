@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Thu Jun 15 22:04:04 2017 Pashervz
+// Last update Fri Jun 16 00:29:11 2017 Pashervz
 //
 
 #include <chrono>
@@ -92,7 +92,6 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<ir
       it.setKeys(keys.at(i));
       ++i;
     }
-
   _chrono.start();
 }
 
@@ -102,6 +101,7 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CO
   construct(nbPlayers);
 
   int i = 0;
+  std::cout << "LOL = " << nbPlayers << std::endl;
   for (auto &it : this->_players)
     {
       it.setKeys(keys.at(i));

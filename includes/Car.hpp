@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Wed Jun 14 14:50:36 2017 DaZe
+// Last update Fri Jun 16 00:31:08 2017 Pashervz
 //
 
 #pragma once
@@ -71,7 +71,6 @@ public:
   void					move();
   void					turnLeft();
   void					turnRight();
-  void					launchPowerUp();
   void					setPosMap(std::pair<int, int> const& pos);
   void					setLap(const short int);
   void					setSpeed(const float);

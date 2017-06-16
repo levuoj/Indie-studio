@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu Jun 15 12:09:57 2017 DaZe
+// Last update Fri Jun 16 00:31:28 2017 Pashervz
 //
 
 #include <cmath>
@@ -311,11 +311,6 @@ float		Car::getAbsoluteAngle() const
   if (_angle < 0.0f)
     return (_angle + 360.0f);
   return (_angle);
-}
-
-void                            Car::launchPowerUp()
-{
-  std::cout << "BOUYAAAAAAA" << std::endl;
 }
 
 void                            Car::setPosMap(const std::pair<int, int> & pos)

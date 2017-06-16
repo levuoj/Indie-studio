@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Thu Jun 15 22:14:04 2017 Pashervz
+// Last update Fri Jun 16 02:08:27 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -23,6 +23,7 @@
 class						Graphic : public AObserver
 {
 private:
+  Music							_music;
   Music							_sounds;
   static const irr::f32					_squareSize;
   irr::u32						_width;
@@ -42,6 +43,8 @@ private:
   bool							_isStarted;
   bool							_finish = false;
   bool							_uniqueD = false;
+  bool							_backMenu = false;
+  bool							_launchGame = false;
   irr::scene::IAnimatedMesh				*_meshAsteroid;
   irr::gui::IGUISkin					*_skin;
   irr::gui::IGUIFont					*_font;
