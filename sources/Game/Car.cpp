@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu Jun 15 18:23:19 2017 jouvel
+// Last update Fri Jun 16 11:44:01 2017 Lebrun Kilian
 //
 
 #include <random>
@@ -64,7 +64,6 @@ void				Car::Power()
     case 1:
       this->_maxSpeed += 500;
       this->_speedSave = this->_speed;
-      this->_speed += 499;
       this->_inertia = this->_maxSpeed / this->_fps;
       this->_state = FAST;
       break;
@@ -76,7 +75,7 @@ void				Car::Power()
       this->_state = SLOW;
       break;
     case 3:
-
+      this->_state = OIL;
       break;
     }
   this->_chrono.start();
@@ -86,22 +85,43 @@ void                            Car::launchPowerUp()
 {
 }
 
-void            Car::move()
+void				Car::managePowerUp()
 {
-  this->_chrono.incTime();
-  std::cout << "speed = " << this->_speed << "\nspeedSave = " << this->_speedSave << std::endl;
+  std::cout << "Angle = " << getAbsoluteAngle() << std::endl;
+  std::cout << "Angle = " << getAbsoluteAngle() << std::endl;
   if (this->_state != NONE)
     {
-      if (this->_chrono.getTime() >= 2.0)
+      if (this->_state == OIL)
 	{
-	  this->_chrono.stop();
-	  this->_chrono.setTime(0.0);
-	  this->_speed = this->_speedSave;
-	  this->_maxSpeed = 550;
-	  this->_inertia = this->_maxSpeed / this->_fps;
-	  this->_state = NONE;
+	  this->_speed = 50;
+	  this->_maxSpeed = 50;
+	  if (getAbsoluteAngle() > 5)
+	    this->_angle -= 5;
+	  else
+	    {
+	      this->_maxSpeed = 550;
+	      this->_chrono.stop();
+	      this->_chrono.setTime(0.0);
+	      this->_state = NONE;
+	    }
 	}
+      else
+	if (this->_chrono.getTime() >= 1)
+	  {
+	    this->_chrono.stop();
+	    this->_chrono.setTime(0.0);
+	    this->_speed = this->_speedSave;
+	    this->_maxSpeed = 550;
+	    this->_inertia = this->_maxSpeed / this->_fps;
+	    this->_state = NONE;
+	  }
     }
+}
+
+void				Car::move()
+{
+  this->_chrono.incTime();
+  managePowerUp();
   if (this->_speed >= 0)
     {
       if (checkArrounding() == Element::EType::BLOCK)
