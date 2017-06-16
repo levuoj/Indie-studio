@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Thu Jun 15 22:56:55 2017 Pashervz
+// Last update Fri Jun 16 02:38:28 2017 Pashervz
 //
 
 #include <iostream>
@@ -135,7 +135,7 @@ int			Core::launch()
 	      if (this->_toLoad != GAME)
 		this->_menu[this->_toLoad]->setObserver(this->_graphic.get());
 	    }
-	  
+
 	  lag -= MS_PER_UPDATE;
 	  loaded = this->_toLoad;
 

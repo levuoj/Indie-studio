@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Fri Jun 16 00:29:41 2017 Pashervz
+// Last update Fri Jun 16 02:34:52 2017 Pashervz
 //
 
 #include "Player.hpp"
@@ -35,7 +35,7 @@ void    Player::initDir()
 void		Player::driver(EventReceiver const& receiver)
 {
   this->initDir();
-  
+
   for (auto const& it : this->_functors)
     if (receiver.keyDown(it.first))
       {
