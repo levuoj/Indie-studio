@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue May 23 09:25:19 2017 Pashervz
-// Last update Mon May 29 15:09:04 2017 Lebrun Kilian
+// Last update Thu Jun 15 12:07:46 2017 Pashervz
 //
 
 #pragma once
@@ -25,7 +25,7 @@ public:
        BType type) : Button(content,
 			    path,
 			    type) {}
-  ~Bind() {}
+  virtual ~Bind() {}
   
   bool			getMode() const
   {

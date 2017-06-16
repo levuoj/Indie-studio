@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Thu Jun 15 18:23:19 2017 jouvel
+// Last update Fri Jun 16 02:42:56 2017 Pashervz
 //
 
 #include <random>
@@ -152,7 +152,6 @@ void            Car::move()
 
 void            Car::turnLeft()
 {
-  // std::cout << "ANGLE = " << _angle << std::endl;
   if (this->_angle >= 360)
     this->_angle = 0.0f;
   this->_angle += 2.5f;
@@ -163,7 +162,6 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
-  // std::cout << "ANGLE = " << _angle << std::endl;
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 2.5f;
@@ -380,6 +378,13 @@ Element::EType            Car::checkBackArrounding()
   return (Element::EType::DEFAULT);
 }
 
+float		Car::getAbsoluteAngle() const
+{
+  if (_angle < 0.0f)
+    return (_angle + 360.0f);
+  return (_angle);
+}
+
 void                            Car::setPosMap(const std::pair<int, int> & pos)
 {
   this->_posMap = pos;
@@ -403,13 +408,6 @@ void				Car::setFinished(bool finish)
 void				Car::setIsRank(const bool rank)
 {
   _isRank = rank;
-}
-
-float				Car::getAbsoluteAngle() const
-{
-  if (_angle < 0.0f)
-    return (_angle + 360.0f);
-  return (_angle);
 }
 
 bool				Car::getIsRank() const

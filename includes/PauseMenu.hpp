@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed Jun  7 11:03:33 2017 Pashervz
-// Last update Thu Jun  8 15:43:34 2017 Pashervz
+// Last update Thu Jun 15 12:09:29 2017 Pashervz
 //
 
 #pragma once
@@ -22,7 +22,7 @@ private:
 public:
   PauseMenu() : AMenu("Pause", PAUSE) {}
   PauseMenu(ManageGame *);
-  ~PauseMenu() {}
+  virtual ~PauseMenu() {}
   void			openSave(std::string const &);
   bool			getSaveName(std::string const &);
   void			assignContent();

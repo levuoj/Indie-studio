@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed May 24 14:48:13 2017 Pashervz
-// Last update Thu Jun  1 15:01:37 2017 Pashervz
+// Last update Thu Jun 15 12:09:41 2017 Pashervz
 //
 
 #pragma once
@@ -25,7 +25,7 @@ public:
 						  path,
 						  type),
 					   _name(name) {}
-  ~PlayerButton() {}
+  virtual ~PlayerButton() {}
   
   std::string const &	getName() const
   {

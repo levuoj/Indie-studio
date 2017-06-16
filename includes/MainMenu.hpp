@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 12:24:22 2017 Pashervz
-// Last update Tue Jun 13 13:38:30 2017 Pashervz
+// Last update Thu Jun 15 12:08:54 2017 Pashervz
 //
 
 #pragma once
@@ -14,7 +14,6 @@
 
 class MainMenu : public AMenu
 {
-  irrklang::ISoundEngine				*_engine;
   std::unordered_map<std::wstring, DType>                _corresMap =
     {
       {L"main Menu", MAIN_MENU},
@@ -26,7 +25,7 @@ class MainMenu : public AMenu
 
 public:
   MainMenu();
-  ~MainMenu() {}
+  virtual ~MainMenu() {}
   DType		transferKey(irr::EKEY_CODE);
   DType		select() const;
 };

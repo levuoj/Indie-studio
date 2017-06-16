@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Fri Jun 16 11:36:06 2017 DaZe
+// Last update Fri Jun 16 11:38:17 2017 DaZe
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -18,11 +18,13 @@
 #include "Utils.hpp"
 #include "GButton.hpp"
 #include "Camera.hpp"
+#include "Music.hpp"
 
 class						Graphic : public AObserver
 {
 private:
-
+  Music							_music;
+  Music							_sounds;
   static const irr::f32					_squareSize;
   irr::u32						_width;
   irr::u32						_height;
@@ -33,12 +35,19 @@ private:
   Gcamera						_camera;
   irrklang::ISoundEngine				*_engine;
   double						_time;
-  irr::gui::IGUIStaticText				*_text;
+  irr::gui::IGUIStaticText				*_textChrono;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_pauseText;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_playText;
+  std::vector<irr::scene::IBillboardTextSceneNode *>	_leaderboardText;
   bool							_initPause = true;
   bool							_isStarted;
-
+  bool							_finish = false;
+  bool							_uniqueD = false;
+  bool							_backMenu = false;
+  bool							_launchGame = false;
+  irr::scene::IAnimatedMesh				*_meshAsteroid;
+  irr::gui::IGUISkin					*_skin;
+  irr::gui::IGUIFont					*_font;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
   std::vector<std::unique_ptr<GButton>>		_buttonOpt;
   std::vector<std::unique_ptr<GButton>>		_buttonB;
@@ -46,6 +55,8 @@ private:
   std::vector<std::unique_ptr<GButton>>		_buttonPause;
 
   std::vector<std::wstring>			_leaderboard;
+  std::vector<std::wstring>			_endgame;
+  std::vector<irr::gui::IGUIStaticText *>	_textEndGame;
   std::vector<irr::gui::IGUIStaticText *>	_textLeaderboard;
 
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
@@ -59,9 +70,11 @@ private:
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
+  void				setAsteroid(irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				displayBindings(std::vector<std::shared_ptr<Element>> const&);
+  void				displayEndGame(std::vector<std::shared_ptr<Element>> const&);
   void				finish(std::vector<std::shared_ptr<Element>> const&);
   void				loadIntro();
   void				skyDome(const irr::io::path&);
@@ -77,7 +90,9 @@ private:
   void				displayChrono(bool);
   void				clearPauseMenu();
   void				clearPlayMenu();
-
+  void				clearText();
+  void				openFile(std::vector<std::wstring> &, std::string const &);
+  
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();
@@ -101,7 +116,7 @@ public:
     {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
     {DType::PAUSE, std::bind(&Graphic::displayPause, this, std::placeholders::_1)},
     {DType::GAME_CHRONO, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
-    {DType::ENDGAME, std::bind(&Graphic::finish, this, std::placeholders::_1)},
+    {DType::ENDGAME, std::bind(&Graphic::displayEndGame, this, std::placeholders::_1)},
     {DType::NOTHING, NULL}
   };
 };
