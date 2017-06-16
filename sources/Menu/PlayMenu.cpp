@@ -1,11 +1,11 @@
 //
 // PlayMenu.cpp for PlayMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/sources/Menu
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Sat Jun  3 16:07:36 2017 Pashervz
-// Last update Wed Jun  7 11:29:26 2017 Pashervz
+// Last update Fri Jun 16 14:04:29 2017 jouvel
 //
 
 #include <sstream>
@@ -14,7 +14,7 @@
 #include "ManageFile.hpp"
 #include "SaveButton.hpp"
 
-PlayMenu::PlayMenu() : AMenu("Play", PLAY)
+PlayMenu::PlayMenu(Music *music) : AMenu("Play", PLAY, music)
 {
   this->_type = DType::PLAY;
   this->_map.push_back(std::shared_ptr<SaveButton>(new SaveButton(L"n", "assets/deathStar.jpg", Button::BType::SAVE, 1)));
@@ -42,7 +42,7 @@ bool				PlayMenu::getSaveName(std::string const & string)
     {
       std::wstring		toPush(tmp.begin(), tmp.end());
 
-      std::wcout << toPush << std::endl; 
+      std::wcout << toPush << std::endl;
       _savesName.push_back(toPush);
       return (true);
     }
@@ -58,7 +58,7 @@ void			PlayMenu::openSave(std::string const & fileName)
 
       file = manageFile.readFile();
       if (this->getSaveName(file) == false)
-	_savesName.push_back(L"empty");     
+	_savesName.push_back(L"empty");
     }
   catch (std::exception const &)
     {
@@ -99,7 +99,7 @@ DType			PlayMenu::select()
   return (PLAY);
 }
 
-DType		        PlayMenu::transferKey(irr::EKEY_CODE key)
+DType			PlayMenu::transferKey(irr::EKEY_CODE key)
 {
   switch (key)
     {
@@ -110,9 +110,11 @@ DType		        PlayMenu::transferKey(irr::EKEY_CODE key)
       this->goUp();
       break;
     case irr::KEY_RETURN:
+      this->_music->playSound("assets/music/selection.wav");
       return (this->select());
       break;
     case irr::KEY_ESCAPE:
+      this->_music->playSound("assets/music/escape.wav");
       return (MAIN_MENU);
       break;
     default:

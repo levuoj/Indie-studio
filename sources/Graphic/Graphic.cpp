@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun 16 13:19:28 2017 Pashervz
+// Last update Fri Jun 16 14:29:23 2017 Pashervz
 //
 
 #include <sstream>
@@ -31,10 +31,6 @@ const irr::f32		Graphic::_squareSize = 10.f;
 
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
-  std::random_device rd;
-  std::default_random_engine generator(rd());
-  std::uniform_int_distribution<int> distribution(0,4);
-
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
 				    irr::core::dimension2d<irr::u32>(_width, _height),
 				    32);
@@ -43,16 +39,11 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   //_sceneManager->addExternalMeshLoader(new IrrAssimpImport(_sceneManager));
   _device->getCursorControl()->setVisible(false);
   _guienv	= _device->getGUIEnvironment();
-  _engine	= irrklang::createIrrKlangDevice();
 
   _skin = _guienv->getSkin();
   _font = _guienv->getFont("assets/font/myfont.xml");
   _skin->setFont(_font);
   _meshAsteroid = _sceneManager->getMesh("assets/asteroid/asteroid.obj");
-
-  if (!_engine)
-    throw Error("irrklang can't be launched");
-
 
    _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
 		     irr::core::vector3df(5109, 872, 4747));
@@ -62,10 +53,8 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   // _camera.initCamera(_sceneManager, irr::core::vector3df(5033.f, 838.f, 5126.f),
   //		     irr::core::vector3df(5033.f, 770.f, 5172.f));
   this->loadIntro();
-  if (distribution(generator) == 0)
-  _music.playMusic("assets/music/cantina-band-star-wars-cover-melodica.ogg");
-  else
-    _music.playMusic("assets/music/star-wars-cantina-song.ogg");
+  _music.playMusic("assets/music/star-wars-cantina-song.ogg");
+  _music.setVol(0.3f);
   this->initMainMenu();
   this->skyDome("assets/skydome.jpg");
   this->ground();
@@ -141,10 +130,10 @@ void						Graphic::initMainMenu()
 								L"exit"};
 
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/title/myfont.xml"),
-  					   L"star wars : hoth pursuit", 0,
-  					   irr::core::dimension2d<irr::f32>(120, 20),
-  					   irr::core::vector3df(5070, 850, 4820),
-  					   -1, title, title);
+					   L"star wars : hoth pursuit", 0,
+					   irr::core::dimension2d<irr::f32>(120, 15),
+					   irr::core::vector3df(5070, 850, 4820),
+					   -1, title, title);
   for (auto const c : NameMainMenu)
     {
       _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
@@ -851,7 +840,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	y = 560.f;
   irr::f32	z = 5125.f;
   static bool	first = true;
-  
+
   clearPlayMenu();
   _backMenu = true;
   if (_launchGame == true)

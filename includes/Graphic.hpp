@@ -4,27 +4,25 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Fri Jun 16 02:39:18 2017 Pashervz
+// Last update Fri Jun 16 14:12:11 2017 jouvel
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
 #pragma once
 
 #include <irrlicht.h>
-#include <irrKlang.h>
 #include <unordered_map>
 #include <functional>
 #include "AObserver.hpp"
 #include "Utils.hpp"
+#include "Music.hpp"
 #include "GButton.hpp"
 #include "Camera.hpp"
-#include "Music.hpp"
 
 class						Graphic : public AObserver
 {
 private:
   Music							_music;
-  Music							_sounds;
   static const irr::f32					_squareSize;
   irr::u32						_width;
   irr::u32						_height;
@@ -33,7 +31,6 @@ private:
   irr::scene::ISceneManager				*_sceneManager;
   irr::gui::IGUIEnvironment				*_guienv;
   Gcamera						_camera;
-  irrklang::ISoundEngine				*_engine;
   double						_time;
   irr::gui::IGUIStaticText				*_textChrono;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_pauseText;
@@ -48,16 +45,17 @@ private:
   irr::scene::IAnimatedMesh				*_meshAsteroid;
   irr::gui::IGUISkin					*_skin;
   irr::gui::IGUIFont					*_font;
-  std::vector<std::unique_ptr<GButton>>		_buttonMM;
-  std::vector<std::unique_ptr<GButton>>		_buttonOpt;
-  std::vector<std::unique_ptr<GButton>>		_buttonB;
-  std::vector<std::unique_ptr<GButton>>		_buttonP;
-  std::vector<std::unique_ptr<GButton>>		_buttonPause;
 
-  std::vector<std::wstring>			_leaderboard;
-  std::vector<std::wstring>			_endgame;
-  std::vector<irr::gui::IGUIStaticText *>	_textEndGame;
-  std::vector<irr::gui::IGUIStaticText *>	_textLeaderboard;
+  std::vector<std::unique_ptr<GButton> >		_buttonMM;
+  std::vector<std::unique_ptr<GButton> >		_buttonOpt;
+  std::vector<std::unique_ptr<GButton> >		_buttonB;
+  std::vector<std::unique_ptr<GButton> >		_buttonP;
+  std::vector<std::unique_ptr<GButton> >		_buttonPause;
+
+  std::vector<std::wstring>				_leaderboard;
+  std::vector<std::wstring>				_endgame;
+  std::vector<irr::gui::IGUIStaticText *>		_textEndGame;
+  std::vector<irr::gui::IGUIStaticText *>		_textLeaderboard;
 
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
@@ -92,7 +90,7 @@ private:
   void				clearPlayMenu();
   void				clearText();
   void				openFile(std::vector<std::wstring> &, std::string const &);
-  
+
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();

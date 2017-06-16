@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Thu Jun 15 22:55:25 2017 Pashervz
+// Last update Fri Jun 16 14:03:59 2017 jouvel
 //
 
 #include <sstream>
@@ -13,7 +13,7 @@
 #include "Button.hpp"
 #include "BindingMenu.hpp"
 
-BindingMenu::BindingMenu(std::string const & player) : AMenu("Bindings", BINDINGS),
+BindingMenu::BindingMenu(std::string const& player, Music *music) : AMenu("Bindings", BINDINGS, music),
 						       _player(player)
 {
   this->_type = DType::BINDINGS;
@@ -84,10 +84,7 @@ bool			BindingMenu::stringsToKey()
       for (const auto it2 : _corresMap)
 	{
 	  if (it == it2.first)
-	    {
-	      std::wcout << "KEY = " << it2.first << std::endl;
 	      this->_bindings.push_back(it2.second);
-	    }
 	}
     }
   if (this->_bindings.size() != 4)
@@ -232,6 +229,7 @@ void			BindingMenu::select(irr::EKEY_CODE key)
       if (key == irr::KEY_RETURN &&
 	  static_cast<Button *>((*it).get())->getIsSelected() == true)
 	{
+	  this->_music->playSound("assets/music/bind.wav");
 	  if (static_cast<Bind *>((*it).get())->getMode() == false)
 	    {
 	      static_cast<Bind *>((*it).get())->setMode(true);
@@ -305,6 +303,7 @@ DType                   BindingMenu::transferKey(irr::EKEY_CODE key)
 	  this->goUp();
 	  break;
 	case irr::KEY_ESCAPE:
+	  this->_music->playSound("assets/music/escape.wav");
 	  this->saveChanges();
 	  return (OPTIONS);
 	default:

@@ -1,11 +1,11 @@
 //
 // BindingMenu.hpp for BindingMenu in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Mon May 22 17:09:23 2017 Pashervz
-// Last update Thu Jun 15 16:20:43 2017 Pashervz
+// Last update Fri Jun 16 13:37:57 2017 jouvel
 //
 
 #pragma once
@@ -79,9 +79,9 @@ private:
   std::string			_player;
   std::vector<irr::EKEY_CODE>	_bindings;
   std::vector<std::wstring>	_bindingsStrings;
-  
+
 public:
-  BindingMenu(std::string const & player);
+  BindingMenu(std::string const & player, Music *);
   virtual ~BindingMenu() {}
 
   DType			transferKey(irr::EKEY_CODE);
@@ -101,7 +101,7 @@ public:
   void			defaultP4();
   std::wstring const	stringToWstring(std::string const &) const;
   void			saveChanges();
-  std::string const 	writeChanges();
+  std::string const	writeChanges();
   void			getBinds();
   void			assignBinds();
   std::string const &	getPlayer() const
