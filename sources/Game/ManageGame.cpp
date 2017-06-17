@@ -181,6 +181,22 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
       path = "X";
       type = Element::EType::BLOCK;
       break;
+    case '|':
+      path = "|";
+      type = Element::EType::BLOCK;
+      break;
+    case '\\':
+      path = "\\";
+      type = Element::EType::BLOCK;
+      break;
+    case '/':
+      path = "/";
+      type = Element::EType::BLOCK;
+      break;
+    case '-':
+      path = "-";
+      type = Element::EType::BLOCK;
+      break;
     case ' ':
       path = " ";
       type = Element::EType::ROAD;
@@ -209,10 +225,6 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
       path = "./assets/TiePhantom.b3d";
       type = Element::EType::POD4;
       break;
-    case '-':
-      path = "-";
-      type = Element::EType::LINE;
-      break;
     default:
       path = "";
       type = Element::EType::DEFAULT;
@@ -232,6 +244,22 @@ GameElement			*ManageGame::ElementFromChar(const char c)
       path = "X";
       type = Element::EType::BLOCK;
       break;
+    case '|':
+      path = "|";
+      type = Element::EType::BLOCK;
+      break;
+    case '\\':
+      path = "\\";
+      type = Element::EType::BLOCK;
+      break;
+    case '/':
+      path = "/";
+      type = Element::EType::BLOCK;
+      break;
+    case '-':
+      path = "-";
+      type = Element::EType::BLOCK;
+      break;
     case ' ':
       path = " ";
       type = Element::EType::ROAD;
@@ -243,10 +271,6 @@ GameElement			*ManageGame::ElementFromChar(const char c)
     case 'o':
       path = "o";
       type = Element::EType::ENDLINE;
-      break;
-    case '-':
-      path = "-";
-      type = Element::EType::LINE;
       break;
     default:
       path = " ";
