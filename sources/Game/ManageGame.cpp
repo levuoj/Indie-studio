@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sat Jun 17 15:41:32 2017 Pierre Zawadil
+// Last update Sat Jun 17 17:06:25 2017 Pierre Zawadil
 //
 
 #include <chrono>
@@ -77,7 +77,6 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<ir
   _finishLine[5] = 389;
   if (loadSave(file) == false)
     {
-      std::cout << "J'AI RATE" << std::endl;
       _map.clear();
       _AIs.clear();
       _players.clear();
@@ -101,7 +100,6 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CO
   construct(nbPlayers);
 
   int i = 0;
-  std::cout << "LOL = " << nbPlayers << std::endl;
   for (auto &it : this->_players)
     {
       it.setKeys(keys.at(i));

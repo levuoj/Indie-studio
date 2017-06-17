@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Fri Jun 16 02:39:18 2017 Pashervz
+// Last update Sat Jun 17 17:15:43 2017 Pierre Zawadil
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -45,7 +45,6 @@ private:
   bool							_uniqueD = false;
   bool							_backMenu = false;
   bool							_launchGame = false;
-  irr::scene::IAnimatedMesh				*_meshAsteroid;
   irr::gui::IGUISkin					*_skin;
   irr::gui::IGUIFont					*_font;
   std::vector<std::unique_ptr<GButton>>		_buttonMM;
@@ -69,6 +68,7 @@ private:
   void				displayPause(std::vector<std::shared_ptr<Element>> const&);
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
+  void				borderDisp(char type, irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
   void				setAsteroid(irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);
@@ -92,7 +92,7 @@ private:
   void				clearPlayMenu();
   void				clearText();
   void				openFile(std::vector<std::wstring> &, std::string const &);
-  
+
 public:
   Graphic(irr::u32 width = 1920, irr::u32 height = 1080);
   ~Graphic();

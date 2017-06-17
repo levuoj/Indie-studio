@@ -1,0 +1,12 @@
+# Blender MTL File: 'laser_border.blend'
+# Material Count: 1
+
+newmtl Material.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.001369 0.005740
+Ks 0.500000 0.371402 0.396424
+Ke 1.600000 0.003421 0.014349
+Ni 1.000000
+d 1.000000
+illum 2
