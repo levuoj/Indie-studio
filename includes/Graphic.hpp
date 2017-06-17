@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Thu Jun 15 22:14:04 2017 Pashervz
+// Last update Fri Jun 16 02:39:18 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -23,6 +23,7 @@
 class						Graphic : public AObserver
 {
 private:
+  Music							_music;
   Music							_sounds;
   static const irr::f32					_squareSize;
   irr::u32						_width;
@@ -42,6 +43,8 @@ private:
   bool							_isStarted;
   bool							_finish = false;
   bool							_uniqueD = false;
+  bool							_backMenu = false;
+  bool							_launchGame = false;
   irr::scene::IAnimatedMesh				*_meshAsteroid;
   irr::gui::IGUISkin					*_skin;
   irr::gui::IGUIFont					*_font;
@@ -50,11 +53,12 @@ private:
   std::vector<std::unique_ptr<GButton>>		_buttonB;
   std::vector<std::unique_ptr<GButton>>		_buttonP;
   std::vector<std::unique_ptr<GButton>>		_buttonPause;
-  
+
   std::vector<std::wstring>			_leaderboard;
   std::vector<std::wstring>			_endgame;
   std::vector<irr::gui::IGUIStaticText *>	_textEndGame;
-  
+  std::vector<irr::gui::IGUIStaticText *>	_textLeaderboard;
+
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 
   void				manageDisplay(std::vector<std::shared_ptr<Element>> const&, DType);
@@ -63,7 +67,6 @@ private:
   void				displayLeaderboard(std::vector<std::shared_ptr<Element>> const&);
   void				displayPlayMenu(std::vector<std::shared_ptr<Element>> const&);
   void				displayPause(std::vector<std::shared_ptr<Element>> const&);
-  
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);

@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Tue Jun 13 12:24:39 2017 jouvel
-// Last update Tue Jun 13 14:48:59 2017 jouvel
+// Last update Fri Jun 16 02:28:50 2017 Pashervz
 //
 
 #include "Music.hpp"
@@ -32,7 +32,6 @@ void			Music::playMusic(const std::string& music)
     {
       _engine->stopAllSounds();
       _engine->play2D(music.c_str(), true);
-      std::cerr << "coucou" << std::endl;
     }
 }
 

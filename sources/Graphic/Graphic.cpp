@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Thu Jun 15 22:38:52 2017 Pierre Zawadil
+// Last update Fri Jun 16 02:53:46 2017 Pashervz
 //
 
 #include <sstream>
@@ -23,6 +23,7 @@
 
 #ifdef _IRR_WINDOWS_
 #pragma comment(lib, "Irrlicht.lib")
+#pragma comment(lib, "irrKlang.lib")
 #pragma comment(linker, "/subsystem:windows /ENTRY:mainCRTStartup")
 #endif
 
@@ -62,9 +63,9 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   //		     irr::core::vector3df(5033.f, 770.f, 5172.f));
   this->loadIntro();
   if (distribution(generator) == 0)
-  _sounds.playMusic("assets/music/cantina-band-star-wars-cover-melodica.ogg");
+  _music.playMusic("assets/music/cantina-band-star-wars-cover-melodica.ogg");
   else
-    _sounds.playMusic("assets/music/star-wars-cantina-song.ogg");
+    _music.playMusic("assets/music/star-wars-cantina-song.ogg");
   this->initMainMenu();
   this->skyDome("assets/skydome.jpg");
   this->ground();
@@ -79,7 +80,6 @@ Graphic::~Graphic()
 
 void				Graphic::loadIntro()
 {
-
 }
 
 void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, DType type)
@@ -110,11 +110,10 @@ void		Graphic::ground()
 				       irr::video::SColor(255, 255, 255, 255),
 				       5, irr::scene::ETPS_17, 4);
 
-
   if (!terrain)
     throw (Error("Terrain asset not found"));
-  terrain->setMaterialTexture(0, _driver->getTexture("assets/sand.jpg"));
-  terrain->setMaterialTexture(1, _driver->getTexture("assets/detailmap3.jpg"));
+  terrain->setMaterialTexture(0, _driver->getTexture("assets/snow.jpg"));
+  //  terrain->setMaterialTexture(1, _driver->getTexture("assets/detailmap3.jpg"));
   terrain->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   terrain->setMaterialType(irr::video::EMT_SOLID);
   terrain->scaleTexture(1.0f, 20.0f);
@@ -135,16 +134,17 @@ void						Graphic::initMainMenu()
   std::vector<irr::f32>				initPos = {5070.f, 830.f, 4820.f};
   std::vector<irr::f32>				initTextDim = {35.f, 10.f};
   irr::video::SColor				color(255, 255, 255, 0);
+  irr::video::SColor				title(255, 121, 248, 248);
   std::vector<const wchar_t *>			NameMainMenu = {L"play",
 								L"scores",
 								L"options",
 								L"exit"};
 
-  // _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-  //					   L"options", 0,
-  //					   irr::core::dimension2d<irr::f32>(50, 20),
-  //					   irr::core::vector3df(5070, 820, 4820),
-  //					   -1, color, color);
+  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/title/myfont.xml"),
+  					   L"star wars : hoth pursuit", 0,
+  					   irr::core::dimension2d<irr::f32>(120, 20),
+  					   irr::core::vector3df(5070, 850, 4820),
+  					   -1, title, title);
   for (auto const c : NameMainMenu)
     {
       _buttonMM.push_back(std::unique_ptr<GButton>(new GButton(initPos,
@@ -224,20 +224,23 @@ void						Graphic::initOptMenu()
 					   irr::core::vector3df(4940, 855, 4820),
 					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				     L"bindings", 0,
-				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(4985, 822.5f, 4806),
-				     -1, color, color);
+					   L"bindings", 0,
+					   irr::core::dimension2d<irr::f32>
+					   (initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4985, 822.5f, 4806),
+					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				     L"music", 0,
-				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(4985, 805, 4806),
-				     -1, color, color);
+					   L"music", 0,
+					   irr::core::dimension2d<irr::f32>
+					   (initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4985, 805, 4806),
+					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-				     L"audio", 0,
-				     irr::core::dimension2d<irr::f32>(initTextDim[0], initTextDim[1]),
-				   irr::core::vector3df(4985, 785, 4806),
-				     -1, color, color);
+					   L"audio", 0,
+					   irr::core::dimension2d<irr::f32>
+					   (initTextDim[0], initTextDim[1]),
+					   irr::core::vector3df(4985, 785, 4806),
+					   -1, color, color);
 }
 
 void		Graphic::initBindings()
@@ -254,20 +257,20 @@ void		Graphic::initBindings()
   initTextDim.push_back(10.f);
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"z",
+							    L"",
 							    color)));
   initPos[0] = 4900;
   initPos[2] = 4880;
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"q",
+							    L"",
 							    color)));
   initPos[0] = 4970;
   initPos[1] = 1004;
   initPos[2] = 4810;
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"s",
+							    L"",
 							    color)));
 
   initPos[0] = 4900;
@@ -275,16 +278,8 @@ void		Graphic::initBindings()
   initPos[2] = 4880;
   _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
-							    L"d",
+							    L"",
 							    color)));
-  initPos[0] = 4940;
-  initPos[1] = 970;
-  initPos[2] = 4820;
-  _buttonB.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-							    initTextDim,
-							    L"e",
-							    color)));
-
   for (auto it = _buttonB.begin() ; it != _buttonB.end() ; ++it)
     it->get()->setButton(_sceneManager, _guienv);
   initTextDim[0] = 25;
@@ -315,9 +310,11 @@ void		Graphic::initBindings()
 					   irr::core::vector3df(4940, 1005, 4864),
 					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"object", 0,
-					   irr::core::dimension2d<irr::f32>(50, 20),
-					   irr::core::vector3df(4940, 985, 4820),
+					   L"press enter to change and valid",
+					   0,
+					   irr::core::dimension2d<irr::f32>
+					   (140, 30),
+					   irr::core::vector3df(4940, 980, 4820),
 					   -1, color, color);
 }
 
@@ -561,6 +558,12 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
   clearText();
   _uniqueD = false;
   _finish = false;
+  _launchGame = true;
+  if (_backMenu == true)
+    {
+      _music.playMusic("assets/music/star-wars-cantina-song.ogg");
+      _backMenu = false;
+    }
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -680,13 +683,15 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 						    false));
       _textEndGame.push_back(_guienv->addStaticText(L"press esc to quit",
 						    irr::core::rect<irr::s32>
-						    (300, 800, 10000, 10000),
+						    (670, 800, 10000, 10000),
 						    false));
       _textEndGame[0]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
       _textEndGame[1]->setOverrideColor(irr::video::SColor(255, 255, 215, 0));
       _textEndGame[2]->setOverrideColor(irr::video::SColor(255, 192, 192, 192));
       _textEndGame[3]->setOverrideColor(irr::video::SColor(255, 205, 127, 50));
+      _textEndGame[4]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
       _finish = true;
+      _backMenu = true;
     }
 }
 
@@ -713,6 +718,8 @@ void			Graphic::openFile(std::vector<std::wstring> & vec,
 	  vec.push_back(score);
 	  ++idx;
 	}
+      if (vec.size() != 3)
+	throw Error("Error in the file");
     }
   catch (std::exception const &)
     {
@@ -771,6 +778,8 @@ void		Graphic::setAsteroid(irr::io::path,
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
 				 irr::f32 x, irr::f32 y, irr::f32 z)
 {
+  if (elem->getType() == Element::EType::ROAD)
+    return ;
   irr::scene::IMeshSceneNode	*cube =
     _sceneManager->addCubeSceneNode(10.0f, 0, -1,
 				    irr::core::vector3df(x, y, z),
@@ -788,25 +797,25 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
       wall->setMaterialType(irr::video::EMT_SOLID);
       break ;
     case Element::EType::ROAD :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
+      //      cube->setMaterialTexture(0, _driver->getTexture("assets/road.jpg"));
       break ;
     case Element::EType::ENDLINE :
       cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
       break ;
     case Element::EType::POD1 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      //     cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD2 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      //cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD3 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      //cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     case Element::EType::POD4 :
-      cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
+      //cube->setMaterialTexture(0, _driver->getTexture("assets/road.JPG"));
       this->setCar(elem->getType(), elem->getPath(), x, y, z);
       break ;
     default :
@@ -841,8 +850,14 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	y = 560.f;
   irr::f32	z = 5125.f;
   static bool	first = true;
-
+  
   clearPlayMenu();
+  _backMenu = true;
+  if (_launchGame == true)
+    {
+      _music.playMusic("assets/music/duel-of-the-fates.ogg");
+      _launchGame = false;
+    }
   if (_initPause == false)
     {
       clearPauseMenu();
@@ -850,11 +865,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
     }
   _camera.moveCamera(irr::core::vector3df(5033.f, 838.f, 5126.f),
 		     irr::core::vector3df(5033.f, 770.f, 5172.f));
-  if (first == true)
-	{
-	  displayChrono(true);
-	  _sounds.playMusic("assets/music/duel-of-the-fates.ogg");
-	}
+  if (first)
+    displayChrono(true);
   else if (_isStarted == true)
     displayChrono(false);
   for (auto const& elem : map)

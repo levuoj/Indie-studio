@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Wed Jun 14 14:50:36 2017 DaZe
+// Last update Fri Jun 16 02:40:24 2017 Pashervz
 //
 
 #pragma once
@@ -14,16 +14,23 @@
 #include <array>
 #include "GameElement.hpp"
 #include "PowerUp.hpp"
+#include "Chrono.hpp"
 
 class Car : public GameElement
 {
 public:
-  static const float		_maxSpeed;
   static const float		_fps;
-  static const float		_inertia;
   static const float		_pi;
 
-	enum  EDirection
+  enum	EState
+    {
+      FAST,
+      SLOW,
+      OIL,
+      NONE
+    };
+
+  enum  EDirection
     {
       UP_LEFT,
       UP,
@@ -36,20 +43,11 @@ public:
     };
 
 private:
-  enum  EState
-    {
-      NORMAL,
-      BANANA,
-      WALL,
-      SHOOT
-    };
-
   std::pair<int, int>			_posMap;
   float					_speed;
   std::pair<float, float>		_dir;
   float					_angle;
   PowerUp				_pu;
-  EState				_state;
   std::pair<int, int>			_prevPos;
   std::array<Element::EType, 8>		_arrounding;
   short int				_lap;
@@ -57,7 +55,12 @@ private:
   EDirection				_edir;
   bool					_isStopped;
   bool					_isRank;
-  
+  float					_maxSpeed;
+  float					_inertia;
+  Chrono				_chrono;
+  EState				_state;
+  float					_speedSave;
+
 public:
 
   Car() = default;
@@ -72,6 +75,7 @@ public:
   void					turnLeft();
   void					turnRight();
   void					launchPowerUp();
+  void					Power();
   void					setPosMap(std::pair<int, int> const& pos);
   void					setLap(const short int);
   void					setSpeed(const float);
@@ -84,6 +88,7 @@ public:
   float					getAbsoluteAngle() const;
   float					getAngle() const;
   float					getSpeed() const;
+  float					getMaxSpeed() const;
   short int				getLap() const;
   Car::EDirection			getEDir() const;
   void					incLap();
@@ -94,8 +99,8 @@ public:
   std::pair<float, float> const&	getPos() const;
   std::pair<int, int> const&		getPosMap() const;
 
-  bool					checkArrounding();
-  bool					checkBackArrounding();
+  Element::EType			checkArrounding();
+  Element::EType			checkBackArrounding();
   void					setArrounding(const std::array<Element::EType, 8> &arrounding);
   void					setEdir(const EDirection &);
 };

@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Fri May 12 17:06:19 2017 thomas vigier
-// Last update Mon Jun  5 19:18:02 2017 DaZe
+// Last update Tue Jun 13 20:06:49 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -33,19 +33,19 @@ public:
     switch (std::stoi(type))
       {
       case 1 :
-	std::cout << "JE PARSE LE TYPE = " << type << std::endl;
+	// std::cout << "JE PARSE LE TYPE = " << type << std::endl;
 	return (Element::EType::POD1);
 	break ;
       case 2 :
-	std::cout << "JE PARSE LE TYPE = " << type << std::endl;
+	// std::cout << "JE PARSE LE TYPE = " << type << std::endl;
 	return (Element::EType::POD2);
 	break ;
       case 3 :
-	std::cout << "JE PARSE LE TYPE = " << type << std::endl;
+	// std::cout << "JE PARSE LE TYPE = " << type << std::endl;
 	return (Element::EType::POD3);
 	break ;
       case 4 :
-	std::cout << "JE PARSE LE TYPE = " << type << std::endl;
+	// std::cout << "JE PARSE LE TYPE = " << type << std::endl;
 	return (Element::EType::POD4);
 	break ;
       default :
