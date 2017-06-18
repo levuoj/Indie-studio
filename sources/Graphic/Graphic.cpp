@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 17:53:26 2017 Pashervz
+// Last update Sun Jun 18 19:32:53 2017 Lebrun Kilian
 //
 
 #include <sstream>
@@ -822,7 +822,6 @@ void		Graphic::borderDisp(char type, irr::f32 x, irr::f32 y, irr::f32 z)
     throw (Error("Pod mesh not found"));
   border->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   border->setMaterialType(irr::video::EMT_SOLID);
-  pods[type]->setMaterialType(irr::video::EMT_SOLID);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,

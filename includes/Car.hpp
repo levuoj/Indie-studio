@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Sun Jun 18 17:32:55 2017 Lebrun Kilian
+// Last update Sun Jun 18 19:18:21 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -13,7 +13,6 @@
 #include <utility>
 #include <array>
 #include "GameElement.hpp"
-#include "PowerUp.hpp"
 #include "Chrono.hpp"
 
 class Car : public GameElement
@@ -47,7 +46,6 @@ private:
   float					_speed;
   std::pair<float, float>		_dir;
   float					_angle;
-  PowerUp				_pu;
   std::pair<int, int>			_prevPos;
   std::array<Element::EType, 8>		_arrounding;
   short int				_lap;
@@ -64,8 +62,8 @@ private:
 public:
 
   Car() = default;
-  Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir);
-  Car(std::pair<int, int> posMap, const Element::EType type);
+  Car(const std::pair<int, int> &posMap, Element::EType type, float angle, short int lap, bool isFinished, EDirection dir);
+  Car(const std::pair<int, int> &posMap, Element::EType type);
   ~Car() {}
 
   void					accelerate();

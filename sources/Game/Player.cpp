@@ -5,12 +5,12 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Sun Jun 18 14:38:43 2017 DaZe
+// Last update Sun Jun 18 19:31:49 2017 Lebrun Kilian
 //
 
 #include "Player.hpp"
 
-Player::Player(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir)
+Player::Player(const std::pair<int, int> &posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir)
 {
   _car = std::shared_ptr<Car>(new Car(posMap, type, angle, lap, isFinished, dir));
 }
@@ -20,7 +20,7 @@ Player::Player(const std::pair<int, int> &carPos, const Element::EType type)
   this->_car = std::shared_ptr<Car>(new Car(carPos, type));
 }
 
-Car::EDirection	Player::dirFromAngle(int angle)
+Car::EDirection	Player::dirFromAngle(int angle) const
 {
   static Car::EDirection	slices[] = { Car::EDirection::RIGHT, Car::EDirection::UP_RIGHT, Car::EDirection::UP, Car::EDirection::UP, Car::EDirection::UP_LEFT, Car::EDirection::LEFT, Car::EDirection::LEFT, Car::EDirection::DOWN_LEFT, Car::EDirection::DOWN, Car::EDirection::DOWN, Car::EDirection::DOWN_RIGHT, Car::EDirection::RIGHT };
 
@@ -56,5 +56,15 @@ void		Player::setKeys(const std::vector<irr::EKEY_CODE> &keys)
 
 void  Player::setArroundingCar(const std::array<Element::EType, 8> &arrounding)
 {
-   this->_car->setArrounding(arrounding);
+  this->_car->setArrounding(arrounding);
+}
+
+const std::pair<int, int>	&Player::getPosMap() const
+{
+  return (this->_car->getPosMap());
+}
+
+const std::shared_ptr<Car>	&Player::getCar() const
+{
+  return (this->_car);
 }
