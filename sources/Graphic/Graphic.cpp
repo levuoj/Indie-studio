@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 19:32:53 2017 Lebrun Kilian
+// Last update Sun Jun 18 21:39:26 2017 jouvel
 //
 
 #include <sstream>
@@ -33,11 +33,10 @@ const irr::f32		Graphic::_squareSize = 10.f;
 Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(height)
 {
   _device	= irr::createDevice(irr::video::EDT_OPENGL,
-				    irr::core::dimension2d<irr::u32>(_width, _height),
+				    irr::core::dimension2d<irr::u32>(width, height),
 				    32);
   _driver	= _device->getVideoDriver();
   _sceneManager = _device->getSceneManager();
-  //_sceneManager->addExternalMeshLoader(new IrrAssimpImport(_sceneManager));
   _device->getCursorControl()->setVisible(false);
   _guienv	= _device->getGUIEnvironment();
 
@@ -47,11 +46,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
 
    _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
 		     irr::core::vector3df(5109, 872, 4747));
-  // _camera.initCamera(_sceneManager,
-  //		     irr::core::vector3df(5035, 806, 4877),
-  //		     irr::core::vector3df(5066, 808, 4824));
-  // _camera.initCamera(_sceneManager, irr::core::vector3df(5033.f, 838.f, 5126.f),
-  //		     irr::core::vector3df(5033.f, 770.f, 5172.f));
   this->skyDome("assets/skydome.jpg");
   this->ground();
   _music.playMusic("assets/music/logo.ogg");
@@ -60,7 +54,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _music.setVol(0.3f);
   this->initMainMenu();
   _device->setWindowCaption(L"STAR WARS - PodRacer");
-  // POUR LE LOGO - TITRE DU JEU
 }
 
 Graphic::~Graphic()
@@ -70,11 +63,11 @@ Graphic::~Graphic()
 
 void					Graphic::loadIntro()
 {
-   auto				        start = std::chrono::high_resolution_clock::now();
+   auto					start = std::chrono::high_resolution_clock::now();
    auto					end = start;
    std::chrono::duration<double>	diff;
 
-   
+
   _device->getGUIEnvironment()->
     addImage(_driver->getTexture("assets/logoFS.png"),
 	     irr::core::position2d<irr::s32>(450, -50));
@@ -83,7 +76,7 @@ void					Graphic::loadIntro()
   _sceneManager->drawAll();
   _device->getGUIEnvironment()->drawAll();
   _driver->endScene();
-   while (diff.count() <= 5)
+   while (diff.count() <= 4)
      {
        end = std::chrono::high_resolution_clock::now();
        diff = end - start;
@@ -122,11 +115,9 @@ void		Graphic::ground()
   if (!terrain)
     throw (Error("Terrain asset not found"));
 
-  //_sceneManager->getMeshManipulator()->makePlanarTextureMapping(terrain->getMesh(), 0.04f);
   terrain->setMaterialTexture(0, _driver->getTexture("assets/snow.jpg"));
   terrain->getMaterial(0).getTextureMatrix(0).setTextureScale(14, 14);
 
-  // terrain->setMaterialTexture(0, _driver->getTexture("assets/snow.jpg"));
   terrain->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   terrain->setMaterialType(irr::video::EMT_SOLID);
   terrain->scaleTexture(1.0f, 20.0f);
@@ -173,6 +164,7 @@ void						Graphic::initMainMenu()
   this->initPlayMenu();
   this->initLeaderboard();
   clearPlayMenu();
+  clearOptMenu();
 }
 
 void						Graphic::initLeaderboard()
@@ -226,23 +218,26 @@ void						Graphic::initOptMenu()
     it->get()->setButton(_sceneManager, _guienv);
   initTextDim[0] = 25;
   initTextDim[1] = 10;
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"options", 0,
-					   irr::core::dimension2d<irr::f32>(50, 20),
-					   irr::core::vector3df(4940, 855, 4820),
-					   -1, color, color);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"bindings :", 0,
-					   irr::core::dimension2d<irr::f32>
-					   (initTextDim[0], initTextDim[1]),
-					   irr::core::vector3df(4985, 822.5f, 4806),
-					   -1, color, color);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"music :", 0,
-					   irr::core::dimension2d<irr::f32>
-					   (initTextDim[0], initTextDim[1]),
-					   irr::core::vector3df(4985, 795, 4806),
-					   -1, color, color);
+  _optText.push_back(_sceneManager->
+		    addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					      L"options", 0,
+					      irr::core::dimension2d<irr::f32>(50, 20),
+					      irr::core::vector3df(4940, 855, 4820),
+					      -1, color, color));
+  _optText.push_back(_sceneManager->
+		    addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					      L"bindings :", 0,
+					      irr::core::dimension2d<irr::f32>
+					      (initTextDim[0], initTextDim[1]),
+					      irr::core::vector3df(4985, 822.5f, 4806),
+					      -1, color, color));
+  _optText.push_back(_sceneManager->
+		    addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
+					      L"music :", 0,
+					      irr::core::dimension2d<irr::f32>
+					      (initTextDim[0], initTextDim[1]),
+					      irr::core::vector3df(4985, 795, 4806),
+					      -1, color, color));
 }
 
 void		Graphic::initBindings()
@@ -476,6 +471,17 @@ void			Graphic::clearPlayMenu()
     }
 }
 
+void			Graphic::clearOptMenu()
+{
+  _optText[0]->setText(L"");
+  _optText[1]->setText(L"");
+  _optText[2]->setText(L"");
+  for (auto it = _buttonOpt.begin() ; it != _buttonOpt.end() ; ++it)
+    {
+      (it->get())->_button->setText(L"");
+    }
+}
+
 void			Graphic::clearText()
 {
   for (auto it : _textEndGame)
@@ -490,6 +496,7 @@ void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
   irr::video::SColor	gold(255, 255, 215, 0);
   irr::video::SColor	silver(255, 192, 192, 192);
   irr::video::SColor	bronze(255, 205, 127, 50);
+
 
   clearPlayMenu();
   _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
@@ -598,6 +605,9 @@ void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
 
   _camera.moveCamera(irr::core::vector3df(4998, 807, 4873),
 		     irr::core::vector3df(4985, 808, 4861));
+  _optText[0]->setText(L"options");
+  _optText[1]->setText(L"bindings :");
+  _optText[2]->setText(L"music :");
   for (auto it = map.begin() ; it != map.end() ; ++it)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
@@ -736,7 +746,6 @@ void			Graphic::openFile(std::vector<std::wstring> & vec,
       while (std::getline(iss, tmp) && idx < 3)
 	{
 	  std::stod(tmp);
-
 	  std::wstring		score(tmp.begin(), tmp.end());
 
 	  vec.push_back(score);
@@ -771,6 +780,7 @@ void		Graphic::setCar(Element::EType type,
   if (!pods[type])
     throw (Error("Pod mesh not found"));
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  pods[type]->setMaterialType(irr::video::EMT_DETAIL_MAP);
 }
 
 void		Graphic::borderDisp(char type, irr::f32 x, irr::f32 y, irr::f32 z)
@@ -874,7 +884,7 @@ void		Graphic::displayChrono(bool first)
     {
       _skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
       _textChrono = _guienv->addStaticText(L"",
-				     irr::core::rect<irr::s32>(800, 30, 10000, 10000),
+				     irr::core::rect<irr::s32>(840, 30, 10000, 10000),
 				     false);
     }
   else if (_time == 0.0)
@@ -889,7 +899,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	x = 5330.f;
   irr::f32	y = 560.f;
   irr::f32	z = 5125.f;
-  static bool first = true;
+  static bool	first = true;
   int		powerupIdx = 0;
 
   clearPlayMenu();
@@ -914,7 +924,6 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
     displayChrono(false);
   for (auto const& elem : map)
     {
-	  bool			visible = false;
       if (i % 60 == 0)
 	{
 	  x = 5330.f;
@@ -935,35 +944,34 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
 	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
 	}
-	  if (type == Element::EType::POWERUP && first)
-	  {
-			  this->_powerups.push_back(_sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/stormtrooper.obj"),
-				  0, -1,
-				  irr::core::vector3df(x, y + 10.f, z),
-				  irr::core::vector3df(0.f, 180, 0.f),
-				  irr::core::vector3df(0.07f, 0.07f, 0.07f)));
-			  this->_powerups.back()->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-			  this->_powerups.back()->setMaterialType(irr::video::EMT_SOLID);
-			  this->_powerups.back()->setFrameLoop(0, 14);
-			  this->_powerups.back()->setAnimationSpeed(14);
-	  }
+
+      if (type == Element::EType::POWERUP && first)
+	{
+	  this->_powerups.push_back(_sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/stormtrooper.obj"),
+									    0, -1,
+									    irr::core::vector3df(x, y + 10.f, z),
+									    irr::core::vector3df(0.f, 180, 0.f),
+									    irr::core::vector3df(0.07f, 0.07f, 0.07f)));
+	  if (this->_powerups.back() == NULL)
+	    throw (Error("powerup mesh not load"));
+	  this->_powerups.back()->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+	  this->_powerups.back()->setMaterialType(irr::video::EMT_SOLID);
+	}
 
 	  if (type == Element::EType::POWERUP)
-	  {
-		  this->_powerups[powerupIdx]->setVisible(true);
-		  ++powerupIdx;
-	  }
+	    {
+	      this->_powerups[powerupIdx]->setVisible(true);
+	      ++powerupIdx;
+	    }
 	  else if (type == Element::EType::POWERUPHIDE)
-	  {
-		  this->_powerups[powerupIdx]->setVisible(false);
-		  ++powerupIdx;
-	  }
+	    {
+	      this->_powerups[powerupIdx]->setVisible(false);
+	      ++powerupIdx;
+	    }
 
       x -= 10.f;
       ++i;
     }
-  if (first && this->_powerups.size() != 4)
-	  throw (Error("Number of powerups must be 4"));
   first = false;
 }
 

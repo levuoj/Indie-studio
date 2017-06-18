@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Sun Jun 18 19:50:12 2017 Lebrun Kilian
+// Last update Sun Jun 18 21:58:36 2017 Lebrun Kilian
 //
 
 #include <random>
@@ -88,8 +88,8 @@ void				Car::managePowerUp()
 	{
 	  if (this->_powerchrono.getTime() < 1.16)
 	    {
-	      this->_speed = 250;
-	      this->_maxSpeed = 255;
+	      this->_speed = 0;
+	      this->_maxSpeed = 0;
 	      this->_angle -= 5;
 	    }
 	  else
@@ -198,9 +198,9 @@ Element::EType            Car::checkArrounding() const
   switch (this->_edir)
     {
     case EDirection::RIGHT:
-      if (getAbsoluteAngle() >= 5 && getAbsoluteAngle() < 30)
+      if (getAbsoluteAngle() >= 0 && getAbsoluteAngle() < 30)
 	return (this->_arrounding.at(2));
-      else if (getAbsoluteAngle() <= 355 && getAbsoluteAngle() > 330)
+      else if (getAbsoluteAngle() <= 360 && getAbsoluteAngle() > 330)
 	{
 	  if (this->_arrounding.at(4) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
@@ -212,12 +212,12 @@ Element::EType            Car::checkArrounding() const
       break;
 
     case EDirection::LEFT:
-      if (getAbsoluteAngle() >= 185 && getAbsoluteAngle() < 210)
+      if (getAbsoluteAngle() >= 190 && getAbsoluteAngle() < 210)
 	{
 	  if (this->_arrounding.at(6) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
 	}
-      else if (getAbsoluteAngle() <= 175 && getAbsoluteAngle() > 150)
+      else if (getAbsoluteAngle() <= 180 && getAbsoluteAngle() > 150)
 	{
 	  if (this->_arrounding.at(0) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
@@ -229,12 +229,12 @@ Element::EType            Car::checkArrounding() const
       break;
 
     case EDirection::UP:
-      if (getAbsoluteAngle() >= 95 && getAbsoluteAngle() < 120)
+      if (getAbsoluteAngle() >= 100 && getAbsoluteAngle() < 120)
 	{
 	  if (this->_arrounding.at(0) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
 	}
-      else if (getAbsoluteAngle() <= 85 && getAbsoluteAngle() > 60)
+      else if (getAbsoluteAngle() <= 90 && getAbsoluteAngle() > 60)
 	{
 	  if (this->_arrounding.at(2) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
@@ -260,12 +260,12 @@ Element::EType            Car::checkArrounding() const
       break;
 
     case EDirection::DOWN:
-      if (getAbsoluteAngle() >= 275 && getAbsoluteAngle() < 300)
+      if (getAbsoluteAngle() >= 280 && getAbsoluteAngle() < 300)
 	{
 	  if (this->_arrounding.at(4) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
 	}
-      else if (getAbsoluteAngle() <= 265 && getAbsoluteAngle() > 240)
+      else if (getAbsoluteAngle() <= 270 && getAbsoluteAngle() > 240)
 	{
 	  if (this->_arrounding.at(6) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
@@ -301,12 +301,12 @@ Element::EType            Car::checkBackArrounding() const
   switch (this->_edir)
     {
     case EDirection::RIGHT:
-      if (getAbsoluteAngle() >= 5 && getAbsoluteAngle() < 30)
+      if (getAbsoluteAngle() >= 0 && getAbsoluteAngle() < 30)
 	{
 	  if (this->_arrounding.at(6) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
 	}
-      else if (getAbsoluteAngle() <= 355 && getAbsoluteAngle() > 330)
+      else if (getAbsoluteAngle() <= 360 && getAbsoluteAngle() > 330)
 	{
 	  if (this->_arrounding.at(0) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
@@ -318,12 +318,12 @@ Element::EType            Car::checkBackArrounding() const
       break;
 
     case EDirection::LEFT:
-      if (getAbsoluteAngle() >= 185 && getAbsoluteAngle() < 210)
+      if (getAbsoluteAngle() >= 190 && getAbsoluteAngle() < 210)
 	{
 	  if (this->_arrounding.at(2) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
 	}
-      else if (getAbsoluteAngle() <= 175 && getAbsoluteAngle() > 150)
+      else if (getAbsoluteAngle() <= 180 && getAbsoluteAngle() > 150)
 	{
 	  if (this->_arrounding.at(4) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
@@ -335,12 +335,12 @@ Element::EType            Car::checkBackArrounding() const
       break;
 
     case EDirection::UP:
-      if (getAbsoluteAngle() >= 95 && getAbsoluteAngle() < 120)
+      if (getAbsoluteAngle() >= 10 && getAbsoluteAngle() < 120)
 	{
 	  if (this->_arrounding.at(4) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
 	}
-      else if (getAbsoluteAngle() <= 85 && getAbsoluteAngle() > 60)
+      else if (getAbsoluteAngle() <= 90 && getAbsoluteAngle() > 60)
 	{
 	  if (this->_arrounding.at(6) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
@@ -366,12 +366,12 @@ Element::EType            Car::checkBackArrounding() const
       break;
 
     case EDirection::DOWN:
-      if (getAbsoluteAngle() >= 275 && getAbsoluteAngle() < 300)
+      if (getAbsoluteAngle() >= 280 && getAbsoluteAngle() < 300)
 	{
 	  if (this->_arrounding.at(0) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);
 	}
-      else if (getAbsoluteAngle() <= 265 && getAbsoluteAngle() > 240)
+      else if (getAbsoluteAngle() <= 270 && getAbsoluteAngle() > 240)
 	{
 	  if (this->_arrounding.at(2) == Element::EType::BLOCK)
 	    return (Element::EType::BLOCK);

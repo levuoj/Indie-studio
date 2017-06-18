@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Sun Jun 18 17:54:15 2017 Pashervz
+// Last update Sun Jun 18 20:48:48 2017 Lebrun Kilian
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -37,6 +37,7 @@ private:
   std::vector<irr::scene::IBillboardTextSceneNode *>	_pauseText;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_playText;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_leaderboardText;
+  std::vector<irr::scene::IBillboardTextSceneNode *>	_optText;
   bool							_initPause = true;
   bool							_isStarted;
   bool							_finish = false;
@@ -88,6 +89,7 @@ private:
   void				displayChrono(bool);
   void				clearPauseMenu();
   void				clearPlayMenu();
+  void				clearOptMenu();
   void				clearText();
   void				openFile(std::vector<std::wstring> &, std::string const &);
 
