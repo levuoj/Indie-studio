@@ -228,19 +228,19 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
       type = Element::EType::POWERUP;
       break;
     case '>':
-      path = "./assets/TieBomber.b3d";
+      path = "./assets/TieBomber.obj";
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "./assets/TieDefender.b3d";
+      path = "./assets/TieDefender.obj";
       type = Element::EType::POD2;
       break;
     case 's':
-      path = "./assets/TieInterceptor.b3d";
+      path = "./assets/TieInterceptor.obj";
       type = Element::EType::POD3;
       break;
     case 'g':
-      path = "./assets/TiePhantom.b3d";
+      path = "./assets/TiePhantom.obj";
       type = Element::EType::POD4;
       break;
     default:
