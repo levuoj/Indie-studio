@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 22:22:28 2017 Pashervz
+// Last update Sun Jun 18 22:25:59 2017 Pashervz
 //
 
 #include <sstream>
@@ -572,7 +572,7 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
 		     irr::core::vector3df(5066, 808, 4824));
   clearPauseMenu();
   clearText();
-  clearOptText();
+  clearOptMenu();
   _uniqueD = false;
   _finish = false;
   _launch = true;
