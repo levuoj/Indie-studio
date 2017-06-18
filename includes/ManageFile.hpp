@@ -5,15 +5,13 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May  8 19:43:47 2017 Pashervz
-// Last update Sat Jun  3 12:36:17 2017 Pashervz
+// Last update Sun Jun 18 18:56:48 2017 Lebrun Kilian
 //
 
 #pragma once
 
 #include <string>
-#include <iostream>
 #include <fstream>
-//#include <windows.h>
 #include "Error.hpp"
 
 class		ManageFile
@@ -23,7 +21,7 @@ private:
   std::ifstream _ifFile;
   std::ofstream	_ofFile;
 public:
-  std::string const	readFile()
+  std::string const	readFile() const
   {
     std::string		tmp;
     std::string		line;

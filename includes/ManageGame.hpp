@@ -5,18 +5,15 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Sun Jun 18 17:35:02 2017 Lebrun Kilian
+// Last update Sun Jun 18 18:32:52 2017 Lebrun Kilian
 //
 
 #pragma once
 
-#include <vector>
 #include <algorithm>
 #include <string>
-#include <Keycodes.h>
 #include "ManageFile.hpp"
 #include "Observable.hpp"
-#include "Chrono.hpp"
 #include "AI.hpp"
 #include "Player.hpp"
 #include "Utils.hpp"
@@ -45,29 +42,28 @@ public:
   void					initPlayerAndIa(int, int, int &, const Element::EType &);
   void					construct(int);
   DType					transferKey(EventReceiver const&);
-  const std::array<Element::EType, 8>	arrounding(int);
-  GameElement				*ElementFromChar(char);
-  GameElement				*ElementFromCharCar(char);
+  const std::array<Element::EType, 8>	arrounding(int) const;
+  GameElement				*ElementFromChar(char) const;
+  GameElement				*ElementFromCharCar(char) const;
   void					loadMap(std::string const &);
   void					updateMap();
-  void					printMap();
   void					checkVictory(std::shared_ptr<Car> const&);
   Chrono const&				getChrono() const;
-  bool					loadSave(std::string const &);
-  bool					loadFile(std::string const &);
+  bool					loadSave(std::string const &) const;
+  bool					loadFile(std::string const &) const;
   bool					loadLine(std::string const &);
   bool					checkType(const std::vector<std::string> &);
-  bool					checkPosMap(const std::string &);
-  bool					checkCarType(const std::string &);
-  bool					checkAngle(const std::string &);
-  bool					checkLap(const std::string &);
-  bool					checkCheckpoint(const std::string &);
-  bool					checkDir(const std::string &);
-  bool					checkIdx(const std::string &);
-  bool					checkChrono(const std::string &);
+  bool					checkPosMap(const std::string &) const;
+  bool					checkCarType(const std::string &) const;
+  bool					checkAngle(const std::string &) const;
+  bool					checkLap(const std::string &) const;
+  bool					checkCheckpoint(const std::string &) const;
+  bool					checkDir(const std::string &) const;
+  bool					checkIdx(const std::string &) const;
+  bool					checkChrono(const std::string &) const;
   bool					getStarted() const;
-  void					determineCarPath(std::shared_ptr<Car>);
-  void					makeSave(int);
+  void					determineCarPath(const std::shared_ptr<Car> &);
+  void					makeSave(int) const;
   void					makeRanking();
   void					makeEndScore();
   void					writeRanking();

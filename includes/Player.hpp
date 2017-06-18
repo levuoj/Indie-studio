@@ -5,13 +5,12 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:32:29 2017 thomas vigier
-// Last update Tue Jun 13 18:28:22 2017 DaZe
+// Last update Sun Jun 18 18:44:12 2017 Lebrun Kilian
 //
 
 #pragma once
 
 #include <vector>
-#include <array>
 #include <unordered_map>
 #include <Keycodes.h>
 #include <functional>
@@ -27,21 +26,15 @@ class			Player
   std::vector<irr::EKEY_CODE>					_keys;
 public:
 
-  Player(const std::pair<int, int> &carPos, const Element::EType type);
-  Player(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir);
+  Player(const std::pair<int, int> &carPos, Element::EType type);
+  Player(const std::pair<int, int> &posMap, Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir);
   ~Player() {};
   void			initDir();
   void			driver(EventReceiver const& key);
   void			setKeys(const std::vector<irr::EKEY_CODE> &keys);
 
   void			setArroundingCar(const std::array<Element::EType, 8> &arrounding);
-  Car::EDirection	dirFromAngle(int angle);
-  std::pair<int, int>	getPosMap()
-  {
-    return (this->_car->getPosMap());
-  }
-  std::shared_ptr<Car>  getCar() const
-  {
-    return (this->_car);
-  }
+  Car::EDirection	dirFromAngle(int angle) const;
+  const std::pair<int, int>	&getPosMap() const;
+  const std::shared_ptr<Car>	&getCar() const;
 };

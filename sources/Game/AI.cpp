@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Sun Jun 18 15:51:18 2017 DaZe
+// Last update Sun Jun 18 18:21:37 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"
@@ -217,11 +217,6 @@ void			AI::part15()
 
 void			AI::chooseAction()
 {
-  /*  const auto it = _functors.find(_idx);
-
-  if (it != _functors.end())
-  it->second(); */
-
   if (_car->getType() == Element::EType::POD4)
     {
       if (_car->getSpeed() <= _car->getMaxSpeed() - 50)
@@ -279,7 +274,7 @@ void			AI::chooseAction()
     default:
       break ;
     }
-  _car.get()->move();
+  _car->move();
 }
 
 void			AI::setMap(std::vector<std::shared_ptr<Element>> const& map)

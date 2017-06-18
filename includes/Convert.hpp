@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Fri May 12 17:06:19 2017 thomas vigier
-// Last update Fri Jun 16 11:36:39 2017 DaZe
+// Last update Sun Jun 18 18:55:03 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -17,18 +17,18 @@ class		Convert
 {
 public:
   template <class T>
-  static std::pair<T, T> const	posToCoord(int pos)
+  static std::pair<T, T> const	posToCoord(int pos) const
   {
     return (std::make_pair(pos % 60, (pos - pos % 60) / 60));
   }
   
   template <class T>
-  static int				coordToPos(std::pair<T, T> const& coord)
+  static int				coordToPos(std::pair<T, T> const& coord) const
   {
     return (coord.second * 60 + coord.first);
   }
 
-  static Element::EType			strToCarType(std::string const &type)
+  static Element::EType			strToCarType(std::string const &type) const
   {
     switch (std::stoi(type))
       {
@@ -54,7 +54,7 @@ public:
     return (Element::EType::POD1);
   }
 
-  static Car::EDirection			strToDir(std::string const &type)
+  static Car::EDirection			strToDir(std::string const &type) const
   {
     switch (std::stoi(type))
       {
@@ -88,7 +88,7 @@ public:
     return (Car::EDirection::RIGHT);
   }
 
-  static bool				strToBool(std::string const &b)
+  static bool				strToBool(std::string const &b) const
   {
     if (b == "0")
       return (false);

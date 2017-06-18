@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 11:09:58 2017 Pashervz
-// Last update Tue May 30 17:29:38 2017 Lebrun Kilian
+// Last update Sun Jun 18 19:03:50 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -25,6 +25,7 @@ public:
       POD3,
       POD4,
       POWERUP,
+      POWERUPHIDE,
       BUTTON,
       ARROW_LEFT,
       ARROW_RIGHT,

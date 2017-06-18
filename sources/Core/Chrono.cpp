@@ -5,10 +5,9 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Wed May 10 14:02:13 2017 Pashervz
-// Last update Fri Jun  2 16:32:28 2017 DaZe
+// Last update Sun Jun 18 18:50:51 2017 Lebrun Kilian
 //
 
-#include <iostream>
 #include "Chrono.hpp"
 
 Chrono::Chrono() : _time(0.0f), _isStopped(false) {}
