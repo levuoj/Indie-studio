@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Fri Jun 16 02:38:16 2017 Pashervz
+// Last update Sun Jun 18 15:51:18 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -26,6 +26,12 @@ void			AI::part1()
   if (_car->getType() == Element::EType::POD3 && _car->getLap() != 0)
     {
       if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 7]->getType()
+	  == Element::EType::BLOCK)
+	_idx = 2;
+    }
+  else if (_car->getType() == Element::EType::POD4)
+    {
+      if (_map[Convert::coordToPos<int>(_car->getPosMap()) + 4]->getType()
 	  == Element::EType::BLOCK)
 	_idx = 2;
     }
@@ -161,6 +167,12 @@ void			AI::part12()
 	  == Element::EType::BLOCK)
 	_idx = 13;
     }
+  else if (_car->getType() == Element::EType::POD4)
+    {
+      if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 4]->getType()
+	  == Element::EType::BLOCK)
+	_idx = 13;
+    }
   else
     if (this->_map[Convert::coordToPos<int>(this->_car->getPosMap()) - 5]->getType()
 	== Element::EType::BLOCK)
@@ -212,7 +224,7 @@ void			AI::chooseAction()
 
   if (_car->getType() == Element::EType::POD4)
     {
-      if (_car->getSpeed() <= _car->getMaxSpeed() - 60)
+      if (_car->getSpeed() <= _car->getMaxSpeed() - 50)
 	_car->accelerate();
     }
   else
@@ -267,20 +279,6 @@ void			AI::chooseAction()
     default:
       break ;
     }
-
-  //  part1();
-  /*
-   if (_idx == 1 && _map[Convert::coordToPos<int>(_car->getPosMap()) + 300]->getType()
-       == Element::EType::BLOCK)
-     _idx = 2;
-   if (_idx == 2 && _car->getAngle() != -180.0f)
-     _car->turnRight();
-   if (_idx == 2 && _map[Convert::coordToPos<int>(_car->getPosMap()) - 4]->getType()
-       == Element::EType::BLOCK)
-     _idx = 3;
-   if (_idx == 2 && _car->getAngle() != -180.0f)
-     _car->turnRight();
-     std::cout << _car->getAbsoluteAngle() << std::endl; */
   _car.get()->move();
 }
 

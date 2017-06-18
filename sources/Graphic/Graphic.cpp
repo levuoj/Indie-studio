@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 14:17:07 2017 jouvel
+// Last update Sun Jun 18 17:24:08 2017 jouvel
 //
 
 #include <sstream>
@@ -716,11 +716,6 @@ void			Graphic::openFile(std::vector<std::wstring> & vec,
 // ------------------------ GAME METHODS ---------------------- //
 // ------------------------------------------------------------ //
 
-void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
-{
-
-}
-
 void		Graphic::setCar(Element::EType type,
 				irr::io::path path,
 				irr::f32 x,
@@ -734,7 +729,6 @@ void		Graphic::setCar(Element::EType type,
   if (!pods[type])
     throw (Error("Pod mesh not found"));
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  pods[type]->setMaterialFlag(irr::video::EMF_ANTI_ALIASING, true);
   pods[type]->setMaterialType(irr::video::EMT_SOLID);
 }
 
@@ -802,6 +796,8 @@ void		Graphic::displayChrono(bool first)
 				     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
 				     false);
     }
+  else if (_time == 0.0)
+    _textChrono->setText(L"");
   else
     _textChrono->setText(result);
 }

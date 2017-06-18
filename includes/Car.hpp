@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Fri Jun 16 02:40:24 2017 Pashervz
+// Last update Sun Jun 18 14:52:36 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -57,7 +57,7 @@ private:
   bool					_isRank;
   float					_maxSpeed;
   float					_inertia;
-  Chrono				_chrono;
+  Chrono				_powerchrono;
   EState				_state;
   float					_speedSave;
 
@@ -76,6 +76,7 @@ public:
   void					turnRight();
   void					launchPowerUp();
   void					Power();
+  void					managePowerUp();
   void					setPosMap(std::pair<int, int> const& pos);
   void					setLap(const short int);
   void					setSpeed(const float);

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May 22 17:09:23 2017 Pashervz
-// Last update Fri Jun 16 13:37:57 2017 jouvel
+// Last update Sun Jun 18 16:31:43 2017 jouvel
 //
 
 #pragma once
@@ -69,10 +69,10 @@ private:
 
   std::unordered_map<std::string, std::function<void()>>	_defaultMap =
     {
-      {"1", std::bind(&BindingMenu::defaultP1, this)},
-      {"2", std::bind(&BindingMenu::defaultP2, this)},
-      {"3", std::bind(&BindingMenu::defaultP3, this)},
-      {"4", std::bind(&BindingMenu::defaultP4, this)}
+      {"1", [this](){defaultP1();}},
+      {"2", [this](){defaultP2();}},
+      {"3", [this](){defaultP3();}},
+      {"4", [this](){defaultP4();}},
     };
 
   bool				_bindMode = false;

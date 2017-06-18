@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sun Jun 18 16:20:22 2017 jouvel
+// Last update Sun Jun 18 17:03:37 2017 jouvel
 //
 
 #include <chrono>
@@ -32,8 +32,6 @@ void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int & i, const Elemen
       this->_AIs.push_back(AI(std::make_pair(x, y), type));
       _AIs.back().setMap(_map);
     }
-  _music->setVol(0.1f);
-  _music->playSound("assets/music/tie_fighter.wav");
 }
 
 void			ManageGame::construct(int nbPlayers)
@@ -42,6 +40,8 @@ void			ManageGame::construct(int nbPlayers)
   int			i(0);
 
   _isStarted = false;
+  _music->setVol(0.05f);
+  _music->playSound("assets/music/tie_fighter.wav");
   this->loadMap("NORMAL");
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
@@ -64,6 +64,10 @@ void			ManageGame::construct(int nbPlayers)
 	}
       pos++;
     }
+  _tieSound[0] = 426;
+  _tieSound[1] = 1207;
+  _tieSound[2] = 997;
+  _tieSound[3] = 472;
 }
 
 ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys, Music *music) : _victory(false), _nbFinish(0), _music(music)
@@ -337,6 +341,12 @@ void				ManageGame::updateMap()
 {
   for (auto &it : _AIs)
     {
+      for (const auto &ite : _tieSound)
+	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
+	  {
+	    _music->playSound("assets/music/tie_fighter.wav");
+	    break ;
+	  }
       if (it.getCar()->getStop() == false)
 	it.chooseAction();
       checkVictory(it.getCar());
@@ -359,6 +369,12 @@ void				ManageGame::updateMap()
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
 
+      for (const auto &ite : _tieSound)
+	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
+	  {
+	    _music->playSound("assets/music/tie_fighter.wav");
+	    break ;
+	  }
       if (it.getCar()->getStop() == false)
 	checkVictory(it.getCar());
 
@@ -375,7 +391,24 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  //  printMap();
+  this->_powerUp.incTime();
+  if (this->_powerUp.getTime() > 5)
+    {
+      this->_powerUp.setTime(0.0);
+      for (int i = 2; i <= 4; i = i + 2 )
+	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() != Element::EType::POWERUP)
+	  {
+	  this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
+	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	  }
+      for (int i = 3; i <= 5; i = i + 2 )
+	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() != Element::EType::POWERUP)
+	  {
+	  this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
+	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	  }
+    }
+  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const
@@ -487,6 +520,27 @@ bool				ManageGame::loadLine(std::string const& line)
   return (true);
 }
 
+void				ManageGame::determineCarPath(std::shared_ptr<Car> car)
+{
+  switch (car->getType())
+    {
+    case Element::EType::POD1:
+      car->setPath("./assets/TieBomber.b3d");
+      break;
+    case Element::EType::POD2:
+      car->setPath("./assets/TieDefender.b3d");
+      break;
+    case Element::EType::POD3:
+      car->setPath("./assets/TieInterceptor.b3d");
+      break;
+    case Element::EType::POD4:
+      car->setPath("./assets/TiePhantom.b3d");
+      break;
+    default:
+      break;
+    }
+}
+
 bool				ManageGame::checkType(const std::vector<std::string> &input)
 {
   if (input.at(0) == "PLAYER")
@@ -502,6 +556,7 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 			      Convert::strToBool(input.at(5)),
 			      Convert::strToDir(input.at(6))
 			      ));
+    determineCarPath(_players.back().getCar());
     _map.at(Convert::coordToPos<int>(_players.back().getCar()->getPosMap())) = _players.back().getCar();
     }
   else if (input.at(0) == "AI")
@@ -520,6 +575,7 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 		      std::stoi(input.at(7))
 		      ));
     _AIs.back().setMap(_map);
+    determineCarPath(_AIs.back().getCar());
     _map.at(Convert::coordToPos<int>(_AIs.back().getCar()->getPosMap())) = _AIs.back().getCar();
     }
   else
