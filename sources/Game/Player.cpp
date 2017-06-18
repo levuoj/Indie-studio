@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Fri Jun 16 02:34:52 2017 Pashervz
+// Last update Sun Jun 18 14:38:43 2017 DaZe
 //
 
 #include "Player.hpp"
@@ -48,10 +48,10 @@ void		Player::driver(EventReceiver const& receiver)
 void		Player::setKeys(const std::vector<irr::EKEY_CODE> &keys)
 {
   this->_keys = keys;
-  _functors[this->_keys.at(0)] = std::bind(&Car::accelerate, this->_car);
-  _functors[this->_keys.at(1)] = std::bind(&Car::deccelerate, this->_car);
-  _functors[this->_keys.at(2)] = std::bind(&Car::turnLeft, this->_car);
-  _functors[this->_keys.at(3)] = std::bind(&Car::turnRight, this->_car);
+  _functors[this->_keys.at(0)] = [this](){this->_car->accelerate();};
+  _functors[this->_keys.at(1)] = [this](){this->_car->deccelerate();};
+  _functors[this->_keys.at(2)] = [this](){this->_car->turnLeft();};
+  _functors[this->_keys.at(3)] = [this](){this->_car->turnRight();};
 }
 
 void  Player::setArroundingCar(const std::array<Element::EType, 8> &arrounding)

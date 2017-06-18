@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 13:30:01 2017 Pashervz
+// Last update Sun Jun 18 16:47:22 2017 Lebrun Kilian
 //
 
 #include <sstream>
@@ -844,6 +844,8 @@ void		Graphic::displayChrono(bool first)
 				     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
 				     false);
     }
+  else if (_time == 0.0)
+    _textChrono->setText(L"");
   else
     _textChrono->setText(result);
 }

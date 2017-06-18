@@ -5,7 +5,8 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sun Jun 18 14:39:25 2017 jouvel
+// Last update Sun Jun 18 16:47:48 2017 Lebrun Kilian
+// Last update Sun Jun 18 15:57:07 2017 DaZe
 //
 
 #include <chrono>
@@ -63,6 +64,12 @@ void			ManageGame::construct(int nbPlayers)
 	}
       pos++;
     }
+  _tieSound[0] = 89;
+  _tieSound[0] = 149;
+  _tieSound[0] = 209;
+  _tieSound[0] = 269;
+  _tieSound[0] = 329;
+  _tieSound[0] = 389;
 }
 
 ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys) : _victory(false), _nbFinish(0)
@@ -358,6 +365,12 @@ void				ManageGame::updateMap()
 {
   for (auto &it : _AIs)
     {
+      for (const auto &ite : _tieSound)
+	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
+	  {
+	    // PLAY SOUND;
+	    break ;
+ 	  }
       if (it.getCar()->getStop() == false)
 	it.chooseAction();
       checkVictory(it.getCar());
@@ -379,7 +392,13 @@ void				ManageGame::updateMap()
   for (auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-
+      
+      for (const auto &ite : _tieSound)
+	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
+	  {
+	    // PLAY SOUND;
+	    break ;
+ 	  }
       if (it.getCar()->getStop() == false)
 	checkVictory(it.getCar());
 
@@ -396,7 +415,24 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  //  printMap();
+  this->_powerUp.incTime();
+  if (this->_powerUp.getTime() > 5)
+    {
+      this->_powerUp.setTime(0.0);
+      for (int i = 2; i <= 4; i = i + 2 )
+	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() != Element::EType::POWERUP)
+	  {
+	  this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
+	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	  }
+      for (int i = 3; i <= 5; i = i + 2 )
+	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() != Element::EType::POWERUP)
+	  {
+	  this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
+	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	  }
+    }
+  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const
@@ -508,6 +544,27 @@ bool				ManageGame::loadLine(std::string const& line)
   return (true);
 }
 
+void				ManageGame::determineCarPath(std::shared_ptr<Car> car)
+{
+  switch (car->getType())
+    {
+    case Element::EType::POD1:
+      car->setPath("./assets/TieBomber.b3d");
+      break;
+    case Element::EType::POD2:
+      car->setPath("./assets/TieDefender.b3d");
+      break;
+    case Element::EType::POD3:
+      car->setPath("./assets/TieInterceptor.b3d");
+      break;
+    case Element::EType::POD4:
+      car->setPath("./assets/TiePhantom.b3d");
+      break;
+    default:
+      break;
+    }
+}
+
 bool				ManageGame::checkType(const std::vector<std::string> &input)
 {
   if (input.at(0) == "PLAYER")
@@ -523,6 +580,7 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 			      Convert::strToBool(input.at(5)),
 			      Convert::strToDir(input.at(6))
 			      ));
+    determineCarPath(_players.back().getCar());
     _map.at(Convert::coordToPos<int>(_players.back().getCar()->getPosMap())) = _players.back().getCar();
     }
   else if (input.at(0) == "AI")
@@ -541,6 +599,7 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 		      std::stoi(input.at(7))
 		      ));
     _AIs.back().setMap(_map);
+    determineCarPath(_AIs.back().getCar());
     _map.at(Convert::coordToPos<int>(_AIs.back().getCar()->getPosMap())) = _AIs.back().getCar();
     }
   else

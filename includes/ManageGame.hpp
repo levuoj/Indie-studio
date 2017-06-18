@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Thu Jun 15 16:54:52 2017 jouvel
+// Last update Sun Jun 18 15:51:33 2017 DaZe
 //
 
 #pragma once
@@ -28,10 +28,12 @@ private:
   std::vector<AI>		_AIs;
   std::vector<Player>		_players;
   std::array<int, 6>		_finishLine;
+  std::array<int, 6>		_tieSound;
   bool				_victory;
   short int			_nbFinish;
   std::vector<double>		_ranking;
   Chrono			_startChrono;
+  Chrono			_powerUp;
   std::vector<double>		_endScore;
 
 public:
@@ -64,6 +66,7 @@ public:
   bool					checkIdx(const std::string &);
   bool					checkChrono(const std::string &);
   bool					getStarted() const;
+  void					determineCarPath(std::shared_ptr<Car>);
   void					makeSave(int);
   void					makeRanking();
   void					makeEndScore();

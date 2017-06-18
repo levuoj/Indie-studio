@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 // 
 // Started on  Fri May 12 17:06:19 2017 thomas vigier
-// Last update Tue Jun 13 20:06:49 2017 Lebrun Kilian
+// Last update Fri Jun 16 11:36:39 2017 DaZe
 //
 
 #pragma once
@@ -92,9 +92,9 @@ public:
   static bool				strToBool(std::string const &b)
   {
     if (b == "0")
-      return (true);
-    else
       return (false);
+    else
+      return (true);
   }      
 
 };
