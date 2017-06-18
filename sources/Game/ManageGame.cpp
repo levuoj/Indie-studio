@@ -640,7 +640,7 @@ void				ManageGame::makeSave(int number)
 
   std::stringstream		ss;
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
-  struct tm			*newtime;
+  struct tm			*newtime = NULL;
 
 #ifdef __linux__
   newtime = localtime(&in_time_t);
