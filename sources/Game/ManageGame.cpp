@@ -640,15 +640,16 @@ void				ManageGame::makeSave(int number)
 
   std::stringstream		ss;
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
-  struct tm			*newtime = NULL;
+  struct tm			newtime;
 
 #ifdef __linux__
-  newtime = localtime(&in_time_t);
+  ss << std::put_time(localtime(&in_time_t), "%Y-%m-%d-%X");
+
 #elif WIN64
-  localtime_s(newtime, &in_time_t);
+  localtime_s(&newtime, &in_time_t);
+  ss << std::put_time(&newtime, "%Y-%m-%d-%X");
 #endif
 
-  ss << std::put_time(newtime, "%Y-%m-%d-%X");
   str += ss.str();
   str += "\n";
   for (const auto &it : _players)
