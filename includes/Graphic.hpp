@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Fri Jun 16 14:12:11 2017 jouvel
+// Last update Sun Jun 18 13:30:16 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -42,7 +42,6 @@ private:
   bool							_uniqueD = false;
   bool							_backMenu = false;
   bool							_launchGame = false;
-  irr::scene::IAnimatedMesh				*_meshAsteroid;
   irr::gui::IGUISkin					*_skin;
   irr::gui::IGUIFont					*_font;
 
@@ -67,6 +66,7 @@ private:
   void				displayPause(std::vector<std::shared_ptr<Element>> const&);
   void				initMap(std::shared_ptr<Element> const& elem,
 					irr::f32 x, irr::f32 y, irr::f32 z);
+  void				borderDisp(char type, irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
   void				setAsteroid(irr::io::path, irr::f32, irr::f32, irr::f32);
   void				displayCar(std::vector<std::shared_ptr<Element>> const&);

@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 13:26:45 2017 Pashervz
+// Last update Sun Jun 18 13:30:01 2017 Pashervz
 //
 
 #include <sstream>
@@ -43,7 +43,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _skin = _guienv->getSkin();
   _font = _guienv->getFont("assets/font/myfont.xml");
   _skin->setFont(_font);
-  _meshAsteroid = _sceneManager->getMesh("assets/asteroid/asteroid.obj");
 
    _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
 		     irr::core::vector3df(5109, 872, 4747));
@@ -101,8 +100,12 @@ void		Graphic::ground()
 
   if (!terrain)
     throw (Error("Terrain asset not found"));
+
+  //_sceneManager->getMeshManipulator()->makePlanarTextureMapping(terrain->getMesh(), 0.04f);
   terrain->setMaterialTexture(0, _driver->getTexture("assets/snow.jpg"));
-  //  terrain->setMaterialTexture(1, _driver->getTexture("assets/detailmap3.jpg"));
+  terrain->getMaterial(0).getTextureMatrix(0).setTextureScale(14, 14);
+
+  // terrain->setMaterialTexture(0, _driver->getTexture("assets/snow.jpg"));
   terrain->setMaterialFlag(irr::video::EMF_LIGHTING, false);
   terrain->setMaterialType(irr::video::EMT_SOLID);
   terrain->scaleTexture(1.0f, 20.0f);
@@ -737,26 +740,55 @@ void		Graphic::setCar(Element::EType type,
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 }
 
-void		Graphic::setAsteroid(irr::io::path,
-				     irr::f32 x,
-				     irr::f32 y,
-				     irr::f32 z)
+void		Graphic::borderDisp(char type, irr::f32 x, irr::f32 y, irr::f32 z)
 {
-  (void) x;
-  (void) y;
-  (void) z;
-  irr::scene::IAnimatedMeshSceneNode		*asteroid =
-    _sceneManager->addAnimatedMeshSceneNode(_meshAsteroid,
-					    0, -1, irr::core::vector3df(x, y, z),
-					    irr::core::vector3df(0.f, 0.f, 0.f),
-					    irr::core::vector3df(2.f, 2.f, 2.f)
+  irr::scene::IMeshSceneNode	*border;
 
-  );
+  switch (type)
+    {
+    case '|':
+      border = _sceneManager->addMeshSceneNode(_sceneManager->getMesh("./assets/laser_border.obj"),
+					       0, -1,
+					       irr::core::vector3df(x, y + 10.f, z),
+					       irr::core::vector3df(0.f, 0.f, 0.f),
+					       irr::core::vector3df(9.f, 9.f, 9.f));
+      break ;
+    case '-':
+      border = _sceneManager->addMeshSceneNode(_sceneManager->getMesh("./assets/laser_border.obj"),
+					       0, -1,
+					       irr::core::vector3df(x, y + 10.f, z),
+					       irr::core::vector3df(0.f, 90.f, 0.f),
+					       irr::core::vector3df(9.f, 9.f, 9.f));
+      break;
+    case '/':
+      border = _sceneManager->addMeshSceneNode(_sceneManager->getMesh("./assets/laser_border.obj"),
+					       0, -1,
+					       irr::core::vector3df(x, y + 10.f, z),
+					       irr::core::vector3df(0.f, 45.f, 0.f),
+					       irr::core::vector3df(9.f, 9.f, 9.f));
+      break ;
+    case '\\':
+      border = _sceneManager->addMeshSceneNode(_sceneManager->getMesh("./assets/laser_border.obj"),
+					       0, -1,
+					       irr::core::vector3df(x, y + 10.f, z),
+					       irr::core::vector3df(0.f, -45.f, 0.f),
+					       irr::core::vector3df(9.f, 9.f, 9.f));
+      break ;
+    case 'X':
+      border = _sceneManager->addMeshSceneNode(_sceneManager->getMesh("./assets/BlackAndRedFloatingRobot.obj"),
+					       0, -1,
+					       irr::core::vector3df(x, y + 10.f, z),
+					       irr::core::vector3df(90.f, 0.f, 0.f),
+					       irr::core::vector3df(5.f, 5.f, 5.f));
 
-  asteroid->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  asteroid->setMaterialFlag(irr::video::EMF_BACK_FACE_CULLING, false);
-  asteroid->setFrameLoop(0, 310);
-  asteroid->setMaterialTexture(0, _driver->getTexture("./assets/asteroid/asteroid.png"));
+      break ;
+    default:
+      return ;
+    }
+  if (!border)
+    throw (Error("Pod mesh not found"));
+  border->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+  border->setMaterialType(irr::video::EMT_SOLID);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
@@ -766,28 +798,17 @@ void		Graphic::initMap(std::shared_ptr<Element> const& elem,
     return ;
 
   irr::scene::IMeshSceneNode	*cube;
-  irr::scene::IMeshSceneNode	*wall;
 
   switch (elem->getType())
     {
     case Element::EType::BLOCK :
-      cube = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-					     irr::core::vector3df(x, y, z));
-      cube->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
-      cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-      cube->setMaterialType(irr::video::EMT_SOLID);
-      wall = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-					     irr::core::vector3df(x, y + 10.f, z),
-					     irr::core::vector3df(0.f, 0.f, 0.f));
-      wall->setMaterialTexture(0, _driver->getTexture("assets/wall.jpg"));
-      wall->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-      wall->setMaterialType(irr::video::EMT_SOLID);
-      break ;
-    case Element::EType::ROAD :
+      this->borderDisp(elem->getPath()[0], x, y, z);
       break ;
     case Element::EType::ENDLINE :
-      cube = _sceneManager->addCubeSceneNode(10.0f, 0, -1,
-					     irr::core::vector3df(x, y, z));
+      cube =
+	_sceneManager->addCubeSceneNode(10.0f, 0, -1,
+					irr::core::vector3df(x, y, z),
+					irr::core::vector3df(0.f, 0.f, 0.f));
       cube->setMaterialTexture(0, _driver->getTexture("assets/start.jpg"));
       cube->setMaterialFlag(irr::video::EMF_LIGHTING, false);
       cube->setMaterialType(irr::video::EMT_SOLID);
