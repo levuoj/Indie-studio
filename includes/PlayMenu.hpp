@@ -1,11 +1,11 @@
 //
 // PlayMenu.hpp for PlayMenu.hpp in /home/pashervz/Epitech/C++/Indie/Indie_studio/includes
-// 
+//
 // Made by Pashervz
 // Login   <paul.julien@epitech.eu>
-// 
+//
 // Started on  Sat Jun  3 15:51:03 2017 Pashervz
-// Last update Thu Jun 15 12:09:49 2017 Pashervz
+// Last update Fri Jun 16 13:29:52 2017 jouvel
 //
 
 #pragma once
@@ -19,9 +19,9 @@ private:
   int					_nbPlayer;
   std::vector<std::wstring>		_savesName;
   bool					_newGame;
-  
+
 public:
-  PlayMenu();
+  PlayMenu(Music *);
   virtual ~PlayMenu() {}
   void			openSave(std::string const &);
   bool			getSaveName(std::string const &);

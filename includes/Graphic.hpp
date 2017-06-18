@@ -4,27 +4,25 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Sat Jun 17 17:15:43 2017 Pierre Zawadil
+// Last update Sun Jun 18 13:30:16 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
 #pragma once
 
 #include <irrlicht.h>
-#include <irrKlang.h>
 #include <unordered_map>
 #include <functional>
 #include "AObserver.hpp"
 #include "Utils.hpp"
+#include "Music.hpp"
 #include "GButton.hpp"
 #include "Camera.hpp"
-#include "Music.hpp"
 
 class						Graphic : public AObserver
 {
 private:
   Music							_music;
-  Music							_sounds;
   static const irr::f32					_squareSize;
   irr::u32						_width;
   irr::u32						_height;
@@ -33,7 +31,6 @@ private:
   irr::scene::ISceneManager				*_sceneManager;
   irr::gui::IGUIEnvironment				*_guienv;
   Gcamera						_camera;
-  irrklang::ISoundEngine				*_engine;
   double						_time;
   irr::gui::IGUIStaticText				*_textChrono;
   std::vector<irr::scene::IBillboardTextSceneNode *>	_pauseText;
@@ -47,16 +44,17 @@ private:
   bool							_launchGame = false;
   irr::gui::IGUISkin					*_skin;
   irr::gui::IGUIFont					*_font;
-  std::vector<std::unique_ptr<GButton>>		_buttonMM;
-  std::vector<std::unique_ptr<GButton>>		_buttonOpt;
-  std::vector<std::unique_ptr<GButton>>		_buttonB;
-  std::vector<std::unique_ptr<GButton>>		_buttonP;
-  std::vector<std::unique_ptr<GButton>>		_buttonPause;
 
-  std::vector<std::wstring>			_leaderboard;
-  std::vector<std::wstring>			_endgame;
-  std::vector<irr::gui::IGUIStaticText *>	_textEndGame;
-  std::vector<irr::gui::IGUIStaticText *>	_textLeaderboard;
+  std::vector<std::unique_ptr<GButton> >		_buttonMM;
+  std::vector<std::unique_ptr<GButton> >		_buttonOpt;
+  std::vector<std::unique_ptr<GButton> >		_buttonB;
+  std::vector<std::unique_ptr<GButton> >		_buttonP;
+  std::vector<std::unique_ptr<GButton> >		_buttonPause;
+
+  std::vector<std::wstring>				_leaderboard;
+  std::vector<std::wstring>				_endgame;
+  std::vector<irr::gui::IGUIStaticText *>		_textEndGame;
+  std::vector<irr::gui::IGUIStaticText *>		_textLeaderboard;
 
   std::unordered_map<Element::EType, irr::scene::IAnimatedMeshSceneNode *> pods;
 

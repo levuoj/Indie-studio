@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May 30 17:34:35 2017 Pashervz
-// Last update Fri Jun  2 10:39:23 2017 jouvel
+// Last update Sun Jun 18 13:09:30 2017 Pashervz
 //
 
 #pragma once
@@ -40,5 +40,9 @@ public:
   void			setColor(irr::video::SColor color)
   {
     _color = color;
+  }
+  irr::scene::IBillboardTextSceneNode const &	getButton() const
+  {
+    return (*_button);
   }
 };
