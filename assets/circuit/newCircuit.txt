@@ -1,9 +1,9 @@
       XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX      
      X                       oc                       X     
-   XX      P             p   co                        XX   
-  X        P            s    oc                          X  
- X         P           g     co                           X 
-X          P          >      oc                            X
+   XX                    p   co                        XX   
+  X                     s    oc                          X  
+ X                     g     co                           X 
+X                     >      oc                            X
 X                            co                            X
 X         XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX          X
 X       XX          XXXXXXXXXXXXXXXXXXX          XX        X

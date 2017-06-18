@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Sun Jun 18 10:11:21 2017 Lebrun Kilian
+// Last update Sun Jun 18 15:35:33 2017 Lebrun Kilian
 //
 
 #include <random>
@@ -23,6 +23,8 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, sho
   _type = type;
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
+  this->_powerchrono.stop();
+  this->_powerchrono.setTime(0.0);
 }
 
 Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT), _isStopped(false), _isRank(true), _maxSpeed(550), _inertia(550 / _fps), _state(NONE), _speedSave(0)
@@ -30,6 +32,8 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap
   _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
   _type = type;
+  this->_powerchrono.stop();
+  this->_powerchrono.setTime(0.0);
 }
 
 void            Car::accelerate()
@@ -54,32 +58,34 @@ void            Car::slowDown()
 
 void				Car::Power()
 {
-  // std::random_device rd;
-  // std::default_random_engine generator(rd());
-  // std::uniform_int_distribution<int> distribution(0,3);
+  std::random_device			rd;
+  std::default_random_engine		generator(rd());
+  std::uniform_int_distribution<int>	distribution(1, 3);
 
-  // std::cout << "rand = " << distribution(generator) << std::endl;
-  // switch (distribution(generator))
-  //   {
-  //   case 1:
-  // this->_maxSpeed += 500;
-  // if (this->_speed < 500)
-  //   this->_speedSave = this->_speed;
-  // this->_inertia = this->_maxSpeed / this->_fps;
-  // this->_state = FAST;
-    // break;
-    // case 2:
-      // this->_maxSpeed -= 300;
-      // this->_speedSave = this->_speed;
-      // this->_speed -= 250;
-      // this->_inertia = this->_maxSpeed / this->_fps;
-      // this->_state = SLOW;
-      // break;
-      // case 3:
+  switch (distribution(generator))
+    {
+      case 1:
+        this->_maxSpeed += 700;
+        if (this->_speed < 550)
+          this->_speedSave = this->_speed;
+        this->_speed += 700;
+        this->_inertia = this->_maxSpeed / this->_fps;
+        this->_state = FAST;
+        break;
+      case 2:
+        this->_maxSpeed -= 300;
+        this->_speedSave = this->_speed;
+        this->_speed -= 250;
+        this->_inertia = this->_maxSpeed / this->_fps;
+        this->_state = SLOW;
+        break;
+    case 3:
       this->_state = OIL;
-    //   break;
-    // }
-  this->_chrono.start();
+      break;
+    default:
+      break;
+    }
+  this->_powerchrono.start();
 }
 
 void                            Car::launchPowerUp()
@@ -88,31 +94,26 @@ void                            Car::launchPowerUp()
 
 void				Car::managePowerUp()
 {
-  std::cout << "----\nAngle = " << getAbsoluteAngle() << std::endl;
-  std::cout << "Speed = " << getSpeed() << std::endl;
-  std::cout << "SpeedSave = " << this->_speedSave << std::endl;  
-  std::cout << "----" << std::endl;
   if (this->_state != NONE)
     {
       if (this->_state == OIL)
 	{
-	  this->_speed = 50;
-	  this->_maxSpeed = 50;
-	  if (getAbsoluteAngle() > 5)
+	  if (this->_powerchrono.getTime() < 1.16)
 	    this->_angle -= 5;
 	  else
 	    {
 	      this->_maxSpeed = 550;
-	      this->_chrono.stop();
-	      this->_chrono.setTime(0.0);
+	      this->_speed = this->_speedSave;
+	      this->_powerchrono.stop();
+	      this->_powerchrono.setTime(0.0);
 	      this->_state = NONE;
 	    }
 	}
       else
-	if (this->_chrono.getTime() >= 0.5)
+	if (this->_powerchrono.getTime() >= 2)
 	  {
-	    this->_chrono.stop();
-	    this->_chrono.setTime(0.0);
+	    this->_powerchrono.stop();
+	    this->_powerchrono.setTime(0.0);
 	    if (this->_state == SLOW)
 	      this->_speed += 300;
 	    else
@@ -126,9 +127,7 @@ void				Car::managePowerUp()
 
 void				Car::move()
 {
-  this->_chrono.incTime();
-  if (this->_speed > 560)
-    this->_speed -= 100;
+  this->_powerchrono.incTime();
   managePowerUp();
   if (this->_speed >= 0)
     {
@@ -137,7 +136,7 @@ void				Car::move()
 	  this->_speed = 0.0f;
 	  return;
 	}
-      else if (checkArrounding() == Element::EType::POWERUP && this->_state == NONE)
+      if (checkArrounding() == Element::EType::POWERUP && this->_state == NONE)
 	Power();
     }
   else
