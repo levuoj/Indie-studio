@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Sun Jun 18 18:21:37 2017 Lebrun Kilian
+// Last update Sun Jun 18 19:50:43 2017 Lebrun Kilian
 //
 
 #include "Convert.hpp"

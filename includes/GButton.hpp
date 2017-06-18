@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May 30 17:34:35 2017 Pashervz
-// Last update Sun Jun 18 13:09:30 2017 Pashervz
+// Last update Sun Jun 18 19:53:05 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -25,19 +25,23 @@ public:
 	  std::vector<irr::f32> textDim,
 	  const wchar_t *text,
 	  irr::video::SColor color) : _positions(positions),
-					  _textDim(textDim),
-					  _text(text), _color(color) {}
+				      _textDim(textDim),
+				      _text(text), _color(color) {}
   ~GButton() {}
 
-  void			setButton(irr::scene::ISceneManager *scene, irr::gui::IGUIEnvironment *guienv)
+  void			setButton(irr::scene::ISceneManager *scene,
+				  irr::gui::IGUIEnvironment *guienv)
   {
-   _button = scene->addBillboardTextSceneNode(guienv->getFont("assets/font/myfont.xml"),
-				     _text, 0,
-				     irr::core::dimension2d<irr::f32>(_textDim[0], _textDim[1]),
-				     irr::core::vector3df(_positions[0], _positions[1], _positions[2]),
-				     -1, _color, _color);
+    _button = scene->addBillboardTextSceneNode(guienv->getFont("assets/font/myfont.xml"),
+					       _text, 0,
+					       irr::core::dimension2d<irr::f32>(_textDim[0],
+										_textDim[1]),
+					       irr::core::vector3df(_positions[0],
+								    _positions[1],
+								    _positions[2]),
+					       -1, _color, _color);
   }
-  void			setColor(irr::video::SColor color)
+  void			setColor(irr::video::SColor const & color)
   {
     _color = color;
   }

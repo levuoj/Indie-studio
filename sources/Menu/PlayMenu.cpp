@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Sat Jun  3 16:07:36 2017 Pashervz
-// Last update Sun Jun 18 17:44:33 2017 jouvel
+// Last update Sun Jun 18 19:44:05 2017 Lebrun Kilian
 //
 
 #include <sstream>
@@ -42,7 +42,6 @@ bool				PlayMenu::getSaveName(std::string const & string)
     {
       std::wstring		toPush(tmp.begin(), tmp.end());
 
-      std::wcout << toPush << std::endl;
       _savesName.push_back(toPush);
       return (true);
     }
@@ -69,9 +68,7 @@ void			PlayMenu::openSave(std::string const & fileName)
 void                    PlayMenu::assignContent()
 {
   for (int idx = 0; idx < 3; ++idx)
-    {
-      static_cast<Button *>(_map[idx].get())->setContent(_savesName[idx]);
-    }
+    static_cast<Button *>(_map[idx].get())->setContent(_savesName[idx]);
 }
 
 DType			PlayMenu::select()

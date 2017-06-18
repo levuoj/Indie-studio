@@ -27,6 +27,7 @@ FILE(GLOB SRCS_GAME sources/Game/*.cpp)
 FILE(GLOB SRCS_MENU sources/Menu/*.cpp)
 FILE(GLOB SRCS_GRAPHIC sources/Graphic/*.cpp)
 FILE(GLOB SRCS_CORE sources/Core/*.cpp)
+FILE(GLOB SRCS_MUSIC sources/Music/*.cpp)
 FILE(GLOB HDRS includes/*.hpp)
 
 ADD_EXECUTABLE(Racer
@@ -35,6 +36,7 @@ ADD_EXECUTABLE(Racer
   ${SRCS_GAME}
   ${SRCS_MENU}
   ${SRCS_GRAPHIC}
+  ${SRCS_MUSIC}
   ${HDRS}
   )
 

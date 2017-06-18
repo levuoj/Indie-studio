@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed Jun  7 11:10:46 2017 Pashervz
-// Last update Sun Jun 18 17:46:13 2017 jouvel
+// Last update Sun Jun 18 19:43:43 2017 Lebrun Kilian
 //
 
 #include <sstream>
@@ -13,7 +13,9 @@
 #include "SaveButton.hpp"
 #include "PauseMenu.hpp"
 
-PauseMenu::PauseMenu(ManageGame *game, Music *music) : AMenu("Pause", PAUSE, music), _game(game)
+
+PauseMenu::PauseMenu(ManageGame *game, Music *music) : AMenu("Pause", PAUSE, music),
+						       _game(game)
 {
   this->_type = DType::PAUSE;
   this->_map.push_back(std::shared_ptr<Button>(new Button(L"back to game", "assets/deathStar.jpg", Button::BType::RESUME)));
@@ -65,9 +67,7 @@ void			PauseMenu::openSave(std::string const & fileName)
 void                    PauseMenu::assignContent()
 {
   for (int idx = 0; idx < 3; ++idx)
-    {
-      static_cast<Button *>(_map[idx + 2].get())->setContent(_savesName[idx]);
-    }
+    static_cast<Button *>(_map[idx + 2].get())->setContent(_savesName[idx]);
 }
 
 DType			PauseMenu::select()
@@ -78,9 +78,7 @@ DType			PauseMenu::select()
        {
 	 if (static_cast<Button *>((*it).get())->getButtonType()
 	     == Button::BType::RESUME)
-	   {
-	     return (GAME);
-	   }
+	   return (GAME);
 	 else if (static_cast<Button *>((*it).get())->getButtonType()
 		  == Button::BType::SAVE)
 	   {

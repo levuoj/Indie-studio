@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Sun Jun 18 17:43:23 2017 jouvel
+// Last update Sun Jun 18 19:44:42 2017 Lebrun Kilian
 //
 
 #include <sstream>
@@ -13,8 +13,9 @@
 #include "Button.hpp"
 #include "BindingMenu.hpp"
 
-BindingMenu::BindingMenu(std::string const& player, Music *music) : AMenu("Bindings", BINDINGS, music),
-						       _player(player)
+BindingMenu::BindingMenu(std::string const& player,
+			 Music *music) : AMenu("Bindings", BINDINGS, music),
+					 _player(player)
 {
   this->_type = DType::BINDINGS;
   this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
@@ -29,9 +30,9 @@ BindingMenu::BindingMenu(std::string const& player, Music *music) : AMenu("Bindi
 void			BindingMenu::keyToString()
 {
   _bindingsStrings.clear();
-  for (const auto it : _bindings)
+  for (const auto & it : _bindings)
     {
-      for (const auto it2 : _corresMap)
+      for (const auto & it2 : _corresMap)
 	{
 	  if (it == it2.second)
 	    _bindingsStrings.push_back(it2.first);
@@ -54,9 +55,7 @@ void			BindingMenu::getBinds()
 {
   _bindings.clear();
   for (auto it = _map.begin() ; it != _map.end() ; ++it)
-    {
-      _bindings.push_back(static_cast<Bind *>(it->get())->getKey());
-    }
+    _bindings.push_back(static_cast<Bind *>(it->get())->getKey());
 }
 
 void			BindingMenu::assignBinds()
@@ -79,9 +78,9 @@ std::wstring const	BindingMenu::stringToWstring(std::string const & str) const
 
 bool			BindingMenu::stringsToKey()
 {
-  for (const auto it : _bindingsStrings)
+  for (const auto & it : _bindingsStrings)
     {
-      for (const auto it2 : _corresMap)
+      for (const auto & it2 : _corresMap)
 	{
 	  if (it == it2.first)
 	      this->_bindings.push_back(it2.second);
@@ -99,9 +98,7 @@ bool			BindingMenu::fillBindingMap(std::string const & line)
   std::string			tmp;
 
   while (std::getline(iss, tmp, ' '))
-    {
-      this->_bindingsStrings.push_back(this->stringToWstring(tmp));
-    }
+    this->_bindingsStrings.push_back(this->stringToWstring(tmp));
   if (this->_bindingsStrings.size() != 5)
     return (false);
   this->_bindingsStrings.erase(this->_bindingsStrings.begin());
@@ -214,7 +211,7 @@ void			BindingMenu::defaultFill(std::string const & player)
 
 bool			BindingMenu::checkKey(irr::EKEY_CODE key)
 {
-  for (const auto it : this->_corresMap)
+  for (const auto & it : this->_corresMap)
     {
       if (it.second == key)
 	return (true);
@@ -265,11 +262,11 @@ void			BindingMenu::select(irr::EKEY_CODE key)
   this->keyToString();
 }
 
-std::string const		BindingMenu::writeChanges()
+std::string const		BindingMenu::writeChanges() const
 {
   std::vector<std::string>	config;
 
-  for (const auto it :  _bindingsStrings)
+  for (const auto & it :  _bindingsStrings)
     {
       std::string str(it.begin(), it.end());
       config.push_back(str);

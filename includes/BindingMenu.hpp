@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May 22 17:09:23 2017 Pashervz
-// Last update Sun Jun 18 17:54:35 2017 Pashervz
+// Last update Sun Jun 18 19:55:03 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -101,7 +101,7 @@ public:
   void			defaultP4();
   std::wstring const	stringToWstring(std::string const &) const;
   void			saveChanges();
-  std::string const	writeChanges();
+  std::string const	writeChanges() const;
   void			getBinds();
   void			assignBinds();
   std::string const &	getPlayer() const

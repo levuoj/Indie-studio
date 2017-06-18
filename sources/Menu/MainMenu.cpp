@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue May  9 15:18:43 2017 Pashervz
-// Last update Sun Jun 18 17:34:06 2017 jouvel
+// Last update Sun Jun 18 19:44:17 2017 Lebrun Kilian
 //
 
 #include <memory>
@@ -28,17 +28,13 @@ DType		MainMenu::select() const
   for (auto it = this->_map.begin() ; it != this->_map.end() ; ++it)
    {
      if (static_cast<Button *>((*it).get())->getIsSelected() == true)
-       {
-	 return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
-       }
+       return (this->_corresMap.at(static_cast<Button *>((*it).get())->getContent()));
     }
   return (MAIN_MENU);
 }
 
 DType		MainMenu::transferKey(irr::EKEY_CODE key)
 {
-  //  DType		selection = NOTHING;
-
   switch (key)
     {
     case irr::KEY_DOWN:

@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Sun Jun 18 19:31:49 2017 Lebrun Kilian
+// Last update Sun Jun 18 19:45:30 2017 Lebrun Kilian
 //
 
 #include "Player.hpp"

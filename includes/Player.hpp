@@ -5,12 +5,13 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:32:29 2017 thomas vigier
-// Last update Sun Jun 18 18:44:12 2017 Lebrun Kilian
+// Last update Sun Jun 18 19:51:30 2017 Lebrun Kilian
 //
 
 #pragma once
 
 #include <vector>
+#include <array>
 #include <unordered_map>
 #include <Keycodes.h>
 #include <functional>

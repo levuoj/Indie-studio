@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd C:\Users\Pierre Zawadil\Desktop\3D models\Vaisseaux\star-wars-tie-interceptor\Textures\DirtyMetal.jpg
+map_Kd DirtyMetal.jpg
 
 newmtl DirtyMetal_NONE
 Ns 96.078431
@@ -21,7 +21,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 1
-map_Kd C:\\Users\\Pierre Zawadil\\Desktop\\3D models\\Vaisseaux\\star-wars-tie-interceptor\\Textures\\DirtyMetal.jpg
+map_Kd DirtyMetal.jpg
 
 newmtl Glass
 Ns 96.078431
@@ -42,4 +42,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd C:\Users\Pierre Zawadil\Desktop\3D models\Vaisseaux\star-wars-tie-interceptor\Textures\TieWingMesh.jpg
+map_Kd TieWingMesh.jpg

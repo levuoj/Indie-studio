@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sun Jun 18 19:26:01 2017 Lebrun Kilian
+// Last update Sun Jun 18 20:07:17 2017 jouvel
 //
 
 #include <chrono>
@@ -41,8 +41,7 @@ void			ManageGame::construct(int nbPlayers)
   int			i(0);
 
   _isStarted = false;
-  _music->setVol(0.05f);
-  _music->playSound("assets/music/tie_fighter.wav");
+  _music->playSound("assets/music/tie_fighter.ogg");
   this->loadMap("NORMAL");
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
@@ -360,7 +359,7 @@ void				ManageGame::updateMap()
       for (const auto &ite : _tieSound)
 	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
 	  {
-	    _music->playSound("assets/music/tie_fighter.wav");
+	    _music->playSound("assets/music/tie_fighter.ogg");
 	    break ;
 	  }
       if (it.getCar()->getStop() == false)
@@ -387,7 +386,7 @@ void				ManageGame::updateMap()
       for (const auto &ite : _tieSound)
 	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
 	  {
-	    _music->playSound("assets/music/tie_fighter.wav");
+	    _music->playSound("assets/music/tie_fighter.ogg");
 	    break ;
 	  }
       if (it.getCar()->getStop() == false)
@@ -406,21 +405,6 @@ void				ManageGame::updateMap()
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
   this->_powerUp.incTime();
-
-  for (int i = 2; i <= 4; i = i + 2)
-	  if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() == Element::EType::ROAD)
-	  {
-		  this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
-			  std::shared_ptr<Element>(new Element(" ", Element::EType::POWERUPHIDE));
-	  }
-
-  for (int i = 3; i <= 5; i = i + 2)
-	  if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() == Element::EType::ROAD)
-	  {
-		  this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
-			  std::shared_ptr<Element>(new Element(" ", Element::EType::POWERUPHIDE));
-	  }
-
   if (this->_powerUp.getTime() > 5)
     {
       this->_powerUp.setTime(0.0);
@@ -430,15 +414,24 @@ void				ManageGame::updateMap()
 	    this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
 	      std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
 	  }
+	else if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() == Element::EType::ROAD)
+	  {
+	    this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
+	      std::shared_ptr<Element>(new Element(" ", Element::EType::POWERUPHIDE));
+	  }
 
-	  
+
       for (int i = 3; i <= 5; i = i + 2 )
 	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() != Element::EType::POWERUP)
 	  {
 	    this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
 	      std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
 	  }
-
+	else if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() == Element::EType::ROAD)
+	  {
+	    this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
+	      std::shared_ptr<Element>(new Element(" ", Element::EType::POWERUPHIDE));
+	  }
     }
 }
 
@@ -446,6 +439,7 @@ Chrono const&			ManageGame::getChrono() const
 {
   return (_chrono);
 }
+
 
 bool				ManageGame::loadSave(std::string const &number)
 {
