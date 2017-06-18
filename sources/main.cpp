@@ -12,11 +12,14 @@
 
 int		main(int ac, char **av)
 {
-  if (getenv("DISPLAY") == NULL)
-    {
-      std::cerr << "Error : Some environement variable are missing." << std::endl;
-      return (EXIT_ERROR);
-    }
+#ifdef __linux__
+	if (getenv("display") == NULL)
+	{
+		std::cerr << "error : some environement variable are missing." << std::endl;
+		return (EXIT_ERROR);
+	}
+#endif
+
   if (ac != 1)
     {
       std::cerr << "Error : " << av[0] << " does not take any argument !" << std::endl;

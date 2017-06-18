@@ -11,6 +11,7 @@
 #include <chrono>
 #include <sstream>
 #include <iomanip>
+#include <time.h>
 #include "ManageGame.hpp"
 #include "Convert.hpp"
 
@@ -639,8 +640,15 @@ void				ManageGame::makeSave(int number)
 
   std::stringstream ss;
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
+  struct tm newtime;
 
-  ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d-%X");
+#ifdef __linux__
+  localtime_s(&in_time_t, &newtime);
+#elif WIN64
+  localtime_s(&newtime, &in_time_t);
+#endif
+
+  ss << std::put_time(&newtime, "%Y-%m-%d-%X");
   str += ss.str();
   str += "\n";
   for (const auto &it : _players)
