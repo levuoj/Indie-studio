@@ -24,6 +24,7 @@ class						Graphic : public AObserver
 private:
   Music							_music;
   static const irr::f32					_squareSize;
+  std::vector<irr::scene::IAnimatedMeshSceneNode *>	_powerups;
   irr::u32						_width;
   irr::u32						_height;
   irr::IrrlichtDevice					*_device;

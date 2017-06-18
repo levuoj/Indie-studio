@@ -894,7 +894,8 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
   irr::f32	x = 5330.f;
   irr::f32	y = 560.f;
   irr::f32	z = 5125.f;
-  static bool	first = true;
+  static bool first = true;
+  int		powerupIdx = 0;
 
   clearPlayMenu();
   _backMenu = true;
@@ -918,6 +919,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
     displayChrono(false);
   for (auto const& elem : map)
     {
+	  bool			visible = false;
       if (i % 60 == 0)
 	{
 	  x = 5330.f;
@@ -938,9 +940,53 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
 	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
 	}
+	  if (type == Element::EType::POWERUP && first)
+	  {
+			  this->_powerups.push_back(_sceneManager->addAnimatedMeshSceneNode(_sceneManager->getMesh("./assets/stormtrooper.obj"),
+				  0, -1,
+				  irr::core::vector3df(x, y + 10.f, z),
+				  irr::core::vector3df(0.f, 180, 0.f),
+				  irr::core::vector3df(0.1f, 0.1f, 0.1f)));
+			  this->_powerups.back()->setMaterialFlag(irr::video::EMF_LIGHTING, false);
+			  this->_powerups.back()->setMaterialType(irr::video::EMT_SOLID);
+			  this->_powerups.back()->setFrameLoop(0, 14);
+			  this->_powerups.back()->setAnimationSpeed(14);
+	  }
+
+	  if (type == Element::EType::POWERUP)
+	  {
+		  this->_powerups[powerupIdx]->setVisible(true);
+		  ++powerupIdx;
+	  }
+	  else if (type == Element::EType::POWERUP_HIDE)
+	  {
+		  this->_powerups[powerupIdx]->setVisible(false);
+		  ++powerupIdx;
+	  }
+
+
+	  /*if ((x - 5530.f) == 11)
+	  {
+		  if ((z - 525.f) == 2)
+		  {
+			  this->_powerups[0]->setVisible(visible);
+		  }
+		  else if ((z - 525.f) == 4)
+			  this->_powerups[1]->setVisible(visible);
+	  }
+	  else if ((x - 5530.f) == 11)
+	  {
+		  if ((z - 525.f) == 3)
+			  this->_powerups[2]->setVisible(visible);
+		  else if ((z - 525.f) == 5)
+			  this->_powerups[3]->setVisible(visible);
+	  } */
+
       x -= 10.f;
       ++i;
     }
+  if (first && this->_powerups.size() != 4)
+	  throw (Error("Number of powerups must be 4"));
   first = false;
 }
 

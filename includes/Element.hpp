@@ -25,6 +25,7 @@ public:
       POD3,
       POD4,
       POWERUP,
+	  POWERUP_HIDE,
       BUTTON,
       ARROW_LEFT,
       ARROW_RIGHT,
