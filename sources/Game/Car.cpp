@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Sun Jun 18 15:35:33 2017 Lebrun Kilian
+// Last update Sun Jun 18 16:34:23 2017 Lebrun Kilian
 //
 
 #include <random>
@@ -99,7 +99,11 @@ void				Car::managePowerUp()
       if (this->_state == OIL)
 	{
 	  if (this->_powerchrono.getTime() < 1.16)
-	    this->_angle -= 5;
+	    {
+	      this->_speed = 250;
+	      this->_maxSpeed = 255;
+	      this->_angle -= 5;
+	    }
 	  else
 	    {
 	      this->_maxSpeed = 550;
@@ -179,6 +183,8 @@ void				Car::move()
 
 void            Car::turnLeft()
 {
+  if (this->_state == OIL)
+    return ;
   if (this->_angle >= 360)
     this->_angle = 0.0f;
   this->_angle += 2.5f;
@@ -189,6 +195,8 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
+  if (this->_state == OIL)
+    return ;
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 2.5f;
