@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed May 10 13:12:37 2017 Pashervz
-// Last update Fri Jun 16 13:49:13 2017 jouvel
+// Last update Sun Jun 18 15:48:29 2017 jouvel
 //
 
 #include <iostream>
@@ -112,12 +112,12 @@ int			Core::launch()
 		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getSave(), _bindings));
+				      (this->_menu[PLAY].get())->getSave(), _bindings, this->_music.get()));
 		  else
 		    this->_game =
 		      std::unique_ptr<ManageGame>
 		      (new ManageGame(static_cast<PlayMenu *>
-				      (this->_menu[PLAY].get())->getNbPlayer(), _bindings));
+				      (this->_menu[PLAY].get())->getNbPlayer(), _bindings, this->_music.get()));
 		  this->_game->setObserver(this->_graphic.get());
 		}
 	    }

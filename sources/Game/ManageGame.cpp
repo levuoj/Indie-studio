@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri Jun 16 02:36:26 2017 Pashervz
+// Last update Sun Jun 18 16:20:22 2017 jouvel
 //
 
 #include <chrono>
@@ -32,6 +32,8 @@ void			ManageGame::initPlayerAndIa(int nbPlayers, int pos, int & i, const Elemen
       this->_AIs.push_back(AI(std::make_pair(x, y), type));
       _AIs.back().setMap(_map);
     }
+  _music->setVol(0.1f);
+  _music->playSound("assets/music/tie_fighter.wav");
 }
 
 void			ManageGame::construct(int nbPlayers)
@@ -64,7 +66,7 @@ void			ManageGame::construct(int nbPlayers)
     }
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys) : _victory(false), _nbFinish(0)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys, Music *music) : _victory(false), _nbFinish(0), _music(music)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -95,7 +97,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<ir
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys) : _victory(false), _nbFinish(0)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys, Music *music) : _victory(false), _nbFinish(0), _music(music)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);

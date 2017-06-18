@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Thu Jun 15 16:54:52 2017 jouvel
+// Last update Sun Jun 18 16:01:00 2017 jouvel
 //
 
 #pragma once
@@ -20,6 +20,7 @@
 #include "AI.hpp"
 #include "Player.hpp"
 #include "Utils.hpp"
+#include "Music.hpp"
 
 class	ManageGame : public Observable
 {
@@ -33,10 +34,11 @@ private:
   std::vector<double>		_ranking;
   Chrono			_startChrono;
   std::vector<double>		_endScore;
+  Music				*_music;
 
 public:
-  ManageGame(int, const std::vector<std::vector<irr::EKEY_CODE>> &);
-  ManageGame(std::string const &, const std::vector<std::vector<irr::EKEY_CODE>> &);
+  ManageGame(int, const std::vector<std::vector<irr::EKEY_CODE>> &, Music *);
+  ManageGame(std::string const &, const std::vector<std::vector<irr::EKEY_CODE>> &, Music *);
   ManageGame() = default;
   ~ManageGame() = default;
 
