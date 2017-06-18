@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sat Jun 17 17:06:25 2017 Pierre Zawadil
+// Last update Sun Jun 18 14:39:25 2017 jouvel
 //
 
 #include <chrono>
@@ -638,17 +638,17 @@ void				ManageGame::makeSave(int number)
 
   auto now = std::chrono::system_clock::now();
 
-  std::stringstream ss;
+  std::stringstream		ss;
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
-  struct tm newtime;
+  struct tm			*newtime;
 
 #ifdef __linux__
-  localtime_s(&in_time_t, &newtime);
+  newtime = localtime(&in_time_t);
 #elif WIN64
-  localtime_s(&newtime, &in_time_t);
+  localtime_s(newtime, &in_time_t);
 #endif
 
-  ss << std::put_time(&newtime, "%Y-%m-%d-%X");
+  ss << std::put_time(newtime, "%Y-%m-%d-%X");
   str += ss.str();
   str += "\n";
   for (const auto &it : _players)

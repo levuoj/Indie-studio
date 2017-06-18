@@ -4,7 +4,7 @@
 // Made by Pierre Zawadil
 // Login   <pierre.zawadil@epitech.eu>
 // Started on  Mon May  8 11:13:42 2017 Pierre Zawadil
-// Last update Sat Jun 17 20:53:42 2017 Pierre Zawadil
+// Last update Sun Jun 18 14:40:30 2017 jouvel
 //
 
 #include <iostream>
@@ -13,11 +13,11 @@
 int		main(int ac, char **av)
 {
 #ifdef __linux__
-	if (getenv("display") == NULL)
-	{
-		std::cerr << "error : some environement variable are missing." << std::endl;
-		return (EXIT_ERROR);
-	}
+  if (getenv("DISPLAY") == NULL)
+    {
+      std::cerr << "error : some environement variable are missing." << std::endl;
+      return (EXIT_ERROR);
+    }
 #endif
 
   if (ac != 1)
