@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 17:37:16 2017 Pashervz
+// Last update Sun Jun 18 19:32:53 2017 Lebrun Kilian
 //
 
 #include <sstream>
@@ -758,11 +758,6 @@ void			Graphic::openFile(std::vector<std::wstring> & vec,
 // ------------------------ GAME METHODS ---------------------- //
 // ------------------------------------------------------------ //
 
-void		Graphic::displayCar(std::vector<std::shared_ptr<Element>> const&)
-{
-
-}
-
 void		Graphic::setCar(Element::EType type,
 				irr::io::path path,
 				irr::f32 x,
@@ -946,7 +941,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 				  0, -1,
 				  irr::core::vector3df(x, y + 10.f, z),
 				  irr::core::vector3df(0.f, 180, 0.f),
-				  irr::core::vector3df(0.1f, 0.1f, 0.1f)));
+				  irr::core::vector3df(0.07f, 0.07f, 0.07f)));
 			  this->_powerups.back()->setMaterialFlag(irr::video::EMF_LIGHTING, false);
 			  this->_powerups.back()->setMaterialType(irr::video::EMT_SOLID);
 			  this->_powerups.back()->setFrameLoop(0, 14);
@@ -958,29 +953,11 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 		  this->_powerups[powerupIdx]->setVisible(true);
 		  ++powerupIdx;
 	  }
-	  else if (type == Element::EType::POWERUP_HIDE)
+	  else if (type == Element::EType::POWERUPHIDE)
 	  {
 		  this->_powerups[powerupIdx]->setVisible(false);
 		  ++powerupIdx;
 	  }
-
-
-	  /*if ((x - 5530.f) == 11)
-	  {
-		  if ((z - 525.f) == 2)
-		  {
-			  this->_powerups[0]->setVisible(visible);
-		  }
-		  else if ((z - 525.f) == 4)
-			  this->_powerups[1]->setVisible(visible);
-	  }
-	  else if ((x - 5530.f) == 11)
-	  {
-		  if ((z - 525.f) == 3)
-			  this->_powerups[2]->setVisible(visible);
-		  else if ((z - 525.f) == 5)
-			  this->_powerups[3]->setVisible(visible);
-	  } */
 
       x -= 10.f;
       ++i;

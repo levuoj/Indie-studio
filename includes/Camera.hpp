@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Wed May 31 18:34:01 2017 jouvel
-// Last update Wed May 31 20:24:49 2017 jouvel
+// Last update Sun Jun 18 18:49:52 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -24,5 +24,5 @@ public:
 					   irr::core::vector3df,
 					   irr::core::vector3df);
   void				moveCamera(irr::core::vector3df, irr::core::vector3df);
-  irr::f32			coords(irr::f32, irr::f32);
+  irr::f32			coords(irr::f32, irr::f32) const;
 };

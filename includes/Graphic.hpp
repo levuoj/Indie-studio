@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Sun Jun 18 17:37:28 2017 Pashervz
+// Last update Sun Jun 18 17:54:15 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -70,8 +70,6 @@ private:
 					irr::f32 x, irr::f32 y, irr::f32 z);
   void				borderDisp(char type, irr::f32 x, irr::f32 y, irr::f32 z);
   void				setCar(Element::EType, irr::io::path, irr::f32, irr::f32, irr::f32);
-  void				setAsteroid(irr::io::path, irr::f32, irr::f32, irr::f32);
-  void				displayCar(std::vector<std::shared_ptr<Element>> const&);
   void				displayGame(std::vector<std::shared_ptr<Element>> const&);
   void				displayBindings(std::vector<std::shared_ptr<Element>> const&);
   void				displayEndGame(std::vector<std::shared_ptr<Element>> const&);

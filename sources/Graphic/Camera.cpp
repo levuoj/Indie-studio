@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Wed May 31 19:17:27 2017 jouvel
-// Last update Wed May 31 20:11:33 2017 jouvel
+// Last update Sun Jun 18 18:49:55 2017 Lebrun Kilian
 //
 
 #include "Camera.hpp"
@@ -18,7 +18,7 @@ void		Gcamera::initCamera(irr::scene::ISceneManager *sceneManager,
 }
 
 irr::f32	Gcamera::coords(irr::f32 oldPoint,
-				irr::f32 newPoint)
+				irr::f32 newPoint) const
 {
   if (oldPoint < newPoint)
     return (oldPoint + 1);

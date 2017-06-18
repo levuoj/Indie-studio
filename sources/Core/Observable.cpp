@@ -5,10 +5,9 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Mon May  8 18:57:04 2017 Pashervz
-// Last update Tue May 16 19:09:04 2017 Pierre Zawadil
+// Last update Sun Jun 18 18:52:52 2017 Lebrun Kilian
 //
 
-#include <iostream>
 #include "Observable.hpp"
 #include "AObserver.hpp"
 

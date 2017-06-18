@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sun Jun 18 16:47:49 2017 Lebrun Kilian
+// Last update Sun Jun 18 19:26:01 2017 Lebrun Kilian
 //
 
 #include <chrono>
@@ -41,6 +41,8 @@ void			ManageGame::construct(int nbPlayers)
   int			i(0);
 
   _isStarted = false;
+  _music->setVol(0.05f);
+  _music->playSound("assets/music/tie_fighter.wav");
   this->loadMap("NORMAL");
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
@@ -63,18 +65,10 @@ void			ManageGame::construct(int nbPlayers)
 	}
       pos++;
     }
-  _tieSound[0] = 89;
-  _tieSound[0] = 149;
-  _tieSound[0] = 209;
-  _tieSound[0] = 269;
-  _tieSound[0] = 329;
-  _tieSound[0] = 389;
-}
-
-ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys) : _victory(false), _nbFinish(0)
-{
-  _type = DType::GAME;
-  loadMap("BACKUP");
+  _tieSound[0] = 426;
+  _tieSound[1] = 1207;
+  _tieSound[2] = 997;
+  _tieSound[3] = 472;
 
   _finishLine[0] = 89;
   _finishLine[1] = 149;
@@ -82,6 +76,13 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<ir
   _finishLine[3] = 269;
   _finishLine[4] = 329;
   _finishLine[5] = 389;
+}
+
+ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys, Music *music) : _victory(false), _nbFinish(0), _music(music)
+{
+  _type = DType::GAME;
+  loadMap("BACKUP");
+
   if (loadSave(file) == false)
     {
       _map.clear();
@@ -101,7 +102,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<ir
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys) : _victory(false), _nbFinish(0)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys, Music *music) : _victory(false), _nbFinish(0), _music(music)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
@@ -112,13 +113,6 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CO
       it.setKeys(keys.at(i));
       ++i;
     }
-
-  _finishLine[0] = 89;
-  _finishLine[1] = 149;
-  _finishLine[2] = 209;
-  _finishLine[3] = 269;
-  _finishLine[4] = 329;
-  _finishLine[5] = 389;
 
   _chrono.start();
 }
@@ -174,7 +168,7 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
   return (_type);
 }
 
-const std::array<Element::EType, 8>	ManageGame::arrounding(int pos)
+const std::array<Element::EType, 8>	ManageGame::arrounding(int pos) const
 {
   std::array<Element::EType, 8>		arr;
 
@@ -189,7 +183,7 @@ const std::array<Element::EType, 8>	ManageGame::arrounding(int pos)
   return (arr);
 }
 
-GameElement			*ManageGame::ElementFromCharCar(const char c)
+GameElement			*ManageGame::ElementFromCharCar(const char c) const
 {
   irr::io::path			path;
   Element::EType		type;
@@ -256,7 +250,7 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
   return (new GameElement(path, type, pos));
 }
 
-GameElement			*ManageGame::ElementFromChar(const char c)
+GameElement			*ManageGame::ElementFromChar(const char c) const
 {
   irr::io::path			path;
   Element::EType		type;
@@ -324,7 +318,6 @@ void				ManageGame::loadMap(std::string const &str)
     }
   else if (str == "NORMAL")
     {
-      std::cout << "mdr" << std::endl;
       for (const auto &c : map)
 	{
 	  if (c != '\n')
@@ -367,15 +360,14 @@ void				ManageGame::updateMap()
       for (const auto &ite : _tieSound)
 	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
 	  {
-	    // PLAY SOUND;
+	    _music->playSound("assets/music/tie_fighter.wav");
 	    break ;
- 	  }
+	  }
       if (it.getCar()->getStop() == false)
 	it.chooseAction();
       checkVictory(it.getCar());
       if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
 	{
-	  std::cout << "JE MAKE CHRONIO AI" << std::endl;
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
 	}
@@ -388,22 +380,21 @@ void				ManageGame::updateMap()
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
 
-  for (auto &it : _players)
+  for (const auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-      
+
       for (const auto &ite : _tieSound)
 	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
 	  {
-	    // PLAY SOUND;
+	    _music->playSound("assets/music/tie_fighter.wav");
 	    break ;
- 	  }
+	  }
       if (it.getCar()->getStop() == false)
 	checkVictory(it.getCar());
 
       if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
 	{
-	  std::cout << "JE MAKE CHRONIO PLAYER" << std::endl;
 	  _ranking.push_back(_chrono.getTime());
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
@@ -415,71 +406,45 @@ void				ManageGame::updateMap()
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
   this->_powerUp.incTime();
+
+  for (int i = 2; i <= 4; i = i + 2)
+	  if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() == Element::EType::ROAD)
+	  {
+		  this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
+			  std::shared_ptr<Element>(new Element(" ", Element::EType::POWERUPHIDE));
+	  }
+
+  for (int i = 3; i <= 5; i = i + 2)
+	  if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() == Element::EType::ROAD)
+	  {
+		  this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
+			  std::shared_ptr<Element>(new Element(" ", Element::EType::POWERUPHIDE));
+	  }
+
   if (this->_powerUp.getTime() > 5)
     {
       this->_powerUp.setTime(0.0);
       for (int i = 2; i <= 4; i = i + 2 )
 	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() != Element::EType::POWERUP)
 	  {
-	  this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
-	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	    this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
+	      std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
 	  }
+
+	  
       for (int i = 3; i <= 5; i = i + 2 )
 	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() != Element::EType::POWERUP)
 	  {
-	  this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
-	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	    this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
+	      std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
 	  }
+
     }
-  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const
 {
   return (_chrono);
-}
-
-void				ManageGame::printMap()
-{
-  int	i = 0;
-  for (auto it = this->_map.begin(); it != _map.end(); ++it)
-    {
-      if (i % 60 == 0)
-	std::cout << std::endl;
-      switch (it->get()->getType())
-	{
-	case Element::EType::BLOCK:
-	  std::cout << "X";
-	  break;
-	case Element::EType::ROAD:
-	  std::cout << " ";
-	  break;
-	case Element::EType::ENDLINE:
-	  std::cout << "o";
-	  break;
-	case Element::EType::POWERUP:
-	  std::cout << "P";
-	  break;
-	case Element::EType::POD1:
-	  std::cout << ">";
-	  break;
-	case Element::EType::POD2:
-	  std::cout << ">";
-	  break;
-	case Element::EType::POD3:
-	  std::cout << ">";
-	  break;
-	case Element::EType::POD4:
-	  std::cout << ">";
-	  break;
-	case Element::EType::LINE:
-	  std::cout << "-";
-	  break;
-	default:
-	  break;
-	}
-      ++i;
-    }
 }
 
 bool				ManageGame::loadSave(std::string const &number)
@@ -543,7 +508,7 @@ bool				ManageGame::loadLine(std::string const& line)
   return (true);
 }
 
-void				ManageGame::determineCarPath(std::shared_ptr<Car> car)
+void				ManageGame::determineCarPath(const std::shared_ptr<Car> &car)
 {
   switch (car->getType())
     {
@@ -608,7 +573,7 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
   return (true);
 }
 
-bool				ManageGame::checkPosMap(std::string const& pos)
+bool				ManageGame::checkPosMap(std::string const& pos) const
 {
   if (std::stoi(pos) >= 0 && std::stoi(pos) <= 1440 && _map[std::stoi(pos)]->getType() != Element::EType::BLOCK)
     return (true);
@@ -618,7 +583,7 @@ bool				ManageGame::checkPosMap(std::string const& pos)
     }
 }
 
-bool				ManageGame::checkCarType(std::string const& cType)
+bool				ManageGame::checkCarType(std::string const& cType) const
 {
   if (cType == "1" || cType == "2"
       || cType == "3" || cType == "4")
@@ -629,7 +594,7 @@ bool				ManageGame::checkCarType(std::string const& cType)
     }
 }
 
-bool				ManageGame::checkAngle(std::string const& angle)
+bool				ManageGame::checkAngle(std::string const& angle) const
 {
   if ((std::stof(angle) >= 0.0f && std::stof(angle) <= 360.0f) ||
     (std::stof(angle) <= 0.0f && std::stof(angle) >= -360.0f))
@@ -640,7 +605,7 @@ bool				ManageGame::checkAngle(std::string const& angle)
     }
 }
 
-bool				ManageGame::checkLap(std::string const& lap)
+bool				ManageGame::checkLap(std::string const& lap) const
 {
   if (std::stoi(lap) >= -1 && std::stoi(lap) <= 2)
     return (true);
@@ -650,7 +615,7 @@ bool				ManageGame::checkLap(std::string const& lap)
     }
 }
 
-bool				ManageGame::checkCheckpoint(std::string const& cp)
+bool				ManageGame::checkCheckpoint(std::string const& cp) const
 {
   if (cp == "0" || cp == "1")
     return (true);
@@ -660,7 +625,7 @@ bool				ManageGame::checkCheckpoint(std::string const& cp)
     }
 }
 
-bool				ManageGame::checkDir(std::string const& dir)
+bool				ManageGame::checkDir(std::string const& dir) const
 {
   if (std::stoi(dir) >= 0 && std::stoi(dir) <= 7)
     return (true);
@@ -670,7 +635,7 @@ bool				ManageGame::checkDir(std::string const& dir)
     }
 }
 
-bool				ManageGame::checkIdx(std::string const &idx)
+bool				ManageGame::checkIdx(std::string const &idx) const
 {
   if (std::stoi(idx) >= 1 && std::stoi(idx) <= 15)
     return (true);
@@ -680,7 +645,7 @@ bool				ManageGame::checkIdx(std::string const &idx)
     }
 }
 
-bool				ManageGame::checkChrono(std::string const &chrono)
+bool				ManageGame::checkChrono(std::string const &chrono) const
 {
   if (std::stoi(chrono) >= 0)
     return (true);
@@ -690,7 +655,7 @@ bool				ManageGame::checkChrono(std::string const &chrono)
     }
 }
 
-void				ManageGame::makeSave(int number)
+void				ManageGame::makeSave(int number) const
 {
   std::string			str;
 
