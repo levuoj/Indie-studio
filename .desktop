@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=STAR WARS : HOTH PURSUIT
+Comment= STAR WARS : HOTH PURSUIT is the first game of the studio : Fraternity Studio
+Exec=/home/anthony/rendu/cpp/indie_studio/Indie_studio/Racer
+Path=/home/anthony/rendu/cpp/indie_studio/Indie_studio
+Icon=/home/anthony/rendu/cpp/indie_studio/Indie_studio/assets/logoFS.png
+Terminal=true
+Type=Application
+Categories=Game;Development

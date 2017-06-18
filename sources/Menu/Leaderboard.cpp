@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Tue Jun 13 12:15:45 2017 Pashervz
-// Last update Fri Jun 16 14:04:09 2017 jouvel
+// Last update Sun Jun 18 17:45:41 2017 jouvel
 //
 
 #include "Leaderboard.hpp"

@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Wed Jun  7 11:10:46 2017 Pashervz
-// Last update Fri Jun 16 14:33:19 2017 Pashervz
+// Last update Sun Jun 18 17:46:13 2017 jouvel
 //
 
 #include <sstream>
@@ -108,9 +108,6 @@ DType			PauseMenu::transferKey(irr::EKEY_CODE key)
       this->_music->playSound("assets/music/selection.wav");
       return (this->select());
       break;
-    // case irr::KEY_ESCAPE:
-    //   this->_music->playSound("assets/music/selection.wav");
-    //   break;
     default:
       break;
     }

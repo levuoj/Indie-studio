@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sun Jun 18 17:46:48 2017 Pashervz
+// Last update Sun Jun 18 17:53:38 2017 Pashervz
 //
 
 #include <chrono>
@@ -41,6 +41,8 @@ void			ManageGame::construct(int nbPlayers)
   int			i(0);
 
   _isStarted = false;
+  _music->setVol(0.05f);
+  _music->playSound("assets/music/tie_fighter.wav");
   this->loadMap("NORMAL");
   for (auto it = this->_map.begin(); it != _map.end(); ++it)
     {
@@ -63,15 +65,13 @@ void			ManageGame::construct(int nbPlayers)
 	}
       pos++;
     }
-  _tieSound[0] = 89;
-  _tieSound[0] = 149;
-  _tieSound[0] = 209;
-  _tieSound[0] = 269;
-  _tieSound[0] = 329;
-  _tieSound[0] = 389;
+  _tieSound[0] = 426;
+  _tieSound[1] = 1207;
+  _tieSound[2] = 997;
+  _tieSound[3] = 472;
 }
 
-ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys) : _victory(false), _nbFinish(0)
+ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys, Music *music) : _victory(false), _nbFinish(0), _music(music)
 {
   _type = DType::GAME;
   loadMap("BACKUP");
@@ -101,7 +101,7 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<ir
   _chrono.start();
 }
 
-ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys) : _victory(false), _nbFinish(0)
+ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CODE>> & keys, Music *music) : _victory(false), _nbFinish(0), _music(music)
 {
   this->_type = DType::GAME;
   construct(nbPlayers);
@@ -367,9 +367,9 @@ void				ManageGame::updateMap()
       for (const auto &ite : _tieSound)
 	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
 	  {
-	    // PLAY SOUND;
+	    _music->playSound("assets/music/tie_fighter.wav");
 	    break ;
- 	  }
+	  }
       if (it.getCar()->getStop() == false)
 	it.chooseAction();
       checkVictory(it.getCar());
@@ -391,13 +391,13 @@ void				ManageGame::updateMap()
   for (auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-      
+
       for (const auto &ite : _tieSound)
 	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
 	  {
-	    // PLAY SOUND;
+	    _music->playSound("assets/music/tie_fighter.wav");
 	    break ;
- 	  }
+	  }
       if (it.getCar()->getStop() == false)
 	checkVictory(it.getCar());
 
