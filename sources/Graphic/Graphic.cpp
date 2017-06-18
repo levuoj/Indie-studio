@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun 16 15:02:26 2017 jouvel
+// Last update Sun Jun 18 13:55:25 2017 jouvel
 //
 
 #include <sstream>
@@ -43,7 +43,6 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   _skin = _guienv->getSkin();
   _font = _guienv->getFont("assets/font/myfont.xml");
   _skin->setFont(_font);
-  _meshAsteroid = _sceneManager->getMesh("assets/asteroid/asteroid.obj");
 
    _camera.initCamera(_sceneManager, irr::core::vector3df(5100, 856, 4759),
 		     irr::core::vector3df(5109, 872, 4747));
@@ -741,28 +740,8 @@ void		Graphic::setCar(Element::EType type,
   if (!pods[type])
     throw (Error("Pod mesh not found"));
   pods[type]->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-}
-
-void		Graphic::setAsteroid(irr::io::path,
-				     irr::f32 x,
-				     irr::f32 y,
-				     irr::f32 z)
-{
-  (void) x;
-  (void) y;
-  (void) z;
-  irr::scene::IAnimatedMeshSceneNode		*asteroid =
-    _sceneManager->addAnimatedMeshSceneNode(_meshAsteroid,
-					    0, -1, irr::core::vector3df(x, y, z),
-					    irr::core::vector3df(0.f, 0.f, 0.f),
-					    irr::core::vector3df(2.f, 2.f, 2.f)
-
-  );
-
-  asteroid->setMaterialFlag(irr::video::EMF_LIGHTING, false);
-  asteroid->setMaterialFlag(irr::video::EMF_BACK_FACE_CULLING, false);
-  asteroid->setFrameLoop(0, 310);
-  asteroid->setMaterialTexture(0, _driver->getTexture("./assets/asteroid/asteroid.png"));
+  pods[type]->setMaterialFlag(irr::video::EMF_ANTI_ALIASING, true);
+  pods[type]->setMaterialType(irr::video::EMT_SOLID);
 }
 
 void		Graphic::initMap(std::shared_ptr<Element> const& elem,
