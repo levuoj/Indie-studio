@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 17:35:51 2017 Pashervz
+// Last update Sun Jun 18 17:37:16 2017 Pashervz
 //
 
 #include <sstream>
@@ -882,6 +882,8 @@ void		Graphic::displayChrono(bool first)
 				     irr::core::rect<irr::s32>(800, 30, 10000, 10000),
 				     false);
     }
+  else if (_time == 0.0)
+    _textChrono->setText(L"");
   else
     _textChrono->setText(result);
 }
@@ -934,7 +936,7 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 	  newPos.Z = z + _squareSize * static_cast<GameElement *>(elem.get())->getPos().second / 100;
 	  this->pods[type]->setPosition(newPos);
 	  irr::f32 newAng		=  static_cast<Car *>(elem.get())->getAbsoluteAngle();
-	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f + 180.f), 0));
+	  this->pods[type]->setRotation(irr::core::vector3df(0, 360.f - (newAng + 90.f), 0));
 	}
       x -= 10.f;
       ++i;

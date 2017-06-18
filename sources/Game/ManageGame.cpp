@@ -5,12 +5,13 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sat Jun 17 17:06:25 2017 Pierre Zawadil
+// Last update Sun Jun 18 16:47:49 2017 Lebrun Kilian
 //
 
 #include <chrono>
 #include <sstream>
 #include <iomanip>
+#include <time.h>
 #include "ManageGame.hpp"
 #include "Convert.hpp"
 
@@ -62,6 +63,12 @@ void			ManageGame::construct(int nbPlayers)
 	}
       pos++;
     }
+  _tieSound[0] = 89;
+  _tieSound[0] = 149;
+  _tieSound[0] = 209;
+  _tieSound[0] = 269;
+  _tieSound[0] = 329;
+  _tieSound[0] = 389;
 }
 
 ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<irr::EKEY_CODE>> &keys) : _victory(false), _nbFinish(0)
@@ -227,19 +234,19 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
       type = Element::EType::POWERUP;
       break;
     case '>':
-      path = "./assets/TieBomber.b3d";
+      path = "./assets/TieBomber.obj";
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "./assets/TieDefender.b3d";
+      path = "./assets/TieDefender.obj";
       type = Element::EType::POD2;
       break;
     case 's':
-      path = "./assets/TieInterceptor.b3d";
+      path = "./assets/TieInterceptor.obj";
       type = Element::EType::POD3;
       break;
     case 'g':
-      path = "./assets/TiePhantom.b3d";
+      path = "./assets/TiePhantom.obj";
       type = Element::EType::POD4;
       break;
     default:
@@ -357,6 +364,12 @@ void				ManageGame::updateMap()
 {
   for (auto &it : _AIs)
     {
+      for (const auto &ite : _tieSound)
+	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
+	  {
+	    // PLAY SOUND;
+	    break ;
+ 	  }
       if (it.getCar()->getStop() == false)
 	it.chooseAction();
       checkVictory(it.getCar());
@@ -378,7 +391,13 @@ void				ManageGame::updateMap()
   for (auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-
+      
+      for (const auto &ite : _tieSound)
+	if (ite == Convert::coordToPos<int>(it.getCar()->getPosMap()))
+	  {
+	    // PLAY SOUND;
+	    break ;
+ 	  }
       if (it.getCar()->getStop() == false)
 	checkVictory(it.getCar());
 
@@ -395,7 +414,24 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  //  printMap();
+  this->_powerUp.incTime();
+  if (this->_powerUp.getTime() > 5)
+    {
+      this->_powerUp.setTime(0.0);
+      for (int i = 2; i <= 4; i = i + 2 )
+	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() != Element::EType::POWERUP)
+	  {
+	  this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
+	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	  }
+      for (int i = 3; i <= 5; i = i + 2 )
+	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i)))->getType() != Element::EType::POWERUP)
+	  {
+	  this->_map.at(Convert::coordToPos<int>(std::make_pair(13, i))) =
+	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	  }
+    }
+  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const
@@ -507,6 +543,27 @@ bool				ManageGame::loadLine(std::string const& line)
   return (true);
 }
 
+void				ManageGame::determineCarPath(std::shared_ptr<Car> car)
+{
+  switch (car->getType())
+    {
+    case Element::EType::POD1:
+      car->setPath("./assets/TieBomber.b3d");
+      break;
+    case Element::EType::POD2:
+      car->setPath("./assets/TieDefender.b3d");
+      break;
+    case Element::EType::POD3:
+      car->setPath("./assets/TieInterceptor.b3d");
+      break;
+    case Element::EType::POD4:
+      car->setPath("./assets/TiePhantom.b3d");
+      break;
+    default:
+      break;
+    }
+}
+
 bool				ManageGame::checkType(const std::vector<std::string> &input)
 {
   if (input.at(0) == "PLAYER")
@@ -522,6 +579,7 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 			      Convert::strToBool(input.at(5)),
 			      Convert::strToDir(input.at(6))
 			      ));
+    determineCarPath(_players.back().getCar());
     _map.at(Convert::coordToPos<int>(_players.back().getCar()->getPosMap())) = _players.back().getCar();
     }
   else if (input.at(0) == "AI")
@@ -540,6 +598,7 @@ bool				ManageGame::checkType(const std::vector<std::string> &input)
 		      std::stoi(input.at(7))
 		      ));
     _AIs.back().setMap(_map);
+    determineCarPath(_AIs.back().getCar());
     _map.at(Convert::coordToPos<int>(_AIs.back().getCar()->getPosMap())) = _AIs.back().getCar();
     }
   else
@@ -637,10 +696,19 @@ void				ManageGame::makeSave(int number)
 
   auto now = std::chrono::system_clock::now();
 
-  std::stringstream ss;
+  std::stringstream		ss;
   auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
-  ss << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d-%X");
+#ifdef __linux__
+  ss << std::put_time(localtime(&in_time_t), "%Y-%m-%d-%X");
+
+#elif WIN64
+  struct tm			newtime;
+
+  localtime_s(&newtime, &in_time_t);
+  ss << std::put_time(&newtime, "%Y-%m-%d-%X");
+#endif
+
   str += ss.str();
   str += "\n";
   for (const auto &it : _players)

@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Sun Jun 18 16:04:33 2017 Pashervz
+// Last update Sun Jun 18 17:37:28 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -106,16 +106,16 @@ public:
 
   std::unordered_map<DType,
 		     std::function<void(std::vector<std::shared_ptr<Element>> const&)>>		dispThis =
-  {
-    {DType::MAIN_MENU, std::bind(&Graphic::displayMainMenu, this, std::placeholders::_1)},
-    {DType::OPTIONS, std::bind(&Graphic::displayOptions, this, std::placeholders::_1)},
-    {DType::LEADERBOARD, std::bind(&Graphic::displayLeaderboard, this, std::placeholders::_1)},
-    {DType::BINDINGS, std::bind(&Graphic::displayBindings, this, std::placeholders::_1)},
-    {DType::PLAY, std::bind(&Graphic::displayPlayMenu, this, std::placeholders::_1)},
-    {DType::GAME, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
-    {DType::PAUSE, std::bind(&Graphic::displayPause, this, std::placeholders::_1)},
-    {DType::GAME_CHRONO, std::bind(&Graphic::displayGame, this, std::placeholders::_1)},
-    {DType::ENDGAME, std::bind(&Graphic::displayEndGame, this, std::placeholders::_1)},
-    {DType::NOTHING, NULL}
+    {
+      {DType::MAIN_MENU, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayMainMenu(vec);}},
+      {DType::OPTIONS, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayOptions(vec);}},
+      {DType::LEADERBOARD, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayLeaderboard(vec);}},
+      {DType::BINDINGS, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayBindings(vec);}},
+      {DType::PLAY, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayPlayMenu(vec);}},
+      {DType::GAME, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayGame(vec);}},
+      {DType::PAUSE, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayPause(vec);}},
+      {DType::GAME_CHRONO, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayGame(vec);}},
+      {DType::ENDGAME, [this](std::vector<std::shared_ptr<Element>> const& vec){this->displayEndGame(vec);}},
+      {DType::NOTHING, NULL}
   };
 };
