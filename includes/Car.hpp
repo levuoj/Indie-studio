@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Fri Jun 16 12:12:06 2017 Lebrun Kilian
+// Last update Sun Jun 18 14:52:36 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -57,7 +57,7 @@ private:
   bool					_isRank;
   float					_maxSpeed;
   float					_inertia;
-  Chrono				_chrono;
+  Chrono				_powerchrono;
   EState				_state;
   float					_speedSave;
 

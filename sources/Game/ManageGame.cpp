@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Sun Jun 18 15:45:25 2017 DaZe
+// Last update Sun Jun 18 15:51:06 2017 DaZe
 //
 
 #include <chrono>
@@ -391,7 +391,18 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  //  printMap();
+  this->_powerUp.incTime();
+  if (this->_powerUp.getTime() > 5)
+    {
+      this->_powerUp.setTime(0.0);
+      for (int i = 2; i <= 5; ++i)
+	if (this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i)))->getType() != Element::EType::POWERUP)
+	  {
+	  this->_map.at(Convert::coordToPos<int>(std::make_pair(11, i))) =
+	    std::shared_ptr<Element>(new Element("P", Element::EType::POWERUP));
+	  }
+    }
+  //   printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const

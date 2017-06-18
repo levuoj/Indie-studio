@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Sun Jun 18 15:44:16 2017 DaZe
+// Last update Sun Jun 18 15:51:33 2017 DaZe
 //
 
 #pragma once
@@ -33,6 +33,7 @@ private:
   short int			_nbFinish;
   std::vector<double>		_ranking;
   Chrono			_startChrono;
+  Chrono			_powerUp;
   std::vector<double>		_endScore;
 
 public:
