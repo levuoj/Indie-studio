@@ -5,9 +5,10 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Tue Jun 13 12:24:39 2017 jouvel
-// Last update Fri Jun 16 14:19:32 2017 jouvel
+// Last update Fri Jun 16 20:23:55 2017 Pashervz
 //
 
+#include <iostream>
 #include "Music.hpp"
 
 Music::Music()
@@ -23,8 +24,6 @@ Music::~Music()
 {
   _engine->drop();
 }
-
-#include <iostream>
 
 void			Music::playMusic(const std::string& music)
 {
