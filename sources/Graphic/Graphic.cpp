@@ -5,11 +5,12 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Sun Jun 18 13:30:01 2017 Pashervz
+// Last update Sun Jun 18 17:35:51 2017 Pashervz
 //
 
 #include <sstream>
 #include <iostream>
+#include <chrono>
 #include <cmath>
 #include <string>
 #include <random>
@@ -51,12 +52,13 @@ Graphic::Graphic(irr::u32 width, irr::u32 height) : _width(width), _height(heigh
   //		     irr::core::vector3df(5066, 808, 4824));
   // _camera.initCamera(_sceneManager, irr::core::vector3df(5033.f, 838.f, 5126.f),
   //		     irr::core::vector3df(5033.f, 770.f, 5172.f));
+  this->skyDome("assets/skydome.jpg");
+  this->ground();
+  _music.playMusic("assets/music/logo.ogg");
   this->loadIntro();
   _music.playMusic("assets/music/star-wars-cantina-song.ogg");
   _music.setVol(0.3f);
   this->initMainMenu();
-  this->skyDome("assets/skydome.jpg");
-  this->ground();
   _device->setWindowCaption(L"STAR WARS - PodRacer");
   // POUR LE LOGO - TITRE DU JEU
 }
@@ -66,8 +68,27 @@ Graphic::~Graphic()
   _device->drop();
 }
 
-void				Graphic::loadIntro()
+void					Graphic::loadIntro()
 {
+   auto				        start = std::chrono::high_resolution_clock::now();
+   auto					end = start;
+   std::chrono::duration<double>	diff;
+
+   
+  _device->getGUIEnvironment()->
+    addImage(_driver->getTexture("assets/logoFS.png"),
+	     irr::core::position2d<irr::s32>(450, -50));
+  _driver->beginScene(true, true,
+		      irr::video::SColor(0, 255, 255, 255));
+  _sceneManager->drawAll();
+  _device->getGUIEnvironment()->drawAll();
+  _driver->endScene();
+   while (diff.count() <= 5)
+     {
+       end = std::chrono::high_resolution_clock::now();
+       diff = end - start;
+     }
+   _guienv->clear();
 }
 
 void		Graphic::manageDisplay(std::vector<std::shared_ptr<Element>> const& map, DType type)
@@ -473,6 +494,13 @@ void			Graphic::displayLeaderboard(std::vector<std::shared_ptr<Element>> const&)
   clearPlayMenu();
   _camera.moveCamera(irr::core::vector3df(5035, 806, 4877),
 		     irr::core::vector3df(5132, 802, 4904));
+  _backMenu = true;
+  if (_launch == true)
+    {
+      _music.setVol(1);
+      _music.playMusic("assets/music/leaderboard.ogg");
+      _launch = false;
+    }
   if (_uniqueD == false)
     {
       _leaderboardText.push_back(_sceneManager->addBillboardTextSceneNode
@@ -539,9 +567,10 @@ void			Graphic::displayMainMenu(std::vector<std::shared_ptr<Element>> const& map
   clearText();
   _uniqueD = false;
   _finish = false;
-  _launchGame = true;
+  _launch = true;
   if (_backMenu == true)
     {
+      _music.setVol(0.3f);
       _music.playMusic("assets/music/star-wars-cantina-song.ogg");
       _backMenu = false;
     }
@@ -645,12 +674,21 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 {
   if (_finish == false)
     {
+      _backMenu = true;
+      if (_launchEG == true)
+	{
+	  _music.setVol(1);
+	  _music.playMusic("assets/music/endgame.ogg");
+	  _launchEG = false;
+	}
       _textChrono->setText(L"");
+      _endgame.clear();
+      _textEndGame.clear();
       openFile(_endgame, "./Saves/endgame");
       this->initLeaderboard();
       _textEndGame.push_back(_guienv->addStaticText(L"results",
 						    irr::core::rect<irr::s32>
-						    (745, 30, 10000, 10000),
+						    (785, 30, 10000, 10000),
 						    false));
       _textEndGame.push_back(_guienv->addStaticText((L"1st place : " +
 						     _endgame[0]).c_str(),
@@ -669,7 +707,7 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 						    false));
       _textEndGame.push_back(_guienv->addStaticText(L"press esc to quit",
 						    irr::core::rect<irr::s32>
-						    (500, 800, 10000, 10000),
+						    (560, 800, 10000, 10000),
 						    false));
       _textEndGame[0]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
       _textEndGame[1]->setOverrideColor(irr::video::SColor(255, 255, 215, 0));
@@ -841,7 +879,7 @@ void		Graphic::displayChrono(bool first)
     {
       _skin->setColor(irr::gui::EGDC_BUTTON_TEXT, irr::video::SColor(255, 255, 0, 0));
       _textChrono = _guienv->addStaticText(L"",
-				     irr::core::rect<irr::s32>(780, 30, 10000, 10000),
+				     irr::core::rect<irr::s32>(800, 30, 10000, 10000),
 				     false);
     }
   else
@@ -858,10 +896,12 @@ void		Graphic::displayGame(std::vector<std::shared_ptr<Element>> const& map)
 
   clearPlayMenu();
   _backMenu = true;
-  if (_launchGame == true)
+  _launchEG = true;
+  if (_launch == true)
     {
-      _music.playMusic("assets/music/duel-of-the-fates.ogg");
-      _launchGame = false;
+      _music.setVol(1);
+      _music.playMusic("assets/music/game.ogg");
+      _launch = false;
     }
   if (_initPause == false)
     {

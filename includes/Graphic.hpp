@@ -4,7 +4,7 @@
 // Made by Anthony Jouvel
 // Login   <anthony.jouvel@epitech.eu>
 //
-// Last update Sun Jun 18 13:30:16 2017 Pashervz
+// Last update Sun Jun 18 16:04:33 2017 Pashervz
 // Last update Tue Jun  6 15:10:45 2017 DaZe
 //
 
@@ -41,7 +41,8 @@ private:
   bool							_finish = false;
   bool							_uniqueD = false;
   bool							_backMenu = false;
-  bool							_launchGame = false;
+  bool							_launch = false;
+  bool							_launchEG = false;
   irr::gui::IGUISkin					*_skin;
   irr::gui::IGUIFont					*_font;
 
