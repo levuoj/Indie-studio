@@ -5,7 +5,7 @@
 // Login   <anthony.jouvel@epitech.eu>
 //
 // Started on  Fri May 12 14:07:46 2017 Anthony Jouvel
-// Last update Fri Jun 16 14:40:24 2017 Pashervz
+// Last update Sun Jun 18 13:23:40 2017 Pashervz
 //
 
 #include <sstream>
@@ -191,16 +191,11 @@ void						Graphic::initOptMenu()
 							    L"p4",
 							    color)));
   initPos[0] = 4960;
-  initPos[1] = 804;
+  initPos[1] = 794;
   initPos[2] = 4828;
   _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
 							    initTextDim,
 							    L"on",
-							    color)));
-  initPos[1] = 783;
-  _buttonOpt.push_back(std::unique_ptr<GButton>(new GButton(initPos,
-							    initTextDim,
-							    L"off",
 							    color)));
 
   for (auto it = _buttonOpt.begin() ; it != _buttonOpt.end() ; ++it)
@@ -213,22 +208,16 @@ void						Graphic::initOptMenu()
 					   irr::core::vector3df(4940, 855, 4820),
 					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"bindings", 0,
+					   L"bindings :", 0,
 					   irr::core::dimension2d<irr::f32>
 					   (initTextDim[0], initTextDim[1]),
 					   irr::core::vector3df(4985, 822.5f, 4806),
 					   -1, color, color);
   _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"music", 0,
+					   L"music :", 0,
 					   irr::core::dimension2d<irr::f32>
 					   (initTextDim[0], initTextDim[1]),
-					   irr::core::vector3df(4985, 805, 4806),
-					   -1, color, color);
-  _sceneManager->addBillboardTextSceneNode(_guienv->getFont("assets/font/myfont.xml"),
-					   L"audio", 0,
-					   irr::core::dimension2d<irr::f32>
-					   (initTextDim[0], initTextDim[1]),
-					   irr::core::vector3df(4985, 785, 4806),
+					   irr::core::vector3df(4985, 795, 4806),
 					   -1, color, color);
 }
 
@@ -581,7 +570,12 @@ void		Graphic::displayOptions(std::vector<std::shared_ptr<Element>> const& map)
     {
       if (static_cast<Button *>(it->get())->getIsSelected() == true)
 	{
-	  _buttonOpt[idx].get()->_button->setText(static_cast<Button *>(it->get())->getContent().c_str());
+	  _buttonOpt[idx].get()->_button->
+	    setText(static_cast<Button *>(it->get())->getContent().c_str());
+	  if (static_cast<Button *>(it->get())->getContent() == L"off")
+	    this->_music.setVol(0);
+	  else if (static_cast<Button *>(it->get())->getContent() == L"on")
+	    this->_music.setVol(0.3f);
 	  _buttonOpt[idx].get()->_button->setColor(irr::video::SColor(255, 0, 255, 0));
 	}
       else
@@ -672,7 +666,7 @@ void		Graphic::displayEndGame(std::vector<std::shared_ptr<Element>> const&)
 						    false));
       _textEndGame.push_back(_guienv->addStaticText(L"press esc to quit",
 						    irr::core::rect<irr::s32>
-						    (670, 800, 10000, 10000),
+						    (500, 800, 10000, 10000),
 						    false));
       _textEndGame[0]->setOverrideColor(irr::video::SColor(255, 255, 255, 0));
       _textEndGame[1]->setOverrideColor(irr::video::SColor(255, 255, 215, 0));
