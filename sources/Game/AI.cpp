@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:35:42 2017 Lebrun Kilian
-// Last update Fri Jun 16 02:38:16 2017 Pashervz
+// Last update Sun Jun 18 14:31:34 2017 DaZe
 //
 
 #include "Convert.hpp"
@@ -267,20 +267,6 @@ void			AI::chooseAction()
     default:
       break ;
     }
-
-  //  part1();
-  /*
-   if (_idx == 1 && _map[Convert::coordToPos<int>(_car->getPosMap()) + 300]->getType()
-       == Element::EType::BLOCK)
-     _idx = 2;
-   if (_idx == 2 && _car->getAngle() != -180.0f)
-     _car->turnRight();
-   if (_idx == 2 && _map[Convert::coordToPos<int>(_car->getPosMap()) - 4]->getType()
-       == Element::EType::BLOCK)
-     _idx = 3;
-   if (_idx == 2 && _car->getAngle() != -180.0f)
-     _car->turnRight();
-     std::cout << _car->getAbsoluteAngle() << std::endl; */
   _car.get()->move();
 }
 
