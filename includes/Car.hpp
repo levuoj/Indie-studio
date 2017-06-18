@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 09:38:23 2017 Lebrun Kilian
-// Last update Sun Jun 18 14:52:36 2017 Lebrun Kilian
+// Last update Sun Jun 18 17:32:55 2017 Lebrun Kilian
 //
 
 #pragma once
@@ -100,8 +100,8 @@ public:
   std::pair<float, float> const&	getPos() const;
   std::pair<int, int> const&		getPosMap() const;
 
-  Element::EType			checkArrounding();
-  Element::EType			checkBackArrounding();
+  Element::EType			checkArrounding() const;
+  Element::EType			checkBackArrounding() const;
   void					setArrounding(const std::array<Element::EType, 8> &arrounding);
   void					setEdir(const EDirection &);
 };

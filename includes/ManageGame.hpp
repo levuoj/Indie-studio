@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 11:24:19 2017 thomas vigier
-// Last update Sun Jun 18 15:51:33 2017 DaZe
+// Last update Sun Jun 18 17:35:02 2017 Lebrun Kilian
 //
 
 #pragma once
