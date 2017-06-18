@@ -5,10 +5,9 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Tue May 23 16:11:27 2017 Lebrun Kilian
-// Last update Thu Jun 15 15:04:36 2017 jouvel
+// Last update Fri Jun 16 02:34:52 2017 Pashervz
 //
 
-#include "test.hpp"
 #include "Player.hpp"
 
 Player::Player(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, Car::EDirection dir)
@@ -53,7 +52,6 @@ void		Player::setKeys(const std::vector<irr::EKEY_CODE> &keys)
   _functors[this->_keys.at(1)] = std::bind(&Car::deccelerate, this->_car);
   _functors[this->_keys.at(2)] = std::bind(&Car::turnLeft, this->_car);
   _functors[this->_keys.at(3)] = std::bind(&Car::turnRight, this->_car);
-  _functors[this->_keys.at(4)] = std::bind(&Car::launchPowerUp, this->_car);
 }
 
 void  Player::setArroundingCar(const std::array<Element::EType, 8> &arrounding)

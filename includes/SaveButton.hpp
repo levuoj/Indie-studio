@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 // 
 // Started on  Tue Jun  6 17:24:05 2017 Pashervz
-// Last update Tue Jun  6 17:51:56 2017 Pashervz
+// Last update Thu Jun 15 12:10:03 2017 Pashervz
 //
 
 #pragma once
@@ -25,7 +25,7 @@ public:
 				    path,
 				    type),
 			     _number(number) {}
-  ~SaveButton() {}
+  virtual ~SaveButton() {}
   
   int			getNumber() const
   {

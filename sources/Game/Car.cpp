@@ -5,7 +5,7 @@
 // Login   <kilian.lebrun@epitech.eu>
 //
 // Started on  Sat May 13 12:00:41 2017 Lebrun Kilian
-// Last update Fri Jun 16 11:44:01 2017 Lebrun Kilian
+// Last update Sun Jun 18 10:11:21 2017 Lebrun Kilian
 //
 
 #include <random>
@@ -16,7 +16,7 @@
 const float Car::_fps = 60;
 const float Car::_pi = 3.141592f;
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), _edir(dir), _isStopped(false), _isRank(true), _maxSpeed(550), _inertia(550 / _fps), _state(NONE)
+Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, short int lap, bool isFinished, EDirection dir) : _posMap(posMap), _speed(0.0f), _angle(angle), _lap(lap), _isFinished(isFinished), _edir(dir), _isStopped(false), _isRank(true), _maxSpeed(550), _inertia(550 / _fps), _state(NONE), _speedSave(0)
 {
   //  _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
@@ -25,7 +25,7 @@ Car::Car(std::pair<int, int> posMap, const Element::EType type, float angle, sho
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 }
 
-Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT), _isStopped(false), _isRank(true), _maxSpeed(550), _inertia(550 / _fps), _state(NONE)
+Car::Car(std::pair<int, int> posMap, const Element::EType type) : _posMap(posMap), _speed(0.0f), _dir(1.0f, 0.0f), _angle(0.0f), _lap(-1), _isFinished(false), _edir(EDirection::RIGHT), _isStopped(false), _isRank(true), _maxSpeed(550), _inertia(550 / _fps), _state(NONE), _speedSave(0)
 {
   _prevPos = std::make_pair<int, int>(posMap.first - 1, posMap.second - 1);
   _pos = std::make_pair(50.0f, 50.0f);
@@ -54,30 +54,31 @@ void            Car::slowDown()
 
 void				Car::Power()
 {
-  std::random_device rd;
-  std::default_random_engine generator(rd());
-  std::uniform_int_distribution<int> distribution(0,3);
+  // std::random_device rd;
+  // std::default_random_engine generator(rd());
+  // std::uniform_int_distribution<int> distribution(0,3);
 
-  std::cout << "rand = " << distribution(generator) << std::endl;
-  switch (distribution(generator))
-    {
-    case 1:
-      this->_maxSpeed += 500;
-      this->_speedSave = this->_speed;
-      this->_inertia = this->_maxSpeed / this->_fps;
-      this->_state = FAST;
-      break;
-    case 2:
-      this->_maxSpeed -= 300;
-      this->_speedSave = this->_speed;
-      this->_speed = 299;
-      this->_inertia = this->_maxSpeed / this->_fps;
-      this->_state = SLOW;
-      break;
-    case 3:
+  // std::cout << "rand = " << distribution(generator) << std::endl;
+  // switch (distribution(generator))
+  //   {
+  //   case 1:
+  // this->_maxSpeed += 500;
+  // if (this->_speed < 500)
+  //   this->_speedSave = this->_speed;
+  // this->_inertia = this->_maxSpeed / this->_fps;
+  // this->_state = FAST;
+    // break;
+    // case 2:
+      // this->_maxSpeed -= 300;
+      // this->_speedSave = this->_speed;
+      // this->_speed -= 250;
+      // this->_inertia = this->_maxSpeed / this->_fps;
+      // this->_state = SLOW;
+      // break;
+      // case 3:
       this->_state = OIL;
-      break;
-    }
+    //   break;
+    // }
   this->_chrono.start();
 }
 
@@ -87,8 +88,10 @@ void                            Car::launchPowerUp()
 
 void				Car::managePowerUp()
 {
-  std::cout << "Angle = " << getAbsoluteAngle() << std::endl;
-  std::cout << "Angle = " << getAbsoluteAngle() << std::endl;
+  std::cout << "----\nAngle = " << getAbsoluteAngle() << std::endl;
+  std::cout << "Speed = " << getSpeed() << std::endl;
+  std::cout << "SpeedSave = " << this->_speedSave << std::endl;  
+  std::cout << "----" << std::endl;
   if (this->_state != NONE)
     {
       if (this->_state == OIL)
@@ -106,11 +109,14 @@ void				Car::managePowerUp()
 	    }
 	}
       else
-	if (this->_chrono.getTime() >= 1)
+	if (this->_chrono.getTime() >= 0.5)
 	  {
 	    this->_chrono.stop();
 	    this->_chrono.setTime(0.0);
-	    this->_speed = this->_speedSave;
+	    if (this->_state == SLOW)
+	      this->_speed += 300;
+	    else
+	      this->_speed = this->_speedSave;
 	    this->_maxSpeed = 550;
 	    this->_inertia = this->_maxSpeed / this->_fps;
 	    this->_state = NONE;
@@ -121,6 +127,8 @@ void				Car::managePowerUp()
 void				Car::move()
 {
   this->_chrono.incTime();
+  if (this->_speed > 560)
+    this->_speed -= 100;
   managePowerUp();
   if (this->_speed >= 0)
     {
@@ -129,7 +137,7 @@ void				Car::move()
 	  this->_speed = 0.0f;
 	  return;
 	}
-      else if (checkArrounding() == Element::EType::POWERUP)
+      else if (checkArrounding() == Element::EType::POWERUP && this->_state == NONE)
 	Power();
     }
   else
@@ -138,7 +146,7 @@ void				Car::move()
 	this->_speed = 0.0f;
 	return;
       }
-    else if (checkBackArrounding() == Element::EType::POWERUP)
+    else if (checkBackArrounding() == Element::EType::POWERUP && this->_state == NONE)
       Power();
   auto tmp = this->_prevPos;
   this->_prevPos = this->_posMap;
@@ -172,7 +180,6 @@ void				Car::move()
 
 void            Car::turnLeft()
 {
-  // std::cout << "ANGLE = " << _angle << std::endl;
   if (this->_angle >= 360)
     this->_angle = 0.0f;
   this->_angle += 2.5f;
@@ -183,10 +190,10 @@ void            Car::turnLeft()
 
 void            Car::turnRight()
 {
-  // std::cout << "ANGLE = " << _angle << std::endl;
   if (this->_angle <= -360)
     this->_angle = 0.0f;
   this->_angle -= 2.5f;
+
   this->_dir.first = cosf(this->_angle * _pi / 180.0f);
   this->_dir.second = sinf(this->_angle * _pi / 180.0f);
 }
@@ -400,6 +407,13 @@ Element::EType            Car::checkBackArrounding()
   return (Element::EType::DEFAULT);
 }
 
+float		Car::getAbsoluteAngle() const
+{
+  if (_angle < 0.0f)
+    return (_angle + 360.0f);
+  return (_angle);
+}
+
 void                            Car::setPosMap(const std::pair<int, int> & pos)
 {
   this->_posMap = pos;
@@ -423,13 +437,6 @@ void				Car::setFinished(bool finish)
 void				Car::setIsRank(const bool rank)
 {
   _isRank = rank;
-}
-
-float				Car::getAbsoluteAngle() const
-{
-  if (_angle < 0.0f)
-    return (_angle + 360.0f);
-  return (_angle);
 }
 
 bool				Car::getIsRank() const

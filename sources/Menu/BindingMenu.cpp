@@ -5,7 +5,7 @@
 // Login   <paul.julien@epitech.eu>
 //
 // Started on  Mon May 22 17:15:55 2017 Pashervz
-// Last update Tue Jun 13 14:41:30 2017 Pierre Zawadil
+// Last update Thu Jun 15 22:55:25 2017 Pashervz
 //
 
 #include <sstream>
@@ -17,7 +17,6 @@ BindingMenu::BindingMenu(std::string const & player) : AMenu("Bindings", BINDING
 						       _player(player)
 {
   this->_type = DType::BINDINGS;
-  this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
   this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
   this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
   this->_map.push_back(std::shared_ptr<Bind>(new Bind(L"n", "assets/deathStar.jpg", Button::BType::BIND)));
@@ -86,11 +85,12 @@ bool			BindingMenu::stringsToKey()
 	{
 	  if (it == it2.first)
 	    {
+	      std::wcout << "KEY = " << it2.first << std::endl;
 	      this->_bindings.push_back(it2.second);
 	    }
 	}
     }
-  if (this->_bindings.size() != 5)
+  if (this->_bindings.size() != 4)
     return (false);
   this->assignBinds();
   return (true);
@@ -105,10 +105,10 @@ bool			BindingMenu::fillBindingMap(std::string const & line)
     {
       this->_bindingsStrings.push_back(this->stringToWstring(tmp));
     }
-  if (this->_bindingsStrings.size() != 6)
+  if (this->_bindingsStrings.size() != 5)
     return (false);
   this->_bindingsStrings.erase(this->_bindingsStrings.begin());
-  this->_bindingsStrings.resize(5);
+  this->_bindingsStrings.resize(4);
   if (this->stringsToKey() == false)
     return (false);
   return (true);
@@ -165,8 +165,6 @@ void			BindingMenu::defaultP1()
   static_cast<Bind *>(this->_map[2].get())->setKey(irr::KEY_KEY_Q);
   this->_bindings.push_back(irr::KEY_KEY_D);
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_KEY_D);
-  this->_bindings.push_back(irr::KEY_LSHIFT);
-  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_LSHIFT);
   this->keyToString();
 }
 
@@ -181,8 +179,6 @@ void			BindingMenu::defaultP2()
   static_cast<Bind *>(this->_map[2].get())->setKey(irr::KEY_KEY_G);
   this->_bindings.push_back(irr::KEY_KEY_J);
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_KEY_J);
-  this->_bindings.push_back(irr::KEY_SPACE);
-  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_SPACE);
   this->keyToString();
 }
 
@@ -197,8 +193,6 @@ void			BindingMenu::defaultP3()
   static_cast<Bind *>(this->_map[2].get())->setKey(irr::KEY_KEY_K);
   this->_bindings.push_back(irr::KEY_KEY_M);
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_KEY_M);
-  this->_bindings.push_back(irr::KEY_LMENU);
-  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_LMENU);
   this->keyToString();
 }
 
@@ -213,8 +207,6 @@ void			BindingMenu::defaultP4()
   static_cast<Bind *>(this->_map[2].get())->setKey(irr::KEY_LEFT);
   this->_bindings.push_back(irr::KEY_RIGHT);
   static_cast<Bind *>(this->_map[3].get())->setKey(irr::KEY_RIGHT);
-  this->_bindings.push_back(irr::KEY_LCONTROL);
-  static_cast<Bind *>(this->_map[4].get())->setKey(irr::KEY_LCONTROL);
   this->keyToString();
 }
 
@@ -286,25 +278,19 @@ std::string const		BindingMenu::writeChanges()
     }
   return (this->_player + ": " +
 	  config[0]+ " " + config[1] +
-	  " " + config[2] + " " + config[3] +
-	  " " + config[4] + "\n");
+	  " " + config[2] + " " + config[3] + "\n");
 }
 
 void				BindingMenu::saveChanges()
 {
   std::ofstream			stream;
 
+  this->stringsToKey();
   stream.open("./Config/" + this->_player + ".conf");
   stream << this->writeChanges();
   stream.close();
 }
 
-// static void		printvector(std::vector<std::wstring> vector)
-// {
-//   for (auto it : vector)
-//     std::wcout << it << " ";
-//   std::cout << "\n";
-// }
 
 DType                   BindingMenu::transferKey(irr::EKEY_CODE key)
 {
@@ -328,6 +314,5 @@ DType                   BindingMenu::transferKey(irr::EKEY_CODE key)
     }
   else
     this->select(key);
-  //  printvector(this->_bindingsStrings);
   return (BINDINGS);
 }

@@ -5,7 +5,7 @@
 // Login   <thomas.vigier@epitech.eu>
 //
 // Started on  Tue May  9 17:32:16 2017 thomas vigier
-// Last update Fri Jun 16 10:52:11 2017 Lebrun Kilian
+// Last update Fri Jun 16 12:11:15 2017 Lebrun Kilian
 //
 
 #include <chrono>
@@ -92,7 +92,6 @@ ManageGame::ManageGame(std::string const &file, const std::vector<std::vector<ir
       it.setKeys(keys.at(i));
       ++i;
     }
-
   _chrono.start();
 }
 
@@ -102,6 +101,7 @@ ManageGame::ManageGame(int nbPlayers, const std::vector<std::vector<irr::EKEY_CO
   construct(nbPlayers);
 
   int i = 0;
+  std::cout << "LOL = " << nbPlayers << std::endl;
   for (auto &it : this->_players)
     {
       it.setKeys(keys.at(i));
@@ -127,8 +127,8 @@ DType			ManageGame::transferKey(EventReceiver const& receiver)
 
   if (_victory == false)
     {
-      if (_startChrono.getTime() >= 17.0 &&
-	  _startChrono.getTime() <= 17.1
+      if (_startChrono.getTime() >= 7.0 &&
+	  _startChrono.getTime() <= 7.1
 	  && _isStarted == false)
 	{
 	  _isStarted = true,
@@ -213,19 +213,19 @@ GameElement			*ManageGame::ElementFromCharCar(const char c)
       type = Element::EType::POWERUP;
       break;
     case '>':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TieBomber.b3d";
       type = Element::EType::POD1;
       break;
     case 'p':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TieDefender.b3d";
       type = Element::EType::POD2;
       break;
     case 's':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TieInterceptor.b3d";
       type = Element::EType::POD3;
       break;
     case 'g':
-      path = "./assets/Anakin_podracer/AnakinsPodRacer.obj";
+      path = "./assets/TiePhantom.b3d";
       type = Element::EType::POD4;
       break;
     case '-':
@@ -337,16 +337,15 @@ void				ManageGame::updateMap()
     {
       if (it.getCar()->getStop() == false)
 	it.chooseAction();
-
-      _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
-
+      checkVictory(it.getCar());
       if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
 	{
+	  std::cout << "JE MAKE CHRONIO AI" << std::endl;
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
 	}
 
-      checkVictory(it.getCar());
+      _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
 
       if (_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos()))->getType() !=
 	  Element::EType::ROAD)
@@ -357,10 +356,13 @@ void				ManageGame::updateMap()
   for (auto &it : _players)
     {
       _map.at(Convert::coordToPos<int>(it.getCar()->getPosMap())) = it.getCar();
+
       if (it.getCar()->getStop() == false)
-	  checkVictory(it.getCar());
-      else if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
+	checkVictory(it.getCar());
+
+      if (it.getCar()->getStop() == true && it.getCar()->getIsRank() == true)
 	{
+	  std::cout << "JE MAKE CHRONIO PLAYER" << std::endl;
 	  _ranking.push_back(_chrono.getTime());
 	  _endScore.push_back(_chrono.getTime());
 	  it.getCar()->setIsRank(false);
@@ -371,7 +373,7 @@ void				ManageGame::updateMap()
 	_map.at(Convert::coordToPos<int>(it.getCar()->getPrevPos())) =
 	  std::shared_ptr<Element>(new Element(" ", Element::EType::ROAD));
     }
-  printMap();
+  //  printMap();
 }
 
 Chrono const&			ManageGame::getChrono() const
